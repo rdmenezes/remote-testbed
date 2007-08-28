@@ -1,4 +1,5 @@
 #summary RFC101: Udev device management
+#labels Phase-RFC,Component-MCI,Featured
 
 = RFC101: Udev device management =
 
