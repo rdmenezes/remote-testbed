@@ -4,7 +4,7 @@
 = RFC101: Udev device management =
 
 This enhancement proposal should be seen as a natural upgrade to the
- more modern and powerful Linux device management system called udev. In
+more modern and powerful Linux device management system called udev. In
 exchange of obsoleting usage of the hotplug system, the end result
 should be a simpler and more portable (note: still Linux-specific)
 method of handling motes being added and removed by the mote control
