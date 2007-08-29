@@ -1,0 +1,57 @@
+The Re-Mote Client
+==================
+
+The client provides a simple interface for interacting with the mote
+control server of a testbed. It shows the motes in the testbed with
+their current status, the motes currently being controlled by the
+client, and lastly the console output of selected motes.
+
+The client is written in Java for portability.
+
+
+Module dependency graph
+-----------------------
+
+The module dependency graph looks something like the following:
+
+.-----------------------.   .---------------------------------------.
+|   MoteControl         |   |          External libraries           |
+'-----------------------'   '---------------------------------------'
+        |          |               |             |          |
+        |          |               |             |          |
+	v          |               v             |          v
+.--------------.   |        .----------------.   |   .--------------.     
+|   MoteData   |   |        | Authentication |   |   |  MoteAccess  |
+'--------------'   |        '----------------'   |   '--------------'
+        |          |               |             |          |
+        |          |               |             |          |
+        v          v               v             v          v
+.-------------------------------------------------------------------.
+|                                Main                               |
+'-------------------------------------------------------------------'
+
+Parts of the client modules, namely the mote control, data, and access
+modules, depends on the webservice interfaces provided by the webservice
+modules. That is, when the server specific java classes in the remote-ws
+repository are updated the changes should be mirrored in the remote-gui
+repository as well. Scripts are available for translating the remote-ws
+java files to WSDL files and then those files to remote-gui java files.
+
+
+External libraries
+------------------
+
+The following external libraries are required for the client modules:
+
+	axis-ant.jar
+	axis.jar
+	commons-discovery-0.2.jar
+	commons-logging-1.0.4.jar
+	jaxrpc.jar
+	log4j-1.2.8.jar
+	saaj.jar
+	wsdl4j-1.5.1.jar
+
+Additionally the main module making up the actual program needs:
+
+	idw-gpl.jar (version 1.4.0) 

@@ -1,0 +1,21 @@
+TODO
+====
+
+This file contains various minor and major tasks that should be done in
+the future. It also serves as a "scratch pad" for things that should be
+investigated further.
+
+
+New features
+------------
+
+ - Add support for displaying the mote platform, e.g. DIG528, Tmote, and
+   micaz.
+
+
+Issues / bugs
+-------------
+
+ - Automatically mirror the status of controlled motes in the "All
+   motes" pane. Currently, this is only done when the refresh button is
+   pressed.
