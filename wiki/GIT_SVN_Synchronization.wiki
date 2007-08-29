@@ -1,0 +1,70 @@
+#summary How to setup and synchronize between git and SVN
+#labels Phase-Implementation
+
+= Setting up the SVN transport =
+
+Assumes `$module` is set to either of `remote-{db,gui,mci,ws}`
+and `$username` is set to the googlecode username.
+
+{{{
+prompt> cd $module
+prompt> git svn init --username=$username https://remote-testbed.googlecode.com/svn/trunk/$module
+}}}
+
+After this you can query the configuration using `git config`. For the `remote-mci` module it should say something like the following:
+
+{{{
+prompt> git config --get-regexp svn-remote
+svn-remote.svn.url https://remote-testbed.googlecode.com/svn/trunk/remote-mci
+svn-remote.svn.fetch :refs/remotes/git-svn
+}}}
+
+Now, fetch the SVN changes, which will create the `git-svn` remote reference, which git-svn uses to keep track of the upstream SVN repository state.
+
+{{{
+prompt> git svn fetch
+r11 = 37275f86ebaa13616554dc5ddbeb1112d6e897f3 (git-svn)
+}}}
+
+Next, create a local branch from `git-svn`:
+
+{{{
+prompt> git branch svn git-svn
+prompt> git branch -v
+* master            e594a0c Ignore tag and *.tar.gz files
+  svn               37275f8 Add remote-mci module
+}}}
+
+This concludes the setup.
+
+= Updating the SVN repository with the newest changes =
+
+The following should be done each time the SVN repository should be updated. It assumes that changes happen in one direction only.
+
+First, change to the svn branch:
+
+{{{
+prompt> git checkout svn 
+Switched to branch "svn"
+}}}
+
+Then, merge the newest changes from the master branch:
+
+{{{
+prompt> git merge master
+Merge made by recursive.
+ .gitignore                                         |   15 +
+ AUTHORS                                            |    6 +
+...
+}}}
+
+Finally, push the changes to the SVN repository:
+
+{{{
+prompt> git svn git svn dcommit
+Committing to https://remote-testbed.googlecode.com/svn/trunk/remote-mci ...
+        A       .gitignore
+        A       AUTHORS
+        A       COPYING
+...
+}}}
