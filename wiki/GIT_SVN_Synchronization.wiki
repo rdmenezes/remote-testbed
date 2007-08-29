@@ -61,7 +61,7 @@ Merge made by recursive.
 Finally, push the changes to the SVN repository:
 
 {{{
-prompt> git svn git svn dcommit
+prompt> git svn dcommit
 Committing to https://remote-testbed.googlecode.com/svn/trunk/remote-mci ...
         A       .gitignore
         A       AUTHORS
