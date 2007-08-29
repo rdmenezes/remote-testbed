@@ -1,0 +1,7 @@
+#!/bin/sh
+
+#Notifies the motehost daemon that a relevant hotplug event has occured
+
+#Link the remover script to the remover location
+
+/etc/hotplug/usb/dig528-2.link $REMOVER &

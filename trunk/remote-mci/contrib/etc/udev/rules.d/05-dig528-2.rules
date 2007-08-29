@@ -1,0 +1,35 @@
+# DIG528-2 udev rule
+#
+# Notifies the motehost daemon that a relevant device event has
+# occured.
+#
+# Copyright (c) 2007 Jonas Fonseca <fonseca@diku.dk>
+#
+#######################################################################
+#
+# Information reported by:
+#
+#	$ udevinfo -a -p $(udevinfo -q path -n /dev/ttyUSB0)
+#	  ...
+#	  looking at parent device '/devices/pci0000:00/0000:00:1d.0/usb1/1-2':
+#	    KERNELS=="1-2"
+#	    SUBSYSTEMS=="usb"
+#	    DRIVERS=="usb"
+#	    ATTRS{serial}=="b00102e8"
+#	    ATTRS{product}=="USB _-_ Serial Cable"
+#	    ATTRS{manufacturer}=="FTDI"
+#	    ...
+#	    ATTRS{idProduct}=="c237"
+#	    ATTRS{idVendor}=="0050"
+#	    ...
+#
+# Note, the output above is with udev-108. Thinstation uses udev-090,
+# and a key names were renamed in udev-098 from -> to:
+#
+#	BUS	-> SUBSYSTEMS 
+#	DRIVER	-> DRIVERS
+#	SYSFS	-> ATTR
+#
+#######################################################################
+
+BUS="usb", SYSFS{idVendor}=="0050", SYSFS{idProduct}=="c237", RUN+="/sbin/plugpiper /var/run/motehost.events"

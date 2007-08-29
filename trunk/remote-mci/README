@@ -1,0 +1,15 @@
+The Re-Mote Mote Control Infrastructure
+=======================================
+
+The mote control infrastructure consists of a mote server daemon written
+in C++, a relational database based on MySQL, and a mote information
+server based on Apache Tomcat. The host software is application
+dependent. In the actual deployment, there is a host daemon keeping
+track of connected motes, along with a customized USB to serial driver
+and a flash programming utility.
+
+The mote control infrastructure is part of the Re-Mote Testbed
+Framework, which is a collection of modules for providing remote access
+to WSN testbeds.
+
+For more information see: http://www.distlab.dk/remote/remote.html
