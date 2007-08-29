@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. credentials.sh
+. "$(dirname "$0")/credentials.sh"
 
 echo "Enter name of new project:"
 read PROJECT_NAME
