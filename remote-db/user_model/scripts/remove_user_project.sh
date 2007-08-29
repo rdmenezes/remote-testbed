@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. admin_scripts/credentials.sh
+. "$(dirname "$0")/credentials.sh"
 
 echo "Enter login of user:"
 read LOGIN

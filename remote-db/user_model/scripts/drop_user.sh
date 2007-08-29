@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. credentials.sh
+. "$(dirname "$0")/credentials.sh"
 
 echo "Enter login of user to drop:"
 read LOGIN
