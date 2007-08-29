@@ -1,0 +1,15 @@
+/Documentation
+/aclocal.m4
+/autom4te.cache
+/config
+/configure
+/config.log
+/config.status
+CVS
+Makefile
+Makefile.in
+.deps
+tags
+*.tar.gz
+*.o
+*.a
