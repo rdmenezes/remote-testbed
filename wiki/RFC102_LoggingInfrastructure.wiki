@@ -1,5 +1,5 @@
 #summary Proposal for better logging infrastructure in the MCI component
-#labels Phase-RFC,Component-MCI,Featured
+#labels Phase-RFC,Component-MCI
 
 = RFC102: Logging infrastructure =
 
