@@ -1,4 +1,4 @@
-#summary Overview of the Re-Mote Database Component (remote-db)
+#summary Introduction to the Re-Mote Database Component (remote-db)
 #labels Featured,Phase-Deploy,Component-DB
 
 = The Re-Mote Database Scripts =
@@ -113,4 +113,3 @@ grant select,insert,delete,update on test.* to 'fonseca'@'%'
 The remaining scripts can be used for changing a user password,
 removing a user from a project, and deleting a user or project
 account.
-
