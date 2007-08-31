@@ -19,9 +19,9 @@ to the user named `remote_admin` having the password `remote`. This is
 all done in `remote_core/scripts/create_remote_db.sql`, which should be
 run first when creating a new database for a testbed.
 
-	Note, if you change the username or password, you should also
-	change the `user_model/scripts/credential.sh` script to mirror
-	what you changed.
+*Note*, if you change the username or password, you should also
+change the `user_model/scripts/credentials.sh` script to mirror
+what you changed. See below for
 
 Create the database by running the command:
 {{{
@@ -66,7 +66,15 @@ be members of multiple different project.
 
 Below is a small example where a user and a project is set up.
 It assumes that the `user_model/scripts/credentials.sh` file
-has been changed to automatically set database password.
+has been changed to automatically set database password. This
+can be done via something like the following:
+{{{
+export USER=remote_admin
+export PASS=remote
+export HOST=localhost
+export MYSQL="mysql -u$USER -p$PASS -h$HOST"
+export DBNAME=REMOTE
+}}}
 
 First, create a user:
 {{{
@@ -105,3 +113,4 @@ grant select,insert,delete,update on test.* to 'fonseca'@'%'
 The remaining scripts can be used for changing a user password,
 removing a user from a project, and deleting a user or project
 account.
+
