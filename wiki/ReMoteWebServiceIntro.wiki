@@ -22,15 +22,41 @@ by the Re-Mote client.
  * Something about the Makefile rules for deploying. Saying that they
    are best for localhost?
 
-== Installation ==
+== Installing the Web Services ==
 
- # Start out with the axis/ template from the axis-bin-1.4 release.
+ # Start out by copyig the `axis/` example directory from the axis-bin-1.4 release to the $TOMCAT/webapps directory.
+ # Install database specific jar files i the $TOMCAT/common/lib directory:
+   * mysql-connector-java-5.0.4.jar
+   * naming-factory-dbcp.jar
+ # Modify server.xml to declare a resource for the database:
+{{{
+<Server port="8005" shutdown="SHUTDOWN">
+	<!-- ... -->
+	<Service name="Catalina">
+		<!-- ... -->
+		<Engine name="Catalina" defaultHost="localhost">
+			<!-- ... -->
+			<Host name="localhost" appBase="webapps"
+				unpackWARs="true" autoDeploy="true"
+				xmlValidation="false" xmlNamespaceAware="false">
+				<!-- ... -->
+				<Context path="/axis" docBase="axis"
+					debug="5" reloadable="true" crossContext="true">
+					<!-- ... -->
+					<Resource name="jdbc/REMOTE" auth="Container" type="javax.sql.DataSource"
+						maxActive="100" maxIdle="30" maxWait="10000"
+						username="remote_admin" password="remote"
+						driverClassName="com.mysql.jdbc.Driver"
+						url="jdbc:mysql://localhost/REMOTE?autoReconnect=true"/>
+				</Context>
+			</Host>
+		</Engine>
+	</Service>
+</Server>
+}}}
+ * Restart tomcat. Note, while changes in the axis specific configuration files will automatically be noticed by tomcat, always remember to restart tomcat after changing the `server.xml` file.
+ * Check that the axis start page loads. If it does, also check that dependencies are satisfied by going to the "Validation" page.
 
- # Modify server.xml
-
-Note, while changes in the axis specific configuration files will
-automatically be noticed by tomcat, always remember to restart
-tomcat after changing the `server.xml` file.
 
 == Testing the Deployment ==
 
