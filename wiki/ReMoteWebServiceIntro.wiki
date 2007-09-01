@@ -1,0 +1,28 @@
+#summary Introduction to the Re-Mote WebService Component (remote-ws)
+
+= The Re-Mote Web Services =
+
+This package contains the files for building and deploying the
+webservice components used by Re-Mote. It also
+
+It has the following structure:
+
+ * *lib:* Jar files containing dependencies for making the various conversions and for compiling the server and client specific libraries.
+ * *src:* Java classes responsible of the server specific part of the services.
+ * *wsdd:* The web service deployment descriptors.
+
+== The Build Process ==
+
+Both of the above are used for generating WSDL files describing
+the services made available. Using the WSDL files, client Java classes
+for accessing the webservices can then be created and compiled for use
+by the Re-Mote client.
+
+== Testing the Deployment ==
+
+SOAPMonitor
+
+contrib/soapmonitor/
+
+tcpmon
+
