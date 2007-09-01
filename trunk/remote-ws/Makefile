@@ -83,7 +83,7 @@ export CLASSPATH
 all: client
 
 clean:
-	$(RM) -r $(BUILDDIR) $(SERVERJAR) $(CLIENTJAR)
+	$(RM) -r $(BUILDDIR) $(SERVERJAR) $(CLIENTJAR) tags
 
 tags:
 	$(CTAGS) $(SERVERSRC)

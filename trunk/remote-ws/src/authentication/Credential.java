@@ -8,35 +8,48 @@ public class Credential implements Serializable{
 	private String label, value;
 	private boolean hideValue;
 
-	public Credential() {
+	public Credential()
+	{
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Credential(String label, boolean hideValue) {
+	public Credential(String label, boolean hideValue)
+	{
 		super();
 		// TODO Auto-generated constructor stub
 		this.label = label;
 		this.value = null;
 		this.hideValue = hideValue;
 	}
-	public boolean isHideValue() {
+
+	public boolean isHideValue()
+	{
 		return hideValue;
 	}
-	public void setHideValue(boolean hideValue) {
+
+	public void setHideValue(boolean hideValue)
+	{
 		this.hideValue = hideValue;
 	}
 
-	public String getLabel() {
+	public String getLabel()
+	{
 		return label;
 	}
-	public void setLabel(String label) {
+
+	public void setLabel(String label)
+	{
 		this.label = label;
 	}
-	public String getValue() {
+
+	public String getValue()
+	{
 		return value;
 	}
-	public void setValue(String value) {
+
+	public void setValue(String value)
+	{
 		this.value = value;
 	}
 

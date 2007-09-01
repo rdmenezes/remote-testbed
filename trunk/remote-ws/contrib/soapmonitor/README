@@ -1,0 +1,10 @@
+WSDD files for setting up the webservices for use with the SOAPMonitor
+
+To use simply deploy the webservices using:
+
+	$ make WSDDDIR=contrib/soapmonitor deploy
+
+More information:
+
+ - http://ws.apache.org/axis/java/user-guide.html#AppendixUsingTheSOAPMonitor
+ - http://ws.apache.org/axis/java/install.html#AppendixEnablingTheSOAPMonitor
