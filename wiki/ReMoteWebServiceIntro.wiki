@@ -1,4 +1,5 @@
 #summary Introduction to the Re-Mote WebService Component (remote-ws)
+#labels Component-WS,Phase-Deploy
 
 = The Re-Mote Web Services =
 
@@ -18,11 +19,23 @@ the services made available. Using the WSDL files, client Java classes
 for accessing the webservices can then be created and compiled for use
 by the Re-Mote client.
 
+ * Something about the Makefile rules for deploying. Saying that they
+   are best for localhost?
+
+== Installation ==
+
+ # Start out with the axis/ template from the axis-bin-1.4 release.
+
+ # Modify server.xml
+
+Note, while changes in the axis specific configuration files will
+automatically be noticed by tomcat, always remember to restart
+tomcat after changing the `server.xml` file.
+
 == Testing the Deployment ==
 
-SOAPMonitor
+ * Using SOAPMonitor, contrib/soapmonitor/
 
-contrib/soapmonitor/
+ * Using tcpmon
 
-tcpmon
-
+ * Checking the tomcat logs (catalina.out)
