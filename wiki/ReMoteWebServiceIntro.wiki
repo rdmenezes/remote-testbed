@@ -24,7 +24,9 @@ by the Re-Mote client.
 
 == Installing the Web Services ==
 
- # Start out by copyig the `axis/` example directory from the axis-bin-1.4 release to the $TOMCAT/webapps directory.
+Before installing the web services
+
+ # Start out by copying the `axis/` example directory from the axis-bin-1.4 release to the $TOMCAT/webapps directory.
  # Install database specific jar files i the $TOMCAT/common/lib directory:
    * mysql-connector-java-5.0.4.jar
    * naming-factory-dbcp.jar
@@ -56,7 +58,9 @@ by the Re-Mote client.
 }}}
  * Restart tomcat. Note, while changes in the axis specific configuration files will automatically be noticed by tomcat, always remember to restart tomcat after changing the `server.xml` file.
  * Check that the axis start page loads. If it does, also check that dependencies are satisfied by going to the "Validation" page.
-
+ * Build the remote-ws components.
+ * Copy lib/remote-ws-server.jar to $TOMCAT/webapps/axis/WEB-INF/lib. Verify that tomcat notices the new library and reloads the context.
+ * Deploy the
 
 == Testing the Deployment ==
 
