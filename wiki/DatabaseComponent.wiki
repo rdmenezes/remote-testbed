@@ -1,0 +1,115 @@
+#summary Overview of the Re-Mote Database Component (remote-db)
+#labels Featured,Phase-Deploy,Component-DB
+
+= The Re-Mote Database Scripts =
+
+This package contains scripts for setting up and managing the database
+used by the Re-Mote mote control server and webservices. It consists of
+four modules, each residing in its own subdirectory:
+
+ * *remote_core:* Core tables for the testbed framework.
+ * *user_model:* User and project specific tables and scripts.
+ * *reservation_model:* Mote reservation tables.
+ * *diku_specific_infrastructure:* Tables and scripts specific to DIKU.
+
+== Setting up the database ==
+
+By default the database will be named `REMOTE` with privileges granted
+to the user named `remote_admin` having the password `remote`. This is
+all done in `remote_core/scripts/create_remote_db.sql`, which should be
+run first when creating a new database for a testbed.
+
+*Note*, if you change the username or password, you should also
+change the `user_model/scripts/credentials.sh` script to mirror
+what you changed. See below for
+
+Create the database by running the command:
+{{{
+$ mysql < remote_core/scripts/create_remote_db.sql
+}}}
+as a user, who has write privileges, e.g. root.
+
+After creating the database, create the tables using the supplied script
+and specifying the username, password, and database on the command line:
+{{{
+$ mysql --user=remote_admin \
+	--password=remote \
+	REMOTE < remote_core/scripts/create_tables.sql
+}}}
+Then create the tables for the user mode:
+{{{
+$ mysql --user=remote_admin \
+	--password=remote \
+	REMOTE < user_model/scripts/create_tables.sql
+}}}
+Finally, set up the site specific tables and attribute associations.
+For DIKU this amounts to:
+{{{
+$ mysql --user=remote_admin \
+	--password=remote \
+	REMOTE < diku_specific_infrastructure/scripts/create_tables.sql
+}}}
+and:
+{{{
+$ mysql --user=remote_admin \
+	--password=remote \
+	REMOTE < diku_specific_infrastructure/scripts/insert_attribute_types.sql
+}}}
+
+== Managing Users and Projects ==
+
+The *user_model* module contains a series of scripts, which
+can be used for managing user and project information. Users
+and projects accounts are created separately and can afterward
+be associated by adding a user to a project allowing users to
+be members of multiple different project.
+
+Below is a small example where a user and a project is set up.
+It assumes that the `user_model/scripts/credentials.sh` file
+has been changed to automatically set database password. This
+can be done via something like the following:
+{{{
+export USER=remote_admin
+export PASS=remote
+export HOST=localhost
+export MYSQL="mysql -u$USER -p$PASS -h$HOST"
+export DBNAME=REMOTE
+}}}
+
+First, create a user:
+{{{
+$ ./user_model/scripts/create_user.sh
+Enter login of new user:
+fonseca
+Enter password of new user:
+secret
+Enter email address of new user:
+fonseca@diku.dk
+Enter full name of new user:
+Jonas Fonseca
+insert into user(login,password,name,email) values ('fonseca',md5('secret'),'Jonas Fonseca','fonseca@diku.dk');
+}}}
+
+Next, create a project:
+{{{
+$ ./user_model/scripts/create_project.sh
+Enter name of new project:
+test
+creating test;
+insert into project(name) values ('test');
+}}}
+
+Finally, add the user to the project:
+{{{
+./user_model/scripts/add_user_project.sh
+Enter login of user:
+fonseca
+Enter name of project:
+test
+insert into user_project(user_id,project_id) select (select id from user where login='fonseca'),(select id from project where name='test')
+grant select,insert,delete,update on test.* to 'fonseca'@'%'
+}}}
+
+The remaining scripts can be used for changing a user password,
+removing a user from a project, and deleting a user or project
+account.
