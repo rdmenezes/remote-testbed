@@ -1,0 +1,71 @@
+#summary Introduction to the Re-Mote WebService Component (remote-ws)
+#labels Featured,Phase-Deploy,Component-WS
+
+= The Re-Mote Web Services =
+
+This package contains the files for building and deploying the
+webservice components used by Re-Mote. It also
+
+It has the following structure:
+
+ * *lib:* Jar files containing dependencies for making the various conversions and for compiling the server and client specific libraries.
+ * *src:* Java classes responsible of the server specific part of the services.
+ * *wsdd:* The web service deployment descriptors.
+
+== The Build Process ==
+
+Both of the above are used for generating WSDL files describing
+the services made available. Using the WSDL files, client Java classes
+for accessing the webservices can then be created and compiled for use
+by the Re-Mote client.
+
+ * Something about the Makefile rules for deploying. Saying that they
+   are best for localhost?
+
+== Installing the Web Services ==
+
+Before installing the web services
+
+ # Start out by copying the `axis/` example directory from the axis-bin-1.4 release to the $TOMCAT/webapps directory.
+ # Install database specific jar files i the $TOMCAT/common/lib directory:
+   * mysql-connector-java-5.0.4.jar
+   * naming-factory-dbcp.jar
+ # Modify server.xml to declare a resource for the database:
+{{{
+<Server port="8005" shutdown="SHUTDOWN">
+	<!-- ... -->
+	<Service name="Catalina">
+		<!-- ... -->
+		<Engine name="Catalina" defaultHost="localhost">
+			<!-- ... -->
+			<Host name="localhost" appBase="webapps"
+				unpackWARs="true" autoDeploy="true"
+				xmlValidation="false" xmlNamespaceAware="false">
+				<!-- ... -->
+				<Context path="/axis" docBase="axis"
+					debug="5" reloadable="true" crossContext="true">
+					<!-- ... -->
+					<Resource name="jdbc/REMOTE" auth="Container" type="javax.sql.DataSource"
+						maxActive="100" maxIdle="30" maxWait="10000"
+						username="remote_admin" password="remote"
+						driverClassName="com.mysql.jdbc.Driver"
+						url="jdbc:mysql://localhost/REMOTE?autoReconnect=true"/>
+				</Context>
+			</Host>
+		</Engine>
+	</Service>
+</Server>
+}}}
+ * Restart tomcat. Note, while changes in the axis specific configuration files will automatically be noticed by tomcat, always remember to restart tomcat after changing the `server.xml` file.
+ * Check that the axis start page loads. If it does, also check that dependencies are satisfied by going to the "Validation" page.
+ * Build the remote-ws components.
+ * Copy lib/remote-ws-server.jar to $TOMCAT/webapps/axis/WEB-INF/lib. Verify that tomcat notices the new library and reloads the context.
+ * Deploy the
+
+== Testing the Deployment ==
+
+ * Using SOAPMonitor, contrib/soapmonitor/
+
+ * Using tcpmon
+
+ * Checking the tomcat logs (catalina.out)
