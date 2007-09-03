@@ -21,11 +21,11 @@ by the Re-Mote client.
 
  * Something about the Makefile rules for deploying. Saying that they are best for localhost?
 
-== Installing the Web Services ==
+== Installation ==
 
-Before installing the web services
+=== Phase 1: Setting up Tomcat and Axis ===
 
- # Start out by copying the `axis/` example directory from the axis-bin-1.4 release to the $TOMCAT/webapps directory.
+ # Start out by copying the `axis/` example directory from the axis-bin-1.4 release to the $TOMCAT/webapps directory. Note, in order for tomcat to be able to remember your configuration of deployed services etc. and reload it between reboots, you need to make the `axis/WEB-INF` directory writable. Settings will be maintained in a file called `server-config.xml`.
  # Install database specific jar files i the $TOMCAT/common/lib directory:
    * mysql-connector-java-5.0.4.jar
    * naming-factory-dbcp.jar
@@ -57,9 +57,12 @@ Before installing the web services
 }}}
  * Restart tomcat. Note, while changes in the axis specific configuration files will automatically be noticed by tomcat, always remember to restart tomcat after changing the `server.xml` file.
  * Check that the axis start page loads. If it does, also check that dependencies are satisfied by going to the "Validation" page.
- * Build the remote-ws components.
- * Copy lib/remote-ws-server.jar to $TOMCAT/webapps/axis/WEB-INF/lib. Verify that tomcat notices the new library and reloads the context.
- * Deploy the
+
+=== Phase 2: Installing the web services ===
+
+ * Build the remote-ws components by running `make` in the toplevel directory.
+ * Copy lib/remote-ws-server.jar to $TOMCAT/webapps/axis/WEB-INF/lib. Verify that tomcat notices the new library and reloads the context. Note, you should configure the settings related to the `deploy-jar` rule in the `Makefile` to do this for you, if you plan to do some tweaking of the server-side code yourself.
+ * Deploy the the web services using the WSDD files in the `wsdd` directory. The `Makefile`'s `deploy-wsdd` rule might be of help, however, you need to change the default credentials in the top of the file.
 
 == Testing the Deployment ==
 
