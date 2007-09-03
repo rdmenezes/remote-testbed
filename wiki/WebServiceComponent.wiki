@@ -19,8 +19,7 @@ the services made available. Using the WSDL files, client Java classes
 for accessing the webservices can then be created and compiled for use
 by the Re-Mote client.
 
- * Something about the Makefile rules for deploying. Saying that they
-   are best for localhost?
+ * Something about the Makefile rules for deploying. Saying that they are best for localhost?
 
 == Installing the Web Services ==
 
@@ -65,7 +64,5 @@ Before installing the web services
 == Testing the Deployment ==
 
  * Using SOAPMonitor, contrib/soapmonitor/
-
  * Using tcpmon
-
  * Checking the tomcat logs (catalina.out)
