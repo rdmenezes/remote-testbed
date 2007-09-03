@@ -29,7 +29,7 @@ by the Re-Mote client.
  # Install database specific jar files i the $TOMCAT/common/lib directory:
    * mysql-connector-java-5.0.4.jar
    * naming-factory-dbcp.jar
- # Modify server.xml to declare a resource for the database:
+ # Modify `$TOMCAT/conf/server.xml` to declare a resource for the database:
 {{{
 <Server port="8005" shutdown="SHUTDOWN">
 	<!-- ... -->
@@ -63,6 +63,7 @@ by the Re-Mote client.
  * Build the remote-ws components by running `make` in the toplevel directory.
  * Copy lib/remote-ws-server.jar to $TOMCAT/webapps/axis/WEB-INF/lib. Verify that tomcat notices the new library and reloads the context. Note, you should configure the settings related to the `deploy-jar` rule in the `Makefile` to do this for you, if you plan to do some tweaking of the server-side code yourself.
  * Deploy the the web services using the WSDD files in the `wsdd` directory. The `Makefile`'s `deploy-wsdd` rule might be of help, however, you need to change the default credentials in the top of the file.
+ * Return again to the axis start page and follow the link to the list of deployed web services to verify that the 3 new web services are advertised.
 
 == Testing the Deployment ==
 
