@@ -1,4 +1,4 @@
-#summary Considerations for developers and deployers regarding security
+#summary Security considerations for developers and deployers
 #labels Phase-Design,Component-GUI,Component-WS,Component-MCI,Component-DB
 
 = Introduction =
