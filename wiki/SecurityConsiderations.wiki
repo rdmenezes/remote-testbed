@@ -1,17 +1,15 @@
 #summary Security considerations for developers and deployers
 #labels Phase-Design,Component-GUI,Component-WS,Component-MCI,Component-DB
 
-= Introduction =
-
 This page tries to give an overview of security issues related to the various components and explain what can or should be done.
 
-== Server Code ==
+= Server Code =
 
 In its current shape, the server code should not be considered as
 secure as desirable. It has been written with robustness in mind,
 however, there is still room for improvements (e.g. see issue 1).
 
-== The Running System ==
+= The Running System =
 
 The framework requires that 3 ports are open for incoming connections:
 
@@ -28,7 +26,7 @@ been authenticated before accepting any requests. Finally,
 only mote hosts that connects from preapproved IP addresses
 are allowed to join the mote control infrastructure.
 
-== Client / server communication ==
+= Client / server communication =
 
 Data between the client and web services are sent as clear
 text. This may pose problems, if credentials used in the
