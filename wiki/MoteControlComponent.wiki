@@ -1,0 +1,8 @@
+#summary Overview of the Re-Mote Mote Control Infrastructure (remote-mci)
+#labels Phase-Deploy,Component-MCI
+
+...
+
+{{{
+./configure " '--without-boost-regex' 'CXXFLAGS=-I/usr/include/boost-1_33/'
+}}}
