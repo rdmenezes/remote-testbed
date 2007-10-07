@@ -6,15 +6,20 @@ import util.SQLHelper;
 import motedata.ColumnHeader;
 import motedata.SimpleTable;
 
+/** Service class for getting mote data
+ *
+ * The mote data can be anything from availability information, mote
+ * attributes such as MAC and TOS address, as well as site attributes
+ * such as position.
+ */
 public class MoteData {
 
-	public MoteData() {
-	}
-
-	/** Builds a query to extract all info about connected motes
+	/** Get status information about all motes connected to a session
+	 *
+	 * Builds a query to extract all info about connected motes
 	 * including mote and site attributes into a single table.
 	 *
-	 * @param session_id Not used at this time
+	 * @param session_id The session for which to get mote data.
 	 * @return A serialized RowSetDynaClass for the resultset
 	 * @throws Exception
 	 */
@@ -22,7 +27,6 @@ public class MoteData {
 	{
 		String query,select;
 		SQLHelper sql = null;
-		Exception ex = null;
 		ResultSet rs = null;
 		SimpleTable result = null;
 
@@ -67,14 +71,12 @@ public class MoteData {
 				}
 				i++;
 			}
-		} catch (Exception e)
-		{
-			ex = e;
+
+			return result;
+
 		} finally {
 			sql.closeDB();
-			if (ex != null) throw ex;
 		}
-		return result;
 	}
 
 	private String getMoteAttrSubquery(String colname,String type_id)
