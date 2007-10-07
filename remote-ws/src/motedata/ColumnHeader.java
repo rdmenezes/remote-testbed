@@ -2,61 +2,108 @@ package motedata;
 
 import java.io.Serializable;
 
+/** Table column container
+ *
+ * Stores information about a column in a SimpleTable.
+ */
 public class ColumnHeader implements Serializable
 {
-	/**
-	 *
-	 */
 	private static final long serialVersionUID = -4526017460513320190L;
 	private String title;
 	private String name;
 	private boolean visible;
 	private String valueclass;
 
-	public ColumnHeader()
+	/** Create column header
+	 *
+	 * @param title		The column title.
+	 * @param name		The column name.
+	 * @param visible	The column visibility.
+	 * @param valueclass	The column valueclass.
+	 */
+	public ColumnHeader(String title, String name, boolean visible, String valueclass)
 	{
-		title = null;
-		name = null;
-		visible = false;
-		valueclass = null;
-	}
-
-	public ColumnHeader(String title, String name, boolean visible, String valueclass) {
 		super();
-		// TODO Auto-generated constructor stub
 		this.title = title;
 		this.name = name;
 		this.visible = visible;
 		this.valueclass = valueclass;
 	}
 
-	public String getTitle() {
+	/** Dummy constructor to silence compiler warnings */
+	public ColumnHeader()
+	{
+		this(null, null, false, null);
+	}
+
+	/** Get column header title
+	 *
+	 * @return The column title. */
+	public String getTitle()
+	{
 		return title;
 	}
-	public void setTitle(String title) {
+
+	/** Set column header title
+	 *
+	 * @param title	The new column title.
+	 */
+	public void setTitle(String title)
+	{
 		this.title = title;
 	}
 
-	public String getName() {
+	/** Get column header name
+	 *
+	 * @return The column name.
+	 */
+	public String getName()
+	{
 		return name;
 	}
 
-	public void setName(String name) {
+	/** Set column header name
+	 *
+	 * @param name	The new column name.
+	 */
+	public void setName(String name)
+	{
 		this.name = name;
 	}
 
-	public boolean isVisible() {
+	/** Is the column header visible?
+	 *
+	 * @return Whether the column is visible.
+	 */
+	public boolean isVisible()
+	{
 		return visible;
 	}
-	public void setVisible(boolean visible) {
+
+	/** Set column header visibility
+	 *
+	 * @param visible The new column visibility.
+	 */
+	public void setVisible(boolean visible)
+	{
 		this.visible = visible;
 	}
 
-	public String getValueclass() {
+	/** Get value class of column header
+	 *
+	 * @return The value class of the column.
+	 */
+	public String getValueclass()
+	{
 		return valueclass;
 	}
 
-	public void setValueclass(String valueclass) {
+	/** Set the column header value class
+	 *
+	 * @param valueclass The column's new value class.
+	 */
+	public void setValueclass(String valueclass)
+	{
 		this.valueclass = valueclass;
 	}
 

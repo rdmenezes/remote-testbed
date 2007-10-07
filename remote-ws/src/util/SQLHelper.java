@@ -8,11 +8,16 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+/** Database helper class */
 public class SQLHelper {
 
 	private Connection SQLConnection;
 	private DataSource datasource;
 
+	/** Create managed database connection
+	 *
+	 * @throws Exception
+	 */
 	public SQLHelper() throws Exception
 	{
 		// Obtain our environment naming context
@@ -23,11 +28,20 @@ public class SQLHelper {
 		datasource = (DataSource) envCtx.lookup("jdbc/REMOTE");
 	}
 
+	/** Open connection to the database
+	 *
+	 * @throws Exception
+	 */
 	public void openDB() throws Exception
 	{
 		SQLConnection = datasource.getConnection();
 	}
 
+	/** Execute query and retrieve results
+	 *
+	 * @param query	The query to execute.
+	 * @return	The retrieved result set. May be null.
+	 */
 	public ResultSet retrieve(String query)
 	{
 		ResultSet rs = null;
@@ -41,12 +55,17 @@ public class SQLHelper {
 		return rs;
 	}
 
+	/** Execute update query and retrieve results
+	 *
+	 * @param query	The query to execute.
+	 * @return	The retrieved result set. May be null.
+	 */
 	public ResultSet retrieveRW(String query)
 	{
 		ResultSet rs = null;
 		try {
 			Statement stmt = SQLConnection.createStatement(java.sql.ResultSet.TYPE_SCROLL_SENSITIVE,
-                    java.sql.ResultSet.CONCUR_UPDATABLE);
+								       java.sql.ResultSet.CONCUR_UPDATABLE);
 			rs = stmt.executeQuery(query);
 		} catch (Exception e) {
 			System.out.println("Exception: " + e.toString());
@@ -55,6 +74,11 @@ public class SQLHelper {
 		return rs;
 	}
 
+	/** Execute update query and return numbers of results
+	 *
+	 * @param query	The query to execute.
+	 * @return	The size of the resulting set.
+	 */
 	public int update(String query)
 	{
 		int count = 0;
@@ -68,6 +92,10 @@ public class SQLHelper {
 		return count;
 	}
 
+	/** Execute update query
+	 *
+	 * @param query	The query to execute.
+	 */
 	public void execute(String query)
 	{
 		try {
@@ -79,6 +107,7 @@ public class SQLHelper {
 		}
 	}
 
+	/** Close database connection */
 	public void closeDB()
 	{
 		try {

@@ -5,7 +5,6 @@
 		<parameter name="allowedMethods" value="*"/>
 		<beanMapping qname="ns:SimpleTable" xmlns:ns="motedata.remote.distlab.diku" type="java:motedata.SimpleTable"/>
 		<beanMapping qname="ns:ColumnHeader" xmlns:ns="motedata.remote.distlab.diku" type="java:motedata.ColumnHeader"/>
-		<beanMapping qname="ns:BlobData" xmlns:ns="motedata.remote.distlab.diku" type="java:motedata.BlobData"/>
 		<requestFlow>
 			<handler type="soapmonitor"/>
 		</requestFlow>

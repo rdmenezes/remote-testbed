@@ -49,6 +49,7 @@ DEPLOYLOCATION	= $(DEPLOYHOST)$(if $(DEPLOYHOST),:)$(DEPLOYPATH)
 JAVAC		= javac
 JAVA		= java
 JAR		= jar
+JAVADOC		= javadoc
 SCP		= scp
 CTAGS		= ctags
 
@@ -60,6 +61,7 @@ CLIENTSRCDIR	= $(BUILDDIR)/src
 SERVERBINDIR	= $(BUILDDIR)/server
 CLIENTBINDIR	= $(BUILDDIR)/client
 WSDLDIR		= $(BUILDDIR)/wsdl
+DOCDIR		= $(BUILDDIR)/doc
 
 CLASSPATH	= $(shell find $(PWD)/$(LIBDIR) -name "*.jar" | tr '\n' ':')$(PWD)/$(SERVERJAR)
 
@@ -90,6 +92,11 @@ tags:
 
 strip-space:
 	perl -p -i -e 's/[ \t]*$$//' $(SERVERSRC) $(WSDDFILES)
+
+doc:
+	$(JAVADOC) -d $(DOCDIR) $(SERVERSRC)
+
+.PHONY: doc
 
 ## Rules for building the server and client class files
 #
