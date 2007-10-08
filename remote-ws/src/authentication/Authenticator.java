@@ -3,14 +3,14 @@ package authentication;
 import java.sql.ResultSet;
 import util.SQLHelper;
 
-/** Basic session authenticator
+/** Basic session authenticator.
  *
  * This class is supposed to be used together with the user model
  * supplied with the Re-Mote database scripts.
  */
 public class Authenticator extends AbstractAuthenticator {
 
-	/** Get an empty array of credential fields
+	/** Get an empty array of credential fields.
 	 *
 	 * @return Empty fields for project, user, and password.
 	 * @throws Exception
@@ -26,7 +26,7 @@ public class Authenticator extends AbstractAuthenticator {
 		return credentials;
 	}
 
-	/** Check if the client supplied project, user, and password are valid
+	/** Check if the client supplied project, user, and password are valid.
 	 *
 	 * @param session_id    ID of the session.
 	 * @param credentials   The credentials supplied by the client

@@ -3,15 +3,16 @@ package moteaccess;
 import java.sql.ResultSet;
 import util.SQLHelper;
 
-/**
- * @author zept
+/** Generic base class for assigning mote usage privileges.
+ *
  * This is an abstract class with the generic code to assign mote usage privileges.
  * To integrate any custom reservation system, this class must be inherited and the
  * abstract methods implemented.
+ * @author zept
  */
 public abstract class AbstractMoteAccess {
 
-	/** Acquire mote control privileges using specific session
+	/** Acquire mote control privileges using specific session.
 	 *
 	 * @param mote_ids	IDs of mote to control.
 	 * @param session_id	ID of session that wants privileges.
@@ -29,7 +30,7 @@ public abstract class AbstractMoteAccess {
 		return results;
 	}
 
-	/** Acquire control privilege for one mote
+	/** Acquire control privilege for one mote.
 	 *
 	 * @param mote_id	ID of mote to control.
 	 * @param session_id	ID of session that wants control privilege.
@@ -72,7 +73,7 @@ public abstract class AbstractMoteAccess {
 		}
 	}
 
-	/** Check if session can reserve a given mote
+	/** Check if session can reserve a given mote.
 	 *
 	 * This method must be implemented to integrate a custom
 	 * reservation system.  It is also a point for integration

@@ -2,7 +2,7 @@ package authentication;
 
 import java.io.Serializable;
 
-/** Authentication credential field
+/** Authentication credential field.
  *
  * This class corresponds to one credential value that should be
  * exchanged between the client and server in order to authenticate the
@@ -15,7 +15,7 @@ public class Credential implements Serializable{
 	private String label, value;
 	private boolean hidden;
 
-	/** Create field with given label and hidden attribute
+	/** Create field with given label and hidden attribute.
 	 *
 	 * @param label		The field label.
 	 * @param hidden	Whether the field should be hidden.
@@ -28,7 +28,7 @@ public class Credential implements Serializable{
 		this.hidden = hidden;
 	}
 
-	/** Dummy constructor to silence compiler */
+	/** Dummy constructor to silence compiler. */
 	public Credential()
 	{
 		this(null, false);
@@ -43,7 +43,7 @@ public class Credential implements Serializable{
 		return hidden;
 	}
 
-	/** Change hidden attribute of a field value
+	/** Change hidden attribute of a field value.
 	 *
 	 * @param hidden	The new state of the hidden attribute.
 	 */
@@ -52,7 +52,7 @@ public class Credential implements Serializable{
 		this.hidden = hidden;
 	}
 
-	/** Get field label
+	/** Get field label.
 	 *
 	 * @return The field label.
 	 */
@@ -61,7 +61,7 @@ public class Credential implements Serializable{
 		return label;
 	}
 
-	/** Set field label
+	/** Set field label.
 	 *
 	 * @param label		The field label.
 	 */
@@ -70,7 +70,7 @@ public class Credential implements Serializable{
 		this.label = label;
 	}
 
-	/** Get field value
+	/** Get field value.
 	 *
 	 * @return The field value. 
 	 */
@@ -79,7 +79,7 @@ public class Credential implements Serializable{
 		return value;
 	}
 
-	/** Set field value
+	/** Set field value.
 	 *
 	 * @param value	The new field value.
 	 */

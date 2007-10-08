@@ -2,9 +2,10 @@ package motedata;
 
 import java.io.Serializable;
 
-/** Table column container
+/** Table column header.
  *
- * Stores information about a column in a SimpleTable.
+ * Stores information about the information available in the
+ * entire SimpleTable column.
  */
 public class ColumnHeader implements Serializable
 {
@@ -14,7 +15,7 @@ public class ColumnHeader implements Serializable
 	private boolean visible;
 	private String valueclass;
 
-	/** Create column header
+	/** Create column header.
 	 *
 	 * @param title		The column title.
 	 * @param name		The column name.
@@ -30,13 +31,13 @@ public class ColumnHeader implements Serializable
 		this.valueclass = valueclass;
 	}
 
-	/** Dummy constructor to silence compiler warnings */
+	/** Dummy constructor to silence compiler warnings. */
 	public ColumnHeader()
 	{
 		this(null, null, false, null);
 	}
 
-	/** Get column header title
+	/** Get column header title.
 	 *
 	 * @return The column title. */
 	public String getTitle()
@@ -44,7 +45,7 @@ public class ColumnHeader implements Serializable
 		return title;
 	}
 
-	/** Set column header title
+	/** Set column header title.
 	 *
 	 * @param title	The new column title.
 	 */
@@ -53,7 +54,7 @@ public class ColumnHeader implements Serializable
 		this.title = title;
 	}
 
-	/** Get column header name
+	/** Get column header name.
 	 *
 	 * @return The column name.
 	 */
@@ -62,7 +63,7 @@ public class ColumnHeader implements Serializable
 		return name;
 	}
 
-	/** Set column header name
+	/** Set column header name.
 	 *
 	 * @param name	The new column name.
 	 */
@@ -80,7 +81,7 @@ public class ColumnHeader implements Serializable
 		return visible;
 	}
 
-	/** Set column header visibility
+	/** Set column header visibility.
 	 *
 	 * @param visible The new column visibility.
 	 */
@@ -89,7 +90,7 @@ public class ColumnHeader implements Serializable
 		this.visible = visible;
 	}
 
-	/** Get value class of column header
+	/** Get value class of column header.
 	 *
 	 * @return The value class of the column.
 	 */
@@ -98,7 +99,7 @@ public class ColumnHeader implements Serializable
 		return valueclass;
 	}
 
-	/** Set the column header value class
+	/** Set the column header value class.
 	 *
 	 * @param valueclass The column's new value class.
 	 */

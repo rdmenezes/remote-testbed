@@ -6,7 +6,7 @@ import util.SQLHelper;
 import motedata.ColumnHeader;
 import motedata.SimpleTable;
 
-/** Service class for getting mote data
+/** Service class for getting mote data.
  *
  * The mote data can be anything from availability information, mote
  * attributes such as MAC and TOS address, as well as site attributes
@@ -14,13 +14,13 @@ import motedata.SimpleTable;
  */
 public class MoteData {
 
-	/** Get status information about all motes connected to a session
+	/** Get status information about all motes in the testbed.
 	 *
-	 * Builds a query to extract all info about connected motes
+	 * Builds a query to extract all info about the testbed motes
 	 * including mote and site attributes into a single table.
 	 *
-	 * @param session_id The session for which to get mote data.
-	 * @return A serialized RowSetDynaClass for the resultset
+	 * @param session_id The client session.
+	 * @return A serialized SimpleTable with mote data.
 	 * @throws Exception
 	 */
 	public SimpleTable getMoteData(String session_id) throws Exception
