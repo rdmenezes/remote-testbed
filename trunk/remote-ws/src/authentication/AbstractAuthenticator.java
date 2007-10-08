@@ -2,9 +2,9 @@ package authentication;
 
 import util.SQLHelper;
 
-/** Generic base class for the session authentication webservice
+/** Abstract base class for session authenticator.
  *
- * This is an abstract class with the generic code for the session
+ * This is an abstract base class with the generic code for the session
  * authentication web service. To integrate authentication for a user
  * account system, this class should be inherited. The abstract methods
  * should be implemented with the business logic applicable to the user
@@ -14,7 +14,7 @@ import util.SQLHelper;
  */
 public abstract class AbstractAuthenticator {
 
-	/** Get an empty array of credential fields
+	/** Get an empty array of credential fields.
 	 *
 	 * This function should be implemented to return an array of
 	 * empty credential fields applicable for the user account
@@ -26,7 +26,7 @@ public abstract class AbstractAuthenticator {
 	 */
 	abstract public Credential[] getEmptyCredentials() throws Exception;
 
-	/** Authenticate session using with given credentials
+	/** Authenticate session using with given credentials.
 	 *
 	 * Authenticate an already open session with set of credential
 	 * provided by the client.
@@ -56,7 +56,7 @@ public abstract class AbstractAuthenticator {
 		}
 	}
 
-	/** Check the credentials used for client authentication
+	/** Check the credentials used for client authentication.
 	 *
 	 * This method should be implemented to check the credentials
 	 * used for client authentication.

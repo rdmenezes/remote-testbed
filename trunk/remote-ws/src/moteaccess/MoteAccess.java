@@ -1,9 +1,9 @@
 package moteaccess;
 
-/** Basic mote accessor for system with no reservation */
+/** Basic mote accessor for system with no reservation. */
 public class MoteAccess extends AbstractMoteAccess {
 
-	/** Check if mote has a reservation
+	/** Check if mote has a reservation.
 	 *
 	 * @param mote_id	ID of the mote to check for reservation.
 	 * @param session_id	ID of the client session.
