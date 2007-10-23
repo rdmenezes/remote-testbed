@@ -7,7 +7,6 @@
 
 #include "types.h"
 #include "database.h"
-#include "constants.h"
 #include <stdlib.h>
 #include <sys/poll.h>
 #include <signal.h>

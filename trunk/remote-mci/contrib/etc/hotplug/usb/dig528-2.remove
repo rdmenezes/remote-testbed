@@ -1,6 +1,0 @@
-#!/bin/sh
-
-#Notifies the motehost daemon that a relevant hotplug event has occured
-
-#Send the unplug event to the motehost pipe
-/sbin/plugpiper /var/run/motehost.events

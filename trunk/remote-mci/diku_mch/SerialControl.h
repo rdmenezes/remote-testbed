@@ -12,6 +12,7 @@
 #include <sys/wait.h>
 #include <sys/ioctl.h>
 
+#include "common/format.h"
 #include "types.h"
 #include "motecontrol/localconstants.h"
 #include "Configuration.h"
@@ -24,20 +25,18 @@ using namespace protocols::motecontrol;
 class SerialControl
 {
 	public:
-		SerialControl(unsigned int portnumber);
+		SerialControl(std::string& tty);
 		const std::string& getDeviceName();
 		result_t _open();
 		result_t _close();
-		pid_t program(uint64_t macAddress, uint16_t tosAddress,std::string program);
+		pid_t program(uint64_t macAddress, uint16_t tosAddress, std::string program);
 		bool getProgrammingResult(result_t& result);
 		result_t cancelProgramming();
 		result_t reset();
 		result_t start();
 		result_t stop();
-		int readBuf(char* buf, int len);
-		int writeBuf(const char* buf, int len);
-		char readChar();
-		void writeChar(char c);
+		int readBuf(char *buf, int len);
+		int writeBuf(const char *buf, int len);
 		int getFd();
 		status_t getStatus();
 	protected:
@@ -45,9 +44,9 @@ class SerialControl
 		bool clearDTR();
 		bool setDTR();
 		int port,prg_pid;
-		bool isRunning, isOpen, isProgramming,wasProgramming;
+		bool isRunning, isOpen, isProgramming, wasProgramming;
 		result_t prg_result;
-		std::string DeviceName;
+		std::string tty;
 		std::string flashFile;
 		struct termios newsertio, oldsertio;
 };

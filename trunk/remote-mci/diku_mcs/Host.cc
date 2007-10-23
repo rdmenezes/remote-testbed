@@ -1,3 +1,4 @@
+#include "common/format.h"
 #include "Host.h"
 #include "macros.h"
 
@@ -129,6 +130,7 @@ void Host::findOrCreateMote(MsgMoteConnectionInfo& info)
 	row = selectRes.fetch_row();
 	if ( !row || row.empty() )
 	{
+		std::cout << "host_id " << id << " path " << info.getPath().getString() << "\n";
 		// if not found, create the path in the database with no site_id
 		pathinsert.def["hostid"] = id;
 		pathinsert.def["path"] = info.getPath().getString();
@@ -156,6 +158,8 @@ void Host::findOrCreateMote(MsgMoteConnectionInfo& info)
 	
 	if ( !row || row.empty() )
 	{
+		std::string mac, tos;
+
 		selectRes.purge();
 		// create the mote using site_id only - the mote class will create the 
 		// mote database record itself
@@ -168,9 +172,12 @@ void Host::findOrCreateMote(MsgMoteConnectionInfo& info)
 		tosinsert.def["mote_id"] = mote->mote_id;
 		execRes = tosinsert.execute();		
 		newtarget->tosAddress = execRes.insert_id;
-		// FIXME: convert MAC address to hex string!!
-		//mote->setAttribute("macaddress",std::string::info.macAddress);
-		// TODO: tos address as well
+
+		mac = getMacStr(info.macAddress);
+		tos = getTosStr(newtarget->tosAddress);
+		log("Setting attributes: MAC=%s TOS=%s\n", mac.c_str(), tos.c_str());
+		mote->setAttribute("macaddress", mac);
+		mote->setAttribute("tosaddress", tos);
 	}
 	else
 	{
@@ -212,8 +219,8 @@ void Host::handleMotesFoundList(MsgMoteConnectionInfoList& infolist)
 	while ( infolist.getNextMoteInfo(info) )
 	{				
 		uint8_t* m = (uint8_t*)&info.macAddress;
-		log("Mote %02x%02x%02x%02x %02x%02x%02x%02x plugged at %s\n",m[7],m[6],m[5],m[4],m[3],m[2],m[1],m[0],info.getPath().getString().c_str());
-		
+
+		log("Mote %s plugged at %s\n", getMacStr(info.macAddress), info.getPath().getString().c_str());
 		findOrCreateMote(info);
 	}
 }

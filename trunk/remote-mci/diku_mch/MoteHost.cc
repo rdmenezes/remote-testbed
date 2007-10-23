@@ -57,7 +57,7 @@ void MoteHost::serviceLoop()
 		__THROW__ (err.c_str());
 	}
 	// the first thing to do is send all current mote information to the server
-	DeviceManager::refresh();
+	DeviceManager::refresh(Configuration::vm["devicePath"].as<std::string>());
 	printf("Sending mote list to server\n");
 	MsgPlugEvent msgPlugEvent(PLUG_MOTES);
 	if (makeMoteInfoList(DeviceManager::motes,msgPlugEvent.getInfoList()))
@@ -119,7 +119,7 @@ int MoteHost::rebuildFdSet(fd_set& fdset)
 	{
 		pmote = moteI->second;
 		p = pmote->getFd();
-		if (p > 0)
+		if (p > 0 && pmote->isValid())
 		{
 			if (p > maxp) {maxp = p;}
 			FD_SET(p, &fdset);
@@ -158,7 +158,7 @@ void MoteHost::handlePlugEvent()
 	}
 	printf("\n");
 
-	DeviceManager::refresh();
+	DeviceManager::refresh(Configuration::vm["devicePath"].as<std::string>());
 
 	MsgPlugEvent msgUnplugEvent(UNPLUG_MOTES);
 	if (makeMoteInfoList(DeviceManager::lostMotes,msgUnplugEvent.getInfoList()))
@@ -190,7 +190,7 @@ bool MoteHost::makeMoteInfoList(motemap_t& motelist, MsgMoteConnectionInfoList& 
 		{
 			pmote = moteI->second;
 			uint64_t mac = pmote->getMac();
-			printf("Mote %x at %s\n",((uint32_t)mac),pmote->getPath().c_str());
+			printf("Mote %s at %s\n", getMacStr(mac), pmote->getPath().c_str());
 			info.macAddress = mac;
 			info.getPath() = pmote->getPath();
 			infolist.addMoteInfo(info);
@@ -226,10 +226,9 @@ void MoteHost::handleMessage()
 		MoteMsg moteMsg(buffer,buflen);
 
 		moteI = DeviceManager::motes.find(addresses.getMacAddress());
-		printf("HOSTMSGTYPE_MOTEMSG for TOS %u",addresses.getTosAddress());
-		printf(" MAC:%x%x\n",
-		       (unsigned int) (addresses.getMacAddress() >> 32),
-		       (unsigned int) addresses.getMacAddress());
+		printf("HOSTMSGTYPE_MOTEMSG for TOS=%u MAC=%s\n",
+		       addresses.getTosAddress(),
+		       getMacStr(addresses.getMacAddress()));
 
 		if (moteI == DeviceManager::motes.end())
 		{
@@ -331,7 +330,7 @@ void MoteHost::handleMoteData(Mote* p_mote)
 		readlen = p_mote->readBuf(buf,1000);
 		if (readlen > 0)
 		{
-			printf("'%s'",std::string(buf,readlen).c_str());
+			printf("'%.*s'", readlen, buf);
 			uint32_t len = readlen;
 			MsgPayload msgData;
 			msgData.setPayload(len,(uint8_t*)buf);
@@ -358,6 +357,10 @@ void MoteHost::handleMoteData(Mote* p_mote)
 			HostMsg hostMsg(msgHostConfirm);
 			Message msg;
 			msg.sendMsg(clientsock,hostMsg);
+		} else {
+			p_mote->invalidate();
+			p_mote->_close();
+			log("Invalidating mote '%s'\n", getMacStr(p_mote->getMac()));
 		}
 	}
 
@@ -368,16 +371,18 @@ bool MoteHost::program(Mote* p_mote, uint16_t tosAddress, MsgPayload& image)
 {
 	int fd;
 	std::string filename;
-	char nstring[100];
 
 	if ( p_mote->getStatus() == MOTE_PROGRAMMING )
 	{
 		return false;
 	}
-	sprintf(nstring,"/var/run/motehostprg%u.s19",p_mote->getTty());
-	filename = nstring;
+
+	filename = "/var/run/motehost-";
+	filename += getMacStr(p_mote->getMac());
+	filename += ".s19";
+
 	// create a file
-	fd = open(filename.c_str(),O_CREAT | O_TRUNC | O_WRONLY);
+	fd = open(filename.c_str(), O_CREAT | O_TRUNC | O_WRONLY);
 	if (fd > 0)
 	{
 		// write the entire image to the file

@@ -1,4 +1,4 @@
-SUBDIRS = doc protocols
+SUBDIRS = doc common protocols
 
 if CONFIG_DIKU_MCH
 SUBDIRS += diku_mch
@@ -28,11 +28,14 @@ EXTRA_DIST = \
  bootstrap \
  $(CONTRIB_EXTRA_DIST)
 
-doxygen:
+doc doxygen:
 	$(MAKE) -C doc code
 
 rfc:
 	$(MAKE) -C doc/rfc
+
+ctags:
+	find . -name "*.cc" -or -name "*.h" | ctags -L -
 
 .PHONY: doc
 

@@ -5,23 +5,6 @@ This file contains various minor and major tasks that should be done in
 the future. It also serves as a "scratch pad" for things that should be
 investigated further.
 
-Hotplug
--------
-
-Should be changed to use udev (which seems to be more powerful)
-
- - Hotplug scripts in setup/ directories.
-
- - diku_mch/plugpiper/plugpiper.c: program which writes simply "p"
-   to the /var/run/motehost.events;
-
- - diku_mch/DeviceManager.cc:
-
-	00049  // create a regular expression to match the desired information per device
-	00050  regx = ".*?T: .*?Bus=([0-9]*).*?Prnt=([0-9]*) Port=([0-9]*).*?Dev#=[ ]*([0-9]*).*?(^[ ]*$|SerialNumber=([^\\n]*)).*";
-
- - http://www.reactivated.net/writing_udev_rules.html
-
 Thinstation packaging for DIKU
 ------------------------------
 
