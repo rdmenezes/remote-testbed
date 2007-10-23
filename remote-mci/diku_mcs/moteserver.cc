@@ -8,9 +8,8 @@
 #include <exception>
 #include <unistd.h>
 
-namespace mms = remote;
-using namespace mms;
-using namespace mms::diku_mcs;
+using namespace remote;
+using namespace remote::diku_mcs;
 
 int main(int argc,char** argv)
 {

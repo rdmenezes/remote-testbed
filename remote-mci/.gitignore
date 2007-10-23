@@ -10,6 +10,7 @@ Makefile
 Makefile.in
 .deps
 tags
+TAGS
 *.tar.gz
 *.o
 *.a

@@ -13,7 +13,6 @@ libmcs_a_SOURCES = \
  Session.h \
  SessionListener.cc \
  SessionListener.h \
- constants.h \
  database.cc \
  database.h
 

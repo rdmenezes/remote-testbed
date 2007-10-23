@@ -64,7 +64,6 @@ AC_CHECK_TOOL(ASCIIDOC, asciidoc, :)
 #######################################################################
 
 AX_BOOST_PROGRAM_OPTIONS
-AX_BOOST_REGEX
 AX_LIB_MYSQL
 AX_LIB_MYSQLPP
 
@@ -133,8 +132,7 @@ AC_TYPE_SIGNAL
 #######################################################################
 
 if test "x$CONFIG_DIKU_MCH" = "xyes"; then
-	if test "x$CONFIG_BOOST_PROGRAM_OPTIONS" != "xyes" ||
-	   test "x$CONFIG_BOOST_REGEX" != "xyes"; then
+	if test "x$CONFIG_BOOST_PROGRAM_OPTIONS" != "xyes"; then
 		if test "x$enable_mch" = "xyes"; then
 			AC_MSG_ERROR([MCH dependencies not found on the system])
 		else
@@ -163,11 +161,11 @@ AM_CONDITIONAL(CONFIG_DIKU_MCS, test "x$CONFIG_DIKU_MCS" = "xyes")
 
 AC_CONFIG_FILES([
 		 Makefile
+		 common/Makefile
 		 diku_mch/Makefile
 		 diku_mch/plugpiper/Makefile
 		 diku_mcs/Makefile
 		 doc/Makefile
-		 doc/rfc/Makefile
 		 mcs/Makefile
 		 protocols/Makefile
 ])
@@ -179,7 +177,6 @@ AC_OUTPUT
 
 AC_MSG_RESULT([Found dependencies:])
 AC_MSG_RESULT([  Boost program option library .... $CONFIG_BOOST_PROGRAM_OPTIONS])
-AC_MSG_RESULT([  Boost regex library ............. $CONFIG_BOOST_REGEX])
 AC_MSG_RESULT([  MySQL library ................... $CONFIG_MYSQL])
 AC_MSG_RESULT([  MySQL++ library ................. $CONFIG_MYSQLPP])
 AC_MSG_RESULT([Will build:])

@@ -2,33 +2,31 @@
 
 namespace remote { namespace diku_mch {
 
-SerialControl::SerialControl(unsigned int portnumber)
+SerialControl::SerialControl(std::string& p_tty)
 	       : isRunning(false), isOpen(false), isProgramming(false), wasProgramming(false)
 {
-	char nstring[100];
-	sprintf(nstring,Configuration::vm["usbSerialDevicePath"].as<std::string>().c_str(),portnumber);
-	DeviceName = nstring;
+	tty = p_tty;
 }
 
 const std::string& SerialControl::getDeviceName()
 {
-	return DeviceName;
+	return tty;
 }
 
 
 result_t SerialControl::_open()
 {
-	fprintf(stderr,"%s:%d Opening SerialControl for %s\n",__FILE__,__LINE__,DeviceName.c_str());
+	fprintf(stderr, "%s:%d Opening SerialControl for %s\n", __FILE__, __LINE__, tty.c_str());
 	if (isOpen)
 	{
-		fprintf(stderr,"%s:%d SerialControl already open for %s\n",__FILE__,__LINE__,DeviceName.c_str());
+		fprintf(stderr, "%s:%d SerialControl already open for %s\n", __FILE__, __LINE__, tty.c_str());
 		return FAILURE;
 	}
-	port = open(DeviceName.c_str(), O_RDWR | O_NOCTTY | O_NONBLOCK);
+	port = open(tty.c_str(), O_RDWR | O_NOCTTY | O_NONBLOCK);
 
 	if ( port < 0 )
 	{	
-		fprintf(stderr,"%s:%d No device connected on %s.\n",__FILE__,__LINE__,DeviceName.c_str());
+		fprintf(stderr, "%s:%d No device connected on %s.\n", __FILE__, __LINE__, tty.c_str());
 		return FAILURE;
 	}
 
@@ -72,10 +70,10 @@ result_t SerialControl::_open()
 
 result_t SerialControl::_close()
 {
-	fprintf(stderr,"%s:%d Closing SerialControl for %s\n",__FILE__,__LINE__,DeviceName.c_str());
+	fprintf(stderr, "%s:%d Closing SerialControl for %s\n", __FILE__, __LINE__, tty.c_str());
 	if (!isOpen)
 	{
-		fprintf(stderr,"%s:%d SerialControl not open for %s\n",__FILE__,__LINE__,DeviceName.c_str());
+		fprintf(stderr, "%s:%d SerialControl not open for %s\n", __FILE__, __LINE__, tty.c_str());
 		return FAILURE;
 	}
 	stop();
@@ -85,29 +83,26 @@ result_t SerialControl::_close()
 	return SUCCESS;
 }
 
-pid_t SerialControl::program(uint64_t macAddress, uint16_t tosAddress,std::string program)
+pid_t SerialControl::program(uint64_t macAddress, uint16_t tosAddress, std::string program)
 {
 	int i,j, res;
 	char* args[7];
 	int pfd[2];
 	pid_t pid;
 	char temp[100];
-	std::string mac,tos;
-	sprintf(temp,"0x%x%x",(uint32_t)(macAddress>>32),(uint32_t)macAddress);
-	mac = temp;
-	printf("Using mac %s for programming\n",mac.c_str());
+	std::string mac = getMacStr(macAddress);
+	std::string tos = getTosStr(tosAddress);
 
-	sprintf(temp,"%u",tosAddress);
-	tos = temp;
+	printf("Using mac %s for programming\n", mac.c_str());
 
 	args[0]=(char*)Configuration::vm["moteProgrammerPath"].as<std::string>().c_str();
-	args[1]=(char*)DeviceName.c_str();
+	args[1] = (char *) tty.c_str();
 	args[2]="115200";
 	args[3]=(char*)program.c_str();
 	args[4]= (char*)mac.c_str();
 	args[5]= (char*)tos.c_str();
 	args[6]=NULL;
-	fprintf(stdout, "Got programming request for %s\n",DeviceName.c_str());
+	fprintf(stdout, "Got programming request for %s\n", tty.c_str());
 
 	pipe(pfd);
 	_close();
@@ -256,19 +251,6 @@ int SerialControl::readBuf(char* buf, int len)
 int SerialControl::writeBuf(const char* buf, int len)
 {
 	return write(port,buf,len);
-}
-
-char SerialControl::readChar()
-{
-	char c;
-	read(port,&c,1);
-
-	return c;
-}
-
-void SerialControl::writeChar(char c)
-{
-	write(port,&c,1);
 }
 
 int SerialControl::getFd()

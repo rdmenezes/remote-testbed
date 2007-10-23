@@ -13,7 +13,8 @@ Re-Mote MCI now
    documentation.
 
  - Create new contrib area that provides examples and other utilities.
-   Add udev example script as an alternative to using hotplug.
+
+ - Switch MCH to use UDEV instead of hotplug.
 
 Re-Mote MCI 0.9
 ===============

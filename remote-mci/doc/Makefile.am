@@ -1,5 +1,3 @@
-SUBDIRS = rfc
-
 EXTRA_DIST = \
  Doxyfile
 

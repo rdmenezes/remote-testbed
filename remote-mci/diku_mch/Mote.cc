@@ -2,16 +2,11 @@
 
 namespace remote { namespace diku_mch {
 
-Mote::Mote( uint64_t p_macAddress,
-	    std::string& p_path,
-	    uint16_t p_ttyNum )
-	      : SerialControl(p_ttyNum),
-		macAddress(p_macAddress),
-		ttyNum(p_ttyNum),
-		isvalid(true)
+Mote::Mote(uint64_t p_macAddress, std::string& p_path, std::string& p_tty)
+	: SerialControl(p_tty), macAddress(p_macAddress), isvalid(true)
 {
 	path = p_path;
-	printf("New mote %x at %s\n",(uint32_t)macAddress,path.c_str());
+	printf("New mote %s at %s\n", getMacStr(macAddress), path.c_str());
 }
 
 
@@ -25,48 +20,40 @@ void Mote::invalidate()
 	isvalid = false;
 }
 
-void Mote::validate(std::string& p_path, uint16_t p_ttyNum)
+void Mote::validate(std::string& p_path, std::string& p_tty)
 {
 	isvalid = true;
-	if ( p_path != path )
-	{
+	if (p_path != path) {
 		path = p_path;
 	}
 
-	if ( p_ttyNum != ttyNum )
-	{
-		Mote* testmote = new Mote(macAddress,path,p_ttyNum);
+	if (p_tty != tty) {
+		Mote *testmote = new Mote(macAddress, path, p_tty);
+
 		testmote->_open();
 		bool testOpen = testmote->isOpen;
 		testmote->_close();
 		delete testmote;
-		if ( testOpen )
-		{
-			printf("Changed ttynum from %u to %u\n",ttyNum,p_ttyNum);
-			ttyNum = p_ttyNum;
-			char nstring[100];
-			sprintf(nstring,Configuration::vm["usbSerialDevicePath"].as<std::string>().c_str(),ttyNum);
-			DeviceName = nstring;
 
-			if (isOpen)
-			{
+		if (testOpen) {
+			printf("Changed TTY from %s to %s\n", tty.c_str(), p_tty.c_str());
+			tty = p_tty;
+
+			if (isOpen) {
 				_close();
 				_open();
 			}
 			isvalid = isOpen;
 		}
 	}
-	if (!isvalid) printf("Mote at ttyUSB%u is invalid.\n",ttyNum);
+
+	if (!isvalid)
+		printf("Mote at %s is invalid.\n", tty.c_str());
 }
 
 uint64_t Mote::getMac()
 {
 	return macAddress;
-}
-
-uint16_t Mote::getTty()
-{
-	return ttyNum;
 }
 
 const std::string& Mote::getPath()

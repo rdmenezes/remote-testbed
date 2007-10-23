@@ -227,7 +227,7 @@ void Mote::setAttribute(std::string type, std::string value)
 		// create attribute value
 		res.purge();
 		query.reset();
-		query << "insert into moteattr(moteattrtype_id,val) values(%0:type_id,%1:value)";
+		query << "insert into moteattr(moteattrtype_id,val) values(%0:type_id,'%1:value')";
 		query.parse();
 		query.def["type_id"] = type_id;
 		query.def["value"] = value;
