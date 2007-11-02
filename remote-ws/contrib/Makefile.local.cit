@@ -1,0 +1,43 @@
+################################################################################
+# Configuration section for CIT site
+################################################################################
+
+## Webservice address information
+#
+# Information about the location of the webservice. It will be used when
+# generating the client stubs from the WSDL files.
+
+SERVICEHOST     = testbed.aws.cit.ie
+SERVICEPORT     = 8080
+SERVICEPATH     = axis/services
+
+SERVICELOCATION = http://$(SERVICEHOST):$(SERVICEPORT)/$(SERVICEPATH)
+
+## Webservice admin service information
+#
+# Information about the location and credentials for accessing the
+# webservice framework with the AdminClient. Test the information using
+# the deploy-test rule, which will try to contact the server and list
+# the available webservices.
+# 
+# To use the AdminClient program's default values, leave the variables
+# empty.
+
+ADMINHOST       = testbed.aws.cit.ie
+ADMINPORT       = 8080
+ADMINUSER       =
+ADMINPASS       =
+
+## Location of the server class files
+#
+# The host and path specifying where the web service application
+# infrastructure classes should be deployed. Note, that scp is used for
+# this, so the DEPLOYLOCATION variable should hold a valid scp location.
+#
+# Leave DEPLOYHOST empty to deploy files locally.
+
+DEPLOYHOST      = remote-server
+DEPLOYPATH      = /opt/apache-tomcat-5.5.12/webapps/axis/WEB-INF/classes/
+
+DEPLOYLOCATION  = $(DEPLOYHOST)$(if $(DEPLOYHOST),:)$(DEPLOYPATH)
+
