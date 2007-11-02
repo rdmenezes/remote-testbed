@@ -1123,8 +1123,16 @@ public class ReMote extends JFrame implements SessionEventListener,Authenticatio
 				saveSettings();
 			}
 
-			// FIXME: make port number configurable
-			currentConnection = new ConnectionInfo(server, 10000);
+			// FIXME: prompt the port number
+			String portString = settings.getProperty("serverPort");
+			if (portString == null) {
+				portString = "10000";
+				settings.setProperty("serverPort", portString);
+				saveSettings();
+			}
+			int port = Integer.parseInt(portString);
+
+			currentConnection = new ConnectionInfo(server, port);
 			Session session = this.getSession();
 			session.connect(currentConnection);
 			if (session.isConnected()) {
