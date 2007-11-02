@@ -18,11 +18,11 @@ Furthermore, changes where one developer is assigned can be noted by adding the 
 
 = remote-ws =
 
- * Issue 1: Prevent possible SQL injection attacks. All queries should be changed to use `PreparedStatement`. *(STARTED)*
+ * Issue 1: Prevent possible SQL injection attacks. All queries should be changed to use `PreparedStatement`. *(STARTED)* (JF)
 
 = remote-mci =
 
- * Issue 2: Fix problems with mysql++ usage being incompatible across different versions of the library. *(STARTED)* 
+ * Issue 2: Fix problems with mysql++ usage being incompatible across different versions of the library. *(STARTED)* (JF)
 
  * Issue 3: MCH should read mote platform via mote device file, send the information to MCS, which should put it in the database as a mote attribute.
 
