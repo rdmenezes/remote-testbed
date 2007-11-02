@@ -80,6 +80,8 @@ WSDLFILES	= $(patsubst %,$(WSDLDIR)/%.wsdl,$(SERVICES))
 CLIENTSRC	= $(patsubst %,$(CLIENTSRCDIR)/%-stamp,$(SERVICES))
 CLIENTJAR	= $(LIBDIR)/remote-ws-client.jar
 
+DOCTITLE	= "Re-Mote Web Services"
+
 export CLASSPATH
 
 all: client
@@ -94,7 +96,8 @@ strip-space:
 	perl -p -i -e 's/[ \t]*$$//' $(SERVERSRC) $(WSDDFILES)
 
 doc:
-	$(JAVADOC) -d $(DOCDIR) $(SERVERSRC)
+	$(JAVADOC) -doctitle $(DOCTITLE) -windowtitle $(DOCTITLE) \
+		   -d $(DOCDIR) $(SERVERSRC)
 
 .PHONY: doc
 
