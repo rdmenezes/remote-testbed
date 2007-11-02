@@ -36,7 +36,7 @@ public class Credential implements Serializable{
 
 	/** Is field value hidden?
 	 *
-	 * @return Whether the field is hidden. 
+	 * @return Whether the field is hidden.
 	 */
 	public boolean isHideValue()
 	{
@@ -72,7 +72,7 @@ public class Credential implements Serializable{
 
 	/** Get field value.
 	 *
-	 * @return The field value. 
+	 * @return The field value.
 	 */
 	public String getValue()
 	{
