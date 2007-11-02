@@ -5,6 +5,7 @@
 JAVAC		= javac
 JAVA		= java
 JAR		= jar
+JAVADOC		= javadoc
 SCP		= scp
 CTAGS		= ctags
 
@@ -13,6 +14,7 @@ WSLIBDIR	= ../remote-ws/lib
 BUILDDIR	= build
 CLASSDIR	= $(BUILDDIR)/classes
 BOOTDIR		= $(BUILDDIR)/boot
+DOCDIR		= $(BUILDDIR)/doc
 BOOTJAR		= boot/one-jar-boot-0.95.jar
 BOOTMANIFEST	= boot/manifest.txt
 MAINJAR		= main/main.jar
@@ -41,6 +43,9 @@ tags:
 
 strip-space:
 	perl -p -i -e 's/[ \t]*$$//' $(MAINSRC)
+
+doc:
+	$(JAVADOC) -d $(DOCDIR) $(MAINSRC)
 
 test-build: $(MAINJAR)
 	$(JAVA) gui.ReMote
