@@ -58,6 +58,17 @@ Merge made by recursive.
 ...
 }}}
 
+Rebase the merged changes onto the `git-svn` branch so that the individual changesets are available in SVN and not just the "all-in-one" result of the merge:
+
+{{{
+prompt> git rebase git-svn
+First, rewinding head to replay your work on top of it...
+HEAD is now at 928e21d... Merge branch 'master' into svn
+Applying Add rule for building javadoc documentation
+Applying Display the server host name in the credentials dialog
+...
+}}}
+
 Finally, push the changes to the SVN repository:
 
 {{{
