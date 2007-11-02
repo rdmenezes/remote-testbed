@@ -55,25 +55,6 @@ public class SQLHelper {
 		return rs;
 	}
 
-	/** Execute update query and retrieve results.
-	 *
-	 * @param query	The query to execute.
-	 * @return	The retrieved result set. May be null.
-	 */
-	public ResultSet retrieveRW(String query)
-	{
-		ResultSet rs = null;
-		try {
-			Statement stmt = SQLConnection.createStatement(java.sql.ResultSet.TYPE_SCROLL_SENSITIVE,
-								       java.sql.ResultSet.CONCUR_UPDATABLE);
-			rs = stmt.executeQuery(query);
-		} catch (Exception e) {
-			System.out.println("Exception: " + e.toString());
-			System.out.println("Query: " + query);
-		}
-		return rs;
-	}
-
 	/** Execute update query and return numbers of results.
 	 *
 	 * @param query	The query to execute.
