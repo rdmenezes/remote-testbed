@@ -1,6 +1,5 @@
 package authentication;
 
-import java.sql.ResultSet;
 import util.SQLHelper;
 
 /** Basic session authenticator.
