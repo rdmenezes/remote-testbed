@@ -33,13 +33,13 @@ ADMINPASS	=
 ## Location of the server class files
 #
 # The host and path specifying where the web service application
-# infrastructure classes should be deployed. Note, that scp is used for
+# infrastructure jar files should be deployed. Note, that scp is used for
 # this, so the DEPLOYLOCATION variable should hold a valid scp location.
 #
 # Leave DEPLOYHOST empty to deploy files locally.
 
 DEPLOYHOST	=
-DEPLOYPATH	= /path/to/tomcatX.X/webapps/axis/WEB-INF/classes/
+DEPLOYPATH	= /path/to/tomcatX.X/webapps/axis/WEB-INF/lib/
 
 ################################################################################
 # Build section
