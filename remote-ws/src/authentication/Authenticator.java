@@ -9,6 +9,10 @@ import util.SQLHelper;
  */
 public class Authenticator extends AbstractAuthenticator {
 
+	private static final int PROJECT = 0;
+	private static final int USERNAME = 1;
+	private static final int PASSWORD = 2;
+
 	/** Get an empty array of credential fields.
 	 *
 	 * @return Empty fields for project, user, and password.
@@ -18,9 +22,9 @@ public class Authenticator extends AbstractAuthenticator {
 	{
 		Credential credentials[] = new Credential[3];
 
-		credentials[0] = new Credential("Project", false);
-		credentials[1] = new Credential("User", false);
-		credentials[2] = new Credential("Password", true);
+		credentials[PROJECT]  = new Credential("Project", false);
+		credentials[USERNAME] = new Credential("User", false);
+		credentials[PASSWORD] = new Credential("Password", true);
 
 		return credentials;
 	}
@@ -37,9 +41,9 @@ public class Authenticator extends AbstractAuthenticator {
 	{
 		SQLHelper sql = null;
 		String checkSQL = "select 1 from user u, project p, user_project up " +
-		                  "where u.login='" + credentials[1].getValue() + "' " +
-		                  "and u.password=md5('" + credentials[2].getValue() + "') " +
-		                  "and p.name='" + credentials[0].getValue() + "' " +
+		                  "where u.login='" + credentials[USERNAME].getValue() + "' " +
+		                  "and u.password=md5('" + credentials[PASSWORD].getValue() + "') " +
+		                  "and p.name='" + credentials[PROJECT].getValue() + "' " +
 		                  "and up.user_id=u.id " +
 		                  "and up.project_id=p.id";
 
