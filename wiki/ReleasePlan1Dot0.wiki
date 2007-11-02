@@ -1,0 +1,19 @@
+#summary Plan for the release of version 1.0 of the Re-Mote Testbed Framework
+#labels Phase-RFC,Phase-Design
+
+Below changes that should be made for each of the different modules are listed. Where the changes relates to existing issues this is mentioned, so some details might also exist in the comments of the specified issue. If a change relates to more than one module an issue should probably be created.
+
+The status of each change are marked using:
+
+ * *[[STARTED]]*: meaning implementation is in progress.
+ * *[[DONE]]* meaning the change has been implemented, tested, and is ready.
+
+Furthermore, changes where one developer is assigned can be noted by adding the initials.
+
+= remote-db =
+
+= remote-mci =
+
+= remote-ws =
+
+= remote-gui =
