@@ -1,17 +1,19 @@
 ################################################################################
 # Configuration section
 ################################################################################
+#
+# Note, the following configuration settings can be put in a file called
+# Makefile.local that is automatically sourced by this Makefile. See
+# contrib/Makefile.local.* for examples.
 
 ## Webservice address information
 #
 # Information about the location of the webservice. It will be used when
 # generating the client stubs from the WSDL files.
 
-SERVICEHOST	= amigos30.diku.dk
+SERVICEHOST	= localhost
 SERVICEPORT	= 8080
 SERVICEPATH	= axis/services
-
-SERVICELOCATION = http://$(SERVICEHOST):$(SERVICEPORT)/$(SERVICEPATH)
 
 ## Webservice admin service information
 #
@@ -23,7 +25,7 @@ SERVICELOCATION = http://$(SERVICEHOST):$(SERVICEPORT)/$(SERVICEPATH)
 # To use the AdminClient program's default values, leave the variables
 # empty.
 
-ADMINHOST	= amigos30.diku.dk
+ADMINHOST	= localhost
 ADMINPORT	= 8080
 ADMINUSER	=
 ADMINPASS	=
@@ -36,11 +38,8 @@ ADMINPASS	=
 #
 # Leave DEPLOYHOST empty to deploy files locally.
 
-DEPLOYHOST	= remote-server
-DEPLOYPATH	= /opt/apache-tomcat-5.5.12/webapps/axis/WEB-INF/classes/
-
-
-DEPLOYLOCATION	= $(DEPLOYHOST)$(if $(DEPLOYHOST),:)$(DEPLOYPATH)
+DEPLOYHOST	=
+DEPLOYPATH	= /path/to/tomcatX.X/webapps/axis/WEB-INF/classes/
 
 ################################################################################
 # Build section
@@ -82,7 +81,23 @@ CLIENTJAR	= $(LIBDIR)/remote-ws-client.jar
 
 DOCTITLE	= "Re-Mote Web Services"
 
+## Handle local configuration settings
+#
+# ... and assemble the location variables
+
+-include Makefile.local
+
+SERVICELOCATION = http://$(SERVICEHOST):$(SERVICEPORT)/$(SERVICEPATH)
+DEPLOYLOCATION	= $(DEPLOYHOST)$(if $(DEPLOYHOST),:)$(DEPLOYPATH)
+
+## Export the CLASSPATH to avoid setting it on the command line
+#
+# This can potentially overwrite local CLASSPATH configuration but as
+# far as remote-ws is concerned it should be self contained.
+
 export CLASSPATH
+
+## Basic build rules
 
 all: client
 
@@ -99,7 +114,7 @@ doc:
 	$(JAVADOC) -doctitle $(DOCTITLE) -windowtitle $(DOCTITLE) \
 		   -d $(DOCDIR) $(SERVERSRC)
 
-.PHONY: doc
+.PHONY: all doc clean strip-space
 
 ## Rules for building the server and client class files
 #
