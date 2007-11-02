@@ -1114,10 +1114,15 @@ public class ReMote extends JFrame implements SessionEventListener,Authenticatio
 	private void connect() {
 		try {
 			Properties settings = this.getSettings();
-			settings.setProperty("serverName","amigos33.distlab.diku.dk");
-			this.saveSettings();
 			String server = settings.getProperty("serverName");
-			// FIXME: prompt for serverName if null
+
+			// FIXME: prompt for server name if null
+			if (server == null) {
+				server = "amigos30.diku.dk";
+				settings.setProperty("serverName", server);
+				saveSettings();
+			}
+
 			// FIXME: make port number configurable
 			currentConnection = new ConnectionInfo(server, 10000);
 			Session session = this.getSession();
