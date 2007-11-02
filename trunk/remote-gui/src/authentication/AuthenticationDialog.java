@@ -72,7 +72,7 @@ public class AuthenticationDialog extends JDialog {
 		GridBagLayout gl = new GridBagLayout();
 		panel.setLayout(gl);
 
-		heading = new JLabel("Specifiy credentials");
+		heading = new JLabel("Specify credentials for " + server);
 		heading.setHorizontalAlignment(JLabel.CENTER);
 
 		bOK = new JButton("Log on...");
