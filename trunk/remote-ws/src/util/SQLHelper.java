@@ -8,13 +8,13 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-/** Database helper class */
+/** Database helper class. */
 public class SQLHelper {
 
 	private Connection SQLConnection;
 	private DataSource datasource;
 
-	/** Create managed database connection
+	/** Create managed database connection.
 	 *
 	 * @throws Exception
 	 */
@@ -28,7 +28,7 @@ public class SQLHelper {
 		datasource = (DataSource) envCtx.lookup("jdbc/REMOTE");
 	}
 
-	/** Open connection to the database
+	/** Open connection to the database.
 	 *
 	 * @throws Exception
 	 */
@@ -37,7 +37,7 @@ public class SQLHelper {
 		SQLConnection = datasource.getConnection();
 	}
 
-	/** Execute query and retrieve results
+	/** Execute query and retrieve results.
 	 *
 	 * @param query	The query to execute.
 	 * @return	The retrieved result set. May be null.
@@ -55,7 +55,7 @@ public class SQLHelper {
 		return rs;
 	}
 
-	/** Execute update query and retrieve results
+	/** Execute update query and retrieve results.
 	 *
 	 * @param query	The query to execute.
 	 * @return	The retrieved result set. May be null.
@@ -74,7 +74,7 @@ public class SQLHelper {
 		return rs;
 	}
 
-	/** Execute update query and return numbers of results
+	/** Execute update query and return numbers of results.
 	 *
 	 * @param query	The query to execute.
 	 * @return	The size of the resulting set.
@@ -92,7 +92,7 @@ public class SQLHelper {
 		return count;
 	}
 
-	/** Execute update query
+	/** Execute update query.
 	 *
 	 * @param query	The query to execute.
 	 */
@@ -107,7 +107,7 @@ public class SQLHelper {
 		}
 	}
 
-	/** Close database connection */
+	/** Close database connection. */
 	public void closeDB()
 	{
 		try {
