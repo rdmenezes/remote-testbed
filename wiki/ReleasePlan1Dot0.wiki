@@ -3,17 +3,35 @@
 
 Below changes that should be made for each of the different modules are listed. Where the changes relates to existing issues this is mentioned, so some details might also exist in the comments of the specified issue. If a change relates to more than one module an issue should probably be created.
 
+[http://code.google.com/p/remote-testbed/issues/list?can=2&q=release1.0&colspec=ID+Type+Component+Status+Priority+Milestone+Owner+Summary&x=component&y=priority&mode=grid&cells=tiles  The issues for release 1.0] contains additional information.
+
 The status of each change are marked using:
 
- * *[[STARTED]]*: meaning implementation is in progress.
- * *[[DONE]]* meaning the change has been implemented, tested, and is ready.
+ * *(STARTED)*: meaning implementation is in progress.
+ * *(DONE)* meaning the change has been implemented, tested, and is ready.
 
 Furthermore, changes where one developer is assigned can be noted by adding the initials.
 
 = remote-db =
 
-= remote-mci =
+ * Issue 3: Add mote platform attribute. The priority should probably be higher than tosaddress and macaddress?
 
 = remote-ws =
 
+ * Issue 1: Prevent possible SQL injection attacks. All queries should be changed to use `PreparedStatement`. *(STARTED)*
+
+= remote-mci =
+
+ * Issue 2: Fix problems with mysql++ usage being incompatible across different versions of the library. *(STARTED)* 
+
+ * Issue 3: MCH should read mote platform via mote device file, send the information to MCS, which should put it in the database as a mote attribute.
+
+ * Issue 6: Make MCH support the use of external programs to control mote start, stop, and reset, similar to how programming is currently done via an external program.
+
+ * Update INSTALL file to state which versions of dependencies such as libraries are required.
+
 = remote-gui =
+
+ * Issue 3: Display mote platform in the mote panes.
+
+ * Issue 4: Update state of control motes in the all motes pane. This will not require any round-trip time, only an update of data already in the client.
