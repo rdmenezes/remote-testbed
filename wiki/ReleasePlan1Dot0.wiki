@@ -3,9 +3,7 @@
 
 Below changes that should be made for each of the different modules are listed. Where the changes relates to existing issues this is mentioned, so some details might also exist in the comments of the specified issue. If a change relates to more than one module an issue should probably be created.
 
-[http://code.google.com/p/remote-testbed/issues/list?can=2&q=release1.0&colspec=ID+Type+Component+Status+Priority+Milestone+Owner+Summary&x=component&y=priority&mode=grid&cells=tiles  The issues for release 1.0] contains additional information.
-
-[http://code.google.com/p/remote-testbed/issues/list?can=2&q=release1.0&sort=&mode=grid&y=Status&x=Component&cells=tiles&nobtn=Update The status of all issues] tagged for this releaase.
+[http://code.google.com/p/remote-testbed/issues/list?can=2&q=release1.0&colspec=ID+Type+Component+Status+Priority+Milestone+Owner+Summary&x=component&y=priority&mode=grid&cells=tiles  The issues for release 1.0] contains additional information, such as [http://code.google.com/p/remote-testbed/issues/list?can=2&q=release1.0&sort=&mode=grid&y=Status&x=Component&cells=tiles&nobtn=Update the status of all issues tagged for this release].
 
 The status of each change are marked using:
 
