@@ -35,16 +35,16 @@ public class AuthenticationDialog extends JDialog {
 	private JTextField fields[];
 	private Container panel;
 	private JButton bOK,bQuit;
-	private AuthenticationListener authlistener;
 
 
-
-	public AuthenticationDialog(JFrame f, String server, final String session_id,Properties p,AuthenticationListener l)
+	public AuthenticationDialog(JFrame f, final String server,
+				    final String session_id,
+				    final Properties settings,
+				    final AuthenticationListener authlistener)
 	{
 		super(f,"Authenticate...",true);
 		final AuthenticationDialog dialog = this;
 		authenticator = new ClientAuthenticator(server);
-		authlistener = l;
 		ActionListener listener = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dialog.dispose();
@@ -54,12 +54,24 @@ public class AuthenticationDialog extends JDialog {
 					{
 						credentials[i].setValue(fields[i].getText());
 					}
+
+					boolean authenticated = false;
 					try {
-						authlistener.Authentication(authenticator.authenticate(session_id,credentials),"");
+						authenticated = authenticator.authenticate(session_id, credentials);
 					} catch (Exception ex)
 					{
 						ex.printStackTrace();
 					}
+
+					if (authenticated) {
+						for (int i = 0; i < credentials.length; i++) {
+							if (credentials[i].isHideValue())
+								continue;
+							String name = "auth-" + server + "-" + credentials[i].getLabel();
+							settings.setProperty(name, credentials[i].getValue());
+						}
+					}
+					authlistener.Authentication(authenticated, "");
 
 				} else if (c.equals("quit")) {
 					System.exit(0);
@@ -112,8 +124,12 @@ public class AuthenticationDialog extends JDialog {
 				JPasswordField pw = new JPasswordField();
 				fields[i] = pw;
 			} else	{
+				String name = "auth-" + server + "-" + credentials[i].getLabel();
+				String value = settings.getProperty(name);
 				JTextField field = new JTextField();
 				field.setEditable(true);
+				if (value != null)
+					field.setText(value);
 				fields[i] = field;
 			}
 			c.weightx = 0.3;
