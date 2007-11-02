@@ -1290,6 +1290,8 @@ public class ReMote extends JFrame implements SessionEventListener,Authenticatio
 		if (!result){
 			System.out.println("authentication failed");
 			authenticate();
+		} else {
+			saveSettings();
 		}
 	}
 
