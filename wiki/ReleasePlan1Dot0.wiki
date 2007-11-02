@@ -5,6 +5,8 @@ Below changes that should be made for each of the different modules are listed. 
 
 [http://code.google.com/p/remote-testbed/issues/list?can=2&q=release1.0&colspec=ID+Type+Component+Status+Priority+Milestone+Owner+Summary&x=component&y=priority&mode=grid&cells=tiles  The issues for release 1.0] contains additional information.
 
+[http://code.google.com/p/remote-testbed/issues/list?can=2&q=release1.0&sort=&mode=grid&y=Status&x=Component&cells=tiles&nobtn=Update The status of all issues] tagged for this releaase.
+
 The status of each change are marked using:
 
  * *(STARTED)*: meaning implementation is in progress.
