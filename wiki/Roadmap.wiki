@@ -37,3 +37,5 @@ View [http://code.google.com/p/remote-testbed/issues/list?can=2&q=release1.0&col
  * Issue 3: Display mote platform in the mote panes.
 
  * Issue 4: Update state of control motes in the all motes pane. This will not require any round-trip time, only an update of data already in the client.
+
+ * Remove/disable traces of the "motes map", since it is unlikely to be ready for this release.
