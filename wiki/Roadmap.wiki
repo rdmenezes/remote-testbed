@@ -31,6 +31,8 @@ To get an overview of what needs work, view all the issues tagged as belonging t
 
  * Issue 6: Make MCH support the use of external programs to control mote start, stop, and reset, similar to how programming is currently done via an external program.
 
+ * Issue 7: Add support Tmote and MicaZ.
+
  * Update INSTALL file to state which versions of dependencies such as libraries are required.
 
 === remote-gui ===
