@@ -39,4 +39,4 @@ To get an overview of what needs work, view all the issues tagged as belonging t
 
  * Issue 4: Update state of control motes in the all motes pane. This will not require any round-trip time, only an update of data already in the client.
 
- * Remove/disable traces of the "motes map", since it is unlikely to be ready for this release.
+ * Remove/disable the "motes map", since it is unlikely to be ready for this release.
