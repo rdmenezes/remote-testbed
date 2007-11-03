@@ -1,4 +1,4 @@
-#summary Development roadmap and release plans for the Re-Mote Testbed Framework
+#summary Development roadmap and release plans
 #labels Phase-Requirements,Phase-RFC
 
 For each milestone, tasks that should be made for each of the different modules are listed. Where the changes relates to existing issues this is mentioned, and more details for the task will exist in the comments of the specified issue. Any task of "a significant size" should have its own issues, and issues should always be created when a task involves several modules.
