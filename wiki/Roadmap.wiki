@@ -12,8 +12,8 @@ Tasks that have been assigned to a developer can be noted by adding the develope
 
 == Re-Mote Testbed Framework version 1.0 ==
 
-To get an overview of what needs work, view all the issues tagged as belonging to this release [http://code.google.com/p/remote-testbed/issues/list?can=2&q=release1.0&colspec=ID+Type+Component+Status+Priority+Milestone+Owner+Summary&x=component&y=priority&mode=grid&cells=tiles  sorted by priority] or
-[http://code.google.com/p/remote-testbed/issues/list?can=2&q=release1.0&sort=&mode=grid&y=Status&x=Component&cells=tiles&nobtn=Update sorted by status].
+View all the issues belonging to this release [http://code.google.com/p/remote-testbed/issues/list?can=2&q=release1.0&colspec=ID+Type+Component+Status+Priority+Milestone+Owner+Summary&x=component&y=priority&mode=grid&cells=tiles  sorted by priority] or
+[http://code.google.com/p/remote-testbed/issues/list?can=2&q=release1.0&sort=&mode=grid&y=Status&x=Component&cells=tiles&nobtn=Update sorted by status] to get an overview of what needs work.
 
 === remote-db ===
 
