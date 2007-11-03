@@ -1,12 +1,16 @@
 #summary Development roadmap and release plans for the Re-Mote Testbed Framework
 #labels Phase-Requirements,Phase-RFC
 
-Below changes that should be made for each of the different modules are listed. Where the changes relates to existing issues this is mentioned, so some details might also exist in the comments of the specified issue. If a change relates to more than one module an issue should probably be created.
+For each milestone, tasks that should be made for each of the different modules are listed. Where the changes relates to existing issues this is mentioned, and more details for the task will exist in the comments of the specified issue.
 
-The status of each change are marked using:
+Any task of "a significant size" should have its own issues, and issues should always be created when a task involves several modules.
+
+The status of tasks in this document are marked using:
 
  * *(STARTED)*: meaning implementation is in progress.
  * *(DONE)* meaning the change has been implemented, tested, and is ready.
+
+They should reflect the status of individual issues, when possible.
 
 Furthermore, changes where one developer is assigned can be noted by adding the initials.
 
