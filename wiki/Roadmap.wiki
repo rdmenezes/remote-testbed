@@ -34,7 +34,7 @@ View all the open issues belonging to this release [http://code.google.com/p/rem
 
  * Issue 7: Add support Tmote and MicaZ.
 
- * Update INSTALL file to state which versions of dependencies such as libraries are required.
+ * Issue 13: Listing supported platform and required depencies are a must for new people considering the use of Re-Mote.
 
  * Issue 9: Using strings for mote TOS/MAC addresses will allow to simplify things considerably and remove usage of the `tosaddress` and `macaddress` DB tables.
 
@@ -44,7 +44,7 @@ View all the open issues belonging to this release [http://code.google.com/p/rem
 
  * Issue 4: Update state of control motes in the all motes pane. This will not require any round-trip time, only an update of data already in the client.
 
- * Remove/disable the "motes map", since it is unlikely to be ready for this release.
+ * Issue 14: Remove/disable the potentially misleading "motes map", since it is unlikely to be ready for this release.
 
 == Re-Mote Testbed Framework version 2.0 ==
 
