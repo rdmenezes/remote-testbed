@@ -60,3 +60,5 @@ git branch -f svn/master master
 git checkout "${HEAD#refs/heads/}"
 git branch -D svn/tmp
 }}}
+
+Note, only run this script in a "clean" working directory to avoid problems with local changes that will cause checkout or rebase to error out.
