@@ -1,7 +1,7 @@
 #summary Development roadmap and release plans
 #labels Phase-Requirements,Phase-RFC
 
-For each milestone, tasks that should be made for each of the different modules are listed. Where the changes relates to existing issues this is mentioned, and more details for the task will exist in the comments of the specified issue. Any task of "a significant size" should have its own issues, and issues should always be created when a task involves several modules.
+This pages provides an overview of the plans concerning all future milestones.  For each milestone, tasks related with the different modules are listed. Any significant task of has an associated issue for tracking its progress and status; issues should always be created when a task involves several modules. Most details for tasks are available in the task's associated issue page.
 
 Each task listed should contain one of the following strings to describe its status. When possible, the status should reflect that of the associated issue.
 
