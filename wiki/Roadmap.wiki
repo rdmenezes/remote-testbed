@@ -58,4 +58,4 @@ View all the open issues belonging to this release [http://code.google.com/p/rem
 
 === remote-mci ===
 
- * issue 8: MCH should support IPv6, however, as long as it is not requested (and thus there are no testers) this can be prosponed.
+ * issue 8: MCH should support IPv6, however, as long as it is not requested (and thus there are no testers) this can be postponed.
