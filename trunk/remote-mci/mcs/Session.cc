@@ -79,7 +79,7 @@ void Session::createSessionRecord()
 	else
 	{
 		delete this;
-		__THROW__ ("Failed to insert new mote in database!\n");
+		__THROW__ ("Failed to insert new session in database!\n");
 	}
 	query.reset();
 }
