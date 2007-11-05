@@ -14,6 +14,8 @@ import util.SQLHelper;
  */
 public abstract class AbstractAuthenticator {
 
+	private static final String AUTH_QUERY = "update session set auth=1 where id=?";
+
 	/** Get an empty array of credential fields.
 	 *
 	 * This function should be implemented to return an array of
@@ -43,13 +45,12 @@ public abstract class AbstractAuthenticator {
 			return false;
 
 		SQLHelper sql = null;
+		Object[] params = { session_id };
 
 		try {
-			String auth = "update session set auth=1 where id=" + session_id;
-
 			sql = new SQLHelper();
 			sql.openDB();
-			return sql.update(auth) == 1;
+			return sql.update(AUTH_QUERY, params) == 1;
 
 		} finally {
 			sql.closeDB();

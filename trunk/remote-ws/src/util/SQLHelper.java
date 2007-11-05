@@ -1,6 +1,7 @@
 package util;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
@@ -39,8 +40,13 @@ public class SQLHelper {
 
 	/** Execute query and retrieve results.
 	 *
-	 * @param query	The query to execute.
-	 * @return	The retrieved result set. May be null.
+	 * Note, this should only be used for internal and sanitized
+	 * parameters. Else use the version that takes parameters as
+	 * a separate argument to prevent SQL injection attacks.
+	 *
+	 * @param query	 The query to execute.
+	 * @return	 The retrieved result set. May be null.
+	 * @see SQLHelper#retrieve(String query, Object[] params)
 	 */
 	public ResultSet retrieve(String query)
 	{
@@ -55,33 +61,72 @@ public class SQLHelper {
 		return rs;
 	}
 
+	/** Execute query and retrieve results.
+	 *
+	 * @param query	 The query to execute.
+	 * @param params The query parameters to use.
+	 * @return	 The retrieved result set. May be null.
+	 */
+	public ResultSet retrieve(String query, Object[] params)
+	{
+		try {
+			PreparedStatement stmt = SQLConnection.prepareStatement(query);
+
+			for (int i = 0; i < params.length; i++) {
+				stmt.setObject(i + 1, params[i]);
+			}
+
+			return stmt.executeQuery();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Query: " + query);
+		}
+
+		return null;
+	}
+
 	/** Execute update query and return numbers of results.
 	 *
-	 * @param query	The query to execute.
-	 * @return	The size of the resulting set.
+	 * @param query	 The query to execute.
+	 * @param params The query parameters to use.
+	 * @return	 The size of the resulting set.
 	 */
-	public int update(String query)
+	public int update(String query, Object[] params)
 	{
-		int count = 0;
 		try {
-			Statement stmt = SQLConnection.createStatement();
-			count = stmt.executeUpdate(query);
+			PreparedStatement stmt = SQLConnection.prepareStatement(query);
+
+			for (int i = 0; i < params.length; i++) {
+				stmt.setObject(i + 1, params[i]);
+			}
+
+			return stmt.executeUpdate();
+
 		} catch (Exception e) {
 			System.out.println("Exception: " + e.toString());
 			System.out.println("Query: " + query);
 		}
-		return count;
+
+		return 0;
 	}
 
 	/** Execute update query.
 	 *
-	 * @param query	The query to execute.
+	 * @param query	 The query to execute.
+	 * @param params The query parameters to use.
 	 */
-	public void execute(String query)
+	public void execute(String query, Object[] params)
 	{
 		try {
-			Statement stmt = SQLConnection.createStatement();
-			stmt.execute(query);
+			PreparedStatement stmt = SQLConnection.prepareStatement(query);
+
+			for (int i = 0; i < params.length; i++) {
+				stmt.setObject(i + 1, params[i]);
+			}
+
+			stmt.execute();
+
 		} catch (Exception e) {
 			System.out.println("Exception: " + e.toString());
 			System.out.println("Query: " + query);
@@ -93,9 +138,8 @@ public class SQLHelper {
 	{
 		try {
 			SQLConnection.close();
-		}
-		catch (Exception e)
-		{
+
+		} catch (Exception e) {
 			System.out.println("Exception: " + e.getMessage());
 		}
 	}

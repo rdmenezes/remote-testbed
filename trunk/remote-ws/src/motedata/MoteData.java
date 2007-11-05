@@ -29,12 +29,13 @@ public class MoteData {
 		SQLHelper sql = null;
 		ResultSet rs = null;
 		SimpleTable result = null;
+		Object[] param = { session_id };
 
 		try {
 			sql = new SQLHelper();
 			sql.openDB();
-			query = " select m.id mote_id, m.site_id site_id,s.sitename site, " +
-					"case when m.curr_session_id="+session_id+" then 'controlled' " +
+			query = "select m.id mote_id, m.site_id site_id,s.sitename site, " +
+				"case when m.curr_session_id=? then 'controlled' " +
 			        "when isnull(m.curr_session_id) then 'available' else 'occupied' end mote_usage ";
 
 			select = "select id, name from moteattrtype order by sortseq";
@@ -49,7 +50,7 @@ public class MoteData {
 			}
 			query+=" from mote m, site s " +
 			       " where s.id=m.site_id";
-			rs = sql.retrieve(query);
+			rs = sql.retrieve(query, param);
 			rs.last();
 			int rows = rs.getRow();
 			int cols = rs.getMetaData().getColumnCount();
