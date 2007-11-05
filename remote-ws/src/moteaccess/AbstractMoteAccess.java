@@ -51,15 +51,7 @@ public abstract class AbstractMoteAccess {
 			ResultSet sqlres = sql.retrieve(query);
 			if (sqlres.next()){
 				String privsess = sqlres.getString("priv_session_id");
-				if (privsess == null || privsess.compareTo(session_id) == 0) {
-					access = true;
-				} else {
-					// check privileges with reservation system
-					if (hasReservation(mote_id,session_id))
-					{
-						access = true;
-					}
-				}
+				access = checkMoteAccess(session_id, privsess, mote_id);
 			}
 			if (access) {
 				query = "update mote set priv_session_id="+session_id+
@@ -71,6 +63,28 @@ public abstract class AbstractMoteAccess {
 		} finally {
 			sql.closeDB();
 		}
+	}
+
+	/** Check for mote access.
+	 *
+	 * Check if mote can be accessed by the given session, either
+	 * because no session or the given session is (already) using
+	 * the mote, or the give session has an active reservation.
+	 *
+	 * @param session_id	ID of session that wants access.
+	 * @param priv_id	ID of currently privileged session; null if none.
+	 * @param mote_id	ID of mote for which access is wanted.
+	 * @return True if mote access can be acquired.
+	 * @throws Exception
+	 */
+	protected boolean checkMoteAccess(String session_id, String priv_id, long mote_id) throws Exception
+	{
+		/* Check if mote is not in use or is already under control? */
+		if (priv_id == null || priv_id.compareTo(session_id) == 0)
+			return true;
+
+		/* Check privileges with reservation system. */
+		return hasReservation(mote_id, session_id);
 	}
 
 	/** Check if session can reserve a given mote.
