@@ -1,0 +1,53 @@
+Re-Mote UDEV rules
+------------------
+
+This directory contains UDEV rules files for hooking into the userspace
+device event system and create device symlinks and run mote setup
+scripts. The following naming scheme should be used:
+
+	<priority>-remote-<platform>-<task>.rules
+
+Where:
+
+ - `<platform>` is the name of the mote platform in lower case, eg.
+   `dig528-2`.
+ - `<task>` is either `symlink` or `run`.
+ - `<priority>` depends on `<task>` and should be `65` for `symlink`
+   rules and `85` for `run` rules.
+
+As an example, the dig528-2 platform uses the following rules:
+
+	65-remote-dig528-2-symlink.rules
+	85-remote-dig528-2-run.rules
+
+The main motivation for splitting up the tasks is to give the `symlink`
+rules a priority that ensures they are invoked before the `run` rules,
+which depends on the existence of mote device symlinks.
+
+No well defined priority scheme seems to have been designed UDEV,
+however, Debian uses the following scheme, which has been adopted for
+this project:
+
+	00   rules that it is critical to be run first, usually
+	     only WAIT_FOR_SYSFS
+
+	20   rules that change the name from the device from the default
+	     (cannot be overriden)
+
+	40   rules that set the permissions of device nodes
+	     (can be overriden by later rules)
+
+	60   rules that add symlinks to device nodes
+	     (adds to those set in earlier rules)
+
+	80   rules that run programs (but do not load modules)
+
+	90   rules that load modules
+
+	99   rules that it is critical to be run last
+
+	This scheme has been chosen so that user-supplied rules are
+	normally named 50-*.rules for the right thing to happen.
+
+	Packages should chose the approriate sequence point and add 5 to
+	it unless there is a need for a particular order.
