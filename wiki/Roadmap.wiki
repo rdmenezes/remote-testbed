@@ -26,7 +26,7 @@ View all the open issues belonging to this release [http://code.google.com/p/rem
 
 === remote-mci ===
 
- * Issue 2: Fix problems with mysql++ usage being incompatible across different versions of the library. *(STARTED)* (JF)
+ * Issue 2: Fix problems with mysql++ usage being incompatible across different versions of the library.
 
  * Issue 3: MCH should read mote platform via mote device file, send the information to MCS, which should put it in the database as a mote attribute.
 
@@ -62,4 +62,4 @@ View all the open issues belonging to this release [http://code.google.com/p/rem
 
 === remote-mci ===
 
- * issue 8: MCH should support IPv6, however, as long as it is not requested (and thus there are no testers) this can be postponed.
+ * Issue 8: MCH should support IPv6, however, as long as it is not requested (and thus there are no testers) this can be postponed.
