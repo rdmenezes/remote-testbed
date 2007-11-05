@@ -46,18 +46,42 @@ void DeviceManager::refresh(std::string devicePath)
 	}
 }
 
-/* FIXME: move (and reuse) */
-/** Read from file descriptor and retry if interrupted. */
-static inline ssize_t xread(int fd, void *buf, size_t len)
+std::string DeviceManager::readMoteDeviceFile(std::string path)
 {
-	ssize_t nr;
+	char buffer[1024];
+	ssize_t size, i;
+	int fd;
 
-	while (1) {
-		nr = read(fd, buf, len);
-		if ((nr < 0) && (errno == EAGAIN || errno == EINTR))
-			continue;
-		return nr;
+	fd = open(path.c_str(), O_RDONLY | O_NONBLOCK);
+	if (fd < 0)
+		return "";
+
+	do {
+		size = read(fd, buffer, sizeof(buffer) - 1);
+	} while ((size < 0) && (errno == EAGAIN || errno == EINTR));
+
+	/* Non-blocking, so we should have the full contents now. */
+	close(fd);
+
+	/* Sanitize the string to only hold sane ASCII characters. */
+	for (i = size - 1; i >= 0; i--) {
+		int c = buffer[i];
+
+		if (c <= ' ' || c > 126) {
+			/* Discard cruft at the end. */
+			if (i + 1 == size) {
+				size--;
+				continue;
+			}
+
+			c = '_';
+		}
+
+		buffer[i] = c;
 	}
+	buffer[size] = 0;
+
+	return buffer;
 }
 
 /** Open /dev/remote and register information about each mote. */
@@ -76,31 +100,10 @@ void DeviceManager::readMoteDevices(std::string devicePath)
 		uint64_t moteMac = strtoll(dentry->d_name, NULL, 16);
 		std::string entryPath = devicePath + "/" + dentry->d_name + "/";
 		std::string moteTty = entryPath + "tty";
-		std::string motePath;
-		char buffer[1024];
-		ssize_t size;
-		int fd;
+		std::string motePath = readMoteDeviceFile(entryPath + "path");
 
-		entryPath += "path";
-		fd = open(entryPath.c_str(), O_RDONLY | O_NONBLOCK);
-		if (fd < 0)
+		if (motePath == "")
 			continue;
-
-		size = xread(fd, buffer, sizeof(buffer) - 1);
-		close(fd);
-
-		// non-blocking, so we should have the full contents now
-		while (size > 0) {
-			buffer[size] = 0;
-			if (!isspace(buffer[size - 1]))
-				break;
-			size--;
-		}
-
-		if (size <= 0)
-			continue;
-
-		motePath = buffer;
 
 		updateMote(moteMac, motePath, moteTty);
 	}

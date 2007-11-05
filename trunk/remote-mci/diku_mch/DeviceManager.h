@@ -33,6 +33,7 @@ class DeviceManager
 	private:
 		static void readMoteDevices(std::string devicePath);
 		static void updateMote(uint64_t mac, std::string& path, std::string& tty);
+		static std::string readMoteDeviceFile(std::string path);
 };
 
 }}
