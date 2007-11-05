@@ -385,7 +385,7 @@ public class ReMote extends JFrame implements SessionEventListener,Authenticatio
 					}
 				}
 			});
-			submenu.add(menuitem);
+			//submenu.add(menuitem);
 			jJMenuBar.add(submenu);
 		}
 		return jJMenuBar;
@@ -942,7 +942,8 @@ public class ReMote extends JFrame implements SessionEventListener,Authenticatio
 		moteView.setVisible(true);
 		getMoteTabView().addTab(moteView);
 		getMoteTabView().repaint();
-		getSplitWindow1().setWindows(getSplitWindow2(),getMoteTabView());
+		//getSplitWindow1().setWindows(getSplitWindow3(),getMoteTabView());
+		getSplitWindow1().setWindows(getSplitWindow3(),getMoteTabView());
 		return moteView;
 	}
 
@@ -1248,7 +1249,8 @@ public class ReMote extends JFrame implements SessionEventListener,Authenticatio
 	public SplitWindow getSplitWindow1() {
 		if (splitWindow1 == null)
 		{
-			splitWindow1 = new SplitWindow(true,0.3f,getSplitWindow2(),getMoteTabView());
+			//splitWindow1 = new SplitWindow(true,0.3f,getSplitWindow2(),getMoteTabView());
+			splitWindow1 = new SplitWindow(true,0.3f,getSplitWindow3(),getMoteTabView());
 		}
 		return splitWindow1;
 	}
