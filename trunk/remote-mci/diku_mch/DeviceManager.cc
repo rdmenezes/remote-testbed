@@ -75,6 +75,8 @@ std::string DeviceManager::readMoteDeviceFile(std::string path)
 			}
 
 			c = '_';
+		} else if (c == '\'' || c == '"' || c == '\\') {
+			c = '_';
 		}
 
 		buffer[i] = c;
