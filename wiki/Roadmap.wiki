@@ -14,6 +14,8 @@ View all the open issues belonging to this release [http://code.google.com/p/rem
 
  * Issue 3: Add mote platform attribute. The priority should probably be higher than tosaddress and macaddress?
 
+ * Issue 5: Prepare for IPv6 support.
+
 === remote-ws ===
 
  * Issue 1: Prevent possible SQL injection attacks. All queries should be changed to use `PreparedStatement`.
