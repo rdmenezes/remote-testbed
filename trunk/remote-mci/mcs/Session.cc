@@ -282,47 +282,4 @@ void Session::dropMoteControl(dbkey_t mote_id)
 
 }
 
-/*void Session::handleAuthRequest(MsgAuthRequest& authReq)
-{
-	Message message;
-	msg_out.type = SERVERMSG_AUTHORIZECONFIRM;
-	mysqlpp::Connection& sqlConn = dbConn.getConnection();
-	// look up and verify the credentials in the database
-	mysqlpp::Result res;
-	mysqlpp::Query query = sqlConn.query();
-
-	query << "select up.id user_project_id, up.user_id,up.project_id \
-	          from user_project up, user u, project p \
-	          where p.name ='%0:project' \
-	          and u.login ='%1:username' \
-	          and u.password=md5('%2:password') \
-	          and up.user_id = u.id \
-	          and up.project_id = p.id";
-	          
-	          
-	query.parse();
-	query.def["project"] = *(new std::string(authReq.getProject().getString()));
-	query.def["username"] = *(new std::string(authReq.getUsername().getString()));
-	query.def["password"] = *(new std::string(authReq.getPassword().getString()));
-	
-	res = query.store();
-	
-	if ( res.num_rows() != 1 )
-	{
-		msg_out.getAuthConfirm().result = FAILURE;
-		log("Client not authorized!\n");
-	}
-	else
-	{
-		user_id = res.at(0)["user_id"];
-		project_id = res.at(0)["project_id"];
-		user_project_id = res.at(0)["user_project_id"];
-		authorized = true;
-		msg_out.getAuthConfirm().result = SUCCESS;
-		log("Client authorized!\n");
-	}	
-	query.reset();
-	message.sendMsg(fd,msg_out);
-}*/
-
 }}
