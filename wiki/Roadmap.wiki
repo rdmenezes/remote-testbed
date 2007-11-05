@@ -37,3 +37,13 @@ View all the open issues belonging to this release [http://code.google.com/p/rem
  * Issue 4: Update state of control motes in the all motes pane. This will not require any round-trip time, only an update of data already in the client.
 
  * Remove/disable the "motes map", since it is unlikely to be ready for this release.
+
+== Re-Mote Testbed Framework version 2.0 ==
+
+No issues yet.
+
+== Re-Mote Testbed Framework version "future" ==
+
+=== remote-mci ===
+
+ * Improve IPv6 support.
