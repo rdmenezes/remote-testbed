@@ -48,4 +48,4 @@ No issues yet.
 
 === remote-mci ===
 
- * issue 8: MCH should support IPv6.
+ * issue 8: MCH should support IPv6, however, as long as it is not requested (and thus there are no testers) this can be prosponed.
