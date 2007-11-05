@@ -189,6 +189,36 @@ void Mote::dropSession(bool notify)
 	}
 }
 
+std::string Mote::getAttribute(std::string type)
+{
+	mysqlpp::Connection& sqlConn = dbConn.getConnection();
+	mysqlpp::Query query = sqlConn.query();
+	const char *attr = "";
+
+	// get attribute type id
+	query << "select id from moteattrtype where name=" << mysqlpp::quote << type;
+	mysqlpp::ResUse res = query.use();
+	res.disable_exceptions();
+	mysqlpp::Row row = res.fetch_row();	
+	if (!row || row.empty()) { __THROW__ ("Mote attribute type not found!"); }
+	dbkey_t type_id = (dbkey_t) row["id"];
+
+	res.purge();
+	query.reset();
+	query << "select val from mote_moteattr mma, moteattr ma"
+		 " where mma.moteattr_id=ma.id"
+		 "   and ma.moteattrtype_id=" << type_id
+	      << "   and mma.mote_id=" << mote_id;
+
+	res = query.use();
+	res.disable_exceptions();
+	row = res.fetch_row();
+	if (row && !row.empty())
+		attr = row["val"];
+
+	return attr;
+}
+
 void Mote::setAttribute(std::string type, std::string value)
 {
 	mysqlpp::Connection& sqlConn = dbConn.getConnection();

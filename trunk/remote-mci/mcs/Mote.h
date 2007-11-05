@@ -103,7 +103,10 @@ class Mote
 		 * \param value Attribute value to assign
 		 **/
 		void setAttribute(std::string type, std::string value);
-			
+
+		/** Query existence of attribute. */
+		std::string getAttribute(std::string type);
+
 		/**	 Mote Control Infrastructure address. **/
 		MCIAddress& mciAddress;
 		/** Database key of the mote **/
