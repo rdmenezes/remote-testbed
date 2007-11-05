@@ -14,9 +14,9 @@ endif
 # AC_OUTPUT. --jonas
 CONTRIB_EXTRA_DIST = \
  contrib/etc/* \
- contrib/etc/hotplug/usb/* \
  contrib/etc/init.d/* \
- contrib/etc/udev/rules.d/*
+ contrib/etc/udev/rules.d/* \
+ contrib/etc/udev/scripts/*
 
 EXTRA_DIST = \
  AUTHORS \
