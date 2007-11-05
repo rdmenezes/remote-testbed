@@ -13,6 +13,11 @@ public class Authenticator extends AbstractAuthenticator {
 	private static final int USERNAME = 1;
 	private static final int PASSWORD = 2;
 
+	private static final String CHECK_CRED_QUERY =
+		"select 1 from user u, project p, user_project up " +
+		"where u.login=? and u.password=md5(?) and p.name=? " +
+		"and up.user_id=u.id and up.project_id=p.id";
+
 	/** Get an empty array of credential fields.
 	 *
 	 * @return Empty fields for project, user, and password.
@@ -40,17 +45,16 @@ public class Authenticator extends AbstractAuthenticator {
 	protected boolean checkCredentials(String session_id, Credential[] credentials) throws Exception
 	{
 		SQLHelper sql = null;
-		String checkSQL = "select 1 from user u, project p, user_project up " +
-		                  "where u.login='" + credentials[USERNAME].getValue() + "' " +
-		                  "and u.password=md5('" + credentials[PASSWORD].getValue() + "') " +
-		                  "and p.name='" + credentials[PROJECT].getValue() + "' " +
-		                  "and up.user_id=u.id " +
-		                  "and up.project_id=p.id";
+		Object[] params = {
+			credentials[USERNAME].getValue(),
+			credentials[PASSWORD].getValue(),
+			credentials[PROJECT].getValue(),
+		};
 
 		try {
 			sql = new SQLHelper();
 			sql.openDB();
-			return sql.retrieve(checkSQL).next();
+			return sql.retrieve(CHECK_CRED_QUERY, params).next();
 
 		} finally {
 			sql.closeDB();

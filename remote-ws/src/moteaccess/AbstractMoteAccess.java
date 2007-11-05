@@ -12,6 +12,12 @@ import util.SQLHelper;
  */
 public abstract class AbstractMoteAccess {
 
+	private static final String ACCESS_QUERY =
+		"update mote set priv_session_id=? where id=?";
+
+	private static final String PRIV_QUERY =
+		"select priv_session_id from mote where id=?";
+
 	/** Acquire mote control privileges using specific session.
 	 *
 	 * @param mote_ids	IDs of mote to control.
@@ -41,22 +47,30 @@ public abstract class AbstractMoteAccess {
 	{
 		boolean access = false;
 		SQLHelper sql = null;
+		Object[] priv_params = { new Long(mote_id) };
 
+		/* TODO: The queries in here are executed multiple
+		 * times. Since we use PreparedStatements this could be
+		 * optimized by moving the query initialization out of
+		 * the loop. This would require that SQLHelper exposes
+		 * more of its internal state such as allowing
+		 * PreparedStatement to be returned. */
 		try {
-			// Check for current privileged session
-			String query = "select priv_session_id from mote " +
-			               "where id="+mote_id;
 			sql = new SQLHelper();
 			sql.openDB();
-			ResultSet sqlres = sql.retrieve(query);
-			if (sqlres.next()){
+
+			/* Check for current privileged session. */
+			ResultSet sqlres = sql.retrieve(PRIV_QUERY, priv_params);
+			if (sqlres.next()) {
 				String privsess = sqlres.getString("priv_session_id");
+
 				access = checkMoteAccess(session_id, privsess, mote_id);
 			}
+
 			if (access) {
-				query = "update mote set priv_session_id="+session_id+
-				        " where id="+mote_id;
-				sql.execute(query);
+				/* Grant privileges to current session. */
+				Object[] access_params = { session_id, new Long(mote_id) };
+				sql.execute(ACCESS_QUERY, access_params);
 			}
 			return access;
 
