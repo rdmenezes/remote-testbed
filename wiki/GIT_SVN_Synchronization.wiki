@@ -26,56 +26,37 @@ prompt> git svn fetch
 r11 = 37275f86ebaa13616554dc5ddbeb1112d6e897f3 (git-svn)
 }}}
 
-Next, create a local branch from `git-svn`:
+Next, create a local branch for tracking what in `master` has been synchronized to SVN:
 
 {{{
-prompt> git branch svn git-svn
+prompt> git branch svn/master master
 prompt> git branch -v
 * master            e594a0c Ignore tag and *.tar.gz files
-  svn               37275f8 Add remote-mci module
+  svn/master         37275f8 Add remote-mci module
 }}}
 
 This concludes the setup.
 
 = Updating the SVN repository with the newest changes =
 
-The following should be done each time the SVN repository should be updated. It assumes that changes happen in one direction only.
-
-First, change to the svn branch:
+The following script can be used to update SVN with new changes in the `master` branch. It will create a temporary branch for rebasing all new changes on top of the SVN trunk (remote branch `git-svn`) and commit them to the SVN repository:
 
 {{{
-prompt> git checkout svn 
-Switched to branch "svn"
-}}}
+#!/bin/sh
 
-Then, merge the newest changes from the master branch:
+HEAD="$(git symbolic-ref HEAD)" || exit 1
 
-{{{
-prompt> git merge master
-Merge made by recursive.
- .gitignore                                         |   15 +
- AUTHORS                                            |    6 +
-...
-}}}
+die()
+{
+        echo "git-svn-update: $*"
+        exit 1
+}
 
-Rebase the merged changes onto the `git-svn` branch so that the individual changesets are available in SVN and not just the "all-in-one" result of the merge:
-
-{{{
-prompt> git rebase git-svn
-First, rewinding head to replay your work on top of it...
-HEAD is now at 928e21d... Merge branch 'master' into svn
-Applying Add rule for building javadoc documentation
-Applying Display the server host name in the credentials dialog
-...
-}}}
-
-Finally, push the changes to the SVN repository:
-
-{{{
-prompt> git svn dcommit
-Committing to https://remote-testbed.googlecode.com/svn/trunk/remote-mci ...
-        A       .gitignore
-        A       AUTHORS
-        A       COPYING
-...
+git svn fetch || die "failed to fetch SVN changes"
+git branch -f svn/tmp master || die "failed to update/create temporary working branch"
+git rebase --onto git-svn svn/master svn/tmp || die "failed to rebase on top of git svn branch"
+git svn dcommit || die "failed to update SVN repository"
+git branch -f svn/master master
+git checkout "${HEAD#refs/heads/}"
+git branch -D svn/tmp
 }}}
