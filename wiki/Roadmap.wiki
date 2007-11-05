@@ -48,7 +48,11 @@ View all the open issues belonging to this release [http://code.google.com/p/rem
 
 == Re-Mote Testbed Framework version 2.0 ==
 
-No issues yet.
+ * Issue 12: Making testbed administration easier is crucial for large testbeds.
+
+=== remote-db ===
+
+ * Issue 11: Reorganizing the files of the DB module will further improve the self-documenting hierarchy of this module.
 
 == Re-Mote Testbed Framework version "future" ==
 
