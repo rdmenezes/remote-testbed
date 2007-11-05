@@ -90,27 +90,16 @@ void Host::findOrCreateMote(MsgMoteConnectionInfo& info)
 	mysqlpp::Query moteselect = sqlConn.query();
 	
 	mysqlpp::Query pathinsert = sqlConn.query();	
-	mysqlpp::Query macinsert = sqlConn.query();	
 	
 	siteselect << "select site_id from path \
 	               where host_id = %0:hostid \
 	               and path='%1:path'";
 	               
-	moteselect << "select mote_id from macaddress \
-	               where macaddress = %0:macaddress";
-	               
 	pathinsert << "insert into path(host_id,path) \
 	               values( %0:hostid,'%1:path' )";
-	               
-	macinsert << "insert into macaddress(macaddress,mote_id) \
-	              values ( %0:macaddress,%1:mote_id)";
 	
-	moteselect.parse();
 	siteselect.parse();
-	
 	pathinsert.parse();	
-	macinsert.parse();
-
 	
 	// look for the connection path + host id to get the site_id
 	siteselect.def["hostid"] = id;
@@ -138,7 +127,11 @@ void Host::findOrCreateMote(MsgMoteConnectionInfo& info)
 	site_id = (dbkey_t) row["site_id"];
 	
 	// look for the mac addresses in the database, get mote_id	
-	moteselect.def["macaddress"] = info.macAddress;
+	moteselect << "select mote_id from moteattr ma, mote_moteattr mma, moteattrtype mat"
+		      " where ma.val=" << mysqlpp::quote << getMacStr(info.macAddress)
+		   << "   and mma.moteattr_id=ma.id"
+		      "   and ma.moteattrtype_id=mat.id"
+		      "   and mat.name='macaddress'";
 
 	selectRes.purge();
 	selectRes = moteselect.use();
@@ -157,9 +150,6 @@ void Host::findOrCreateMote(MsgMoteConnectionInfo& info)
 		mote = new Mote(site_id,(MoteControlInfrastructure&)*this,*newtarget);
 		// TODO: error checking
 		// create the mac and tos address database records using the mote id
-		macinsert.def["macaddress"] = info.macAddress;
-		macinsert.def["mote_id"] = mote->mote_id;
-		macinsert.execute();
 		newtarget->tosAddress = (uint16_t) mote->mote_id;
 
 		mac = getMacStr(info.macAddress);
