@@ -12,8 +12,8 @@ Tasks that have been assigned to a developer can be noted by adding the develope
 
 == Re-Mote Testbed Framework version 1.0 ==
 
-View all the issues belonging to this release [http://code.google.com/p/remote-testbed/issues/list?can=2&q=release1.0&colspec=ID+Type+Component+Status+Priority+Milestone+Owner+Summary&x=component&y=priority&mode=grid&cells=tiles  sorted by priority] or
-[http://code.google.com/p/remote-testbed/issues/list?can=2&q=release1.0&sort=&mode=grid&y=Status&x=Component&cells=tiles&nobtn=Update sorted by status] to get an overview of what needs work.
+View all the open issues belonging to this release [http://code.google.com/p/remote-testbed/issues/list?can=2&q=release1.0&colspec=ID+Type+Component+Status+Priority+Milestone+Owner+Summary&x=component&y=priority&mode=grid&cells=tiles  sorted by priority] or
+[http://code.google.com/p/remote-testbed/issues/list?can=2&q=release1.0&sort=&mode=grid&y=Status&x=Component&cells=tiles&nobtn=Update sorted by status] ( [http://code.google.com/p/remote-testbed/issues/list?can=1&q=release1.0&x=component&y=status&mode=grid&cells=tiles all]) to get an overview of what needs work.
 
 === remote-db ===
 
@@ -21,7 +21,7 @@ View all the issues belonging to this release [http://code.google.com/p/remote-t
 
 === remote-ws ===
 
- * Issue 1: Prevent possible SQL injection attacks. All queries should be changed to use `PreparedStatement`. *(STARTED)* (JF)
+ * Issue 1: Prevent possible SQL injection attacks. All queries should be changed to use `PreparedStatement`. *(DONE)* (JF)
 
 === remote-mci ===
 
