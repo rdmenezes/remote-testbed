@@ -54,6 +54,10 @@ View all the open issues belonging to this release [http://code.google.com/p/rem
 
  * Issue 11: Reorganizing the files of the DB module will further improve the self-documenting hierarchy of this module.
 
+=== remote-gui ===
+
+ * Issue 15: Reorganizing the code will make it more hackable in Java IDEs, which are very good at catching stuff like deprecated methods.
+
 == Re-Mote Testbed Framework version "future" ==
 
 === remote-mci ===
