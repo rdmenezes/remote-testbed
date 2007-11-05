@@ -66,24 +66,6 @@ bool Message::nonBlockingRecv(int fd)
 }
 
 
-/*void Message::recvMsg(int fd,BaseMsg& msg)
-{
-	if (data) delete data;
-	// read length, then data
-	if (!recv(fd,datalen))
-		__THROW__ ("Unable to receive datalen!");
-//	printf("Reading %u bytes of message data\n",datalen);
-	data = new uint8_t[datalen];
-	if (recv(fd, (char*)data, datalen, MSG_WAITALL) <= 0)
-		__THROW__ ("Unable to send data!");
-
-	uint32_t len = datalen;
-	//	let msg read the buffer
-	msg.read(data,len);
-//	msg.print(stdout);
-//	printf("Done reading %u bytes of message data\n\n\n",datalen);
-}*/
-
 void Message::sendMsg(int fd,BaseMsg& msg)
 {
 	uint32_t len;
