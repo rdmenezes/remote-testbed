@@ -32,7 +32,7 @@ Next, create a local branch for tracking what in `master` has been synchronized 
 prompt> git branch svn/master master
 prompt> git branch -v
 * master            e594a0c Ignore tag and *.tar.gz files
-  svn/master         37275f8 Add remote-mci module
+  svn/master        e594a0c Ignore tag and *.tar.gz files
 }}}
 
 This concludes the setup.
