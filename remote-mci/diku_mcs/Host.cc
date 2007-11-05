@@ -88,11 +88,9 @@ void Host::findOrCreateMote(MsgMoteConnectionInfo& info)
 
 	mysqlpp::Query siteselect = sqlConn.query();	
 	mysqlpp::Query moteselect = sqlConn.query();
-	mysqlpp::Query tosselect = sqlConn.query();	
 	
 	mysqlpp::Query pathinsert = sqlConn.query();	
 	mysqlpp::Query macinsert = sqlConn.query();	
-	mysqlpp::Query tosinsert = sqlConn.query();
 	
 	siteselect << "select site_id from path \
 	               where host_id = %0:hostid \
@@ -101,24 +99,17 @@ void Host::findOrCreateMote(MsgMoteConnectionInfo& info)
 	moteselect << "select mote_id from macaddress \
 	               where macaddress = %0:macaddress";
 	               
-	tosselect << "select tosaddress from tosaddress \
-	              where mote_id = %0:mote_id";
-	               
 	pathinsert << "insert into path(host_id,path) \
 	               values( %0:hostid,'%1:path' )";
 	               
 	macinsert << "insert into macaddress(macaddress,mote_id) \
 	              values ( %0:macaddress,%1:mote_id)";
 	
-	tosinsert << "insert into tosaddress(mote_id) values( %0:mote_id )";
-	
 	moteselect.parse();
 	siteselect.parse();
-	tosselect.parse();
 	
 	pathinsert.parse();	
 	macinsert.parse();
-	tosinsert.parse();	
 
 	
 	// look for the connection path + host id to get the site_id
@@ -169,9 +160,7 @@ void Host::findOrCreateMote(MsgMoteConnectionInfo& info)
 		macinsert.def["macaddress"] = info.macAddress;
 		macinsert.def["mote_id"] = mote->mote_id;
 		macinsert.execute();
-		tosinsert.def["mote_id"] = mote->mote_id;
-		execRes = tosinsert.execute();		
-		newtarget->tosAddress = execRes.insert_id;
+		newtarget->tosAddress = (uint16_t) mote->mote_id;
 
 		mac = getMacStr(info.macAddress);
 		tos = getTosStr(newtarget->tosAddress);
@@ -187,12 +176,9 @@ void Host::findOrCreateMote(MsgMoteConnectionInfo& info)
 		// update the mote database record to reflect the new site
 		mote = new Mote(mote_id,site_id,(MoteControlInfrastructure&)*this,*newtarget);
 
-		// add tosAddress as external mote info
-		tosselect.def["mote_id"] = mote_id; // get the tos address
-		selectRes = tosselect.use();
-		selectRes.disable_exceptions();
-		row = selectRes.fetch_row();		
-		newtarget->tosAddress = (uint16_t)row["tosaddress"];
+		// get the tos address mote attribute
+		newtarget->tosAddress = atoi(mote->getAttribute("tosaddress").c_str());
+		// TODO: error checking
 	}
 	
 	if (mote)
