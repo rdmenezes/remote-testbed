@@ -1,14 +1,9 @@
 #summary Development roadmap and release plans
 #labels Phase-Requirements,Phase-RFC
 
-This pages provides an overview of the plans concerning all future milestones.  For each milestone, tasks related with the different modules are listed. Any significant task of has an associated issue for tracking its progress and status; issues should always be created when a task involves several modules. Most details for tasks are available in the task's associated issue page.
+This pages provides an overview of the plans concerning all future milestones.  For each milestone, tasks related with the different modules are listed. Any significant task of has an associated issue for tracking its progress and status; issues should always be created when a task involves several modules. Most details for tasks are available in the task's associated issue page, however, motivation why this should be changed in the tagged milestone and other planning related comments should be mentioned here.
 
-Each task listed should contain one of the following strings to describe its status. When possible, the status should reflect that of the associated issue.
-
- * *(STARTED)*: meaning implementation is in progress.
- * *(DONE)* meaning the change has been implemented, tested, and is ready.
-
-Tasks that have been assigned to a developer can be noted by adding the developer's initials.
+Note, that resolved issues are displayed with a "strike through" link. Get an overview of the status of other issues via the issue tracker's search page; links are provided for each milestone.
 
 == Re-Mote Testbed Framework version 1.0 ==
 
@@ -21,7 +16,7 @@ View all the open issues belonging to this release [http://code.google.com/p/rem
 
 === remote-ws ===
 
- * Issue 1: Prevent possible SQL injection attacks. All queries should be changed to use `PreparedStatement`. *(DONE)* (JF)
+ * Issue 1: Prevent possible SQL injection attacks. All queries should be changed to use `PreparedStatement`.
 
 === remote-mci ===
 
