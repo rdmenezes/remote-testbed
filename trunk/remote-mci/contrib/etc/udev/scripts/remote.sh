@@ -6,7 +6,7 @@
 #
 # SYNOPSIS
 # --------
-# /etc/udev/scripts/remote.sh MOTEMAC DEVPATH
+# /etc/udev/scripts/remote.sh MOTEMAC MOTEPATH
 #
 # DESCRIPTION
 # -----------
@@ -28,7 +28,7 @@
 #	acquired using %s{serial} or similar sysfs entry and combined
 #	with a well-known vendor and product ID.
 #
-# DEVPATH::
+# MOTEPATH::
 #
 #	The second is the desired device path, which should be a unique
 #	enough to fully describe the bus, where the mote is attached,
@@ -50,7 +50,7 @@
 #
 #	The physical UDEV device path (or similar) for the mote device
 #	with the given MAC address. This file is created by this script
-#	using the DEVPATH command line argument.
+#	using the MOTEPATH command line argument.
 #
 # /dev/remote/${MOTEMAC}/tty::
 #
@@ -91,7 +91,7 @@ PLUGPIPER="/sbin/plugpiper"
 ########################################################################
 
 MOTEMAC="$1"
-DEVPATH="$2"
+MOTEPATH="$2"
 
 info ()
 {
@@ -109,11 +109,11 @@ test -d "$DEVROOT" || die "Device root is not a directory ($DEVROOT)"
 case "$ACTION" in
 add)
 	test -n "$MOTEMAC" || die "No mote MAC defined"
-	test -n "$DEVPATH" || die "No device path defined"
+	test -n "$MOTEPATH" || die "No device path defined"
 	test -e "$DEVROOT/$MOTEMAC/tty" || die "No TTY exists for '$MOTEMAC'"
 	test -e "$DEVROOT/$MOTEMAC/path" && die "Path exists for '$MOTEMAC'"
-	echo "$DEVPATH" > "$DEVROOT/$MOTEMAC/path"
-	info "adding mote '$MOTEMAC' with path '$DEVPATH'"
+	echo "$MOTEPATH" > "$DEVROOT/$MOTEMAC/path"
+	info "adding mote '$MOTEMAC' with path '$MOTEPATH'"
 	;;
 
 remove)
