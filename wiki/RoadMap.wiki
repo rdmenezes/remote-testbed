@@ -9,8 +9,8 @@ Note, that resolved issues are displayed with a "strike through" link. Get an ov
 
 The goal of this release is to have all the basic things working. The main focus is to support features required by the DIKU and CIT testbeds.
 
-View all the open issues belonging to this release [http://code.google.com/p/remote-testbed/issues/list?can=2&q=release1.0&colspec=ID+Type+Component+Status+Priority+Milestone+Owner+Summary&x=component&y=priority&mode=grid&cells=tiles  sorted by priority] or
-[http://code.google.com/p/remote-testbed/issues/list?can=2&q=release1.0&sort=&mode=grid&y=Status&x=Component&cells=tiles&nobtn=Update sorted by status] ( [http://code.google.com/p/remote-testbed/issues/list?can=1&q=release1.0&x=component&y=status&mode=grid&cells=tiles all]) to get an overview of what needs work.
+View all the open issues belonging to this release [http://code.google.com/p/remote-testbed/issues/list?can=2&q=release1.0&x=component&y=priority&mode=grid    sorted by priority] or
+[http://code.google.com/p/remote-testbed/issues/list?can=2&q=release1.0&x=component&y=status&mode=grid status] ( [http://code.google.com/p/remote-testbed/issues/list?can=1&q=release1.0&x=component&y=status&mode=grid all]) to get an overview of what needs work.
 
 === remote-db ===
 
