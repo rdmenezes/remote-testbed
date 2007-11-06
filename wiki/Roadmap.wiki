@@ -38,6 +38,8 @@ View all the open issues belonging to this release [http://code.google.com/p/rem
 
  * Issue 9: Using strings for mote TOS/MAC addresses will allow to simplify things considerably and remove usage of the `tosaddress` and `macaddress` DB tables.
 
+ * Issue 17: Although this design approach will require some more initial thoughts and work, it will reduce the need for future changes wrt. mote attribute handling.
+
 === remote-gui ===
 
  * Issue 3: Display mote platform in the mote panes.
