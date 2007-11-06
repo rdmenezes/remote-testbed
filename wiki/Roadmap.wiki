@@ -46,6 +46,8 @@ View all the open issues belonging to this release [http://code.google.com/p/rem
 
  * Issue 14: Remove/disable the potentially misleading "motes map", since it is unlikely to be ready for this release.
 
+ * Issue 16: This should both improve error handling during start-up and make it possible to configure MCS server and port via a dialog.
+
 == Re-Mote Testbed Framework version 2.0 ==
 
  * Issue 12: Making testbed administration easier is crucial for large testbeds.
