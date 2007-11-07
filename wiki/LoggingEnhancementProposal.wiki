@@ -1,0 +1,106 @@
+#summary Proposal for better logging infrastructure in the MCI component
+#labels Phase-RFC,Component-MCI
+
+= Logging Infrastructure Enhancement Proposal =
+
+This enhancement proposal suggest that all daemons in the Re-Mote
+Testbed Infrastructure use a common logging infrastructure. By routing
+all log messages through a single module it will be possible to dispatch
+them to a suitable place, such as syslog for a running daemon or a
+specific file or terminal while debugging.
+
+*NOTE* This is slightly outdated and needs to be updated.
+
+== Background ==
+
+All Re-Mote servers currently use a mixture of `printf`-statements or the
+inline log macro defined in `protocols/macros.h`, which also uses printf
+for outputting. Since daemons can optionally be daemonized, whereby
+`stdout` and `stderr` is closed. This results in all logging message being
+lost, which makes it hard to find problems in running systems. When
+daemonizing, the option to output messages to syslog paired with the
+ability to support different log levels can be of great help.
+
+
+== Details and considerations ==
+
+The `protocols/` and `mcs/` modules already use the log macro and should
+thus be straight forward to convert. The `diku_mcs/` module already use
+log and only use printf sparingly, `diku_mch/`, however, makes more wide
+uses of printf, including for outputting messages that most of all looks
+like debug left overs.
+
+During the conversion there will be some considerations regarding what
+log level the individual messages should have. This might involve some
+extra tunning after the logging infrastructure has been introduced to
+remove frequent but non-important messages that floods the logs and make
+more important message harder to spot.
+
+While the logging infrastructure can be implemented as a Log class,
+using macros to wrap it has several advantages. First, it will make it
+easier to change the underlying implementation, such as calling
+convention and class name. Second, it makes it trivial to add source
+code information to the log messages such as file name and line number,
+which can be useful for early testing. Finally, it makes it easy to
+completely disable the logging by defining the macros to no-ops.
+
+The current logging macro is named "log", which is dense and to the
+point. However, it should be considered, whether the macro name(s)
+should stand more out and be capitalized to signal that it is a macro.
+Also, the logging macros should all be prefixed with either `LOG_` or
+`log_`.  Since the syslog header already uses the `LOG_` prefix, it is
+easier to use the `log_` namespace and keep the macros non-capitalized.
+Additionally, the log level should be encoded in the macro name, e.g.
+`log_info` or `log_error`. Hereby the interface becomes slightly simpler to
+maintain with fewer arguments and fewer names/symbols of which to keep
+track.
+
+The logging infrastructure should be able to use syslog as a "backend".
+As such, logging levels should be somewhat compatible with syslog.
+Syslog defines 7 log levels, however, that level of granularity seems
+excessive and is not really required. Defining only 5 seems more
+appropriate:
+
+ * _fatal_: critical conditions (mapped to syslog's `LOG_EMERG`)
+ * _error_: error conditions (`LOG_ERR`)
+ * _warn_: warning conditions (`LOG_WARNING`)
+ * _info_: informational messages (`LOG_INFO`)
+ * _debug_: debug-level messages (`LOG_DEBUG`)
+
+The macros will depend on the compiler supporting variadic arguments.
+Since all compilers do not support this, a check for that might have to
+be added to the configure script.
+
+Apart from adding option to the daemons for controlling the logging
+infrastructure, such as default log level and enaling/disabling syslog,
+it should also be considered whether environment variables should be
+added for setting the log file to ease testing further. The names could
+be `REMOTE_MCH_LOG` and `REMOTE_MCS_LOG`. Being able to use:
+
+{{{
+$ REMOTE_MCH_LOG=test-XYZ.log ./diku_mch/diku_mch ...
+}}}
+
+makes it very easy to redirect log messages to an appropriate place. The
+question is, whether it is preferable over a command line option.
+
+
+== Proposed changes and roadmap ==
+
+ * Define a set of logging macros in `protocols/macros.h`
+
+ * Change the source to use the new macros.
+
+   * protocols/
+   * mcs/
+   * diku_mcs/
+   * diku_mch/
+
+ * Add options to the daemons to enable/disable syslog and set the log levels.
+
+ * Optionally, add support for setting log file via environment variable.
+
+
+== Other implications ==
+
+ * A few cleanups to the existing logging needs to be done upfront.
