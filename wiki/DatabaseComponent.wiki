@@ -1,5 +1,5 @@
 #summary Overview of the Re-Mote Database Component (remote-db)
-#labels Featured,Phase-Deploy,Component-DB
+#labels Phase-Deploy,Component-DB
 
 = The Re-Mote Database Scripts =
 
