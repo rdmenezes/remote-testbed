@@ -1,5 +1,5 @@
 #summary Development roadmap and release plans
-#labels Phase-Design,Phase-Requirements,Phase-RFC,Featured
+#labels Phase-Design,Phase-Requirements,Featured
 
 = The Re-Mote Roadmap =
 
