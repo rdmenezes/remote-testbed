@@ -1,5 +1,5 @@
 #summary Introduction to the Re-Mote WebService Component (remote-ws)
-#labels Featured,Phase-Deploy,Component-WS
+#labels Phase-Deploy,Component-WS
 
 = The Re-Mote Web Services =
 
