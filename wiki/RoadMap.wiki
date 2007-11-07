@@ -7,6 +7,8 @@ This pages provides an overview of the plans concerning all future milestones.  
 
 Get an overview of the status of open issues and what needs work via the issue tracker's search page; links are provided for each milestone. Resolved issues are displayed with a "strike through" link.
 
+To complement the roadmap, larger tasks and design changes requiring detailed investigation should be described and discussed in [EnhancementProposals enhancement proposal documents].
+
 == Re-Mote Testbed Framework version 1.0 ==
 
 The goal of this release is to have all the basic things working. The main focus is to support features required by the DIKU and CIT testbeds.
