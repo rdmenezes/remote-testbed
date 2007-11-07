@@ -3,7 +3,7 @@
 
 = The Re-Mote Roadmap =
 
-This pages provides an overview of the plans concerning all future milestones.  For each milestone, tasks related with the different modules are listed. Any significant task of has an associated issue for tracking its progress and status; issues should always be created when a task involves several modules. Most details for tasks are available in the task's associated issue page, however, motivation why this should be changed in the tagged milestone and other planning related comments should be mentioned here.
+This pages provides an overview of the plans concerning all future milestones.  For each milestone, tasks are listed into related groups. Any significant task has an associated issue for tracking its progress and status; issues should always be created when a task involves several modules. Most details for tasks are available in the task's associated issue page, however, motivation why this should be changed in the tagged milestone and other planning related comments should be mentioned here.
 
 Note, that resolved issues are displayed with a "strike through" link. Get an overview of the status of other issues via the issue tracker's search page; links are provided for each milestone.
 
