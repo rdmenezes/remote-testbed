@@ -1,0 +1,13 @@
+#summary How to get started using Re-Mote in testbeds
+#labels Phase-Deploy,Phase-Design,Featured
+
+= Introduction =
+
+The Re-Mote Testbed Framework consists of 4 basic components:
+
+ * DatabaseComponent
+ * WebServiceComponent
+ * MoteControlComponent
+ * ClientComponent
+
+Before deploying a testbed, please read about the SecurityConsiderations.
