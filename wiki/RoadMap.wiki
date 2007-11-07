@@ -11,7 +11,7 @@ Get an overview of the status of open issues and what needs work via the issue t
 
 The goal of this release is to have all the basic things working. The main focus is to support features required by the DIKU and CIT testbeds.
 
-Open issues sorted by [http://code.google.com/p/remote-testbed/issues/list?q=label:Milestone-Release1.0&can=2&x=component&y=status&mode=grid status] or [http://code.google.com/p/remote-testbed/issues/list?q=label:Milestone-Release1.0&can=2&x=component&y=priority&mode=grid     priority]. [http://code.google.com/p/remote-testbed/issues/list?q=label:Milestone-Release1.0&can=1 All] issues belonging to this milestone.
+Open issues sorted by [http://code.google.com/p/remote-testbed/issues/list?can=2&q=release1.0&x=component&y=status&mode=grid status] or [http://code.google.com/p/remote-testbed/issues/list?can=2&q=release1.0&x=component&y=priority&mode=grid     priority]. [http://code.google.com/p/remote-testbed/issues/list?can=1&q=release1.0 All] issues belonging to this milestone.
 
 === User Interface ===
 
@@ -51,7 +51,7 @@ Open issues sorted by [http://code.google.com/p/remote-testbed/issues/list?q=lab
 
 == Re-Mote Testbed Framework version 2.0 ==
 
-Open issues sorted by [http://code.google.com/p/remote-testbed/issues/list?q=label:Milestone-Release1.0&can=2&x=component&y=status&mode=grid status] or [http://code.google.com/p/remote-testbed/issues/list?q=label:Milestone-Release1.0&can=2&x=component&y=priority&mode=grid     priority]. [http://code.google.com/p/remote-testbed/issues/list?q=label:Milestone-Release1.0&can=1 All] issues belonging to this milestone.
+Open issues sorted by [http://code.google.com/p/remote-testbed/issues/list?can=2&q=release2.0&x=component&y=status&mode=grid status] or [http://code.google.com/p/remote-testbed/issues/list?can=2&q=release2.0&x=component&y=priority&mode=grid     priority]. [http://code.google.com/p/remote-testbed/issues/list?can=1&q=release2.0 All] issues belonging to this milestone.
 
 === User Interface ===
 
@@ -65,7 +65,7 @@ Open issues sorted by [http://code.google.com/p/remote-testbed/issues/list?q=lab
 
 == Re-Mote Testbed Framework version "future" ==
 
-Open issues sorted by [http://code.google.com/p/remote-testbed/issues/list?q=label:Milestone-Future&can=2&x=component&y=status&mode=grid status] or [http://code.google.com/p/remote-testbed/issues/list?q=label:Milestone-Future&can=2&x=component&y=priority&mode=grid     priority]. [http://code.google.com/p/remote-testbed/issues/list?q=label:Milestone-Future&can=1 All] issues belonging to this milestone.
+Open issues sorted by [http://code.google.com/p/remote-testbed/issues/list?can=2&q=milestone-future&x=component&y=status&mode=grid status] or [http://code.google.com/p/remote-testbed/issues/list?can=2&q=milestone-future&x=component&y=priority&mode=grid     priority]. [http://code.google.com/p/remote-testbed/issues/list?can=1&q=milestone-future All] issues belonging to this milestone.
 
 === User Interface ===
 
