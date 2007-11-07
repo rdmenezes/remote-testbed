@@ -1,7 +1,7 @@
-#summary How to get started using Re-Mote in testbeds
+#summary How to install and maintain a testbeds with Re-Mote
 #labels Phase-Deploy,Phase-Design,Featured
 
-= Introduction =
+= Getting Started with Re-Mote =
 
 The Re-Mote Testbed Framework consists of 4 basic components:
 
