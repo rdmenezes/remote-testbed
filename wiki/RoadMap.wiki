@@ -3,7 +3,7 @@
 
 = The Re-Mote Roadmap =
 
-This pages provides an overview of the plans concerning all future milestones.  For each milestone, tasks are listed into related groups. Any significant task has an associated issue for tracking its progress and status; issues should always be created when a task involves several modules. Most details for tasks are available in the task's associated issue page, however, motivation why this should be changed in the tagged milestone and other planning related comments should be mentioned here.
+This pages provides an overview of the plans concerning all future milestones.  For each milestone, tasks are listed into related groups. Any significant task has an associated issue for tracking its progress and status; issues should always be created when a task involves several modules. Most details for tasks are available in the task's associated issue page.
 
 Get an overview of the status of open issues and what needs work via the issue tracker's search page; links are provided for each milestone. Resolved issues are displayed with a "strike through" link.
 
@@ -13,36 +13,7 @@ The goal of this release is to have all the basic things working. The main focus
 
 Open issues sorted by [http://code.google.com/p/remote-testbed/issues/list?can=2&q=release1.0&x=component&y=status&mode=grid status] or [http://code.google.com/p/remote-testbed/issues/list?can=2&q=release1.0&x=component&y=priority&mode=grid     priority]. [http://code.google.com/p/remote-testbed/issues/list?can=1&q=release1.0 All] issues belonging to this milestone.
 
- 
-=== remote-db ===
-
- * Issue 3: Add mote platform attribute. The priority should probably be higher than tosaddress and macaddress?
-
- * Issue 10: Remove the `tosaddress` and `macaddress` site specific tables.
-
- * Issue 5: Prepare for IPv6 support.
-
-=== remote-ws ===
-
- * Issue 1: Prevent possible SQL injection attacks. All queries should be changed to use `PreparedStatement`.
-
-=== remote-mci ===
-
- * Issue 2: Fix problems with mysql++ usage being incompatible across different versions of the library.
-
- * Issue 3: MCH should read mote platform via mote device file, send the information to MCS, which should put it in the database as a mote attribute.
-
- * Issue 6: Make MCH support the use of external programs to control mote start, stop, and reset, similar to how programming is currently done via an external program.
-
- * Issue 7: Add support Tmote and MicaZ.
-
- * Issue 13: Listing supported platform and required depencies are a must for new people considering the use of Re-Mote.
-
- * Issue 9: Using strings for mote TOS/MAC addresses will allow to simplify things considerably and remove usage of the `tosaddress` and `macaddress` DB tables.
-
- * Issue 17: Although this design approach will require some more initial thoughts and work, it will reduce the need for future changes wrt. mote attribute handling.
-
-=== remote-gui ===
+=== User Interface ===
 
  * Issue 3: Display mote platform in the mote panes.
 
@@ -51,6 +22,32 @@ Open issues sorted by [http://code.google.com/p/remote-testbed/issues/list?can=2
  * Issue 14: Remove/disable the potentially misleading "motes map", since it is unlikely to be ready for this release.
 
  * Issue 16: This should both improve error handling during start-up and make it possible to configure MCS server and port via a dialog.
+
+=== Security ===
+
+ * Issue 1: Prevent possible SQL injection attacks. All queries should be changed to use `PreparedStatement`.
+
+=== Interoperability ===
+
+ * Issue 2: Fix problems with mysql++ usage being incompatible across different versions of the library.
+
+ * Issue 5: Prepare DB for IPv6 support.
+
+=== Infrastructure ===
+
+ * Issue 6: Make MCH support the use of external programs to control mote start, stop, and reset, similar to how programming is currently done via an external program.
+
+ * Issue 7: Add support Tmote and MicaZ.
+
+ * Issue 9: Using strings for mote TOS/MAC addresses will allow to simplify things considerably and remove usage of the `tosaddress` and `macaddress` DB tables.
+
+ * Issue 10: Remove the `tosaddress` and `macaddress` site specific tables.
+
+ * Issue 17: Although this design approach will require some more initial thoughts and work, it will reduce the need for future changes wrt. mote attribute handling.
+
+=== Documentation ===
+
+ * Issue 13: Listing supported platform and required depencies are a must for new people considering the use of Re-Mote.
 
 == Re-Mote Testbed Framework version 2.0 ==
 
