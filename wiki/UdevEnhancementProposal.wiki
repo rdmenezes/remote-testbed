@@ -1,4 +1,5 @@
 #summary Proposal for switching to using udev in the MCI component
+#labels Phase-RFC,Component-MCI
 
 = Udev Device Management =
 
