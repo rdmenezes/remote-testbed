@@ -1,4 +1,4 @@
-#summary Information for developer
+#summary Information for developers
 #labels Phase-Implementation
 
 = Introduction =
