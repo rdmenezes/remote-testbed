@@ -8,3 +8,7 @@ This document is currently mostly a placeholder. It should be expanded as needed
 == Code Repositories ==
 
 To get the latest version of the source code, use either the [http://code.google.com/p/remote-testbed/source SVN repository] or the [http://repo.or.cz/w/remote.git git repositories]. The primary version control system used for managing Re-Mote is [http://git.or.cz/ git]. This means that the newest changes are always available first in the git repositories which is then periodically synchronized with the SVN repository. The SvnSynchronization process tries (as of around 2007-11-01) to mirror the history as good as can be done.
+
+== Release Planning ==
+
+The RoadMap contains the plan of future major milestones and uses the [http://code.google.com/p/remote-testbed/issues/list issue tracker] to manage the different tasks. Additional [http://code.google.com/p/remote-testbed/w/list?q=label:Phase-RFC design documents] may exist from time to time, detailing enhancement proposals.
