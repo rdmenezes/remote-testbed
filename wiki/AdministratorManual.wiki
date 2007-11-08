@@ -1,0 +1,13 @@
+#summary How to install and maintain a testbeds with Re-Mote
+#labels Phase-Deploy,Component-Docs
+
+= Getting Started with Re-Mote =
+
+The Re-Mote Testbed Framework consists of 4 basic components:
+
+ * DatabaseComponent
+ * WebServiceComponent
+ * MoteControlComponent
+ * ClientComponent
+
+Before deploying a testbed, please read about the SecurityConsiderations.
