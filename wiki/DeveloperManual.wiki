@@ -1,0 +1,10 @@
+#summary Information for developer
+#labels Phase-Implementation
+
+= Introduction =
+
+This document is currently mostly a placeholder. It should be expanded as needed to cover important aspects related to the development of Re-Mote.
+
+== Code repositories ==
+
+Re-Mote is managed using [http://git.or.cz/ git] as the primary version control system with the public repositories being hosted using [http://repo.or.cz/ repo.or.cz]. However, to make the code more easily accessible, the git repositories are periodically synchronized with the SVN repositories provided by Google Code's project hosting. How this is done is explained in SvnSynchronization.
