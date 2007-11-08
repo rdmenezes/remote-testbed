@@ -1,7 +1,9 @@
 #summary How to setup and synchronize between git and SVN
 #labels Phase-Implementation
 
-= Setting up the SVN transport =
+= Synchronizing the SVN Repository =
+
+== Setting up the SVN transport ==
 
 Assumes `$module` is set to either of `remote-{db,gui,mci,ws}`
 and `$username` is set to the googlecode username.
@@ -37,7 +39,7 @@ prompt> git branch -v
 
 This concludes the setup.
 
-= Updating the SVN repository with the newest changes =
+== Updating the SVN repository with the newest changes ==
 
 The following script can be used to update SVN with new changes in the `master` branch. It will create a temporary branch for rebasing all new changes on top of the SVN trunk (remote branch `git-svn`) and commit them to the SVN repository:
 
