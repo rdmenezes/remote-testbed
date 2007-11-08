@@ -1,5 +1,5 @@
 #summary How to install and maintain a testbeds with Re-Mote
-#labels Phase-Deploy,Component-Docs
+#labels Phase-Deploy,Component-Docs,Featured
 
 = Getting Started with Re-Mote =
 
