@@ -7,7 +7,7 @@ This is a placeholder for now, please help expand it to cover important parts of
 
 == Downloading and Running the Re-Mote Client ==
 
-The Re-Mote Client can be downloaded from the [http://code.google.com/p/remote-testbed/downloads/list?can=2&q=jar download area]. You should generally always choose the latest version; the one with the highest version number. Prerelease versions may exists that should be considered less stable. You are welcome to help test these!
+The Re-Mote Client can be downloaded from the [http://code.google.com/p/remote-testbed/downloads/list?can=2&q=label:Application-Client download area]. You should generally always choose the latest version; the one with the highest version number. Prerelease versions may exists that should be considered less stable. You are welcome to help test these!
 
 The client is provided as an executable .jar archive, and requires that a recent version of the Java runtime is installed on your system.
 
