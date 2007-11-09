@@ -1,0 +1,24 @@
+#summary Available version controlled repositories
+#labels Phase-Implementation
+
+= Code Repositories ==
+
+To get the latest version of the source code, use either of the repositories described below.
+
+== Official/master Repositories ==
+
+Note that the primary version control system used for managing Re-Mote is [http://git.or.cz/ git]. The SVN repository is updated in a "write-only" one-way fashion and provided mainly for easing distribution.
+
+*[http://repo.or.cz/w/remote.git The "official" git repositories]*
+
+  The "official" Re-Mote git repositories are publicly available at [http://repo.or.cz/ repo.or.cz], where the repositories can be browsed via gitweb and where you are free to create and host your own "fork" of each of these repositories. Instructions on how to clone the different repositories are provided on each of the module pages.
+
+*[http://code.google.com/p/remote-testbed/source Google Code SVN repository]*
+
+  This SVN repository is periodically synchronized with the git repositoriew. In other words, the newest changes are always available first in the git repositories. As of around 2007-11-01 the SvnSynchronization process tries to mirror the history as good as possible.
+
+== CIT Repositories ==
+
+*[http://testbed.aws.cit.ie/dev/remote/ CIT git repositories]*
+
+  Rosta maintains git repositories with CIT specific changes at http://testbed.aws.cit.ie/dev/remote/, all clonable via the HTTP transport.
