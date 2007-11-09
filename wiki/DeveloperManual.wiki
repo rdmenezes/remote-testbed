@@ -5,9 +5,9 @@
 
 This document is currently mostly a placeholder. It should be expanded as needed to cover important aspects related to the development of Re-Mote.
 
-== Code Repositories ==
+== Getting the Source Code ==
 
-To get the latest version of the source code, use either the [http://code.google.com/p/remote-testbed/source SVN repository] or the [http://repo.or.cz/w/remote.git git repositories]. The primary version control system used for managing Re-Mote is [http://git.or.cz/ git]. This means that the newest changes are always available first in the git repositories which is then periodically synchronized with the SVN repository. The SvnSynchronization process tries (as of around 2007-11-01) to mirror the history as good as can be done.
+Several CodeRepositories exists allowing you to choose your preferred way of getting the latest source. Note that the primary version control system used for managing the official Re-Mote source code is [http://git.or.cz/ git]. The [http://code.google.com/p/remote-testbed/source SVN repository] is updated in a "write-only" one-way fashion and provided mainly for easing distribution. Read about how this is done in SvnSynchronization.
 
 == Release Planning ==
 
