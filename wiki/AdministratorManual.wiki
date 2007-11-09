@@ -16,7 +16,7 @@ The Re-Mote Testbed Framework consists of 4 basic components:
 
 == Getting the Source Code ==
 
-The source code is available either as [http://code.google.com/p/remote-testbed/downloads/list downloadable release archives] or--if you want to keep in sync with the latest source of the framework--directly from the ScmRepositories. While the first option is generally more stable, the last option allows you to keep track of your local changes and is preferred if you intend to contribute code back to the project.
+The source code is available either as [http://code.google.com/p/remote-testbed/downloads/list downloadable release archives] or--if you want to keep in sync with the latest source of the framework--directly from the CodeRepositories. While the first option is generally more stable, the last option allows you to keep track of your local changes and is preferred if you intend to contribute code back to the project.
 
 == Considerations ==
 
