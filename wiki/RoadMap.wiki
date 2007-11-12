@@ -71,6 +71,10 @@ Open issues sorted by [http://code.google.com/p/remote-testbed/issues/list?q=mil
 
  * Issue 12: Add application to make testbed administration easier. Crucial for large testbeds.
 
+=== Infrastructure ===
+
+ * Issue 19: Use inotify in MCH to watch the device hierarchy
+
 === Restructuring ===
 
  * Issue 11: Reorganizing the files of the DB module will further improve the self-documenting hierarchy of this module.
