@@ -11,11 +11,13 @@ To complement the roadmap, larger tasks and design changes requiring detailed in
 
 == Re-Mote Testbed Framework version 1.0 ==
 
-The goal of this release is to have all the basic things working. The main focus is to support features required by the DIKU and CIT testbeds.
+The overall goal of this release is to have all the basic things working. The main focus is to make the "backbone" of the framework support features required by the DIKU and CIT testbeds.
 
 Open issues sorted by [http://code.google.com/p/remote-testbed/issues/list?q=milestone-release1.0&can=2&x=component&y=status&mode=grid status] or [http://code.google.com/p/remote-testbed/issues/list?q=milestone-release1.0&can=2&x=component&y=priority&mode=grid     priority]. [http://code.google.com/p/remote-testbed/issues/list?q=milestone-release1.0&can=1 All] issues belonging to this milestone.
 
 === User Interface ===
+
+Not a lot will change on the client side, but it should be polished a bit, especially regarding startup, and unfinished features should be hidden from the user.
 
  * Issue 3: Display mote platform in the mote panes.
 
@@ -27,9 +29,13 @@ Open issues sorted by [http://code.google.com/p/remote-testbed/issues/list?q=mil
 
 === Security ===
 
+The focus for this release is not security and no extensive code audit has been made, but since this release is intended to change the status of the framework from "testing" to "production", problem areas that have been uncovered in the release cycle need to be fixed.
+
  * Issue 1: Prevent possible SQL injection attacks. All queries should be changed to use `PreparedStatement`.
 
 === Interoperability ===
+
+The framework will be running at multiple sites making requirements for interoperability and portability more important. Although big changes are not expected, improvement to make it conform more to the design of existing systems will make it easier to port to new future sites.
 
  * Issue 2: Fix problems with mysql++ usage being incompatible across different versions of the library.
 
@@ -38,6 +44,8 @@ Open issues sorted by [http://code.google.com/p/remote-testbed/issues/list?q=mil
  * Issue 18: Make MCI daemons create .pid files in /var/run/.
 
 === Infrastructure ===
+
+Changes to the "backbone" infrastructure is the main focus. The plan is to make especially the very site specific parts of MCI more generally usable and easy to adapt to new testbed infrastructures.
 
  * Issue 6: Make MCH support the use of external programs to control mote start, stop, and reset, similar to how programming is currently done via an external program.
 
@@ -50,6 +58,8 @@ Open issues sorted by [http://code.google.com/p/remote-testbed/issues/list?q=mil
  * Issue 17: Although this design approach will require some more initial thoughts and work, it will reduce the need for future changes wrt. mote attribute handling.
 
 === Documentation ===
+
+The main focus is to have the steps required for installing and maintaining a testbed documented.
 
  * Issue 13: Listing supported platform and required depencies are a must for new people considering the use of Re-Mote.
 
