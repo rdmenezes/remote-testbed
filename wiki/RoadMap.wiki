@@ -35,7 +35,7 @@ The focus for this release is not security and no extensive code audit has been 
 
  * Issue 1: Prevent possible SQL injection attacks. All queries should be changed to use `PreparedStatement`.
 
-=== Portability ===
+=== Interoperability ===
 
 The framework will be running at multiple sites making requirements for interoperability and portability more important. Although big changes are not expected, improvement to make it conform more to the design of existing systems will make it easier to port to new future sites.
 
@@ -83,6 +83,6 @@ Open issues sorted by [http://code.google.com/p/remote-testbed/issues/list?q=mil
 
  * Re-Mote Eclipse plugin
 
-=== Portability ===
+=== Interoperability ===
 
  * Issue 8: MCH should support IPv6, however, as long as it is not requested (and thus there are no testers) this can be postponed.
