@@ -35,6 +35,8 @@ Open issues sorted by [http://code.google.com/p/remote-testbed/issues/list?q=mil
 
  * Issue 5: Prepare DB for IPv6 support.
 
+ * Issue 18: Make MCI daemons create .pid files in /var/run/.
+
 === Infrastructure ===
 
  * Issue 6: Make MCH support the use of external programs to control mote start, stop, and reset, similar to how programming is currently done via an external program.
