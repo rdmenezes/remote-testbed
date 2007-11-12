@@ -14,7 +14,7 @@ getFormatStr(const char *format, ...)
 	va_list args;
 
 	va_start(args, format);
-	if (vsnprintf(buf, sizeof(buf), format, args) >= sizeof(buf))
+	if (vsnprintf(buf, sizeof(buf), format, args) >= (int) sizeof(buf))
 		buf[sizeof(buf) - 1] = 0;
 	va_end(args);
 
