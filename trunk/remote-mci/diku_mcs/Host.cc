@@ -79,12 +79,15 @@ void Host::deleteMoteInfoByMac(uint64_t mac)
 
 void Host::findOrCreateMote(MsgMoteConnectionInfo& info)
 {
+	std::string path = info.getPath().getString();
 	mysqlpp::Connection& sqlConn = dbConn.getConnection();
 	dbkey_t site_id, mote_id;
 	Mote* mote;
 	mysqlpp::ResUse selectRes;
 	mysqlpp::ResNSel execRes;
 	mysqlpp::Row row;
+
+	log("Mote %s plugged at %s\n", getMacStr(info.macAddress), path.c_str());
 
 	mysqlpp::Query siteselect = sqlConn.query();	
 	mysqlpp::Query moteselect = sqlConn.query();
@@ -108,9 +111,7 @@ void Host::findOrCreateMote(MsgMoteConnectionInfo& info)
 	selectRes = siteselect.use();
 	selectRes.disable_exceptions();
 	row = selectRes.fetch_row();
-	if ( !row || row.empty() )
-	{
-		std::cout << "host_id " << id << " path " << info.getPath().getString() << "\n";
+	if (!row || row.empty()) {
 		// if not found, create the path in the database with no site_id
 		pathinsert.def["hostid"] = id;
 		pathinsert.def["path"] = info.getPath().getString();
@@ -192,11 +193,7 @@ void Host::handleMotesFoundList(MsgMoteConnectionInfoList& infolist)
 {
 	MsgMoteConnectionInfo info;	
 
-	while ( infolist.getNextMoteInfo(info) )
-	{				
-		uint8_t* m = (uint8_t*)&info.macAddress;
-
-		log("Mote %s plugged at %s\n", getMacStr(info.macAddress), info.getPath().getString().c_str());
+	while (infolist.getNextMoteInfo(info)) {				
 		findOrCreateMote(info);
 	}
 }
