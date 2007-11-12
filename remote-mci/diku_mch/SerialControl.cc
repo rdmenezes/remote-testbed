@@ -89,7 +89,6 @@ pid_t SerialControl::program(uint64_t macAddress, uint16_t tosAddress, std::stri
 	char* args[7];
 	int pfd[2];
 	pid_t pid;
-	char temp[100];
 	std::string mac = getMacStr(macAddress);
 	std::string tos = getTosStr(tosAddress);
 
