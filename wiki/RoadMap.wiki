@@ -15,7 +15,7 @@ The overall goal of this release is to have all the basic things working. The ma
 
 Open issues sorted by [http://code.google.com/p/remote-testbed/issues/list?q=milestone-release1.0&can=2&x=component&y=status&mode=grid status] or [http://code.google.com/p/remote-testbed/issues/list?q=milestone-release1.0&can=2&x=component&y=priority&mode=grid     priority]. [http://code.google.com/p/remote-testbed/issues/list?q=milestone-release1.0&can=1 All] issues belonging to this milestone.
 
-=== [http://code.google.com/p/remote-testbed/issues/list?q=label:Usability+milestone-release1.0 Usability] ===
+=== Usability ===
 
 Not a lot will change on the client side, but it should be polished a bit, especially regarding startup, and unfinished features should be hidden from the user. Documentation for administrators should be provided to ease installation and maintainence of testbeds.
 
