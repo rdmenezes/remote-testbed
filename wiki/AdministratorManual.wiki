@@ -9,15 +9,30 @@ This page should be gradually extended to hold all information useful for admini
 
 The Re-Mote Testbed Framework consists of 4 basic components:
 
- * DatabaseComponent
- * WebServiceComponent
- * MoteControlComponent
- * ClientComponent
+DatabaseComponent
+
+   Contains sql scripts for creating and managing the MySQL database. It is used by the web service and mote control component for tracking the state--static as well as dynamic--of the testbed. The underlying data model is based on the three fundamental entities: motes, mote host sites, and user sessions.
+
+WebServiceComponent
+
+   Defines Java-classes that provide web services which allow clients to interact with the testbed. The web services are responsible for authenticating users, granting access to motes, and getting mote specific information, such as availability and MAC address.
+
+MoteControlComponent
+
+   Provides the infrastructure that keeps track of which motes have been deployed and where. It is divided into two parts: the mote control host (MCH), which is responsible for the low-level interaction with the motes in the testbed, and the mote control server (MCS), which serves mainly as message forwarder between mote hosts and connected clients. Written in C++ for performance.
+
+ClientComponent
+
+   Implements client Java-libraries for interacting both with the web services and the mote control server and a GUI client allowing users to connect to a testbed, program motes, and monitor console output from motes.
+
+== Considerations ==
+
+Before deploying, please also read the SecurityConsiderations.
 
 == Getting the Source Code ==
 
 The source code is available either as [http://code.google.com/p/remote-testbed/downloads/list downloadable release archives] or--if you want to keep in sync with the latest source of the framework--directly from the CodeRepositories. While the first option is generally more stable, the last option allows you to keep track of your local changes and is preferred if you intend to contribute code back to the project.
 
-== Considerations ==
-
-Before deploying a testbed, please read about the SecurityConsiderations.
+== Installing the Testbed ==
+== Deploying Motes ==
+== Maintaining Users ==
