@@ -53,6 +53,8 @@ Changes to the "backbone" infrastructure is the main focus. The plan is to make 
 
  * Issue 6: Make MCH support the use of external programs to control mote start, stop, and reset, similar to how programming is currently done via an external program.
 
+ * Issue 21: Configure path to mote flash programmer via device hierarchy.
+
  * Issue 7: Add support Tmote and MicaZ.
 
  * Issue 9: Using strings for mote TOS/MAC addresses will allow to simplify things considerably and remove usage of the `tosaddress` and `macaddress` DB tables.
