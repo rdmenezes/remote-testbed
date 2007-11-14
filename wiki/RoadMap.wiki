@@ -63,6 +63,8 @@ Changes to the "backbone" infrastructure is the main focus. The plan is to make 
 
  * Issue 17: Although this design approach will require some more initial thoughts and work, it will reduce the need for future changes wrt. mote attribute handling.
 
+ * Issue 22: Make logging easier and more configurable.
+
 == Re-Mote Testbed Framework version 2.0 ==
 
 Open issues sorted by [http://code.google.com/p/remote-testbed/issues/list?q=milestone-release2.0&can=2&x=component&y=status&mode=grid status] or [http://code.google.com/p/remote-testbed/issues/list?q=milestone-release2.0&can=2&x=component&y=priority&mode=grid     priority]. [http://code.google.com/p/remote-testbed/issues/list?q=milestone-release2.0&can=1 All] issues belonging to this milestone.
