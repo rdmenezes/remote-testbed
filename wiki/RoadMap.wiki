@@ -45,6 +45,8 @@ The framework will be running at multiple sites making requirements for interope
 
  * Issue 18: Make MCI daemons create .pid files in /var/run/.
 
+ * Issue 20: Move UDEV helper scripts from /etc/udev/scripts/ to /lib/udev.
+
 === Infrastructure ===
 
 Changes to the "backbone" infrastructure is the main focus. The plan is to make especially the very site specific parts of MCI more generally usable and easy to adapt to new testbed infrastructures.
