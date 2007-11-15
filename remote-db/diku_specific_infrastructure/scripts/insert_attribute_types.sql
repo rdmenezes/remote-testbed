@@ -8,3 +8,5 @@ insert into moteattrtype(sortseq,name,description)
 values(10,'tosaddress','WSN TinyOS address');
 insert into moteattrtype(sortseq,name,description)
 values(20,'macaddress','WSN MAC address');
+insert into moteattrtype(sortseq,name,description)
+values(30,'platform','Mote platform');
