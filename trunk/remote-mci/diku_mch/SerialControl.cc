@@ -76,8 +76,6 @@ result_t SerialControl::closeTty()
 
 pid_t SerialControl::program(const std::string& mac, uint16_t tosAddress, std::string program)
 {
-	int pfd[2];
-	pid_t pid;
 	std::string tos = getTosStr(tosAddress);
 	char * const args[] = {
 		(char *) Configuration::vm["moteProgrammerPath"].as<std::string>().c_str(),
@@ -90,6 +88,21 @@ pid_t SerialControl::program(const std::string& mac, uint16_t tosAddress, std::s
 	};
 
 	log("Programming TTY %s using mac %s\n", tty.c_str(), mac.c_str());
+
+	prg_pid = run(args);
+	if (prg_pid > 0) {
+		flashFile = program;
+		isProgramming = true;
+		prg_result = FAILURE; // no result yet
+	}
+
+	return prg_pid;
+}
+
+pid_t SerialControl::run(char * const args[])
+{
+	int pfd[2];
+	pid_t pid;
 
 	pipe(pfd);
 	closeTty();
@@ -108,13 +121,9 @@ pid_t SerialControl::program(const std::string& mac, uint16_t tosAddress, std::s
 			_exit(EXIT_FAILURE);
 			break;
 		default:
-			flashFile = program;
 			close(pfd[1]);     // close the writer pipe end
 			// set the port fd to the reader pipe end
 			port = pfd[0];
-			prg_pid = pid;
-			isProgramming = true;
-			prg_result = FAILURE; // no result yet
 			return pid;
 	}
 
