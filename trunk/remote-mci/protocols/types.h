@@ -4,7 +4,7 @@
 #include <netinet/in.h>
 #include <netinet/tcp.h>
 
-namespace remote { namespace protocols { 
+namespace remote { namespace protocols {
 
 typedef uint32_t dbkey_t;
 

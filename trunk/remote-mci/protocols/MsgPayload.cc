@@ -1,13 +1,13 @@
 #include "MsgPayload.h"
 #include "macros.h"
-namespace remote { namespace protocols { 
+namespace remote { namespace protocols {
 
 MsgPayload::MsgPayload(uint8_t*& buffer, uint32_t& buflen)
 {
 	data = NULL;
 	buffer = this->read(buffer,buflen);
 }
-	
+
 MsgPayload::MsgPayload()
 {
 	data = NULL;
@@ -68,39 +68,39 @@ uint8_t* MsgPayload::read(uint8_t* buffer, uint32_t& buflen)
 		log("Payload length %u greater than buffer length %u!\n",length,buflen);
 		__THROW__ ("Payload length greater than buffer length!");
 	}
-	
+
 	if (data)
 	{
 		delete data;
 		data = 0;
 	}
-	
+
 	if ( length > 0 )
 	{
 		data = new uint8_t[length];
-	
+
 		memcpy(data,buffer,length);
 		buffer+=length;
 		buflen-=length;
 	}
-	
+
 	return buffer;
 }
 
 uint8_t* MsgPayload::write(uint8_t* buffer, uint32_t& buflen)
 {
 	buffer = writevalue(length,buffer,buflen);
-	
+
 	if (length > buflen)
 	{
 		__THROW__ ("Payload length longer than buffer!");
 	}
-		
+
 	if ( length > 0 )
 	{
 		memcpy(buffer,data,length);
 		buffer+=length;
-		buflen-=length;				
+		buflen-=length;
 	}
 	return buffer;
 }
@@ -130,7 +130,7 @@ std::string MsgPayload::getString()
 	}
 	else
 	{
-		return std::string("");	
+		return std::string("");
 	}
 }
 

@@ -1,11 +1,11 @@
 #include "tcputil.h"
 #include "macros.h"
-namespace remote { namespace protocols { 
-	
+namespace remote { namespace protocols {
+
 int openServerSocket(struct sockaddr_in& server, unsigned int port, int max_pending, int retryinterval)
 {
 	int serversock = -1 ;
-	
+
 	do {
 		/* Create the TCP socket */
 		if ((serversock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP)) < 0)
@@ -14,8 +14,8 @@ int openServerSocket(struct sockaddr_in& server, unsigned int port, int max_pend
 			usleep(retryinterval * 1000000);
 		}
 	} while ( serversock < 0 );
-	
-	
+
+
 	/* Construct the server sockaddr_in structure */
 	memset(&server, 0, sizeof(server));		/* Clear struct */
 	server.sin_family = AF_INET;				/* Internet/IP */
@@ -27,14 +27,14 @@ int openServerSocket(struct sockaddr_in& server, unsigned int port, int max_pend
 		log("Could not bind server socket, waiting to try again \n");
 		usleep(retryinterval * 1000000);
 	}
-	
+
 	/* Listen on the server socket */
 	if (listen(serversock, max_pending) < 0)
 	{
 		log("Could not listen on server socket.\n");
 		return -1;
     }
-	
+
 	return serversock;
 }
 
@@ -55,18 +55,18 @@ int openClientSocket(std::string address, unsigned int port)
 {
 	int sock;
 	struct sockaddr_in server;
-	
+
 	// Create the TCP control socket
 	if ((sock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP)) < 0) {
 		log("Failed to create client socket.\n");
 		return sock;
 	}
-	
+
 	memset(&server, 0, sizeof(server));
-	server.sin_family = AF_INET;			
+	server.sin_family = AF_INET;
 	server.sin_addr.s_addr = resolve(address.c_str());
 	server.sin_port = htons(port);
-		
+
 	// Establish connection
 	if (connect(sock,(struct sockaddr *) &server,sizeof(server)) < 0)
 	{
@@ -74,9 +74,9 @@ int openClientSocket(std::string address, unsigned int port)
 		close(sock);
 		return -1;
 	}
-	
-	
-	return sock;		
+
+
+	return sock;
 }
 
 in_addr_t resolve(const char *ip_addr)
@@ -84,14 +84,14 @@ in_addr_t resolve(const char *ip_addr)
 	struct hostent *hp;
 	in_addr_t ip;
 	hp = gethostbyname(ip_addr);
-	
+
 	if (!hp)
 	{
 		ip = inet_addr(ip_addr);
 		if (ip == INADDR_NONE) return INADDR_NONE;
 		else return ip;
 	}
-	
+
 	// hp->h_length should equal to 4
 	memcpy(&ip, hp->h_addr, 4);
 	return ip;
@@ -99,7 +99,7 @@ in_addr_t resolve(const char *ip_addr)
 
 
 char* getHostByIp(in_addr ip)
-{	
+{
 	char* ipaddr = inet_ntoa(ip);
 	log("Looking up ip %s with len %u\n",ipaddr,strlen(ipaddr));
 	hostent* host = gethostbyaddr(ipaddr,strlen(ipaddr),AF_INET);
@@ -131,7 +131,7 @@ char* getHostByIp(in_addr ip)
 			default:
 				log("Unknown error %u\n",h_errno);
 		}
-		
+
 		return "";
 	}
 }
@@ -149,7 +149,7 @@ void setSendTimeout(int fd, long seconds, long microseconds )
 }
 
 void setSendBuffer( int fd, int byteSize)
-{	
+{
 	if ( setsockopt(fd, SOL_SOCKET, SO_SNDBUF, &byteSize,sizeof(byteSize)) != 0 )
 	{
 		log("Failed to set SO_SNDBUF to %i on %i\n",byteSize,fd);
@@ -158,35 +158,35 @@ void setSendBuffer( int fd, int byteSize)
 }
 
 void setKeepAlive( int fd, int numProbes, int idleTime, int interval)
-{	
+{
 		// set keepalive on
 		int optval = 1;
-		
+
 		if ( setsockopt(fd, SOL_SOCKET, SO_KEEPALIVE, &optval,sizeof(optval)) != 0 )
 		{
 			log("Failed to set SO_KEEPALIVE on %i\n",fd);
 			return;
 		}
-	
+
 		// The maximum number of keepalive probes TCP should send before dropping the connection.
 		if ( setsockopt(fd, SOL_TCP, TCP_KEEPCNT, &numProbes, sizeof(numProbes)) != 0)
 		{
 			log("Failed to set TCP_KEEPCNT to %i on %i\n",numProbes,fd);
-			return; 
+			return;
 		}
-		
+
 		// The time (in seconds) the connection needs to remain idle before TCP starts sending keepalive probes.
 		if ( setsockopt(fd, SOL_TCP, TCP_KEEPIDLE, &idleTime, sizeof(idleTime)) != 0)
 		{
 			log("Failed to set TCP_KEEPIDLE to %i on %i\n",idleTime,fd);
-			return; 
+			return;
 		}
-		
+
 		// The time (in seconds) between individual keepalive probes.
 		if ( setsockopt(fd, SOL_TCP, TCP_KEEPINTVL, &interval, sizeof(interval)) != 0)
 		{
 			log("Failed to set TCP_KEEPINTVL to %i on %i\n",interval,fd);
-			return; 
+			return;
 		}
 }
 
@@ -310,7 +310,7 @@ template uint8_t* readvalue<uint64_t>(uint64_t& value,uint8_t* buffer, uint32_t&
 template<class T> uint8_t* writevalue(T value,uint8_t* buffer, uint32_t& buflen)
 {
 	if (buflen < sizeof(value)) __THROW__ ("Cannot write value to buffer - buffer too short!");
-	*((T*)buffer) = hton(value);	
+	*((T*)buffer) = hton(value);
 	buflen = buflen - sizeof(value);
 	return buffer+sizeof(value);
 }

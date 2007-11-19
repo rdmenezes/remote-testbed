@@ -2,7 +2,7 @@
 #include "macros.h"
 
 namespace remote { namespace mcs {
-	
+
 Mote::Mote( dbkey_t p_mote_id,
 		    dbkey_t p_site_id,
 		    MoteControlInfrastructure& p_messenger,
@@ -10,7 +10,7 @@ Mote::Mote( dbkey_t p_mote_id,
       : mciAddress(p_mciAddress),
         mote_id(p_mote_id),
         site_id(p_site_id),
-        mci(p_messenger),        
+        mci(p_messenger),
         session(NULL)
 {
 	mysqlpp::Connection& sqlConn = dbConn.getConnection();
@@ -21,15 +21,15 @@ Mote::Mote( dbkey_t p_mote_id,
 		   << " where id = " << mote_id;
 
 	mysqlpp::ResNSel sqlres = moteupdate.execute();
-	
+
 	if ( sqlres.success && sqlres.rows == 1) {
-		// register the mote in the mote pool	
+		// register the mote in the mote pool
 		registerMote(this);
 	} else	{
 		log("Info: %s, site_id: %u, mote_id: %u\n",sqlres.info.c_str(),site_id,mote_id);
 		delete this;
 		__THROW__ ("Unable to register site on mote!\n");
-	} 
+	}
 }
 
 Mote::Mote( dbkey_t p_site_id,
@@ -46,11 +46,11 @@ Mote::Mote( dbkey_t p_site_id,
 	mysqlpp::Query moteinsert = sqlConn.query();
 	moteinsert << "insert into mote(site_id)"
 		   << "values(" << site_id << ")";
-	mysqlpp::ResNSel sqlres = moteinsert.execute();	
+	mysqlpp::ResNSel sqlres = moteinsert.execute();
 	if (sqlres.success)
 	{
 		mote_id = sqlres.insert_id;
-		// register the mote in the mote pool	
+		// register the mote in the mote pool
 		registerMote(this);
 	//	stop();
 	}
@@ -70,11 +70,11 @@ Mote::~Mote()
 void Mote::destroy(bool silent)
 {
 	try {
-		dropSession();	
+		dropSession();
 		mysqlpp::Connection& sqlConn = dbConn.getConnection();
 		mysqlpp::Query moteupdate = sqlConn.query();
 		moteupdate << "update mote set site_id=NULL where id=" << mote_id;
-		moteupdate.execute(); // no problem even if mote record does not exist	
+		moteupdate.execute(); // no problem even if mote record does not exist
 	}
 	catch (mysqlpp::Exception e)
 	{
@@ -85,7 +85,7 @@ void Mote::destroy(bool silent)
 		else
 		{
 			__THROW__(e.what());
-		}		
+		}
 	}
 	delete this;
 }
@@ -101,19 +101,19 @@ void Mote::confirm( MsgPayload& confirm )
 	if (session)
 	{
 		session->confirm(mote_id,confirm);
-	}	
+	}
 }
 
 bool Mote::setSession( Session* p_session )
 {
 	mysqlpp::Connection& sqlConn = dbConn.getConnection();
 	mysqlpp::Query query = sqlConn.query();
-	
+
 	// check if the usage privilege has been granted
 	query << "select priv_session_id from mote where id=" << mote_id;
 	mysqlpp::ResUse res = query.use();
 	res.disable_exceptions();
-	mysqlpp::Row row = res.fetch_row();	
+	mysqlpp::Row row = res.fetch_row();
 	if (!row || row.empty()) { __THROW__ ("Mote record not found in database!\n"); }
 
 	if (row["priv_session_id"].is_null())
@@ -123,13 +123,13 @@ bool Mote::setSession( Session* p_session )
 	dbkey_t session_id = (dbkey_t) row["priv_session_id"];
 	// free up the table again
 	res.purge();
-	
+
 	if (session_id != p_session->session_id)
 	{
 		// no usage privilege granted
 		return false;
 	}
-	
+
 	if (session)
 	{
 		if ( session != p_session )
@@ -142,22 +142,22 @@ bool Mote::setSession( Session* p_session )
 			// session is already using this mote
 			return false;
 		}
-	}	
-	session = p_session;	
-	
+	}
+	session = p_session;
+
 	// set usage info on the database mote record
 	query.reset();
 	query << "update mote set curr_session_id=" << p_session->session_id
 	      << " where id=" << mote_id;
-	query.execute();		
+	query.execute();
 	return true;
-	
+
 }
 
 void Mote::dropSession(bool notify)
 {
 	if ( session )
-	{				
+	{
 		// notify the client that it is being dropped
 		if (notify)	session->freeMote(mote_id);
 
@@ -187,7 +187,7 @@ std::string Mote::getAttribute(std::string type)
 	query << "select id from moteattrtype where name=" << mysqlpp::quote << type;
 	mysqlpp::ResUse res = query.use();
 	res.disable_exceptions();
-	mysqlpp::Row row = res.fetch_row();	
+	mysqlpp::Row row = res.fetch_row();
 	if (!row || row.empty()) { __THROW__ ("Mote attribute type not found!"); }
 	dbkey_t type_id = (dbkey_t) row["id"];
 
@@ -217,12 +217,12 @@ void Mote::setAttribute(std::string type, std::string value)
 	      << " where name = " << mysqlpp::quote << type;
 	mysqlpp::ResUse res = query.use();
 	res.disable_exceptions();
-	mysqlpp::Row row = res.fetch_row();	
+	mysqlpp::Row row = res.fetch_row();
 	if (!row || row.empty()) { __THROW__ ("Mote attribute type not found!"); }
 	dbkey_t type_id = (dbkey_t) row["id"];
 	res.purge();
 	query.reset();
-	
+
 	// remove old attribute if it exists
 	query << "delete from mote_moteattr"
 	      << " where mote_id=" << mote_id
@@ -230,7 +230,7 @@ void Mote::setAttribute(std::string type, std::string value)
 	      << "(select id from moteattr where moteattrtype_id=" << type_id << ")";
 	query.execute();
 	query.reset();
-	
+
 	// check if attribute value exists
 	query << "select id from moteattr"
 	      << " where moteattrtype_id=" << type_id
@@ -245,12 +245,12 @@ void Mote::setAttribute(std::string type, std::string value)
 		query.reset();
 		query << "insert into moteattr(moteattrtype_id,val) "
 		      << "values(" << type_id << "," << mysqlpp::quote << value << ")";
-		mysqlpp::ResNSel sqlres = query.execute();	
+		mysqlpp::ResNSel sqlres = query.execute();
 		if (sqlres.success)	{
 			attr_id = sqlres.insert_id;
 		} else {
 			__THROW__("Unable to create new mote attribute!");
-		}		
+		}
 	} else	{
 		attr_id = (dbkey_t) row["id"];
 		res.purge();
@@ -259,7 +259,7 @@ void Mote::setAttribute(std::string type, std::string value)
 	query.reset();
 	query << "insert into mote_moteattr(mote_id,moteattr_id) "
 	      << "values(" << mote_id << "," << attr_id << ")";
-	query.execute();	
+	query.execute();
 }
 
 
@@ -272,14 +272,14 @@ result_t Mote::getById( dbkey_t p_mote_id,
 	motemapbykey_t::iterator mi;
 	Mote* themote;
 	*p_mote = NULL;
-		
+
 	mi = mote.find(p_mote_id);
 
-	
+
 	if (mi != mote.end())
 	{
-		themote = mi->second;		
-		
+		themote = mi->second;
+
 		if ( themote->setSession(p_client) )
 		{
 			*p_mote = themote;
@@ -291,7 +291,7 @@ result_t Mote::getById( dbkey_t p_mote_id,
 		}
 	}
 	else
-	{		
+	{
 		return MOTE_NOT_FOUND;
 	}
 }
@@ -299,16 +299,16 @@ result_t Mote::getById( dbkey_t p_mote_id,
 void Mote::registerMote(Mote* newmote)
 {
 	motemapbykey_t::iterator mi;
-	Mote* oldmote;	
+	Mote* oldmote;
 	mi = mote.find(newmote->mote_id);
 	if (mi != mote.end())
 	{
 		oldmote = mi->second;
 		delete oldmote;
 	}
-	
+
 	mote[newmote->mote_id] = newmote;
-}	
+}
 
 void Mote::resetDb()
 {
@@ -317,7 +317,7 @@ void Mote::resetDb()
 	reset << "update mote set site_id = null";
 	reset.parse();
 	reset.execute();
-}	
+}
 
 motemapbykey_t Mote::mote;
 

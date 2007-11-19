@@ -1,7 +1,7 @@
 #include "HostMsg.h"
 #include "macros.h"
 namespace remote { namespace protocols { namespace diku_host_server {
-	
+
 HostMsg::HostMsg(MsgPlugEvent& message)
         : protocolVersion(HOST_SERVER_PROTOCOL_VERSION),
           type(HOSTMSGTYPE_PLUGEVENT),

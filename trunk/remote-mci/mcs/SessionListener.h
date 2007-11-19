@@ -11,7 +11,7 @@ namespace remote { namespace mcs {
 
 /** This class is responsible for opening a TCP socket and listening
  * for new client connections (sessions).
-**/	
+**/
 class SessionListener : public FileDescriptor
 {
 	public:

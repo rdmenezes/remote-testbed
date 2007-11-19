@@ -7,7 +7,7 @@
 namespace remote { namespace mcs {
 
 using namespace protocols;
-	
+
 /** An object of this class manage mote infrastructure abstractions.
 	Any number of MoteControlInfrastructure may be created and each may manage
 	any number of motes;

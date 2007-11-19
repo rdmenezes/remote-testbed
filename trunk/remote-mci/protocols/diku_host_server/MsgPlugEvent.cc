@@ -1,7 +1,7 @@
 #include "MsgPlugEvent.h"
 
 namespace remote { namespace protocols { namespace diku_host_server {
-	
+
 MsgPlugEvent::MsgPlugEvent(uint8_t type) : type(type), infoList()
 {
 }
@@ -43,7 +43,7 @@ uint8_t MsgPlugEvent::getType()
 {
 	return type;
 }
-		
+
 MsgMoteConnectionInfoList& MsgPlugEvent::getInfoList()
 {
 	return infoList;

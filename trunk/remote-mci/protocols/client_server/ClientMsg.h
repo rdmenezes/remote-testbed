@@ -8,7 +8,7 @@
 
 
 namespace remote { namespace protocols { namespace client_server {
-	
+
 enum ClientMsgType
 {
 	CLIENTMSG_SESSION = 0,
@@ -25,19 +25,19 @@ class ClientMsg : public BaseMsg
 		ClientMsg(MsgClientRequest& message);
 		ClientMsg(MsgClientConfirm& message);
 		~ClientMsg();
-		
+
 		uint32_t getLength();
-				
+
 		uint8_t* write(uint8_t* buffer, uint32_t& buflen);
 		void print(FILE* s);
 
 		uint8_t getType();
-		uint32_t getProtocolVersion();		
+		uint32_t getProtocolVersion();
 
 		MsgSession& getSession();
 		MsgClientRequest& getClientRequest();
 		MsgClientConfirm& getClientConfirm();
-				
+
 	protected:
 		uint8_t* read(uint8_t* buffer, uint32_t& buflen);
 		uint8_t type;

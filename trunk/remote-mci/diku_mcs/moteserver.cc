@@ -19,7 +19,7 @@ int main(int argc,char** argv)
 		printf("Daemonizing!\n");
 		if (fork()) exit(0);
 		setsid();
-		fclose(stdin);		
+		fclose(stdin);
 		close(1);
 		// reopen stdout
 		if (NULL == freopen(Configuration::vm["log-file"].as<std::string>().c_str(),"a",stdout))
@@ -32,9 +32,9 @@ int main(int argc,char** argv)
 			return -1;
 		}
 	}
-	
+
 	log("Starting mote server\n");
-	
+
 	while (1)
 	{
 //		try
@@ -49,7 +49,7 @@ int main(int argc,char** argv)
 			Session::resetDb();
 			log("Deleted old session data\n");
 			HostListener hostListener(Configuration::vm["hostListenerPort"].as<unsigned int>());
-			SessionListener sessionListener(Configuration::vm["sessionListenerPort"].as<unsigned int>());	
+			SessionListener sessionListener(Configuration::vm["sessionListenerPort"].as<unsigned int>());
 			log("Entering service loop\n");
 			FileDescriptor::serviceLoop();
 /*		}

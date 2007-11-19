@@ -1,7 +1,7 @@
 #include "MsgClientRequest.h"
 #include "macros.h"
 namespace remote { namespace protocols { namespace client_server {
-	
+
 MsgClientRequest::MsgClientRequest(uint8_t command)
                  : command(command), msgMoteIdList(), moteMsg()
 {
@@ -97,7 +97,7 @@ uint8_t MsgClientRequest::getCommand()
 {
 	return command;
 }
-		
+
 MsgMoteIdList& MsgClientRequest::getMoteIdList()
 {
 	if ( command != MSGCLIENTCOMMAND_GETMOTECONTROL

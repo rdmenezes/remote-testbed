@@ -20,7 +20,7 @@ class FileDescriptor;
 typedef std::map<int,FileDescriptor*> filedescriptorsbyfd_t;
 
 /** Base class for handling socket connections through file descriptors.
- *  
+ *
  **/
 class FileDescriptor
 {
@@ -34,7 +34,7 @@ class FileDescriptor
 	protected:
 		void setTimeout(int secs);
 		static void clearTimeout();
-		FileDescriptor(int p_fd);		
+		FileDescriptor(int p_fd);
 		virtual ~FileDescriptor();
 		static void buildPollMap(pollfd* map);
 		static RETSIGTYPE timeoutHandler(int sig);
@@ -42,7 +42,7 @@ class FileDescriptor
 		static filedescriptorsbyfd_t instances;
 		static int currentFd;
 		int fd;
-		
+
 };
 
 }}

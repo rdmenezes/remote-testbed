@@ -1,7 +1,7 @@
 #include "MsgMoteConnectionInfo.h"
 
 namespace remote { namespace protocols { namespace diku_host_server {
-	
+
 MsgMoteConnectionInfo::MsgMoteConnectionInfo() : path()
 {}
 

@@ -42,10 +42,10 @@ class Session : public FileDescriptor
 		 * \param mote_id Database key of the mote
 		 * \param confirm Confirm message to encapsulate
 		**/
-		
+
 		/** Clears all session records from the database **/
 		static void resetDb();
-		
+
 		void confirm(dbkey_t mote_id, MsgPayload& confirm);
 		/** Forces the session to drop control of a mote.
 		 *\param mote_id Database key of the mote to free
@@ -61,11 +61,11 @@ class Session : public FileDescriptor
 		 * \param events Event descriptor.
 		**/
 		void handleEvent(short events);
-		
+
 		/** Creates a new session database record upon connection and sends it to the client.
 		 * The session is not initially authenticated. The authentication is performed
 		 * externally and registered on the record.
-		 * Any client attempting to send messages to the server must authenticate before 
+		 * Any client attempting to send messages to the server must authenticate before
 		 * messages are accepted. Failure to do so will disconnect the client.
 		**/
 		void createSessionRecord();
@@ -80,7 +80,7 @@ class Session : public FileDescriptor
 		 * mote are directed through this method as well.
 		 * \param request Request to handle
 		**/
-		void handleClientRequest(MsgClientRequest& request);		
+		void handleClientRequest(MsgClientRequest& request);
 		/** Handles a request directed to a specific mote. This method looks up the mote
 		 * object in the map of controlled motes and passess the request to the mote object.
 		 * \param mote_id Database key of the mote to receive the request.

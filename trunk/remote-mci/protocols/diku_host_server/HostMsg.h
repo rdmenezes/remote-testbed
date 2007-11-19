@@ -8,7 +8,7 @@
 #include "MsgHostConfirm.h"
 
 namespace remote { namespace protocols { namespace diku_host_server {
-	
+
 enum HostMsgType
 {
 	HOSTMSGTYPE_PLUGEVENT,
@@ -24,20 +24,20 @@ class HostMsg : public BaseMsg
 		HostMsg(MsgPlugEvent& message);
 		HostMsg(MsgHostRequest& message);
 		HostMsg(MsgHostConfirm& message);
-		HostMsg(uint8_t*& buffer, uint32_t& buflen);		
+		HostMsg(uint8_t*& buffer, uint32_t& buflen);
 		~HostMsg();
-		
+
 		uint32_t getLength();
 		uint8_t* write(uint8_t* buffer, uint32_t& buflen);
 		void print(FILE* s);
 
 		uint32_t getProtocolVersion();
-		
+
 		uint8_t getType();
 		MsgHostRequest& getHostRequest();
 		MsgHostConfirm& getHostConfirm();
 		MsgPlugEvent& getPlugEvent();
-		
+
 	protected:
 		uint8_t* read(uint8_t* buffer, uint32_t& buflen);
 		uint32_t protocolVersion;

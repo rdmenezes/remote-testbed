@@ -6,21 +6,21 @@
 #include "localconstants.h"
 
 namespace remote { namespace protocols { namespace client_server {
-	
+
 class MsgClientConfirm : public BaseMsg
 {
 	public:
 		MsgClientConfirm(uint8_t command, result_t result, dbkey_t mote_id);
 		MsgClientConfirm(uint8_t command, result_t result, dbkey_t mote_id, MsgPayload& moteMsg);
-		MsgClientConfirm(uint8_t* buffer, uint32_t& buflen);		
+		MsgClientConfirm(uint8_t* buffer, uint32_t& buflen);
 		uint32_t getLength();
-		uint8_t* write(uint8_t* buffer, uint32_t& buflen);		
+		uint8_t* write(uint8_t* buffer, uint32_t& buflen);
 		void print(FILE* s);
-		
+
 		uint8_t getCommand();
 		result_t getResult();
 		dbkey_t getMoteId();
-		
+
 		MsgPayload& getMoteMsg();
 	protected:
 		uint8_t command;

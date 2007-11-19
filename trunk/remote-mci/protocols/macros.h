@@ -18,7 +18,7 @@ inline void log(const char* s,...)
 	char* time = ctime(&t);
 	printf("%s: ",strsep(&time,"\n"));
 	vprintf(s,ap);
-	va_end(ap);	
+	va_end(ap);
 	fflush(stdout);
 }
 

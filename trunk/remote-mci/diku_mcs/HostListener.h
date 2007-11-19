@@ -9,7 +9,7 @@
 
 namespace remote { namespace diku_mcs {
 
-/** This class listen for new host connections and creates 
+/** This class listen for new host connections and creates
  * host objects for the host connections that are accepted **/
 class HostListener : public FileDescriptor
 {

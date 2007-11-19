@@ -22,20 +22,20 @@ Host::~Host()
 void Host::destroy(bool silent)
 {
 	log("Deleting motes\n");
-	motemapbymac_t::iterator mI;	
+	motemapbymac_t::iterator mI;
 	for( mI = motesByMac.begin(); mI != motesByMac.end(); mI++)
 	{
 		if (mI->second)	mI->second->destroy(silent);
-	}	
+	}
 	delete this;
 }
 
 void Host::registerMoteByMac(uint64_t mac,Mote* mote)
 {
 	motemapbymac_t::iterator mI;
-	
+
 	mI = motesByMac.find(mac);
-	
+
 	if ( mI != motesByMac.end() )
 	{
 		mI->second->destroy();
@@ -49,13 +49,13 @@ void Host::deleteMoteByMac(uint64_t mac)
 	motemapbymac_t::iterator mI;
 	Mote* mote = NULL;
 	mI = motesByMac.find(mac);
-		
+
 	if ( mI != motesByMac.end() )
 	{
 		mote = mI->second;
 		motesByMac.erase(mI);
 	}
-		
+
 	if (mote)
 	{
 		mote->destroy();
@@ -70,7 +70,7 @@ void Host::registerMoteInfoByMac(uint64_t mac, moteinfo_t moteinfo)
 void Host::deleteMoteInfoByMac(uint64_t mac)
 {
 	moteinfobymac_t::iterator mI;
-	mI = moteInfoByMac.find(mac);		
+	mI = moteInfoByMac.find(mac);
 	if ( mI != moteInfoByMac.end() )
 	{
 		moteInfoByMac.erase(mI);
@@ -89,7 +89,7 @@ void Host::findOrCreateMote(MsgMoteConnectionInfo& info)
 
 	log("Mote %s plugged at %s\n", getMacStr(info.macAddress), path.c_str());
 
-	mysqlpp::Query query = sqlConn.query();	
+	mysqlpp::Query query = sqlConn.query();
 
 	query << "select site_id from path"
 		 " where host_id = " << id
@@ -114,7 +114,7 @@ void Host::findOrCreateMote(MsgMoteConnectionInfo& info)
 		site_id = (dbkey_t) row["site_id"];
 	}
 
-	// look for the mac addresses in the database, get mote_id	
+	// look for the mac addresses in the database, get mote_id
 	query.reset();
 	query << "select mote_id from moteattr ma, mote_moteattr mma, moteattrtype mat"
 		 " where ma.val=" << mysqlpp::quote << getMacStr(info.macAddress)
@@ -126,15 +126,15 @@ void Host::findOrCreateMote(MsgMoteConnectionInfo& info)
 	selectRes = query.use();
 	selectRes.disable_exceptions();
 	row = selectRes.fetch_row();
-	
+
 	MoteAddresses* newtarget  = new MoteAddresses(0,info.macAddress);
-	
+
 	if ( !row || row.empty() )
 	{
 		std::string mac, tos;
 
 		selectRes.purge();
-		// create the mote using site_id only - the mote class will create the 
+		// create the mote using site_id only - the mote class will create the
 		// mote database record itself
 		mote = new Mote(site_id,(MoteControlInfrastructure&)*this,*newtarget);
 		// TODO: error checking
@@ -149,7 +149,7 @@ void Host::findOrCreateMote(MsgMoteConnectionInfo& info)
 	}
 	else
 	{
-		mote_id = (dbkey_t) row["mote_id"];   // save the mote_id		
+		mote_id = (dbkey_t) row["mote_id"];   // save the mote_id
 		selectRes.purge();
 		// create the mote object using mote_id and site_id - the mote class will
 		// update the mote database record to reflect the new site
@@ -159,17 +159,17 @@ void Host::findOrCreateMote(MsgMoteConnectionInfo& info)
 		newtarget->tosAddress = atoi(mote->getAttribute("tosaddress").c_str());
 		// TODO: error checking
 	}
-	
+
 	if (mote)
 	{
 		// finally, register the new mote in the local map
 		registerMoteByMac(info.macAddress,mote);
-	}	
+	}
 }
 
 void Host::handleMotesLostList(MsgMoteConnectionInfoList& infolist)
 {
-	MsgMoteConnectionInfo info;	
+	MsgMoteConnectionInfo info;
 	while ( infolist.getNextMoteInfo(info) )
 	{
 		deleteMoteByMac(info.macAddress);
@@ -179,9 +179,9 @@ void Host::handleMotesLostList(MsgMoteConnectionInfoList& infolist)
 
 void Host::handleMotesFoundList(MsgMoteConnectionInfoList& infolist)
 {
-	MsgMoteConnectionInfo info;	
+	MsgMoteConnectionInfo info;
 
-	while (infolist.getNextMoteInfo(info)) {				
+	while (infolist.getNextMoteInfo(info)) {
 		findOrCreateMote(info);
 	}
 }
@@ -207,18 +207,18 @@ void Host::request(MCIAddress& address, MsgPayload& request )
 
 void Host::handleEvent(short events)
 {
-	
+
 	if ( (events & POLLIN) || (events & POLLPRI) )
 	{
 		if (!message_in.nonBlockingRecv(fd))
 		{
 			 return;
 		}
-		
+
 		uint32_t msglen = message_in.getLength();
 		uint8_t* buffer = message_in.getData();
 		HostMsg message(buffer,msglen);
-		
+
 		switch (message.getType())
 		{
 			case HOSTMSGTYPE_HOSTCONFIRM:
@@ -246,13 +246,13 @@ void Host::handleEvent(short events)
 	else if ( (events & POLLERR) || (events & POLLHUP) || (events & POLLNVAL) )
 	{
 		__THROW__ ("Host connection error!\n");
-	}	
+	}
 }
 
 void Host::handleMsgIn(MsgHostConfirm& msgHostConfirm)
 {
-	motemapbymac_t::iterator mI;	
-	mI = motesByMac.find(msgHostConfirm.getMoteAddresses().getMacAddress()); 
+	motemapbymac_t::iterator mI;
+	mI = motesByMac.find(msgHostConfirm.getMoteAddresses().getMacAddress());
 	if ( mI != motesByMac.end() )
 	{
 		if (msgHostConfirm.getStatus() == MSGHOSTCONFIRM_UNKNOWN_MOTE)
@@ -264,5 +264,5 @@ void Host::handleMsgIn(MsgHostConfirm& msgHostConfirm)
 		}
 	}
 }
-		
+
 }}

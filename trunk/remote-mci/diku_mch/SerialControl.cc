@@ -23,7 +23,7 @@ result_t SerialControl::_open()
 	}
 
 	port = open(tty.c_str(), O_RDWR | O_NOCTTY | O_NONBLOCK);
-	if (port < 0) {	
+	if (port < 0) {
 		log("No device connected on %s.\n", tty.c_str());
 		return FAILURE;
 	}

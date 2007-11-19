@@ -1,7 +1,7 @@
 #include "MsgMoteAddresses.h"
 
 namespace remote { namespace protocols { namespace diku_host_server {
-	
+
 MsgMoteAddresses::MsgMoteAddresses(uint16_t tosAddress, uint64_t macAddress)
                 : tosAddress(tosAddress),
                   macAddress(macAddress)

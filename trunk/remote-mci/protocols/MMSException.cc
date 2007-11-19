@@ -1,7 +1,7 @@
 #include "MMSException.h"
 
-namespace remote { namespace protocols { 
-	
+namespace remote { namespace protocols {
+
 MMSException::MMSException(const char* msg,const char* file,int line)
 {
 	number++;
@@ -13,7 +13,7 @@ MMSException::MMSException(const char* msg,const char* file,int line)
 
 MMSException::~MMSException() throw ()
 {
-	
+
 }
 
 const char * MMSException::what () const throw ()

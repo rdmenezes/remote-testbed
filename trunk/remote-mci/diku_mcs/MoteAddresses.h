@@ -7,7 +7,7 @@ namespace remote { namespace diku_mcs {
 
 using namespace mcs;
 
-/** This is the deployment specific specialization of the 
+/** This is the deployment specific specialization of the
  * MCIAddress class. It has a TOS (TinyOS) address as
  * well as a MAC address for each mote **/
 class MoteAddresses : public MCIAddress

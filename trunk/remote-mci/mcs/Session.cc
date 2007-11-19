@@ -25,9 +25,9 @@ Session::~Session()
 
 void Session::destroy(bool silent)
 {
-	
+
 	motemapbykey_t::iterator mi;
-	// release any controlled motes	
+	// release any controlled motes
 	for ( mi = motes.begin() ; mi != motes.end(); mi++ )
 	{
 		try
@@ -43,11 +43,11 @@ void Session::destroy(bool silent)
 			else
 			{
 				__THROW__(e.what());
-			}		
+			}
 		}
 	}
 
-	delete this;	
+	delete this;
 }
 
 void Session::resetDb()
@@ -64,10 +64,10 @@ void Session::createSessionRecord()
 	// create a session record for this connection
 	mysqlpp::Connection& sqlConn = dbConn.getConnection();
 	mysqlpp::Result res;
-	mysqlpp::Query query = sqlConn.query();	
+	mysqlpp::Query query = sqlConn.query();
 	query << "insert into session(auth) values (0)";
 	query.parse();
-	mysqlpp::ResNSel sqlres = query.execute();	
+	mysqlpp::ResNSel sqlres = query.execute();
 	if (sqlres.success)
 	{
 		session_id = sqlres.insert_id;
@@ -88,7 +88,7 @@ void Session::deleteSessionRecord()
 {
 	mysqlpp::Connection& sqlConn = dbConn.getConnection();
 	mysqlpp::Result res;
-	mysqlpp::Query query = sqlConn.query();	
+	mysqlpp::Query query = sqlConn.query();
 	query << "delete from session where id = " << session_id;
 	query.execute();
 	query.reset();
@@ -98,20 +98,20 @@ void Session::deleteSessionRecord()
 bool Session::isAuthenticated()
 {
 	if (authenticated) return true;
-	// look up and verify the authentication in the database		
+	// look up and verify the authentication in the database
 	mysqlpp::Connection& sqlConn = dbConn.getConnection();
 	mysqlpp::Result res;
 	mysqlpp::Query query = sqlConn.query();
 
 	query << "select auth from session where id = " << session_id;
 	res = query.store();
-	
+
 	if ( res.num_rows() == 1 )
 	{
-		authenticated = res.at(0)["auth"];		
-	}	
+		authenticated = res.at(0)["auth"];
+	}
 	query.reset();
-	
+
 	if (authenticated){ log("Client authenticated!\n");}
 	else { log("Client not authenticated!\n"); }
 	return authenticated;
@@ -136,19 +136,19 @@ void Session::confirm(dbkey_t mote_id, MsgPayload& moteMsg)
 	Message message;
 	MsgClientConfirm confirm( MSGCLIENTCOMMAND_MOTEMESSAGE, SUCCESS, mote_id, moteMsg );
 	ClientMsg clientMsg(confirm);
-		
+
 	try {
 		message.sendMsg(fd,clientMsg);
 	}
 	catch (remote::protocols::MMSException e)
 	{
 		log("Exception: %s\n",e.what());
-		this->destroy();	
+		this->destroy();
 	}
 }
 
 void Session::handleEvent(short events)
-{	
+{
 	if ( (events & POLLHUP) || (events & POLLNVAL) ) __THROW__ ("Client connection closed by peer!");
 	if ( (events & POLLIN) || (events & POLLPRI) )
 	{
@@ -157,19 +157,19 @@ void Session::handleEvent(short events)
 		{
 			 __THROW__ ("Client not authenticated!\n");
 		}
-		
+
 		// wait for an entire message before continuing
 		if (!message_in.nonBlockingRecv(fd))
 		{
 			 return;
 		}
-		
+
 		uint32_t msglen = message_in.getLength();
 		uint8_t* buffer = message_in.getData();
 		ClientMsg msg(buffer,msglen);
-				
+
 		switch (msg.getType())
-		{			
+		{
 			case CLIENTMSG_CLIENTREQUEST:
 			{
 				MsgClientRequest& msgClientRequest = msg.getClientRequest();
@@ -178,14 +178,14 @@ void Session::handleEvent(short events)
 			}
 			default:
 				__THROW__ ("Invalid message type from client!");
-				break;			
+				break;
 		}
-		
+
 	}
 	else if ( (events & POLLERR) || (events & POLLHUP) || (events & POLLNVAL) )
 	{
 		__THROW__ ("Client connection closed.\n");
-	}	
+	}
 }
 
 void Session::handleClientRequest(MsgClientRequest& request)
@@ -193,7 +193,7 @@ void Session::handleClientRequest(MsgClientRequest& request)
 	dbkey_t mote_id;
 	motemapbykey_t::const_iterator mi;
 	MsgMoteIdList& idlist = request.getMoteIdList();
-	
+
 	while( idlist.getNextMoteId(mote_id) )
 	{
 		// check the session id
@@ -218,17 +218,17 @@ void Session::handleClientRequest(MsgClientRequest& request)
 
 void Session::handleMoteRequest(dbkey_t mote_id,MsgPayload& request)
 {
-	
+
 	motemapbykey_t::const_iterator mi;
-		
+
 	mi = motes.find(mote_id);
-		
+
 	if ( mi != motes.end() )
-	{			
+	{
 		mi->second->request(request);
 	}
 	else
-	{	
+	{
 		MsgClientConfirm confirm( MSGCLIENTCOMMAND_MOTEMESSAGE, MOTE_NOT_CONTROLLED, mote_id );
 		ClientMsg msg(confirm);
 		Message message;
@@ -242,9 +242,9 @@ void Session::getMoteControl( dbkey_t mote_id )
 	Mote* mote;
 	// figure out which mote is referred to
 	Mote::getById(mote_id,this,&mote);
-		
+
 	if (mote)
-	{	
+	{
 		motes[mote_id] = mote;
 		MsgClientConfirm confirm( MSGCLIENTCOMMAND_GETMOTECONTROL, SUCCESS, mote_id );
 		ClientMsg msg(confirm);
@@ -263,7 +263,7 @@ void Session::dropMoteControl(dbkey_t mote_id)
 	motemapbykey_t::const_iterator mi;
 
 	mi = motes.find(mote_id);
-		
+
 	if ( mi != motes.end() )
 	{
 		mi->second->dropSession();

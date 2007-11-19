@@ -33,7 +33,7 @@ void ManagedConnection::checkDBConnection()
 	}
 	catch ( mysqlpp::Exception e)
 	{
-		sqlConn.connect(db.c_str(),host.c_str(),user.c_str(),password.c_str());		
+		sqlConn.connect(db.c_str(),host.c_str(),user.c_str(),password.c_str());
 	}
 }
 

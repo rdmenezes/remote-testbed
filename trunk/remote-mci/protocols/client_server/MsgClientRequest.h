@@ -5,7 +5,7 @@
 #include "MsgPayload.h"
 
 namespace remote { namespace protocols { namespace client_server {
-	
+
 enum MsgClientCommand
 {
 	MSGCLIENTCOMMAND_GETMOTECONTROL,
@@ -19,7 +19,7 @@ class MsgClientRequest : public BaseMsg
 		MsgClientRequest(uint8_t command);
 		MsgClientRequest(uint8_t*& buffer, uint32_t& buflen);
 		uint32_t getLength();
-		uint8_t* write(uint8_t* buffer, uint32_t& buflen);		
+		uint8_t* write(uint8_t* buffer, uint32_t& buflen);
 		void print(FILE* s);
 		uint8_t getCommand();
 		MsgMoteIdList& getMoteIdList();

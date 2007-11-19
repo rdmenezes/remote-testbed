@@ -1,7 +1,7 @@
 #include "MsgHostRequest.h"
 
 namespace remote { namespace protocols { namespace diku_host_server {
-	
+
 MsgHostRequest::MsgHostRequest(MsgMoteAddresses& addresses, MsgPayload& message)
             : addresses(&addresses),
               message(&message),
@@ -22,7 +22,7 @@ MsgHostRequest::~MsgHostRequest()
 		delete this->message;
 	}
 }
-				
+
 uint32_t MsgHostRequest::getLength()
 {
 	return addresses->getLength() + message->getLength();
@@ -45,7 +45,7 @@ uint8_t* MsgHostRequest::read(uint8_t* buffer, uint32_t& buflen)
 void MsgHostRequest::print(FILE* s)
 {
 }
-		
+
 MsgMoteAddresses& MsgHostRequest::getMoteAddresses()
 {
 	return *addresses;

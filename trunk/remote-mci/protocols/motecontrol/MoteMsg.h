@@ -22,19 +22,19 @@ class MoteMsg : public BaseMsg
 		MoteMsg(MsgConfirm& message);
 		MoteMsg(MsgPayload& message);
 		~MoteMsg();
-		
+
 		uint32_t getLength();
-		uint8_t* write(uint8_t* buffer, uint32_t& buflen);		
+		uint8_t* write(uint8_t* buffer, uint32_t& buflen);
 		void print(FILE* s);
-		
+
 		uint32_t getProtocolVersion();
 		uint8_t getType();
 		MsgRequest& getRequest();
 		MsgConfirm& getConfirm();
-		MsgPayload& getData();		
+		MsgPayload& getData();
 	protected:
-		uint8_t* read(uint8_t* buffer, uint32_t& buflen);		
-		uint32_t protocolVersion;		
+		uint8_t* read(uint8_t* buffer, uint32_t& buflen);
+		uint32_t protocolVersion;
 		uint8_t type;
 		BaseMsg* message;
 		bool deleteMsg;

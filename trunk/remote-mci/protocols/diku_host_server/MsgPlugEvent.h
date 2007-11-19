@@ -5,7 +5,7 @@
 #include "MsgMoteConnectionInfoList.h"
 
 namespace remote { namespace protocols { namespace diku_host_server {
-	
+
 enum plugeventtype
 {
 	PLUG_MOTES = 0,
@@ -21,10 +21,10 @@ class MsgPlugEvent : public BaseMsg
 		uint32_t getLength();
 		uint8_t* write(uint8_t* buffer, uint32_t& buflen);
 		void print(FILE* s);
-		
-		uint8_t getType();	
+
+		uint8_t getType();
 		MsgMoteConnectionInfoList& getInfoList();
-		
+
 	private:
 		uint8_t* read(uint8_t* buffer, uint32_t& buflen);
 		uint8_t type;

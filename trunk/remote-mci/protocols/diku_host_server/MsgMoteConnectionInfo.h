@@ -5,7 +5,7 @@
 #include "MsgPayload.h"
 
 namespace remote { namespace protocols { namespace diku_host_server {
-	
+
 class MsgMoteConnectionInfo : public BaseMsg
 {
 	public:
@@ -14,14 +14,14 @@ class MsgMoteConnectionInfo : public BaseMsg
 		MsgMoteConnectionInfo(const MsgMoteConnectionInfo& o);
 		virtual ~MsgMoteConnectionInfo();
 		void operator = (const MsgMoteConnectionInfo& o);
-		
+
 		uint32_t getLength();
 		uint8_t* write(uint8_t* buffer, uint32_t& buflen);
 		uint8_t* read(uint8_t* buffer, uint32_t& buflen);
 		void print(FILE* s);
-		
+
 		void read(int fd);
-		void write(int fd);		
+		void write(int fd);
 		MsgPayload& getPath();
 		uint64_t macAddress;
 	private:
