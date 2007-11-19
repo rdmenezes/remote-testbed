@@ -1,4 +1,5 @@
 #include "MsgMoteAddresses.h"
+#include "common/format.h"
 
 namespace remote { namespace protocols { namespace diku_host_server {
 
@@ -54,6 +55,11 @@ uint16_t MsgMoteAddresses::getTosAddress()
 uint64_t MsgMoteAddresses::getMacAddress()
 {
 	return macAddress;
+}
+
+std::string MsgMoteAddresses::getMac()
+{
+	return getMacStr(macAddress);
 }
 
 }}}

@@ -1,4 +1,5 @@
 #include "MsgMoteConnectionInfo.h"
+#include "common/format.h"
 
 namespace remote { namespace protocols { namespace diku_host_server {
 
@@ -51,6 +52,11 @@ void MsgMoteConnectionInfo::print(FILE* s)
 MsgPayload& MsgMoteConnectionInfo::getPath()
 {
 	return path;
+}
+
+std::string MsgMoteConnectionInfo::getMac()
+{
+	return getMacStr(macAddress);
 }
 
 }}}

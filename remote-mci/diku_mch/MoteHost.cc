@@ -214,10 +214,9 @@ void MoteHost::handleMessage()
 		buflen = msgHostRequest.getMessage().getDataLength();
 		MoteMsg moteMsg(buffer,buflen);
 
-		moteI = DeviceManager::motes.find(getMacStr(addresses.getMacAddress()));
+		moteI = DeviceManager::motes.find(addresses.getMac());
 		printf("HOSTMSGTYPE_MOTEMSG for TOS=%u MAC=%s\n",
-		       addresses.getTosAddress(),
-		       getMacStr(addresses.getMacAddress()));
+		       addresses.getTosAddress(), addresses.getMac().c_str());
 
 		if (moteI == DeviceManager::motes.end())
 		{

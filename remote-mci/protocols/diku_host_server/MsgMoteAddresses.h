@@ -18,6 +18,7 @@ class MsgMoteAddresses : public BaseMsg
 
 		uint16_t getTosAddress();
 		uint64_t getMacAddress();
+		std::string getMac();
 	protected:
 		uint8_t* read(uint8_t* buffer, uint32_t& buflen);
 
