@@ -6,7 +6,7 @@ Mote::Mote(uint64_t p_macAddress, std::string& p_path, std::string& p_tty)
 	: SerialControl(p_tty), macAddress(p_macAddress), isvalid(true)
 {
 	path = p_path;
-	printf("New mote %s at %s\n", getMacStr(macAddress), path.c_str());
+	log("New mote %s at %s\n", getMacStr(macAddress), path.c_str());
 }
 
 
@@ -36,7 +36,7 @@ void Mote::validate(std::string& p_path, std::string& p_tty)
 		delete testmote;
 
 		if (testOpen) {
-			printf("Changed TTY from %s to %s\n", tty.c_str(), p_tty.c_str());
+			log("Changed TTY from %s to %s\n", tty.c_str(), p_tty.c_str());
 			tty = p_tty;
 
 			if (isOpen) {
@@ -48,7 +48,7 @@ void Mote::validate(std::string& p_path, std::string& p_tty)
 	}
 
 	if (!isvalid)
-		printf("Mote at %s is invalid.\n", tty.c_str());
+		log("Mote at %s is invalid.\n", tty.c_str());
 }
 
 uint64_t Mote::getMac()

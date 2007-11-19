@@ -16,17 +16,15 @@ const std::string& SerialControl::getDeviceName()
 
 result_t SerialControl::_open()
 {
-	fprintf(stderr, "%s:%d Opening SerialControl for %s\n", __FILE__, __LINE__, tty.c_str());
-	if (isOpen)
-	{
-		fprintf(stderr, "%s:%d SerialControl already open for %s\n", __FILE__, __LINE__, tty.c_str());
+	log("Opening TTY %s\n", tty.c_str());
+	if (isOpen) {
+		log("TTY already open for %s\n", tty.c_str());
 		return FAILURE;
 	}
-	port = open(tty.c_str(), O_RDWR | O_NOCTTY | O_NONBLOCK);
 
-	if ( port < 0 )
-	{	
-		fprintf(stderr, "%s:%d No device connected on %s.\n", __FILE__, __LINE__, tty.c_str());
+	port = open(tty.c_str(), O_RDWR | O_NOCTTY | O_NONBLOCK);
+	if (port < 0) {	
+		log("No device connected on %s.\n", tty.c_str());
 		return FAILURE;
 	}
 
@@ -70,10 +68,9 @@ result_t SerialControl::_open()
 
 result_t SerialControl::_close()
 {
-	fprintf(stderr, "%s:%d Closing SerialControl for %s\n", __FILE__, __LINE__, tty.c_str());
-	if (!isOpen)
-	{
-		fprintf(stderr, "%s:%d SerialControl not open for %s\n", __FILE__, __LINE__, tty.c_str());
+	log("Closing SerialControl for %s\n", tty.c_str());
+	if (!isOpen) {
+		log("SerialControl not open for %s\n", tty.c_str());
 		return FAILURE;
 	}
 	stop();
@@ -92,7 +89,7 @@ pid_t SerialControl::program(uint64_t macAddress, uint16_t tosAddress, std::stri
 	std::string mac = getMacStr(macAddress);
 	std::string tos = getTosStr(tosAddress);
 
-	printf("Using mac %s for programming\n", mac.c_str());
+	log("Programming TTY %s using mac %s\n", tty.c_str(), mac.c_str());
 
 	args[0]=(char*)Configuration::vm["moteProgrammerPath"].as<std::string>().c_str();
 	args[1] = (char *) tty.c_str();
@@ -101,7 +98,6 @@ pid_t SerialControl::program(uint64_t macAddress, uint16_t tosAddress, std::stri
 	args[4]= (char*)mac.c_str();
 	args[5]= (char*)tos.c_str();
 	args[6]=NULL;
-	fprintf(stdout, "Got programming request for %s\n", tty.c_str());
 
 	pipe(pfd);
 	_close();
