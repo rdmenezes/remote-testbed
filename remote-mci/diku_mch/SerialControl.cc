@@ -8,7 +8,7 @@ SerialControl::SerialControl(std::string& p_tty)
 	tty = p_tty;
 }
 
-result_t SerialControl::_open()
+result_t SerialControl::openTty()
 {
 	log("Opening TTY %s\n", tty.c_str());
 	if (isOpen) {
@@ -55,12 +55,12 @@ result_t SerialControl::_open()
 	}
 	else
 	{
-		_close();
+		closeTty();
 		return FAILURE;
 	}
 }
 
-result_t SerialControl::_close()
+result_t SerialControl::closeTty()
 {
 	log("Closing SerialControl for %s\n", tty.c_str());
 	if (!isOpen) {
@@ -93,7 +93,7 @@ pid_t SerialControl::program(const std::string& mac, uint16_t tosAddress, std::s
 	args[6]=NULL;
 
 	pipe(pfd);
-	_close();
+	closeTty();
 	switch (pid = fork())
 	{
 		case 0:
@@ -159,7 +159,7 @@ void SerialControl::cleanUpProgram()
 		prg_result = FAILURE;
 	}
 	close(port);
-	_open();
+	openTty();
 	isProgramming = false;
 	wasProgramming = true;
 	remove(flashFile.c_str());

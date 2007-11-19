@@ -35,7 +35,7 @@ void DeviceManager::refresh(std::string devicePath)
 	while (moteI != motes.end()) {
 		if (moteI->second) {
 			if  (!moteI->second->isValid()) {
-				moteI->second->_close();
+				moteI->second->closeTty();
 				lostMotes.insert(*moteI);
 				motes.erase(moteI);
 			}
@@ -126,7 +126,7 @@ void DeviceManager::updateMote(std::string& mac, std::string& path, std::string&
 
 	} else {
 		Mote *mote = new Mote(mac, path, tty);
-		if (mote->_open() == SUCCESS) {
+		if (mote->openTty() == SUCCESS) {
 			// this must be a new mote, add it to the collection
 			motemap_t::value_type elm(mac, mote);
 			motes.insert(elm);

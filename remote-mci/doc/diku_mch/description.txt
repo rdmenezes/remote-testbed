@@ -128,12 +128,12 @@ The class supporting communication (commands, data) with the motes. The object
 is created during creation of the mote object and parameter portnumber is passed 
 to the constructor.
 
--_open()
+-openTty()
 It handles opening and setting the serial port (ttyUSB+portnumber). The state
 of the serial port is indicated by variable isOpen. The mote itself is put in 
 to stop mode (keep reseting).
 
--_close()
+-closeTty()
 It closes the serial port and restore old setting.
 
 -program()
