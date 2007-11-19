@@ -249,7 +249,7 @@ void MoteHost::handleMessage()
 void MoteHost::handleRequest(Mote* mote,MsgMoteAddresses& addresses, MsgRequest& request)
 {
 	uint8_t command = request.getCommand();
-	uint8_t result,status;
+	result_t result;
 
 	switch (command)
 	{
@@ -259,28 +259,22 @@ void MoteHost::handleRequest(Mote* mote,MsgMoteAddresses& addresses, MsgRequest&
 				return;
 			}
 			result = FAILURE;
-			status = mote->getStatus();
 			break;
 		case MOTECOMMAND_CANCELPROGRAMMING:
 			printf("User cancelling programming\n");
 			result = mote->cancelProgramming();
-			status = mote->getStatus();
 			break;
 		case MOTECOMMAND_STATUS:
 			result = SUCCESS;
-			status = mote->getStatus();
 			break;
 		case MOTECOMMAND_RESET:
 			result = mote->reset();
-			status = mote->getStatus();
 			break;
 		case MOTECOMMAND_START:
 			result = mote->start();
-			status = mote->getStatus();
 			break;
 		case MOTECOMMAND_STOP:
 			result = mote->stop();
-			status = mote->getStatus();
 			break;
 		default:
 			printf("Unkown command %u\n",command);
@@ -288,7 +282,7 @@ void MoteHost::handleRequest(Mote* mote,MsgMoteAddresses& addresses, MsgRequest&
 	}
 
 	{
-		MsgConfirm msgConfirm(command,result,status);
+		MsgConfirm msgConfirm(command, result, mote->getStatus());
 		MoteMsg moteMsg(msgConfirm);
 		MsgPayload msgPayload(moteMsg);
 		MsgHostConfirm msgHostConfirm(MSGHOSTCONFIRM_OK,addresses,msgPayload);
