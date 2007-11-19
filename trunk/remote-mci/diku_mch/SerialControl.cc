@@ -96,12 +96,11 @@ pid_t SerialControl::program(const std::string& mac, uint16_t tosAddress, std::s
 	switch (pid = fork())
 	{
 		case 0:
-			/// Hack to redirect stdout to pipe writer
+			/* Redirect output from the child to the
+			 * parent's pipe. */
+			dup2(pfd[1], STDOUT_FILENO);
+			dup2(pfd[1], STDERR_FILENO);
 			close(pfd[0]);   // not using pipe read fd
-			close(1);        // redirecting stdout fd=1
-			dup(pfd[1]); // duplicate pipe write with stdout
-			close(2);        // redirecting stderr fd=2
-			dup(pfd[1]); // duplicate pipe write with stderr
 			close(pfd[1]);       // no longer needed- we have a duplicate
 			execv(args[0], args);
 			fprintf(stderr, "\nFailed to run %s\n", args[0]);
