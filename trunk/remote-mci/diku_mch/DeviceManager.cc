@@ -32,7 +32,7 @@ void DeviceManager::refresh(std::string devicePath)
 	/* Finally, clean up the motes that were lost since the last
 	 * refresh based on whether they have been revalidated. */
 	motemap_t::iterator moteI = motes.begin();
-	while (moteI != DeviceManager::motes.end()) {
+	while (moteI != motes.end()) {
 		if (moteI->second) {
 			if  (!moteI->second->isValid()) {
 				moteI->second->_close();
