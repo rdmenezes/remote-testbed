@@ -30,7 +30,7 @@ void Host::destroy(bool silent)
 	delete this;
 }
 
-void Host::registerMoteByMac(uint64_t mac,Mote* mote)
+void Host::registerMoteByMac(std::string mac, Mote *mote)
 {
 	motemapbymac_t::iterator mI;
 
@@ -44,7 +44,7 @@ void Host::registerMoteByMac(uint64_t mac,Mote* mote)
 	motesByMac[mac] = mote;
 }
 
-void Host::deleteMoteByMac(uint64_t mac)
+void Host::deleteMoteByMac(std::string mac)
 {
 	motemapbymac_t::iterator mI;
 	Mote* mote = NULL;
@@ -62,12 +62,12 @@ void Host::deleteMoteByMac(uint64_t mac)
 	}
 }
 
-void Host::registerMoteInfoByMac(uint64_t mac, moteinfo_t moteinfo)
+void Host::registerMoteInfoByMac(std::string mac, moteinfo_t moteinfo)
 {
 	moteInfoByMac[mac] = moteinfo;
 }
 
-void Host::deleteMoteInfoByMac(uint64_t mac)
+void Host::deleteMoteInfoByMac(std::string mac)
 {
 	moteinfobymac_t::iterator mI;
 	mI = moteInfoByMac.find(mac);
@@ -127,7 +127,7 @@ void Host::findOrCreateMote(MsgMoteConnectionInfo& info)
 	selectRes.disable_exceptions();
 	row = selectRes.fetch_row();
 
-	MoteAddresses* newtarget  = new MoteAddresses(0,info.macAddress);
+	MoteAddresses* newtarget  = new MoteAddresses(0, info.getMac());
 
 	if ( !row || row.empty() )
 	{
@@ -163,7 +163,7 @@ void Host::findOrCreateMote(MsgMoteConnectionInfo& info)
 	if (mote)
 	{
 		// finally, register the new mote in the local map
-		registerMoteByMac(info.macAddress,mote);
+		registerMoteByMac(info.getMac(), mote);
 	}
 }
 
@@ -172,8 +172,8 @@ void Host::handleMotesLostList(MsgMoteConnectionInfoList& infolist)
 	MsgMoteConnectionInfo info;
 	while ( infolist.getNextMoteInfo(info) )
 	{
-		deleteMoteByMac(info.macAddress);
-		deleteMoteInfoByMac(info.macAddress);
+		deleteMoteByMac(info.getMac());
+		deleteMoteInfoByMac(info.getMac());
 	}
 }
 
@@ -189,7 +189,7 @@ void Host::handleMotesFoundList(MsgMoteConnectionInfoList& infolist)
 void Host::request(MCIAddress& address, MsgPayload& request )
 {
 	MsgMoteAddresses addresses(((MoteAddresses&)address).tosAddress,
-	                           ((MoteAddresses&)address).macAddress);
+	                           ((MoteAddresses&)address).mac);
 	MsgHostRequest msgHostRequest(addresses,request);
 	HostMsg message(msgHostRequest);
 
@@ -252,13 +252,13 @@ void Host::handleEvent(short events)
 void Host::handleMsgIn(MsgHostConfirm& msgHostConfirm)
 {
 	motemapbymac_t::iterator mI;
-	mI = motesByMac.find(msgHostConfirm.getMoteAddresses().getMacAddress());
+	mI = motesByMac.find(msgHostConfirm.getMoteAddresses().getMac());
 	if ( mI != motesByMac.end() )
 	{
 		if (msgHostConfirm.getStatus() == MSGHOSTCONFIRM_UNKNOWN_MOTE)
 		{
-			deleteMoteByMac(msgHostConfirm.getMoteAddresses().getMacAddress());
-			deleteMoteInfoByMac(msgHostConfirm.getMoteAddresses().getMacAddress());
+			deleteMoteByMac(msgHostConfirm.getMoteAddresses().getMac());
+			deleteMoteInfoByMac(msgHostConfirm.getMoteAddresses().getMac());
 		} else {
 			mI->second->confirm(msgHostConfirm.getMessage());
 		}
