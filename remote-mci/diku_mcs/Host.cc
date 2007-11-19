@@ -80,6 +80,7 @@ void Host::deleteMoteInfoByMac(std::string mac)
 void Host::findOrCreateMote(MsgMoteConnectionInfo& info)
 {
 	std::string path = info.getPath().getString();
+	std::string mac = info.getMac();
 	mysqlpp::Connection& sqlConn = dbConn.getConnection();
 	dbkey_t site_id, mote_id;
 	Mote* mote;
@@ -87,7 +88,7 @@ void Host::findOrCreateMote(MsgMoteConnectionInfo& info)
 	mysqlpp::ResNSel execRes;
 	mysqlpp::Row row;
 
-	log("Mote %s plugged at %s\n", info.getMac().c_str(), path.c_str());
+	log("Mote %s plugged at %s\n", mac.c_str(), path.c_str());
 
 	mysqlpp::Query query = sqlConn.query();
 
@@ -117,7 +118,7 @@ void Host::findOrCreateMote(MsgMoteConnectionInfo& info)
 	// look for the mac addresses in the database, get mote_id
 	query.reset();
 	query << "select mote_id from moteattr ma, mote_moteattr mma, moteattrtype mat"
-		 " where ma.val=" << mysqlpp::quote << info.getMac()
+		 " where ma.val=" << mysqlpp::quote << mac
 	      << "   and mma.moteattr_id=ma.id"
 		 "   and ma.moteattrtype_id=mat.id"
 		 "   and mat.name='macaddress'";
@@ -127,11 +128,11 @@ void Host::findOrCreateMote(MsgMoteConnectionInfo& info)
 	selectRes.disable_exceptions();
 	row = selectRes.fetch_row();
 
-	MoteAddresses* newtarget  = new MoteAddresses(0, info.getMac());
+	MoteAddresses* newtarget  = new MoteAddresses(0, mac);
 
 	if ( !row || row.empty() )
 	{
-		std::string mac, tos;
+		std::string tos;
 
 		selectRes.purge();
 		// create the mote using site_id only - the mote class will create the
@@ -141,7 +142,6 @@ void Host::findOrCreateMote(MsgMoteConnectionInfo& info)
 		// create the mac and tos address database records using the mote id
 		newtarget->tosAddress = (uint16_t) mote->mote_id;
 
-		mac = info.getMac();
 		tos = getTosStr(newtarget->tosAddress);
 		log("Setting attributes: MAC=%s TOS=%s\n", mac.c_str(), tos.c_str());
 		mote->setAttribute("macaddress", mac);
@@ -163,7 +163,7 @@ void Host::findOrCreateMote(MsgMoteConnectionInfo& info)
 	if (mote)
 	{
 		// finally, register the new mote in the local map
-		registerMoteByMac(info.getMac(), mote);
+		registerMoteByMac(mac, mote);
 	}
 }
 
