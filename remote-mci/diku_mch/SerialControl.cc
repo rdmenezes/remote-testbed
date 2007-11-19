@@ -223,7 +223,7 @@ int SerialControl::readBuf(char* buf, int len)
 	if ( (res = read(port,buf,len)) <= 0 && isProgramming)
 	{
 		waitpid(prg_pid,&prgres,0);
-		if (prgres == 0)
+		if (WIFEXITED(prgres) && WEXITSTATUS(prgres) == 0)
 		{
 			prg_result = SUCCESS;
 		}
