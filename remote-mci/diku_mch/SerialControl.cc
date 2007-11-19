@@ -104,29 +104,32 @@ pid_t SerialControl::run(char * const args[])
 	int pfd[2];
 	pid_t pid;
 
-	pipe(pfd);
+	if (pipe(pfd) < 0)
+		return -1;
 	closeTty();
 	switch (pid = fork())
 	{
 	case 0:
-		/* Redirect output from the child to the parent pipe. */
-		dup2(pfd[1], STDOUT_FILENO);
-		dup2(pfd[1], STDERR_FILENO);
-		close(pfd[0]);   // not using pipe read fd
-		close(pfd[1]);       // no longer needed- we have a duplicate
-		execv(args[0], args);
-		fprintf(stderr, "\nFailed to run %s\n", args[0]);
+		/* Redirect all standard output to the parent's pipe. */
+		if (dup2(pfd[1], STDOUT_FILENO) != -1 &&
+		    dup2(pfd[1], STDERR_FILENO) != -1) {
+			close(pfd[0]);
+			close(pfd[1]);
+			execv(args[0], args);
+		}
 		/* XXX: Make the failed child exit immediately. */
 		_exit(EXIT_FAILURE);
 		break;
 	default:
-		close(pfd[1]);     // close the writer pipe end
-		// set the port fd to the reader pipe end
-		port = pfd[0];
-		return pid;
+		/* Only use the reader end if we forked. */
+		if (pid == -1)
+			close(pfd[0]);
+		else
+			port = pfd[0];
+		close(pfd[1]);
 	}
 
-	return -1;
+	return pid;
 }
 
 bool SerialControl::getProgrammingResult(result_t& result )
