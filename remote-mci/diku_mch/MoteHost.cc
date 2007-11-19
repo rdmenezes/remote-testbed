@@ -183,9 +183,9 @@ bool MoteHost::makeMoteInfoList(motemap_t& motelist, MsgMoteConnectionInfoList& 
 
 	for (moteI = motelist.begin(); moteI != motelist.end(); moteI++) {
 		Mote *mote = moteI->second;
-		MsgMoteConnectionInfo info(mote->getMac(), mote->getPath());
+		MsgMoteConnectionInfo info(strtoll(mote->getMac().c_str(), NULL, 16), mote->getPath());
 
-		printf("Mote %s at %s\n", getMacStr(mote->getMac()), mote->getPath().c_str());
+		printf("Mote %s at %s\n", mote->getMac().c_str(), mote->getPath().c_str());
 		infolist.addMoteInfo(info);
 	}
 
@@ -214,7 +214,7 @@ void MoteHost::handleMessage()
 		buflen = msgHostRequest.getMessage().getDataLength();
 		MoteMsg moteMsg(buffer,buflen);
 
-		moteI = DeviceManager::motes.find(addresses.getMacAddress());
+		moteI = DeviceManager::motes.find(getMacStr(addresses.getMacAddress()));
 		printf("HOSTMSGTYPE_MOTEMSG for TOS=%u MAC=%s\n",
 		       addresses.getTosAddress(),
 		       getMacStr(addresses.getMacAddress()));
@@ -312,7 +312,7 @@ void MoteHost::handleMoteData(Mote* p_mote)
 	int readlen = 1000;
 	char* buf = new char[1000];
 
-	MsgMoteAddresses msgMoteAddresses(0,p_mote->getMac());
+	MsgMoteAddresses msgMoteAddresses(0, strtoll(p_mote->getMac().c_str(), NULL, 16));
 
 	while ( readlen == 1000 )
 	{
@@ -349,7 +349,7 @@ void MoteHost::handleMoteData(Mote* p_mote)
 		} else {
 			p_mote->invalidate();
 			p_mote->_close();
-			log("Invalidating mote '%s'\n", getMacStr(p_mote->getMac()));
+			log("Invalidating mote '%s'\n", p_mote->getMac().c_str());
 		}
 	}
 
@@ -366,9 +366,7 @@ bool MoteHost::program(Mote* p_mote, uint16_t tosAddress, MsgPayload& image)
 		return false;
 	}
 
-	filename = "/var/run/motehost-";
-	filename += getMacStr(p_mote->getMac());
-	filename += ".s19";
+	filename = "/var/run/motehost-" + p_mote->getMac() + ".s19";
 
 	// create a file
 	fd = open(filename.c_str(), O_CREAT | O_TRUNC | O_WRONLY);

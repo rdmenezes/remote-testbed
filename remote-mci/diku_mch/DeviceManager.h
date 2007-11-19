@@ -20,7 +20,7 @@ namespace remote { namespace diku_mch {
 
 class Mote;
 
-typedef std::map<uint64_t,Mote*> motemap_t;
+typedef std::map<std::string, Mote *> motemap_t;
 
 class DeviceManager
 {
@@ -32,7 +32,7 @@ class DeviceManager
 
 	private:
 		static void readMoteDevices(std::string devicePath);
-		static void updateMote(uint64_t mac, std::string& path, std::string& tty);
+		static void updateMote(std::string& mac, std::string& path, std::string& tty);
 		static std::string readMoteDeviceFile(std::string path);
 };
 
