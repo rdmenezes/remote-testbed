@@ -6,6 +6,7 @@ int MoteHost::clientsock;
 int MoteHost::plugpipe;
 fd_set MoteHost::fdset;
 Message MoteHost::msg;
+DeviceManager MoteHost::devices;
 
 void MoteHost::lookForServer()
 {
@@ -57,10 +58,10 @@ void MoteHost::serviceLoop()
 		__THROW__ (err.c_str());
 	}
 	// the first thing to do is send all current mote information to the server
-	DeviceManager::refresh(Configuration::vm["devicePath"].as<std::string>());
+	devices.refresh(Configuration::vm["devicePath"].as<std::string>());
 	printf("Sending mote list to server\n");
 	MsgPlugEvent msgPlugEvent(PLUG_MOTES);
-	if (makeMoteInfoList(DeviceManager::motes,msgPlugEvent.getInfoList()))
+	if (makeMoteInfoList(devices.motes, msgPlugEvent.getInfoList()))
 	{
 		HostMsg hostMsg(msgPlugEvent);
 		Message msg;
@@ -88,9 +89,9 @@ void MoteHost::serviceLoop()
 				handlePlugEvent();
 			}
 
-			motemap_t::const_iterator moteI = DeviceManager::motes.begin();
+			motemap_t::const_iterator moteI = devices.motes.begin();
 
-			while (moteI != DeviceManager::motes.end())
+			while (moteI != devices.motes.end())
 			{
 				p = moteI->second->getFd();
 				if (p > 0 && FD_ISSET(p,&fdset))
@@ -111,11 +112,11 @@ int MoteHost::rebuildFdSet(fd_set& fdset)
 	int p,maxp;
 	Mote* pmote;
 	FD_ZERO(&fdset);
-	motemap_t::const_iterator moteI = DeviceManager::motes.begin();
+	motemap_t::const_iterator moteI = devices.motes.begin();
 
 	// put in valid mote file descriptors
 	maxp = 0;
-	while (moteI != DeviceManager::motes.end())
+	while (moteI != devices.motes.end())
 	{
 		pmote = moteI->second;
 		p = pmote->getFd();
@@ -158,17 +159,17 @@ void MoteHost::handlePlugEvent()
 	}
 	printf("\n");
 
-	DeviceManager::refresh(Configuration::vm["devicePath"].as<std::string>());
+	devices.refresh(Configuration::vm["devicePath"].as<std::string>());
 
 	MsgPlugEvent msgUnplugEvent(UNPLUG_MOTES);
-	if (makeMoteInfoList(DeviceManager::lostMotes,msgUnplugEvent.getInfoList()))
+	if (makeMoteInfoList(devices.lostMotes, msgUnplugEvent.getInfoList()))
 	{
 		HostMsg hostMsg(msgUnplugEvent);
 		msg.sendMsg(clientsock,hostMsg);
 	}
 
 	MsgPlugEvent msgPlugEvent(PLUG_MOTES);
-	if (makeMoteInfoList(DeviceManager::newMotes,msgPlugEvent.getInfoList()))
+	if (makeMoteInfoList(devices.newMotes,msgPlugEvent.getInfoList()))
 	{
 		HostMsg hostMsg(msgPlugEvent);
 		msg.sendMsg(clientsock,hostMsg);
@@ -214,11 +215,11 @@ void MoteHost::handleMessage()
 		buflen = msgHostRequest.getMessage().getDataLength();
 		MoteMsg moteMsg(buffer,buflen);
 
-		moteI = DeviceManager::motes.find(addresses.getMac());
+		moteI = devices.motes.find(addresses.getMac());
 		printf("HOSTMSGTYPE_MOTEMSG for TOS=%u MAC=%s\n",
 		       addresses.getTosAddress(), addresses.getMac().c_str());
 
-		if (moteI == DeviceManager::motes.end())
+		if (moteI == devices.motes.end())
 		{
 			printf("UNKNOWN MOTE!\n");
 			MsgHostConfirm msgHostConfirm(MSGHOSTCONFIRM_UNKNOWN_MOTE,addresses,msgHostRequest.getMessage());

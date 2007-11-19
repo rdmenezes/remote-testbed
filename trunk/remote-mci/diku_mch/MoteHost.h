@@ -42,6 +42,7 @@ class MoteHost
 		static int plugpipe; // pipe for plug events
 		static fd_set fdset;
 		static Message msg;
+		static DeviceManager devices;
 };
 
 }}
