@@ -254,11 +254,10 @@ void MoteHost::handleRequest(Mote* mote,MsgMoteAddresses& addresses, MsgRequest&
 	switch (command)
 	{
 		case MOTECOMMAND_PROGRAM:
-			if (program(mote, addresses.getTosAddress(), request.getFlashImage())) {
-				// don't confirm until programming is done
+			result = program(mote, addresses.getTosAddress(), request.getFlashImage());
+			// don't confirm until programming is done
+			if (result == SUCCESS)
 				return;
-			}
-			result = FAILURE;
 			break;
 		case MOTECOMMAND_CANCELPROGRAMMING:
 			printf("User cancelling programming\n");
@@ -358,22 +357,20 @@ bool MoteHost::writeImageFile(std::string filename, MsgPayload& image)
 	return false;
 }
 
-bool MoteHost::program(Mote* p_mote, uint16_t tosAddress, MsgPayload& image)
+result_t MoteHost::program(Mote *p_mote, uint16_t tosAddress, MsgPayload& image)
 {
 	std::string filename;
 
-	if ( p_mote->getStatus() == MOTE_PROGRAMMING )
-	{
-		return false;
-	}
+	if (p_mote->getStatus() == MOTE_PROGRAMMING)
+		return FAILURE;
 
 	filename = "/var/run/motehost-" + p_mote->getMac() + ".s19";
 	if (writeImageFile(filename, image)) {
 		p_mote->program(p_mote->getMac(),tosAddress,filename);
-		return true;
+		return SUCCESS;
 	}
 
-	return false;
+	return FAILURE;
 }
 
 
