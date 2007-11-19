@@ -1,5 +1,6 @@
 #ifndef MOTEADDRESSES_H_
 #define MOTEADDRESSES_H_
+#include <string>
 #include "types.h"
 #include "MCIAddress.h"
 
@@ -17,11 +18,11 @@ class MoteAddresses : public MCIAddress
 		 * \param p_tosAddress TOS address
 		 * \param p_macAddress MAC address
 		**/
-		MoteAddresses(uint16_t p_tosAddress,uint64_t p_macAddress);
+		MoteAddresses(uint16_t p_tosAddress, std::string p_mac);
 		/** TOS address **/
 		uint16_t tosAddress;
 		/** MAC address **/
-		uint64_t macAddress;
+		std::string mac;
 };
 
 }}

@@ -24,8 +24,8 @@ class MsgMoteConnectionInfo : public BaseMsg
 		void write(int fd);
 		MsgPayload& getPath();
 		std::string getMac();
-		uint64_t macAddress;
 	private:
+		uint64_t macAddress;
 		MsgPayload path;
 };
 

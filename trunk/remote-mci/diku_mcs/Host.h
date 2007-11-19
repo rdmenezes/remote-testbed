@@ -29,8 +29,8 @@ typedef struct moteinfo_s
 	uint16_t tosAddress;
 } moteinfo_t;
 
-typedef std::map<uint64_t,Mote*> motemapbymac_t;
-typedef std::map<uint64_t,moteinfo_t> moteinfobymac_t;
+typedef std::map<std::string, Mote *> motemapbymac_t;
+typedef std::map<std::string, moteinfo_t> moteinfobymac_t;
 typedef std::map<dbkey_t,Host*> hostmapbykey_t;
 
 /** This class handles a single mote host connection. It listens for infrastructure changes and
@@ -82,21 +82,21 @@ class Host : public FileDescriptor, public MoteControlInfrastructure
 		 * \param mac MAC address of the mote.
 		 * \param mote Pointer for the mote object.
 		**/
-		void registerMoteByMac(uint64_t mac,Mote* mote);
+		void registerMoteByMac(std::string mac, Mote *mote);
 
 		/** Delete a mote object by its MAC address.
 		 * \param mac MAC address of the mote to delete.
 		**/
-		void deleteMoteByMac(uint64_t mac);
+		void deleteMoteByMac(std::string mac);
 		/** Register additional mote information by mote MAC address.
 		 * \param mac MAC address of the mote
 		 * \param moteinfo Additional mote information.
 		**/
-		void registerMoteInfoByMac(uint64_t mac, moteinfo_t moteinfo);
+		void registerMoteInfoByMac(std::string mac, moteinfo_t moteinfo);
 		/** Delete additional mote info by mote MAC address.
 		 * \param mac MAC address of the mote
 		**/
-		void deleteMoteInfoByMac(uint64_t mac);
+		void deleteMoteInfoByMac(std::string mac);
 		/** Check if a mote object exists, and create it if it doesn't.
 		 * \param info Connection information of the mote (MAC address and
 		 * bus location string.
