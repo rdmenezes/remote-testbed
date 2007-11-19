@@ -30,7 +30,7 @@ class SerialControl
 		const std::string& getDeviceName();
 		result_t _open();
 		result_t _close();
-		pid_t program(uint64_t macAddress, uint16_t tosAddress, std::string program);
+		pid_t program(const std::string& mac, uint16_t tosAddress, std::string program);
 		bool getProgrammingResult(result_t& result);
 		result_t cancelProgramming();
 		result_t reset();

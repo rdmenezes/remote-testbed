@@ -2,14 +2,14 @@
 
 namespace remote { namespace diku_mch {
 
-struct delMote : public std::unary_function<std::pair<const uint64_t,Mote*>,void>
+struct delMote : public std::unary_function<std::pair<const std::string, Mote *>,void>
 {
-	void operator()(std::pair<const uint64_t,Mote*> x) { delete x.second; }
+	void operator()(std::pair<const std::string, Mote *> x) { delete x.second; }
 };
 
-struct invalidate : public std::unary_function<std::pair<const uint64_t,Mote*>,void>
+struct invalidate : public std::unary_function<std::pair<const std::string, Mote *>,void>
 {
-	void operator()(std::pair<const uint64_t,Mote*> x)
+	void operator()(std::pair<const std::string, Mote *> x)
 	{ if (x.second) x.second->invalidate(); }
 };
 
@@ -99,7 +99,7 @@ void DeviceManager::readMoteDevices(std::string devicePath)
 	}
 
 	while ((dentry = readdir(deviceDir))) {
-		uint64_t moteMac = strtoll(dentry->d_name, NULL, 16);
+		std::string moteMac = dentry->d_name;
 		std::string entryPath = devicePath + "/" + dentry->d_name + "/";
 		std::string moteTty = entryPath + "tty";
 		std::string motePath = readMoteDeviceFile(entryPath + "path");
@@ -116,7 +116,7 @@ void DeviceManager::readMoteDevices(std::string devicePath)
 /** Update the mote device.
  * Search for an existing mote based on the MAC given in the serial
  * number. */
-void DeviceManager::updateMote(uint64_t mac, std::string& path, std::string& tty)
+void DeviceManager::updateMote(std::string& mac, std::string& path, std::string& tty)
 {
 	motemap_t::iterator m = motes.find(mac);
 	if (m != motes.end()) {

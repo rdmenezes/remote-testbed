@@ -80,13 +80,12 @@ result_t SerialControl::_close()
 	return SUCCESS;
 }
 
-pid_t SerialControl::program(uint64_t macAddress, uint16_t tosAddress, std::string program)
+pid_t SerialControl::program(const std::string& mac, uint16_t tosAddress, std::string program)
 {
 	int i,j, res;
 	char* args[7];
 	int pfd[2];
 	pid_t pid;
-	std::string mac = getMacStr(macAddress);
 	std::string tos = getTosStr(tosAddress);
 
 	log("Programming TTY %s using mac %s\n", tty.c_str(), mac.c_str());
