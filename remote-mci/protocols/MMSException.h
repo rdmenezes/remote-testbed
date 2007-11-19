@@ -5,10 +5,10 @@
 #include <stdio.h>
 #include <string>
 
-namespace remote { namespace protocols { 
+namespace remote { namespace protocols {
 
 using namespace std;
-	
+
 class MMSException : public exception
 {
 public:

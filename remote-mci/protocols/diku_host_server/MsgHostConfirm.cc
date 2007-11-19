@@ -1,7 +1,7 @@
 #include "MsgHostConfirm.h"
 
 namespace remote { namespace protocols { namespace diku_host_server {
-	
+
 MsgHostConfirm::MsgHostConfirm(uint8_t status,MsgMoteAddresses& addresses, MsgPayload& message)
             : status(status),
               addresses(&addresses),
@@ -23,7 +23,7 @@ MsgHostConfirm::~MsgHostConfirm()
 		delete this->message;
 	}
 }
-				
+
 uint32_t MsgHostConfirm::getLength()
 {
 	return sizeof(status) + addresses->getLength() + message->getLength();
@@ -53,7 +53,7 @@ uint8_t MsgHostConfirm::getStatus()
 {
 	return status;
 }
-		
+
 MsgMoteAddresses& MsgHostConfirm::getMoteAddresses()
 {
 	return *addresses;

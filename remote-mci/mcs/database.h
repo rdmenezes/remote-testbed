@@ -8,7 +8,7 @@ namespace remote { namespace mcs {
 
 //using namespace mysqlpp;
 
-/** The mysql++ database connection handler class handles the database connection and 
+/** The mysql++ database connection handler class handles the database connection and
  * reconnects when needed.
 **/
 class ManagedConnection
@@ -25,8 +25,8 @@ class ManagedConnection
 		 * \param password Password
 		 * \returns true if connection is successful
 		**/
-		bool connect (std::string db, std::string host, std::string user, std::string password);		
-		/** 
+		bool connect (std::string db, std::string host, std::string user, std::string password);
+		/**
 		 * \param check If true, check if the connection is alive.
 		 * \returns A reference to the current connection object
 		**/
@@ -47,7 +47,7 @@ class ManagedConnection
 };
 
 extern ManagedConnection dbConn;
-	
+
 }}
 
 

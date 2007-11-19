@@ -2,8 +2,8 @@
 #define BASEMSG_H_
 #include "tcputil.h"
 
-namespace remote { namespace protocols { 
-	
+namespace remote { namespace protocols {
+
 class BaseMsg
 {
 	public:

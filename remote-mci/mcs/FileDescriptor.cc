@@ -2,16 +2,16 @@
 #include "macros.h"
 
 namespace remote { namespace mcs {
-	
+
 void FileDescriptor::serviceLoop()
 {
 	unsigned int i, instanceCount;
 	int f;
 	filedescriptorsbyfd_t::iterator fileDescriptorIterator;
-	// register the timeout handler	
+	// register the timeout handler
 	signal( SIGALRM, timeoutHandler );
 	ignoreBrokenPipeSignals();
-			
+
 	do
 	{
 		instanceCount = instances.size();
@@ -21,7 +21,7 @@ void FileDescriptor::serviceLoop()
 		{
 			__THROW__("Error in poll!");
 		}
-		
+
 		try
 		{
 			// look for activity on any sockets
@@ -41,11 +41,11 @@ void FileDescriptor::serviceLoop()
 		catch (remote::protocols::MMSException e)
 		{
 			clearTimeout();
-			log("Exception: %s\n",e.what());						
+			log("Exception: %s\n",e.what());
 			fileDescriptorIterator->second->clearTimeout();
 			fileDescriptorIterator->second->destroy(false);
 		}
-	} 
+	}
 	while( true );
 }
 
@@ -53,7 +53,7 @@ FileDescriptor::FileDescriptor(int p_fd)
 {
 	clearTimeout();
 	fd = p_fd;
-	log("Opened fd %i\n",fd);	
+	log("Opened fd %i\n",fd);
 	instances[fd] = this;
 }
 
@@ -93,7 +93,7 @@ FileDescriptor::~FileDescriptor()
 	}
 	else
 	{
-		log("Closed fd %i\n",fd);	
+		log("Closed fd %i\n",fd);
 	}
 	instances.erase(fd);
 }
@@ -146,7 +146,7 @@ void FileDescriptor::ignoreBrokenPipeSignals()
 	struct sigaction act;
 	act.sa_handler = SIG_IGN;
 	act.sa_flags = 0;
-	
+
 	sigaction(SIGPIPE,&act,NULL);
 }
 

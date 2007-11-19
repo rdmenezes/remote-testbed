@@ -1,7 +1,7 @@
 #include "SessionListener.h"
 
 namespace remote { namespace mcs {
-	
+
 SessionListener::SessionListener(unsigned int port)
               : FileDescriptor(
                 openServerSocket( server,
@@ -16,7 +16,7 @@ SessionListener::SessionListener(unsigned int port)
 SessionListener::~SessionListener()
 {
 	sessionmapbyfd_t::iterator cI;
-			
+
 	for ( cI = sessions.begin(); cI != sessions.end(); cI++ )
 	{
 		cI->second->destroy(true);
@@ -31,10 +31,10 @@ void SessionListener::handleEvent(short events)
 	if ( events & POLLIN || events & POLLPRI )
 	{
 		log("Accepting new client connection.\n");
-	
+
 		new Session(nextClient(fd,client),sessions);
 	}
-	
+
 }
 
 }}

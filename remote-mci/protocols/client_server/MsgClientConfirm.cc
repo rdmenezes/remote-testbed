@@ -2,7 +2,7 @@
 #include "macros.h"
 
 namespace remote { namespace protocols { namespace client_server {
-	
+
 MsgClientConfirm::MsgClientConfirm(uint8_t command, result_t result, dbkey_t mote_id)
                 : command(command), result(result), mote_id(mote_id)
 {
@@ -72,7 +72,7 @@ void MsgClientConfirm::print(FILE* s)
 			fprintf(s,"Invalid command\n");
 			break;
 	}
-	
+
 	fprintf(s,"result: ");
 	switch(result)
 	{

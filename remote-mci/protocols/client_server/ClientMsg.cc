@@ -1,7 +1,7 @@
 #include "ClientMsg.h"
 #include "macros.h"
 namespace remote { namespace protocols { namespace client_server {
-	
+
 ClientMsg::ClientMsg(uint8_t*& buffer, uint32_t& buflen)
 {
 	buffer = this->read(buffer,buflen);
@@ -41,7 +41,7 @@ uint8_t* ClientMsg::write(uint8_t* buffer, uint32_t& buflen)
 	protocolVersion = CurrentProtocolVersion;
 	buffer = writevalue(protocolVersion,buffer,buflen);
 	buffer = writevalue(type,buffer,buflen);
-	buffer = message->write(buffer,buflen);	
+	buffer = message->write(buffer,buflen);
 	return buffer;
 }
 
@@ -66,7 +66,7 @@ uint8_t* ClientMsg::read(uint8_t* buffer, uint32_t& buflen)
 	}
 	return buffer;
 }
-		
+
 void ClientMsg::print(FILE* s)
 {
 	fprintf(s,"MESSAGE ServerMsg\n");

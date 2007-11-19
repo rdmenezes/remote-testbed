@@ -5,8 +5,8 @@
 #include <netinet/in.h>
 #include <errno.h>
 
-namespace remote { namespace protocols { 
-	
+namespace remote { namespace protocols {
+
 class Message
 {
 	public:
@@ -20,7 +20,7 @@ class Message
 	protected:
 		uint32_t recvLen;
 		uint32_t datalen;
-		uint8_t* data;	
+		uint8_t* data;
 };
 
 }}

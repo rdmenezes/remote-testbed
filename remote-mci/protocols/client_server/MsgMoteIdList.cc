@@ -1,7 +1,7 @@
 #include "MsgMoteIdList.h"
 
 namespace remote { namespace protocols { namespace client_server {
-	
+
 MsgMoteIdList::MsgMoteIdList() : moteIdList()
 {
 }
@@ -23,9 +23,9 @@ uint8_t* MsgMoteIdList::write(uint8_t* buffer, uint32_t& buflen)
 	dbkey_t moteId;
 
 	count = moteIdList.size();
-			
+
 	buffer = writevalue(count,buffer,buflen);
-	
+
 	idlist_t::iterator i;
 	for ( i = moteIdList.begin(); i != moteIdList.end(); i++)
 	{
@@ -40,9 +40,9 @@ uint8_t* MsgMoteIdList::read(uint8_t* buffer, uint32_t& buflen)
 	uint16_t count,i;
 	dbkey_t moteId;
 	moteIdList.clear();
-		
+
 	buffer = readvalue(count,buffer,buflen);
-	
+
 	for (i=0; i < count; i++)
 	{
 		buffer = readvalue(moteId,buffer,buflen);

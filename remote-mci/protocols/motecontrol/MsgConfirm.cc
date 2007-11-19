@@ -1,6 +1,6 @@
 #include "MsgConfirm.h"
 namespace remote { namespace protocols { namespace motecontrol {
-	
+
 MsgConfirm::MsgConfirm(uint8_t command, result_t result, status_t status )
           : command(command), result(result), status(status)
 {

@@ -1,7 +1,7 @@
 #include "MsgSession.h"
 
 namespace remote { namespace protocols { namespace client_server {
-	
+
 MsgSession::MsgSession(dbkey_t sessionId) : sessionId(sessionId)
 {
 }
@@ -15,7 +15,7 @@ MsgSession::~MsgSession()
 {
 }
 
-	
+
 uint32_t MsgSession::getLength()
 {
 	return sizeof(sessionId);

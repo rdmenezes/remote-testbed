@@ -73,7 +73,7 @@ void MoteMsg::print(FILE* s)
 	switch (type)
 	{
 		case MOTEMSGTYPE_REQUEST:
-			fprintf(s,"MOTEMSGTYPE_REQUEST\n");			
+			fprintf(s,"MOTEMSGTYPE_REQUEST\n");
 			break;
 		case MOTEMSGTYPE_CONFIRM:
 			fprintf(s,"MOTEMSGTYPE_CONFIRM\n");
@@ -86,7 +86,7 @@ void MoteMsg::print(FILE* s)
 	}
 	message->print(s);
 }
-		
+
 uint32_t MoteMsg::getProtocolVersion()
 {
 	return protocolVersion;

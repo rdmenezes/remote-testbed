@@ -1,7 +1,7 @@
 #include "Message.h"
 #include "macros.h"
-namespace remote { namespace protocols { 
-	
+namespace remote { namespace protocols {
+
 Message::Message()
 {
 	data = NULL;
@@ -20,7 +20,7 @@ bool Message::nonBlockingRecv(int fd)
 	char* p_datalen = (char*)&datalen;
 	int r;
 	uint32_t targetRecvLen;
-	
+
 	if ( recvLen < sizeof(datalen))
 	{
 		// still at the datalen part
@@ -70,17 +70,17 @@ void Message::sendMsg(int fd,BaseMsg& msg)
 {
 	uint32_t len;
 	if (data) delete data;
-	// allocate data 
+	// allocate data
 	datalen = msg.getLength();
 	data = new uint8_t[datalen];
 	len = datalen;
 //	printf("Writing %u bytes of message data\n",datalen);
-	
+
 	uint8_t* d = data;
 	msg.write(d,len);
 //	msg.print(stdout);
-	
-	
+
+
 	// write length, then data
 	if (!send(fd,datalen))
 		__THROW__ ("Unable to send datalen!");

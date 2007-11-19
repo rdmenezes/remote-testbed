@@ -3,7 +3,7 @@
 
 namespace remote { namespace protocols { namespace motecontrol {
 
-enum 
+enum
 {
 	// operation results
 	SUCCESS,
@@ -11,7 +11,7 @@ enum
 	NOT_SUPPORTED
 };
 
-enum 
+enum
 {
 	MOTE_STATUS_UNKNOWN, // the status of the mote could not be determined
 	MOTE_UNAVAILABLE, // mote is unreachable

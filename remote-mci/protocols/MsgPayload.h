@@ -3,8 +3,8 @@
 #include "tcputil.h"
 #include "BaseMsg.h"
 
-namespace remote { namespace protocols { 
-	
+namespace remote { namespace protocols {
+
 class MsgPayload : public BaseMsg
 {
 	public:
@@ -14,12 +14,12 @@ class MsgPayload : public BaseMsg
 		MsgPayload(const std::string& str);
 		MsgPayload(BaseMsg& baseMsg);
 		~MsgPayload();
-		
+
 		uint32_t getLength();
 		uint8_t* write(uint8_t* buffer, uint32_t& buflen);
 		uint8_t* read(uint8_t* buffer, uint32_t& buflen);
 		void print(FILE* s);
-		
+
 		const MsgPayload& operator = (const MsgPayload& o);
 		const MsgPayload& operator = (const std::string& s);
 		void setPayload(uint32_t p_length, const uint8_t* p_data);
@@ -28,7 +28,7 @@ class MsgPayload : public BaseMsg
 		const uint8_t* getData();
 	protected:
 		uint32_t length;
-		uint8_t* data;	
+		uint8_t* data;
 };
 
 }}

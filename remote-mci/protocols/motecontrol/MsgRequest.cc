@@ -2,17 +2,17 @@
 #include "macros.h"
 
 namespace remote { namespace protocols { namespace motecontrol {
-	
+
 MsgRequest::MsgRequest(uint8_t command) : command(command), flashImage()
 {
-	
+
 }
 
 MsgRequest::MsgRequest(uint8_t*& buffer, uint32_t& buflen) : flashImage()
 {
 	buffer=this->read(buffer,buflen);
 }
-		
+
 MsgRequest::~MsgRequest()
 {}
 
@@ -26,7 +26,7 @@ uint32_t MsgRequest::getLength()
 {
 	uint32_t length = sizeof(command);
 
-	
+
 	if (command == MOTECOMMAND_PROGRAM)
 	{
 		length += flashImage.getLength();

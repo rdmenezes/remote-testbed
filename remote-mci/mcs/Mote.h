@@ -6,7 +6,7 @@
 #include "MsgPayload.h"
 
 namespace remote { namespace mcs {
-	
+
 class Host;
 class Session;
 class Mote;
@@ -25,7 +25,7 @@ typedef std::map<dbkey_t,Mote*> motemapbykey_t;
 	for resolving the global ID of any mote	before creating a Mote object. The
 	ID is connected to the actual mote rather than the site the mote is
 	attached to. Therefore, the MCIAddress and the MoteControlInfrastructure may
-	become invalid if the mote is hotplugged. Whenever this happens, the 
+	become invalid if the mote is hotplugged. Whenever this happens, the
 	MoteControlInfrastructure losing the mote must delete the mote.
 	The MoteControlInfrastructure getting the mote must look up the global ID
 	in the database and create the Mote object anew.
@@ -37,15 +37,15 @@ class Mote
 		 * \param p_mote_id Database key of the mote
 		 * \param p_session Pointer to the session object requesting control
 		 * \param p_mote Pointer-pointer to receive a pointer for the mote object
-		 * \returns 
+		 * \returns
 		**/
-		static result_t getById( dbkey_t p_mote_id,		                     
+		static result_t getById( dbkey_t p_mote_id,
 		                         Session* p_session,
 		                         Mote** p_mote );
-		
+
 		/** Reset all nonstatic information about all motes in the database. **/
 		static void resetDb();
-		
+
 		/** Look up the mote with specified id in the database, register the
 		 * 	site on the mote.
 		 * \param p_mote_id Database key of the mote
@@ -57,7 +57,7 @@ class Mote
 		      dbkey_t p_site_id,
 		      MoteControlInfrastructure& p_infrastructure,
 		      MCIAddress& p_mciAddress );
-		
+
 		/** Create a new mote in the database with specified site_id.
 		 * \param p_site_id Database key of the site
 		 * \param p_infrastructure Control infrastructure object owning the mote
@@ -66,17 +66,17 @@ class Mote
 		Mote( dbkey_t p_site_id,
 		      MoteControlInfrastructure& p_infrastructure,
 			  MCIAddress& p_mciAddress );
-		
+
 		/** Delete the mote object
 		 * \param silent If true, exceptions are caught and logged silently.
 		 * */
 		void destroy(bool silent = false);
-		
+
 		/** Sets a session object for the mote.
 		 * \param p_session Pointer to the session to set.
 		**/
 		bool setSession( Session* p_session );
-		
+
 		/** Removes the mote from the current session, if any.
 		 * \param notify If true, the session should notify its client that the mote is no longer
 		 * controlled.
@@ -87,12 +87,12 @@ class Mote
 		 * \param request Messsage to send
 		**/
 		void request( MsgPayload& request );
-		
+
 		/** Receive message from the mote
 		 * \param confirm Message to receive
 		**/
 		void confirm( MsgPayload& confirm );
-		
+
 		/** Register a custom attribute on the mote in the database.
 		 *  The attribute type must pre-exist in the database or else
 		 *  an exception is thrown. If an attribute
@@ -118,15 +118,15 @@ class Mote
 		/** Mote object destructor **/
 		virtual ~Mote();
 		/** ensures no dangling mote pointers
-		 * \param mote 
-		**/		
-		static void registerMote(Mote* mote); // 
+		 * \param mote
+		**/
+		static void registerMote(Mote* mote); //
 		/** Keyed map of all current Mote objects **/
 		static motemapbykey_t mote;
 		/** The current owner of this mote **/
-		MoteControlInfrastructure& mci; 
+		MoteControlInfrastructure& mci;
 		/** The session currently in control of this mote **/
-		Session* session;					
+		Session* session;
 };
 
 }}

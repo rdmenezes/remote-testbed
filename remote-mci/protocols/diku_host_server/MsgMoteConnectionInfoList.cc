@@ -1,7 +1,7 @@
 #include "MsgMoteConnectionInfoList.h"
 #include "macros.h"
 namespace remote { namespace protocols { namespace diku_host_server {
-	
+
 MsgMoteConnectionInfoList::MsgMoteConnectionInfoList()
 {
 }
@@ -35,9 +35,9 @@ uint8_t* MsgMoteConnectionInfoList::write(uint8_t* buffer, uint32_t& buflen)
 	{
 		__THROW__ ("Illegal infoList count > 1000!");
 	}
-		
+
 	buffer = writevalue(count,buffer,buflen);
-	
+
 	infolist_t::iterator i;
 	for ( i = infoList.begin(); i != infoList.end(); i++)
 	{
@@ -51,16 +51,16 @@ uint8_t* MsgMoteConnectionInfoList::read(uint8_t* buffer, uint32_t& buflen)
 {
 	uint16_t count,i;
 	MsgMoteConnectionInfo* moteInfo;
-	
+
 	infoList.clear();
-	
+
 	buffer = readvalue(count,buffer,buflen);
-	
+
 	if (count>1000)
 	{
 		__THROW__ ("Illegal infoList count > 1000!");
 	}
-	
+
 	for (i=0; i < count; i++)
 	{
 		moteInfo = new MsgMoteConnectionInfo();

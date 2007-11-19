@@ -20,7 +20,7 @@ namespace remote { namespace diku_mcs {
 
 using namespace protocols::diku_host_server;
 using namespace remote::mcs;
-	
+
 //class Mote;
 class Host;
 
@@ -29,8 +29,8 @@ typedef struct moteinfo_s
 	uint16_t tosAddress;
 } moteinfo_t;
 
-typedef std::map<uint64_t,Mote*> motemapbymac_t; 
-typedef std::map<uint64_t,moteinfo_t> moteinfobymac_t; 
+typedef std::map<uint64_t,Mote*> motemapbymac_t;
+typedef std::map<uint64_t,moteinfo_t> moteinfobymac_t;
 typedef std::map<dbkey_t,Host*> hostmapbykey_t;
 
 /** This class handles a single mote host connection. It listens for infrastructure changes and
@@ -44,7 +44,7 @@ class Host : public FileDescriptor, public MoteControlInfrastructure
 		 * \param request Message payload
 		**/
 		void request( MCIAddress& address, MsgPayload& request );
-		
+
 		/** Constructor - create a new host connection
 		 * \param fd File descriptor for this host connection
 		 * \param p_id Database key of this host
@@ -55,7 +55,7 @@ class Host : public FileDescriptor, public MoteControlInfrastructure
 		/** Clean up this host and destroy it.
 		 * \param silent If true, catch and log any exceptions
 		**/
-		void destroy(bool silent=false);			
+		void destroy(bool silent=false);
 	protected:
 		/** Destructor **/
 		virtual ~Host();
@@ -77,13 +77,13 @@ class Host : public FileDescriptor, public MoteControlInfrastructure
 		 * \param infolist List of motes that were plugged in
 		 **/
 		void handleMotesFoundList(MsgMoteConnectionInfoList& infolist);
-		
+
 		/** Register this mote in a map by its MAC address.
 		 * \param mac MAC address of the mote.
 		 * \param mote Pointer for the mote object.
 		**/
 		void registerMoteByMac(uint64_t mac,Mote* mote);
-		
+
 		/** Delete a mote object by its MAC address.
 		 * \param mac MAC address of the mote to delete.
 		**/
@@ -98,11 +98,11 @@ class Host : public FileDescriptor, public MoteControlInfrastructure
 		**/
 		void deleteMoteInfoByMac(uint64_t mac);
 		/** Check if a mote object exists, and create it if it doesn't.
-		 * \param info Connection information of the mote (MAC address and 
+		 * \param info Connection information of the mote (MAC address and
 		 * bus location string.
 		 **/
 		void findOrCreateMote(MsgMoteConnectionInfo& info);
-		
+
 		/** Database key of this host **/
 		dbkey_t id;
 		/** Index og this host in the host map **/
