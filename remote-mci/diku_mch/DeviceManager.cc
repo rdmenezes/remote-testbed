@@ -138,8 +138,4 @@ void DeviceManager::updateMote(std::string& mac, std::string& path, std::string&
 	}
 }
 
-motemap_t DeviceManager::motes;
-motemap_t DeviceManager::newMotes;
-motemap_t DeviceManager::lostMotes;
-
 }}
