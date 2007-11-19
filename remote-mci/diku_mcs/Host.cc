@@ -89,33 +89,28 @@ void Host::findOrCreateMote(MsgMoteConnectionInfo& info)
 
 	log("Mote %s plugged at %s\n", getMacStr(info.macAddress), path.c_str());
 
-	mysqlpp::Query siteselect = sqlConn.query();	
-	mysqlpp::Query moteselect = sqlConn.query();
-	
-	mysqlpp::Query pathinsert = sqlConn.query();	
-	
-	siteselect << "select site_id from path \
-	               where host_id = %0:hostid \
-	               and path='%1:path'";
-	               
-	pathinsert << "insert into path(host_id,path) \
-	               values( %0:hostid,'%1:path' )";
-	
-	siteselect.parse();
-	pathinsert.parse();	
-	
+	mysqlpp::Query query = sqlConn.query();	
+
+	query << "select site_id from path \
+	          where host_id = %0:hostid \
+	          and path='%1:path'";
+
 	// look for the connection path + host id to get the site_id
-	siteselect.def["hostid"] = id;
-	siteselect.def["path"] = info.getPath().getString();
-	
-	selectRes = siteselect.use();
+	query.def["hostid"] = id;
+	query.def["path"] = info.getPath().getString();
+
+	selectRes = query.use();
 	selectRes.disable_exceptions();
 	row = selectRes.fetch_row();
 	if (!row || row.empty()) {
 		// if not found, create the path in the database with no site_id
-		pathinsert.def["hostid"] = id;
-		pathinsert.def["path"] = info.getPath().getString();
-		pathinsert.execute(); // TODO: error checking
+		query.reset();
+		query << "insert into path(host_id,path) \
+	                  values( %0:hostid,'%1:path' )";
+
+		query.def["hostid"] = id;
+		query.def["path"] = info.getPath().getString();
+		query.execute(); // TODO: error checking
 
 		// XXX: Set to the default site_id for new paths
 		site_id = 1;
@@ -125,14 +120,15 @@ void Host::findOrCreateMote(MsgMoteConnectionInfo& info)
 	}
 
 	// look for the mac addresses in the database, get mote_id	
-	moteselect << "select mote_id from moteattr ma, mote_moteattr mma, moteattrtype mat"
-		      " where ma.val=" << mysqlpp::quote << getMacStr(info.macAddress)
-		   << "   and mma.moteattr_id=ma.id"
-		      "   and ma.moteattrtype_id=mat.id"
-		      "   and mat.name='macaddress'";
+	query.reset();
+	query << "select mote_id from moteattr ma, mote_moteattr mma, moteattrtype mat"
+		 " where ma.val=" << mysqlpp::quote << getMacStr(info.macAddress)
+	      << "   and mma.moteattr_id=ma.id"
+		 "   and ma.moteattrtype_id=mat.id"
+		 "   and mat.name='macaddress'";
 
 	selectRes.purge();
-	selectRes = moteselect.use();
+	selectRes = query.use();
 	selectRes.disable_exceptions();
 	row = selectRes.fetch_row();
 	
