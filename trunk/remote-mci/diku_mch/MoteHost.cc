@@ -248,7 +248,6 @@ void MoteHost::handleMessage()
 
 void MoteHost::handleRequest(Mote* mote,MsgMoteAddresses& addresses, MsgRequest& request)
 {
-	bool reply = true;
 	uint8_t command = request.getCommand();
 	uint8_t result,status;
 
@@ -288,7 +287,6 @@ void MoteHost::handleRequest(Mote* mote,MsgMoteAddresses& addresses, MsgRequest&
 			return;
 	}
 
-	if (reply)
 	{
 		MsgConfirm msgConfirm(command,result,status);
 		MoteMsg moteMsg(msgConfirm);
