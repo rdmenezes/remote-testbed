@@ -34,11 +34,11 @@ class MoteHost
 		static void serviceLoop();
 		static void handlePlugEvent();
 		static void handleMessage();
-		static void handleRequest(Mote* mote,MsgMoteAddresses& addresses, MsgRequest& request);
+		static void handleRequest(Mote* mote, MsgMoteAddresses& addresses, MsgRequest& request);
 		static void handleMoteData(Mote* p_mote);
 		static int rebuildFdSet(fd_set& fdset);
 		static bool writeImageFile(std::string filename, MsgPayload& image);
-		static result_t program(Mote *p_mote, uint16_t tosAddress, MsgPayload& image);
+		static result_t program(Mote *mote, MsgMoteAddresses& addresses, MsgPayload& image);
 		static int clientsock; // port for the server connection
 		static int plugpipe; // pipe for plug events
 		static fd_set fdset;

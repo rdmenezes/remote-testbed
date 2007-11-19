@@ -246,7 +246,7 @@ void MoteHost::handleMessage()
 	}
 }
 
-void MoteHost::handleRequest(Mote* mote,MsgMoteAddresses& addresses, MsgRequest& request)
+void MoteHost::handleRequest(Mote* mote, MsgMoteAddresses& addresses, MsgRequest& request)
 {
 	uint8_t command = request.getCommand();
 	result_t result;
@@ -254,7 +254,7 @@ void MoteHost::handleRequest(Mote* mote,MsgMoteAddresses& addresses, MsgRequest&
 	switch (command)
 	{
 		case MOTECOMMAND_PROGRAM:
-			result = program(mote, addresses.getTosAddress(), request.getFlashImage());
+			result = program(mote, addresses, request.getFlashImage());
 			// don't confirm until programming is done
 			if (result == SUCCESS)
 				return;
@@ -357,7 +357,7 @@ bool MoteHost::writeImageFile(std::string filename, MsgPayload& image)
 	return false;
 }
 
-result_t MoteHost::program(Mote *p_mote, uint16_t tosAddress, MsgPayload& image)
+result_t MoteHost::program(Mote *p_mote, MsgMoteAddresses& addresses, MsgPayload& image)
 {
 	std::string filename;
 
@@ -366,7 +366,7 @@ result_t MoteHost::program(Mote *p_mote, uint16_t tosAddress, MsgPayload& image)
 
 	filename = "/var/run/motehost-" + p_mote->getMac() + ".s19";
 	if (writeImageFile(filename, image)) {
-		p_mote->program(p_mote->getMac(),tosAddress,filename);
+		p_mote->program(p_mote->getMac(), addresses.getTosAddress(), filename);
 		return SUCCESS;
 	}
 
