@@ -27,7 +27,6 @@ class SerialControl
 {
 	public:
 		SerialControl(std::string& tty);
-		const std::string& getDeviceName();
 		result_t _open();
 		result_t _close();
 		pid_t program(const std::string& mac, uint16_t tosAddress, std::string program);

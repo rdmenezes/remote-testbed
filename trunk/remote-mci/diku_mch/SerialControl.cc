@@ -8,12 +8,6 @@ SerialControl::SerialControl(std::string& p_tty)
 	tty = p_tty;
 }
 
-const std::string& SerialControl::getDeviceName()
-{
-	return tty;
-}
-
-
 result_t SerialControl::_open()
 {
 	log("Opening TTY %s\n", tty.c_str());
