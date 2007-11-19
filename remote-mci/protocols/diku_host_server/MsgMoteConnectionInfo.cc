@@ -1,5 +1,4 @@
 #include "MsgMoteConnectionInfo.h"
-#include "common/format.h"
 
 namespace remote { namespace protocols { namespace diku_host_server {
 
@@ -7,14 +6,14 @@ MsgMoteConnectionInfo::MsgMoteConnectionInfo() : path()
 {}
 
 MsgMoteConnectionInfo::MsgMoteConnectionInfo(std::string p_mac, std::string p_path)
-                     : macAddress(strtoll(p_mac.c_str(), NULL, 16)), path(p_path)
+                     : mac(p_mac), path(p_path)
 {
 }
 
 MsgMoteConnectionInfo::MsgMoteConnectionInfo(const MsgMoteConnectionInfo& o) : path()
 {
 	path = o.path;
-	macAddress = o.macAddress;
+	mac = o.mac;
 }
 
 MsgMoteConnectionInfo::~MsgMoteConnectionInfo()
@@ -23,25 +22,25 @@ MsgMoteConnectionInfo::~MsgMoteConnectionInfo()
 void MsgMoteConnectionInfo::operator = (const MsgMoteConnectionInfo& o)
 {
 	path = o.path;
-	macAddress = o.macAddress;
+	mac = o.mac;
 }
 
 uint32_t MsgMoteConnectionInfo::getLength()
 {
-	return sizeof(macAddress) + path.getLength();
+	return mac.getLength() + path.getLength();
 }
 
 uint8_t* MsgMoteConnectionInfo::write(uint8_t* buffer, uint32_t& buflen)
 {
-	buffer = path.write(buffer,buflen);
-	buffer = writevalue(macAddress,buffer,buflen);
+	buffer = path.write(buffer, buflen);
+	buffer = mac.write(buffer, buflen);
 	return buffer;
 }
 
 uint8_t* MsgMoteConnectionInfo::read(uint8_t* buffer, uint32_t& buflen)
 {
-	buffer = path.read(buffer,buflen);
-	buffer = readvalue(macAddress,buffer,buflen);
+	buffer = path.read(buffer, buflen);
+	buffer = mac.read(buffer, buflen);
 	return buffer;
 }
 
@@ -56,7 +55,7 @@ MsgPayload& MsgMoteConnectionInfo::getPath()
 
 std::string MsgMoteConnectionInfo::getMac()
 {
-	return getMacStr(macAddress);
+	return mac.getString();
 }
 
 }}}

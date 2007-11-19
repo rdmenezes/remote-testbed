@@ -2,13 +2,13 @@
 #define MSGMOTEADDRESSES_H_
 
 #include "BaseMsg.h"
+#include "MsgPayload.h"
 
 namespace remote { namespace protocols { namespace diku_host_server {
 
 class MsgMoteAddresses : public BaseMsg
 {
 	public:
-		MsgMoteAddresses(uint16_t tosAddress, uint64_t macAddress);
 		MsgMoteAddresses(uint16_t tosAddress, std::string mac);
 		MsgMoteAddresses(uint8_t*& buffer, uint32_t& buflen);
 		~MsgMoteAddresses();
@@ -17,13 +17,12 @@ class MsgMoteAddresses : public BaseMsg
 		void print(FILE* s);
 
 		uint16_t getTosAddress();
-		uint64_t getMacAddress();
 		std::string getMac();
 	protected:
 		uint8_t* read(uint8_t* buffer, uint32_t& buflen);
 
 		uint16_t tosAddress;
-		uint64_t macAddress;
+		MsgPayload mac;
 };
 
 }}}
