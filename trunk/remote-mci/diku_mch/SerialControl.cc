@@ -116,7 +116,6 @@ pid_t SerialControl::program(const std::string& mac, uint16_t tosAddress, std::s
 			isProgramming = true;
 			prg_result = FAILURE; // no result yet
 			return pid;
-			break;
 	}
 
 	return -1;
