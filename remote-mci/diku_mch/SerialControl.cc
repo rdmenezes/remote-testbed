@@ -77,20 +77,20 @@ result_t SerialControl::closeTty()
 pid_t SerialControl::program(const std::string& mac, uint16_t tosAddress, std::string program)
 {
 	int i,j, res;
-	char* args[7];
 	int pfd[2];
 	pid_t pid;
 	std::string tos = getTosStr(tosAddress);
+	char * const args[] = {
+		(char *) Configuration::vm["moteProgrammerPath"].as<std::string>().c_str(),
+		(char *) tty.c_str(),
+		"115200",
+		(char *) program.c_str(),
+		(char *) mac.c_str(),
+		(char *) tos.c_str(),
+		NULL
+	};
 
 	log("Programming TTY %s using mac %s\n", tty.c_str(), mac.c_str());
-
-	args[0]=(char*)Configuration::vm["moteProgrammerPath"].as<std::string>().c_str();
-	args[1] = (char *) tty.c_str();
-	args[2]="115200";
-	args[3]=(char*)program.c_str();
-	args[4]= (char*)mac.c_str();
-	args[5]= (char*)tos.c_str();
-	args[6]=NULL;
 
 	pipe(pfd);
 	closeTty();
