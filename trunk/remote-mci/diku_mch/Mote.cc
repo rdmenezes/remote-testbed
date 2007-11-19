@@ -29,9 +29,9 @@ void Mote::validate(std::string& p_path, std::string& p_tty)
 	if (p_tty != tty) {
 		Mote *testmote = new Mote(mac, path, p_tty);
 
-		testmote->_open();
+		testmote->openTty();
 		bool testOpen = testmote->isOpen;
-		testmote->_close();
+		testmote->closeTty();
 		delete testmote;
 
 		if (testOpen) {
@@ -39,8 +39,8 @@ void Mote::validate(std::string& p_path, std::string& p_tty)
 			tty = p_tty;
 
 			if (isOpen) {
-				_close();
-				_open();
+				closeTty();
+				openTty();
 			}
 			isvalid = isOpen;
 		}

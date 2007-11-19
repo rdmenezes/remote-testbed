@@ -332,7 +332,7 @@ void MoteHost::handleMoteData(Mote* mote)
 			msg.sendMsg(clientsock,hostMsg);
 		} else {
 			mote->invalidate();
-			mote->_close();
+			mote->closeTty();
 			log("Invalidating mote '%s'\n", mote->getMac().c_str());
 		}
 	}
