@@ -5,8 +5,8 @@ namespace remote { namespace protocols { namespace diku_host_server {
 MsgMoteConnectionInfo::MsgMoteConnectionInfo() : path()
 {}
 
-MsgMoteConnectionInfo::MsgMoteConnectionInfo(uint64_t p_macAddress, std::string p_path)
-                     : macAddress(p_macAddress), path(p_path)
+MsgMoteConnectionInfo::MsgMoteConnectionInfo(std::string p_mac, std::string p_path)
+                     : macAddress(strtoll(p_mac.c_str(), NULL, 16)), path(p_path)
 {
 }
 

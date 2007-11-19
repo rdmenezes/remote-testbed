@@ -8,6 +8,12 @@ MsgMoteAddresses::MsgMoteAddresses(uint16_t tosAddress, uint64_t macAddress)
 {
 }
 
+MsgMoteAddresses::MsgMoteAddresses(uint16_t tosAddress, std::string mac)
+                : tosAddress(tosAddress),
+                  macAddress(strtoll(mac.c_str(), NULL, 16))
+{
+}
+
 MsgMoteAddresses::MsgMoteAddresses(uint8_t*& buffer, uint32_t& buflen)
 {
 	buffer = this->read(buffer,buflen);
