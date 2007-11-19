@@ -366,8 +366,7 @@ result_t MoteHost::program(Mote *mote, MsgMoteAddresses& addresses, MsgPayload& 
 
 	filename = "/var/run/motehost-" + mote->getMac() + ".s19";
 	if (writeImageFile(filename, image)) {
-		mote->program(mote->getMac(), addresses.getTosAddress(), filename);
-		return SUCCESS;
+		return mote->program(mote->getMac(), addresses.getTosAddress(), filename);
 	}
 
 	return FAILURE;
