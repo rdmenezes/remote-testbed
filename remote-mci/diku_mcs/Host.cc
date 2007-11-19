@@ -116,17 +116,14 @@ void Host::findOrCreateMote(MsgMoteConnectionInfo& info)
 		pathinsert.def["hostid"] = id;
 		pathinsert.def["path"] = info.getPath().getString();
 		pathinsert.execute(); // TODO: error checking
-		
-		// get the newly inserted paths site_id
-		selectRes.purge();
-		selectRes = siteselect.use();
-		selectRes.disable_exceptions();
-		row = selectRes.fetch_row();
+
+		// XXX: Set to the default site_id for new paths
+		site_id = 1;
+
+	} else {
+		site_id = (dbkey_t) row["site_id"];
 	}
-	
-	// save the site_id
-	site_id = (dbkey_t) row["site_id"];
-	
+
 	// look for the mac addresses in the database, get mote_id	
 	moteselect << "select mote_id from moteattr ma, mote_moteattr mma, moteattrtype mat"
 		      " where ma.val=" << mysqlpp::quote << getMacStr(info.macAddress)
