@@ -277,7 +277,7 @@ void MoteHost::handleRequest(Mote* mote,MsgMoteAddresses& addresses, MsgRequest&
 			result = mote->stop();
 			break;
 		default:
-			printf("Unkown command %u\n",command);
+			printf("Unknown command %u\n", command);
 			return;
 	}
 
