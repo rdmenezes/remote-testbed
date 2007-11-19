@@ -227,22 +227,21 @@ void MoteHost::handleMessage()
 			return;
 		}
 
-	mote = moteI->second;
+		mote = moteI->second;
 
-	switch (moteMsg.getType())
-	{
+		switch (moteMsg.getType()) {
 		case MOTEMSGTYPE_REQUEST:
 			handleRequest(mote,addresses,moteMsg.getRequest());
 			break;
 		case MOTEMSGTYPE_DATA:
-			{
-				MsgPayload payload = moteMsg.getData();
-				mote->writeBuf((const char*)payload.getData(),payload.getDataLength());
-			}
+		{
+			MsgPayload payload = moteMsg.getData();
+			mote->writeBuf((const char*)payload.getData(),payload.getDataLength());
 			break;
+		}
 		default:
 			__THROW__ ("Invalid message type!");
-	}
+		}
 	}
 }
 
