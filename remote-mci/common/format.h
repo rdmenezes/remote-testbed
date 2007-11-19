@@ -27,7 +27,7 @@ getMacStr(uint64_t mac)
 	uint32_t high = mac >> 32;
 	uint32_t low = (uint32_t) mac;
 
-	return getFormatStr("%08x%08x", high, low);
+	return getFormatStr("%08X%08X", high, low);
 }
 
 static inline char *
