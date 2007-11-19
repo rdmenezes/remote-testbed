@@ -3,7 +3,7 @@
 namespace remote { namespace diku_mch {
 
 SerialControl::SerialControl(std::string& p_tty)
-	       : isRunning(false), isOpen(false), isProgramming(false), wasProgramming(false)
+	: isRunning(false), isOpen(false), isProgramming(false), wasProgramming(false)
 {
 	tty = p_tty;
 }
@@ -45,16 +45,13 @@ result_t SerialControl::openTty()
 
 	/* now clean the modem line and activate the settings for modem */
 	tcflush(port, TCIFLUSH);
-	tcsetattr(port,TCSANOW,&newsertio);
+	tcsetattr(port, TCSANOW, &newsertio);
 
 	isOpen = true;
 	// open in a stopped state
-	if (stop() == SUCCESS )
-	{
+	if (stop() == SUCCESS) {
 		return SUCCESS;
-	}
-	else
-	{
+	} else {
 		closeTty();
 		return FAILURE;
 	}
@@ -68,7 +65,7 @@ result_t SerialControl::closeTty()
 		return FAILURE;
 	}
 	stop();
-	tcsetattr(port,TCSANOW,&oldsertio);
+	tcsetattr(port, TCSANOW, &oldsertio);
 	close(port);
 	isOpen = false;
 	return SUCCESS;
@@ -140,8 +137,9 @@ bool SerialControl::getProgrammingResult(result_t& result )
 
 result_t SerialControl::cancelProgramming()
 {
-	if (!isProgramming) return FAILURE;
-	kill(prg_pid,SIGKILL);
+	if (!isProgramming)
+		return FAILURE;
+	kill(prg_pid, SIGKILL);
 	cleanUpProgram();
 	return SUCCESS;
 }
@@ -166,14 +164,12 @@ void SerialControl::cleanUpProgram()
 
 result_t SerialControl::reset()
 {
-	if (!isOpen) return FAILURE;
-	if (isRunning)
-	{
+	if (!isOpen)
+		return FAILURE;
+	if (isRunning) {
 		stop();
 		start();
-	}
-	else
-	{
+	} else {
 		start();
 		stop();
 	}
@@ -182,25 +178,25 @@ result_t SerialControl::reset()
 
 result_t SerialControl::start()
 {
-	if (!isOpen || !clearDTR()) return FAILURE;
+	if (!isOpen || !clearDTR())
+		return FAILURE;
 	isRunning = true;
 	return SUCCESS;
 }
 
 result_t SerialControl::stop()
 {
-	if ( !isOpen || !setDTR() ) return FAILURE;
+	if (!isOpen || !setDTR())
+		return FAILURE;
 	isRunning = false;
 	return SUCCESS;
 }
 
 bool SerialControl::setDTR()
 {
-	// reset button down
-	int tmp;
-	tmp = TIOCM_DTR;
-	if (ioctl(port, TIOCMBIS, &tmp) == -1)
-	{
+	int tmp = TIOCM_DTR;
+
+	if (ioctl(port, TIOCMBIS, &tmp) == -1) {
 		isOpen = false;
 		return false;
 	}
@@ -209,11 +205,9 @@ bool SerialControl::setDTR()
 
 bool SerialControl::clearDTR()
 {
-	// reset button up
-	int tmp;
-	tmp = TIOCM_DTR;
-	if (ioctl(port, TIOCMBIC, &tmp) == -1)
-	{
+	int tmp = TIOCM_DTR;
+
+	if (ioctl(port, TIOCMBIC, &tmp) == -1) {
 		isOpen = false;
 		return false;
 	}
@@ -222,10 +216,9 @@ bool SerialControl::clearDTR()
 
 int SerialControl::readBuf(char* buf, int len)
 {
-	int res;
+	int res = read(port, buf, len);
 
-	if ( (res = read(port,buf,len)) <= 0 && isProgramming)
-	{
+	if (res <= 0 && isProgramming) {
 		cleanUpProgram();
 	}
 	return res;
@@ -233,7 +226,7 @@ int SerialControl::readBuf(char* buf, int len)
 
 int SerialControl::writeBuf(const char* buf, int len)
 {
-	return write(port,buf,len);
+	return write(port, buf, len);
 }
 
 int SerialControl::getFd()
