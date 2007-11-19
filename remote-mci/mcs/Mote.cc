@@ -17,11 +17,9 @@ Mote::Mote( dbkey_t p_mote_id,
 	// look up the mote record in the database and make sure it corresponds
 	// to the supplied information
 	mysqlpp::Query moteupdate = sqlConn.query();
-	moteupdate << "update mote set site_id = %0:site_id, curr_session_id=NULL, priv_session_id=NULL where id = %1:mote_id";
-	moteupdate.parse();
-	
-	moteupdate.def["site_id"] = site_id;
-	moteupdate.def["mote_id"] = mote_id;
+	moteupdate << "update mote set site_id = " << site_id << ", curr_session_id=NULL, priv_session_id=NULL"
+		   << " where id = " << mote_id;
+
 	mysqlpp::ResNSel sqlres = moteupdate.execute();
 	
 	if ( sqlres.success && sqlres.rows == 1) {
@@ -46,9 +44,8 @@ Mote::Mote( dbkey_t p_site_id,
 	mysqlpp::Connection& sqlConn = dbConn.getConnection();
 	// create a new mote with the supplied site_id
 	mysqlpp::Query moteinsert = sqlConn.query();
-	moteinsert << "insert into mote(site_id) values( %0:site_id )";
-	moteinsert.parse();
-	moteinsert.def["site_id"] = site_id;
+	moteinsert << "insert into mote(site_id)"
+		   << "values(" << site_id << ")";
 	mysqlpp::ResNSel sqlres = moteinsert.execute();	
 	if (sqlres.success)
 	{
@@ -76,9 +73,7 @@ void Mote::destroy(bool silent)
 		dropSession();	
 		mysqlpp::Connection& sqlConn = dbConn.getConnection();
 		mysqlpp::Query moteupdate = sqlConn.query();
-		moteupdate << "update mote set site_id = NULL where id = %1:mote_id";
-		moteupdate.parse();
-		moteupdate.def["mote_id"] = mote_id;
+		moteupdate << "update mote set site_id=NULL where id=" << mote_id;
 		moteupdate.execute(); // no problem even if mote record does not exist	
 	}
 	catch (mysqlpp::Exception e)
@@ -115,9 +110,7 @@ bool Mote::setSession( Session* p_session )
 	mysqlpp::Query query = sqlConn.query();
 	
 	// check if the usage privilege has been granted
-	query << "select priv_session_id from mote where id = %0:mote_id";
-	query.parse();
-	query.def["mote_id"] = mote_id;
+	query << "select priv_session_id from mote where id=" << mote_id;
 	mysqlpp::ResUse res = query.use();
 	res.disable_exceptions();
 	mysqlpp::Row row = res.fetch_row();	
@@ -154,10 +147,8 @@ bool Mote::setSession( Session* p_session )
 	
 	// set usage info on the database mote record
 	query.reset();
-	query << "update mote set curr_session_id = %0:session_id where id = %1:mote_id";
-	query.parse();
-	query.def["session_id"] = p_session->session_id;
-	query.def["mote_id"] = mote_id;
+	query << "update mote set curr_session_id=" << p_session->session_id
+	      << " where id=" << mote_id;
 	query.execute();		
 	return true;
 	
@@ -174,16 +165,13 @@ void Mote::dropSession(bool notify)
 		mysqlpp::Connection& sqlConn = dbConn.getConnection();
 		mysqlpp::Query moteupdate = sqlConn.query();
 		// remove session usage privilege on the mote, if still present
-		moteupdate << "update mote set priv_session_id=NULL where id=%0:mote_id and priv_session_id=%1:session_id";
-		moteupdate.parse();
-		moteupdate.def["mote_id"] = mote_id;
-		moteupdate.def["session_id"] = session->session_id;
+		moteupdate << "update mote set priv_session_id=NULL"
+			   << " where id=" << mote_id
+			   << "   and priv_session_id=" << session->session_id;
 		moteupdate.execute();
 		// reset usage info on the database mote record
 		moteupdate.reset();
-		moteupdate << "update mote set curr_session_id=NULL where id=%0:mote_id";
-		moteupdate.parse();
-		moteupdate.def["mote_id"] = mote_id;
+		moteupdate << "update mote set curr_session_id=NULL where id=" << mote_id;
 		moteupdate.execute();
 		session = NULL;
 	}
@@ -225,9 +213,8 @@ void Mote::setAttribute(std::string type, std::string value)
 	mysqlpp::Query query = sqlConn.query();
 
 	// get attribute type id
-	query << "select id from moteattrtype where name = '%0:type'";
-	query.parse();
-	query.def["type"] = type;
+	query << "select id from moteattrtype"
+	      << " where name = " << mysqlpp::quote << type;
 	mysqlpp::ResUse res = query.use();
 	res.disable_exceptions();
 	mysqlpp::Row row = res.fetch_row();	
@@ -237,18 +224,17 @@ void Mote::setAttribute(std::string type, std::string value)
 	query.reset();
 	
 	// remove old attribute if it exists
-	query << "delete from mote_moteattr where mote_id=%0:mote_id and moteattr_id in (select id from moteattr where moteattrtype_id=%1:type_id)";
-	query.parse();	
-	query.def["mote_id"] = mote_id;
-	query.def["type_id"] = type_id;
+	query << "delete from mote_moteattr"
+	      << " where mote_id=" << mote_id
+	      << "   and moteattr_id in"
+	      << "(select id from moteattr where moteattrtype_id=" << type_id << ")";
 	query.execute();
 	query.reset();
 	
 	// check if attribute value exists
-	query << "select id from moteattr where moteattrtype_id=%0:type_id and val='%1:value'";
-	query.parse();	
-	query.def["type_id"] = type_id;
-	query.def["value"] = value;
+	query << "select id from moteattr"
+	      << " where moteattrtype_id=" << type_id
+	      << "   and val=" << mysqlpp::quote << value;
 	res = query.use();
 	res.disable_exceptions();
 	row = res.fetch_row();
@@ -257,10 +243,8 @@ void Mote::setAttribute(std::string type, std::string value)
 		// create attribute value
 		res.purge();
 		query.reset();
-		query << "insert into moteattr(moteattrtype_id,val) values(%0:type_id,'%1:value')";
-		query.parse();
-		query.def["type_id"] = type_id;
-		query.def["value"] = value;
+		query << "insert into moteattr(moteattrtype_id,val) "
+		      << "values(" << type_id << "," << mysqlpp::quote << value << ")";
 		mysqlpp::ResNSel sqlres = query.execute();	
 		if (sqlres.success)	{
 			attr_id = sqlres.insert_id;
@@ -273,10 +257,8 @@ void Mote::setAttribute(std::string type, std::string value)
 	}
 	// assign attribute value
 	query.reset();
-	query << "insert into mote_moteattr(mote_id,moteattr_id) values(%0:mote_id,%1:attr_id)";
-	query.parse();
-	query.def["mote_id"] = mote_id;
-	query.def["attr_id"] = attr_id;
+	query << "insert into mote_moteattr(mote_id,moteattr_id) "
+	      << "values(" << mote_id << "," << attr_id << ")";
 	query.execute();	
 }
 
