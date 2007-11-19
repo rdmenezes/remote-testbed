@@ -29,6 +29,7 @@ class SerialControl
 		SerialControl(std::string& tty);
 		result_t openTty();
 		result_t closeTty();
+		pid_t run(char * const args[]);
 		pid_t program(const std::string& mac, uint16_t tosAddress, std::string program);
 		bool getProgrammingResult(result_t& result);
 		result_t cancelProgramming();
