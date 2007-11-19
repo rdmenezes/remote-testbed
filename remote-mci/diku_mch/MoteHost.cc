@@ -255,17 +255,12 @@ void MoteHost::handleRequest(Mote* mote,MsgMoteAddresses& addresses, MsgRequest&
 	switch (command)
 	{
 		case MOTECOMMAND_PROGRAM:
-			if ( program(mote,addresses.getTosAddress(),request.getFlashImage()))
-			{
+			if (program(mote, addresses.getTosAddress(), request.getFlashImage())) {
 				// don't confirm until programming is done
-				reply = false;
 				return;
 			}
-			else
-			{
-				result = FAILURE;
-				status = mote->getStatus();
-			}
+			result = FAILURE;
+			status = mote->getStatus();
 			break;
 		case MOTECOMMAND_CANCELPROGRAMMING:
 			printf("User cancelling programming\n");
@@ -307,7 +302,6 @@ void MoteHost::handleRequest(Mote* mote,MsgMoteAddresses& addresses, MsgRequest&
 
 void MoteHost::handleMoteData(Mote* p_mote)
 {
-
 	int readlen = 1000;
 	char* buf = new char[1000];
 
