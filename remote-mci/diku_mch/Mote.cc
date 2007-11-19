@@ -3,9 +3,8 @@
 namespace remote { namespace diku_mch {
 
 Mote::Mote(std::string& p_mac, std::string& p_path, std::string& p_tty)
-	: SerialControl(p_tty), mac(p_mac), isvalid(true)
+	: SerialControl(p_tty), mac(p_mac), path(p_path), isvalid(true)
 {
-	path = p_path;
 	log("New mote %s at %s\n", mac.c_str(), path.c_str());
 }
 
