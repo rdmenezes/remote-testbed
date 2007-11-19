@@ -57,6 +57,8 @@ Changes to the "backbone" infrastructure is the main focus. The plan is to make 
 
  * Issue 21: Configure path to mote flash programmer via device hierarchy.
 
+ * Issue 24: Place temporary mote program file in device hierarchy.
+
  * Issue 7: Add support Tmote and MicaZ.
 
  * Issue 9: Using strings for mote TOS/MAC addresses will allow to simplify things considerably and remove usage of the `tosaddress` and `macaddress` DB tables.
