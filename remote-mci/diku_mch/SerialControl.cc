@@ -76,7 +76,7 @@ result_t SerialControl::closeTty()
 
 pid_t SerialControl::program(const std::string& mac, uint16_t tosAddress, std::string program)
 {
-	int i,j, res;
+	int res;
 	int pfd[2];
 	pid_t pid;
 	std::string tos = getTosStr(tosAddress);
@@ -100,9 +100,9 @@ pid_t SerialControl::program(const std::string& mac, uint16_t tosAddress, std::s
 			/// Hack to redirect stdout to pipe writer
 			close(pfd[0]);   // not using pipe read fd
 			close(1);        // redirecting stdout fd=1
-			i = dup(pfd[1]); // duplicate pipe write with stdout
+			dup(pfd[1]); // duplicate pipe write with stdout
 			close(2);        // redirecting stderr fd=2
-			j = dup(pfd[1]); // duplicate pipe write with stderr
+			dup(pfd[1]); // duplicate pipe write with stderr
 			close(pfd[1]);       // no longer needed- we have a duplicate
 			res = execv(args[0],args);
 			if (res == 0)
@@ -113,9 +113,8 @@ pid_t SerialControl::program(const std::string& mac, uint16_t tosAddress, std::s
 			{
 				fprintf(stderr, "\n\n\nProgramming failure!\n");
 			}
-			close(i); // we're done, close the last writers
-			close(j);
-			exit(res);
+			/* XXX: Make the failed child exit immediately. */
+			_exit(EXIT_FAILURE);
 			break;
 		default:
 			flashFile = program;
