@@ -37,6 +37,7 @@ class MoteHost
 		static void handleRequest(Mote* mote,MsgMoteAddresses& addresses, MsgRequest& request);
 		static void handleMoteData(Mote* p_mote);
 		static int rebuildFdSet(fd_set& fdset);
+		static bool writeImageFile(std::string filename, MsgPayload& image);
 		static bool program(Mote* p_mote, uint16_t tosAddress, MsgPayload& image);
 		static int clientsock; // port for the server connection
 		static int plugpipe; // pipe for plug events
