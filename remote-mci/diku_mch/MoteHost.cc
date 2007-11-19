@@ -184,23 +184,16 @@ bool MoteHost::makeMoteInfoList(motemap_t& motelist, MsgMoteConnectionInfoList& 
 
 	infolist.clear();
 
-	if ( motelist.size() > 0 )
-	{
-		for ( moteI = motelist.begin() ; moteI != motelist.end() ; moteI++ )
-		{
-			pmote = moteI->second;
-			uint64_t mac = pmote->getMac();
-			printf("Mote %s at %s\n", getMacStr(mac), pmote->getPath().c_str());
-			info.macAddress = mac;
-			info.getPath() = pmote->getPath();
-			infolist.addMoteInfo(info);
-		}
-		return true;
+	for (moteI = motelist.begin(); moteI != motelist.end(); moteI++) {
+		pmote = moteI->second;
+		uint64_t mac = pmote->getMac();
+		printf("Mote %s at %s\n", getMacStr(mac), pmote->getPath().c_str());
+		info.macAddress = mac;
+		info.getPath() = pmote->getPath();
+		infolist.addMoteInfo(info);
 	}
-	else
-	{
-		return false;
-	}
+
+	return motelist.size() > 0 ? true : false;
 }
 
 
