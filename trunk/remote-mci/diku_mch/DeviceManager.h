@@ -12,13 +12,9 @@
 #include <stdlib.h>
 #include <dirent.h>
 
-#include "macros.h"
-
 #include "Mote.h"
 
 namespace remote { namespace diku_mch {
-
-class Mote;
 
 typedef std::map<std::string, Mote *> motemap_t;
 
