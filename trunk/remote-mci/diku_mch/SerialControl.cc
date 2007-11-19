@@ -107,9 +107,15 @@ pid_t SerialControl::run(char * const args[])
 	if (pipe(pfd) < 0)
 		return -1;
 	closeTty();
-	switch (pid = fork())
-	{
-	case 0:
+	if ((pid = fork())) {
+		/* Only use the reader end if we forked. */
+		if (pid == -1)
+			close(pfd[0]);
+		else
+			port = pfd[0];
+		close(pfd[1]);
+
+	} else {
 		/* Redirect all standard output to the parent's pipe. */
 		if (dup2(pfd[1], STDOUT_FILENO) != -1 &&
 		    dup2(pfd[1], STDERR_FILENO) != -1) {
@@ -119,14 +125,6 @@ pid_t SerialControl::run(char * const args[])
 		}
 		/* XXX: Make the failed child exit immediately. */
 		_exit(EXIT_FAILURE);
-		break;
-	default:
-		/* Only use the reader end if we forked. */
-		if (pid == -1)
-			close(pfd[0]);
-		else
-			port = pfd[0];
-		close(pfd[1]);
 	}
 
 	return pid;
