@@ -177,19 +177,15 @@ void MoteHost::handlePlugEvent()
 
 bool MoteHost::makeMoteInfoList(motemap_t& motelist, MsgMoteConnectionInfoList& infolist)
 {
-
-	Mote* pmote;
 	motemap_t::const_iterator moteI;
-	MsgMoteConnectionInfo info;
 
 	infolist.clear();
 
 	for (moteI = motelist.begin(); moteI != motelist.end(); moteI++) {
-		pmote = moteI->second;
-		uint64_t mac = pmote->getMac();
-		printf("Mote %s at %s\n", getMacStr(mac), pmote->getPath().c_str());
-		info.macAddress = mac;
-		info.getPath() = pmote->getPath();
+		Mote *mote = moteI->second;
+		MsgMoteConnectionInfo info(mote->getMac(), mote->getPath());
+
+		printf("Mote %s at %s\n", getMacStr(mote->getMac()), mote->getPath().c_str());
 		infolist.addMoteInfo(info);
 	}
 
