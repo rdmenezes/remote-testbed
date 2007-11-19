@@ -54,7 +54,7 @@ std::string DeviceManager::readMoteDeviceFile(std::string path)
 
 	fd = open(path.c_str(), O_RDONLY | O_NONBLOCK);
 	if (fd < 0)
-		return "";
+		return std::string("");
 
 	do {
 		size = read(fd, buffer, sizeof(buffer) - 1);
@@ -83,7 +83,7 @@ std::string DeviceManager::readMoteDeviceFile(std::string path)
 	}
 	buffer[size] = 0;
 
-	return buffer;
+	return std::string(buffer);
 }
 
 /** Open /dev/remote and register information about each mote. */
