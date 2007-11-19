@@ -22,15 +22,6 @@ getFormatStr(const char *format, ...)
 }
 
 static inline char *
-getMacStr(uint64_t mac)
-{
-	uint32_t high = mac >> 32;
-	uint32_t low = (uint32_t) mac;
-
-	return getFormatStr("%08X%08X", high, low);
-}
-
-static inline char *
 getTosStr(uint16_t tos)
 {
 	return getFormatStr("%u", tos);
