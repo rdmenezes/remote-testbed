@@ -221,7 +221,7 @@ void MoteHost::handleMessage()
 
 		if (moteI == DeviceManager::motes.end())
 		{
-			printf("UNKNOWN MOTE!");
+			printf("UNKNOWN MOTE!\n");
 			MsgHostConfirm msgHostConfirm(MSGHOSTCONFIRM_UNKNOWN_MOTE,addresses,msgHostRequest.getMessage());
 			HostMsg msgReply(msgHostConfirm);
 			msg.sendMsg(clientsock,msgReply);
