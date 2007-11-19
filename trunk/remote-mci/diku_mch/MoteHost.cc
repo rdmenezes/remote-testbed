@@ -291,16 +291,16 @@ void MoteHost::handleRequest(Mote* mote, MsgMoteAddresses& addresses, MsgRequest
 	}
 }
 
-void MoteHost::handleMoteData(Mote* p_mote)
+void MoteHost::handleMoteData(Mote* mote)
 {
 	int readlen = 1000;
 	char* buf = new char[1000];
 
-	MsgMoteAddresses msgMoteAddresses(0, p_mote->getMac());
+	MsgMoteAddresses msgMoteAddresses(0, mote->getMac());
 
 	while ( readlen == 1000 )
 	{
-		readlen = p_mote->readBuf(buf,1000);
+		readlen = mote->readBuf(buf,1000);
 		if (readlen > 0)
 		{
 			printf("'%.*s'", readlen, buf);
@@ -320,10 +320,10 @@ void MoteHost::handleMoteData(Mote* p_mote)
 	if ( readlen <= 0 )
 	{
 		uint8_t result;
-		if (p_mote->getProgrammingResult(result))
+		if (mote->getProgrammingResult(result))
 		{
 			printf("Programming done!\n");
-			MsgConfirm msgConfirm(MOTECOMMAND_PROGRAM,result,p_mote->getStatus());
+			MsgConfirm msgConfirm(MOTECOMMAND_PROGRAM, result, mote->getStatus());
 			MoteMsg moteMsg(msgConfirm);
 			MsgPayload msgPayload(moteMsg);
 			MsgHostConfirm msgHostConfirm(MSGHOSTCONFIRM_OK,msgMoteAddresses,msgPayload);
@@ -331,9 +331,9 @@ void MoteHost::handleMoteData(Mote* p_mote)
 			Message msg;
 			msg.sendMsg(clientsock,hostMsg);
 		} else {
-			p_mote->invalidate();
-			p_mote->_close();
-			log("Invalidating mote '%s'\n", p_mote->getMac().c_str());
+			mote->invalidate();
+			mote->_close();
+			log("Invalidating mote '%s'\n", mote->getMac().c_str());
 		}
 	}
 
@@ -357,16 +357,16 @@ bool MoteHost::writeImageFile(std::string filename, MsgPayload& image)
 	return false;
 }
 
-result_t MoteHost::program(Mote *p_mote, MsgMoteAddresses& addresses, MsgPayload& image)
+result_t MoteHost::program(Mote *mote, MsgMoteAddresses& addresses, MsgPayload& image)
 {
 	std::string filename;
 
-	if (p_mote->getStatus() == MOTE_PROGRAMMING)
+	if (mote->getStatus() == MOTE_PROGRAMMING)
 		return FAILURE;
 
-	filename = "/var/run/motehost-" + p_mote->getMac() + ".s19";
+	filename = "/var/run/motehost-" + mote->getMac() + ".s19";
 	if (writeImageFile(filename, image)) {
-		p_mote->program(p_mote->getMac(), addresses.getTosAddress(), filename);
+		mote->program(mote->getMac(), addresses.getTosAddress(), filename);
 		return SUCCESS;
 	}
 
