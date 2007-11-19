@@ -9,6 +9,7 @@ class MsgMoteAddresses : public BaseMsg
 {
 	public:
 		MsgMoteAddresses(uint16_t tosAddress, uint64_t macAddress);
+		MsgMoteAddresses(uint16_t tosAddress, std::string mac);
 		MsgMoteAddresses(uint8_t*& buffer, uint32_t& buflen);
 		~MsgMoteAddresses();
 		uint32_t getLength();

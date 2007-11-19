@@ -10,7 +10,7 @@ class MsgMoteConnectionInfo : public BaseMsg
 {
 	public:
 		MsgMoteConnectionInfo();
-		MsgMoteConnectionInfo(uint64_t p_macAddress, std::string p_path);
+		MsgMoteConnectionInfo(std::string p_mac, std::string p_path);
 		MsgMoteConnectionInfo(const MsgMoteConnectionInfo& o);
 		virtual ~MsgMoteConnectionInfo();
 		void operator = (const MsgMoteConnectionInfo& o);
