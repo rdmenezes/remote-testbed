@@ -142,16 +142,22 @@ bool SerialControl::getProgrammingResult(result_t& result )
 
 result_t SerialControl::cancelProgramming()
 {
-	int prgres;
 	if (!isProgramming) return FAILURE;
 	kill(prg_pid,SIGKILL);
-	waitpid(prg_pid,&prgres,0);
 	cleanUpProgram();
 	return SUCCESS;
 }
 
 void SerialControl::cleanUpProgram()
 {
+	int status;
+
+	waitpid(prg_pid, &status, 0);
+	if (WIFEXITED(status) && WEXITSTATUS(status) == 0) {
+		prg_result = SUCCESS;
+	} else {
+		prg_result = FAILURE;
+	}
 	close(port);
 	_open();
 	isProgramming = false;
@@ -218,19 +224,10 @@ bool SerialControl::clearDTR()
 
 int SerialControl::readBuf(char* buf, int len)
 {
-	int res, prgres;
+	int res;
 
 	if ( (res = read(port,buf,len)) <= 0 && isProgramming)
 	{
-		waitpid(prg_pid,&prgres,0);
-		if (WIFEXITED(prgres) && WEXITSTATUS(prgres) == 0)
-		{
-			prg_result = SUCCESS;
-		}
-		else
-		{
-			prg_result = FAILURE;
-		}
 		cleanUpProgram();
 	}
 	return res;
