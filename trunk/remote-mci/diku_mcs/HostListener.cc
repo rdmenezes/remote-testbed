@@ -44,9 +44,8 @@ bool HostListener::createHostByConnection(int p_fd, sockaddr_in& client)
 	mysqlpp::ResUse res;
 	mysqlpp::Row row;
 	mysqlpp::Query query = sqlConn.query();
-	query << "select id from host where ip='%0:ip'";
-	query.parse();
-	query.def["ip"] = ip;
+
+	query << "select id from host where ip = " << mysqlpp::quote << ip;
 
 	res = query.use();
 	res.disable_exceptions();

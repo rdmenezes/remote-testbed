@@ -89,9 +89,7 @@ void Session::deleteSessionRecord()
 	mysqlpp::Connection& sqlConn = dbConn.getConnection();
 	mysqlpp::Result res;
 	mysqlpp::Query query = sqlConn.query();	
-	query << "delete from session where id = '%0:session_id'";
-	query.parse();
-	query.def["session_id"] = session_id;	
+	query << "delete from session where id = " << session_id;
 	query.execute();
 	query.reset();
 	authenticated = false;
@@ -105,9 +103,7 @@ bool Session::isAuthenticated()
 	mysqlpp::Result res;
 	mysqlpp::Query query = sqlConn.query();
 
-	query << "select auth from session where id = '%0:session_id'";	          	          
-	query.parse();
-	query.def["session_id"] = session_id;	
+	query << "select auth from session where id = " << session_id;
 	res = query.store();
 	
 	if ( res.num_rows() == 1 )

@@ -91,25 +91,20 @@ void Host::findOrCreateMote(MsgMoteConnectionInfo& info)
 
 	mysqlpp::Query query = sqlConn.query();	
 
-	query << "select site_id from path \
-	          where host_id = %0:hostid \
-	          and path='%1:path'";
+	query << "select site_id from path"
+		 " where host_id = " << id
+	      << "   and path = " << mysqlpp::quote << path;
 
 	// look for the connection path + host id to get the site_id
-	query.def["hostid"] = id;
-	query.def["path"] = info.getPath().getString();
-
 	selectRes = query.use();
 	selectRes.disable_exceptions();
 	row = selectRes.fetch_row();
 	if (!row || row.empty()) {
 		// if not found, create the path in the database with no site_id
 		query.reset();
-		query << "insert into path(host_id,path) \
-	                  values( %0:hostid,'%1:path' )";
+		query << "insert into path(host_id,path) "
+	              << "values(" << id << "," << mysqlpp::quote << path << ")";
 
-		query.def["hostid"] = id;
-		query.def["path"] = info.getPath().getString();
 		query.execute(); // TODO: error checking
 
 		// XXX: Set to the default site_id for new paths
