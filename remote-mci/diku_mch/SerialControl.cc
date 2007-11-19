@@ -76,7 +76,6 @@ result_t SerialControl::closeTty()
 
 pid_t SerialControl::program(const std::string& mac, uint16_t tosAddress, std::string program)
 {
-	int res;
 	int pfd[2];
 	pid_t pid;
 	std::string tos = getTosStr(tosAddress);
@@ -104,15 +103,8 @@ pid_t SerialControl::program(const std::string& mac, uint16_t tosAddress, std::s
 			close(2);        // redirecting stderr fd=2
 			dup(pfd[1]); // duplicate pipe write with stderr
 			close(pfd[1]);       // no longer needed- we have a duplicate
-			res = execv(args[0],args);
-			if (res == 0)
-			{
-				fprintf(stderr, "\n\n\nProgramming succesful!\n");
-			}
-			else
-			{
-				fprintf(stderr, "\n\n\nProgramming failure!\n");
-			}
+			execv(args[0], args);
+			fprintf(stderr, "\nFailed to run %s\n", args[0]);
 			/* XXX: Make the failed child exit immediately. */
 			_exit(EXIT_FAILURE);
 			break;
