@@ -87,7 +87,7 @@ void Host::findOrCreateMote(MsgMoteConnectionInfo& info)
 	mysqlpp::ResNSel execRes;
 	mysqlpp::Row row;
 
-	log("Mote %s plugged at %s\n", getMacStr(info.macAddress), path.c_str());
+	log("Mote %s plugged at %s\n", info.getMac().c_str(), path.c_str());
 
 	mysqlpp::Query query = sqlConn.query();
 
@@ -117,7 +117,7 @@ void Host::findOrCreateMote(MsgMoteConnectionInfo& info)
 	// look for the mac addresses in the database, get mote_id
 	query.reset();
 	query << "select mote_id from moteattr ma, mote_moteattr mma, moteattrtype mat"
-		 " where ma.val=" << mysqlpp::quote << getMacStr(info.macAddress)
+		 " where ma.val=" << mysqlpp::quote << info.getMac()
 	      << "   and mma.moteattr_id=ma.id"
 		 "   and ma.moteattrtype_id=mat.id"
 		 "   and mat.name='macaddress'";
@@ -141,7 +141,7 @@ void Host::findOrCreateMote(MsgMoteConnectionInfo& info)
 		// create the mac and tos address database records using the mote id
 		newtarget->tosAddress = (uint16_t) mote->mote_id;
 
-		mac = getMacStr(info.macAddress);
+		mac = info.getMac();
 		tos = getTosStr(newtarget->tosAddress);
 		log("Setting attributes: MAC=%s TOS=%s\n", mac.c_str(), tos.c_str());
 		mote->setAttribute("macaddress", mac);
