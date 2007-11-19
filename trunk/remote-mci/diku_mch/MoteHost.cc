@@ -341,9 +341,25 @@ void MoteHost::handleMoteData(Mote* p_mote)
 	delete buf;
 }
 
+bool MoteHost::writeImageFile(std::string filename, MsgPayload& image)
+{
+	ssize_t filesize;
+	int fd = open(filename.c_str(), O_CREAT | O_TRUNC | O_WRONLY);
+
+	if (fd < 0)
+		return false;
+
+	filesize = write(fd, (const void *) image.getData(), image.getDataLength());
+	close(fd);
+	if (filesize == (ssize_t) image.getDataLength())
+		return true;
+
+	remove(filename.c_str());
+	return false;
+}
+
 bool MoteHost::program(Mote* p_mote, uint16_t tosAddress, MsgPayload& image)
 {
-	int fd;
 	std::string filename;
 
 	if ( p_mote->getStatus() == MOTE_PROGRAMMING )
@@ -352,23 +368,11 @@ bool MoteHost::program(Mote* p_mote, uint16_t tosAddress, MsgPayload& image)
 	}
 
 	filename = "/var/run/motehost-" + p_mote->getMac() + ".s19";
-
-	// create a file
-	fd = open(filename.c_str(), O_CREAT | O_TRUNC | O_WRONLY);
-	if (fd > 0)
-	{
-		// write the entire image to the file
-		if (write(fd,(const void*)image.getData(),image.getDataLength()) != (ssize_t) image.getDataLength())
-		{
-			close(fd);
-			remove(filename.c_str());
-			return false;
-		}
-
-		// program the mote
+	if (writeImageFile(filename, image)) {
 		p_mote->program(p_mote->getMac(),tosAddress,filename);
 		return true;
 	}
+
 	return false;
 }
 
