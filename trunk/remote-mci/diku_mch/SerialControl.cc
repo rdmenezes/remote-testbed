@@ -71,7 +71,7 @@ result_t SerialControl::closeTty()
 	return SUCCESS;
 }
 
-pid_t SerialControl::program(const std::string& mac, uint16_t tosAddress, std::string program)
+result_t SerialControl::program(const std::string& mac, uint16_t tosAddress, std::string program)
 {
 	std::string tos = getTosStr(tosAddress);
 	char * const args[] = {
@@ -87,13 +87,13 @@ pid_t SerialControl::program(const std::string& mac, uint16_t tosAddress, std::s
 	log("Programming TTY %s using mac %s\n", tty.c_str(), mac.c_str());
 
 	prg_pid = run(args);
-	if (prg_pid > 0) {
-		flashFile = program;
-		isProgramming = true;
-		prg_result = FAILURE; // no result yet
-	}
+	if (prg_pid < 0)
+		return FAILURE;
 
-	return prg_pid;
+	flashFile = program;
+	isProgramming = true;
+	prg_result = FAILURE; // no result yet
+	return SUCCESS;
 }
 
 pid_t SerialControl::run(char * const args[])
