@@ -50,7 +50,6 @@ class SerialControl
 		pid_t childPid;
 		result_t childResult;
 		std::string tty;
-		std::string flashFile;
 		struct termios newsertio, oldsertio;
 };
 
