@@ -16,7 +16,6 @@
 #include "macros.h"
 #include "types.h"
 #include "motecontrol/localconstants.h"
-#include "Configuration.h"
 
 namespace remote { namespace diku_mch {
 
