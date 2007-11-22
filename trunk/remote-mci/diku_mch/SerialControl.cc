@@ -86,8 +86,7 @@ result_t SerialControl::program(const std::string& mac, uint16_t tosAddress, std
 
 	log("Programming TTY %s using mac %s\n", tty.c_str(), mac.c_str());
 
-	childPid = run(args);
-	if (childPid < 0)
+	if (!runChild(args))
 		return FAILURE;
 
 	flashFile = program;
@@ -95,20 +94,19 @@ result_t SerialControl::program(const std::string& mac, uint16_t tosAddress, std
 	return SUCCESS;
 }
 
-pid_t SerialControl::run(char * const args[])
+bool SerialControl::runChild(char * const args[])
 {
 	int pfd[2];
-	pid_t pid;
 
 	if (pipe(pfd) < 0)
-		return -1;
+		return false;
 	closeTty();
-	if ((pid = fork())) {
+	if ((childPid = fork())) {
 		/* Only use the reader end if we forked. */
-		if (pid == -1)
-			close(pfd[0]);
-		else
+		if (hasChild())
 			port = pfd[0];
+		else
+			close(pfd[0]);
 		close(pfd[1]);
 
 	} else {
@@ -123,7 +121,7 @@ pid_t SerialControl::run(char * const args[])
 		_exit(EXIT_FAILURE);
 	}
 
-	return pid;
+	return hasChild();
 }
 
 bool SerialControl::getProgrammingResult(result_t& result )
