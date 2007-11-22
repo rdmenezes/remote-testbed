@@ -24,15 +24,15 @@ class Configuration
 		 * @param argc	Number of command line arguments
 		 * @param argv	string array of command line arguments
 		 */
-		static void read(int argc, char **argv);
+		void read(int argc, char **argv);
 
 		/** Print usage help for option group
 		 * @param desc	Option group for which to print help.
 		 */
-		static void printHelp(po::options_description& desc);
+		void printHelp(po::options_description& desc);
 
 		/** Option variable map keyed by option name */
-		static po::variables_map vm;
+		po::variables_map vm;
 };
 
 }}

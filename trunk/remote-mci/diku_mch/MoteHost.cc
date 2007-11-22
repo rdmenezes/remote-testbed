@@ -7,14 +7,15 @@ int MoteHost::plugpipe;
 fd_set MoteHost::fdset;
 Message MoteHost::msg;
 DeviceManager MoteHost::devices;
+Configuration MoteHost::config;
 
 void MoteHost::lookForServer()
 {
 	while (1)
 	{
-		printf("Attempting to connect to server %s using port %u...\n", Configuration::vm["serverAddress"].as<std::string>().c_str(),Configuration::vm["serverPort"].as<uint16_t>());
+		printf("Attempting to connect to server %s using port %u...\n", config.vm["serverAddress"].as<std::string>().c_str(),config.vm["serverPort"].as<uint16_t>());
 
-		clientsock = openClientSocket(Configuration::vm["serverAddress"].as<std::string>(), Configuration::vm["serverPort"].as<uint16_t>() );
+		clientsock = openClientSocket(config.vm["serverAddress"].as<std::string>(), config.vm["serverPort"].as<uint16_t>() );
 		// set keepalive options
 		setKeepAlive( clientsock, 3, 120, 30);
 
@@ -30,13 +31,13 @@ void MoteHost::lookForServer()
 			{
 				fprintf(stderr,"Exception: %s\n",e.what());
 			}
-			printf( "Server disconnected, attempting reconnect in %llu seconds\n",Configuration::vm["serverConnectionRetryInterval"].as<uint64_t>());
-			usleep(Configuration::vm["serverConnectionRetryInterval"].as<uint64_t>()*1000000);
+			printf( "Server disconnected, attempting reconnect in %llu seconds\n",config.vm["serverConnectionRetryInterval"].as<uint64_t>());
+			usleep(config.vm["serverConnectionRetryInterval"].as<uint64_t>()*1000000);
 		}
 		else
 		{
-			printf("Server connection failed, trying again in %llu seconds...\n",Configuration::vm["serverConnectionRetryInterval"].as<uint64_t>());
-			usleep(Configuration::vm["serverConnectionRetryInterval"].as<uint64_t>()*1000000);
+			printf("Server connection failed, trying again in %llu seconds...\n",config.vm["serverConnectionRetryInterval"].as<uint64_t>());
+			usleep(config.vm["serverConnectionRetryInterval"].as<uint64_t>()*1000000);
 		}
 	}
 }
@@ -45,20 +46,20 @@ void MoteHost::serviceLoop()
 {
 	int res = 0 ,p;
 
-	remove(Configuration::vm["usbPlugEventPipe"].as<std::string>().c_str());
-	if ( mkfifo(Configuration::vm["usbPlugEventPipe"].as<std::string>().c_str(),666) == -1)
+	remove(config.vm["usbPlugEventPipe"].as<std::string>().c_str());
+	if ( mkfifo(config.vm["usbPlugEventPipe"].as<std::string>().c_str(),666) == -1)
 	{
-		std::string err = "Failed to make fifo "+Configuration::vm["usbPlugEventPipe"].as<std::string>()+": "+strerror(errno);
+		std::string err = "Failed to make fifo "+config.vm["usbPlugEventPipe"].as<std::string>()+": "+strerror(errno);
 		__THROW__ (err.c_str());
 	}
-	plugpipe = open(Configuration::vm["usbPlugEventPipe"].as<std::string>().c_str(),O_RDONLY | O_NONBLOCK);
+	plugpipe = open(config.vm["usbPlugEventPipe"].as<std::string>().c_str(),O_RDONLY | O_NONBLOCK);
 	if ( plugpipe < 0 )
 	{
-		std::string err = "Failed to open fifo "+Configuration::vm["usbPlugEventPipe"].as<std::string>()+": "+strerror(errno);
+		std::string err = "Failed to open fifo "+config.vm["usbPlugEventPipe"].as<std::string>()+": "+strerror(errno);
 		__THROW__ (err.c_str());
 	}
 	// the first thing to do is send all current mote information to the server
-	devices.refresh(Configuration::vm["devicePath"].as<std::string>());
+	devices.refresh(config.vm["devicePath"].as<std::string>());
 	printf("Sending mote list to server\n");
 	MsgPlugEvent msgPlugEvent(PLUG_MOTES);
 	if (makeMoteInfoList(devices.motes, msgPlugEvent.getInfoList()))
@@ -150,7 +151,7 @@ void MoteHost::handlePlugEvent()
 		if ( i <= 0 )
 		{
 			close(plugpipe);
-			plugpipe = open(Configuration::vm["usbPlugEventPipe"].as<std::string>().c_str(),O_RDONLY | O_NONBLOCK);
+			plugpipe = open(config.vm["usbPlugEventPipe"].as<std::string>().c_str(),O_RDONLY | O_NONBLOCK);
 		}
 		else
 		{
@@ -159,7 +160,7 @@ void MoteHost::handlePlugEvent()
 	}
 	printf("\n");
 
-	devices.refresh(Configuration::vm["devicePath"].as<std::string>());
+	devices.refresh(config.vm["devicePath"].as<std::string>());
 
 	MsgPlugEvent msgUnplugEvent(UNPLUG_MOTES);
 	if (makeMoteInfoList(devices.lostMotes, msgUnplugEvent.getInfoList()))
@@ -371,7 +372,7 @@ result_t MoteHost::program(Mote *mote, MsgMoteAddresses& addresses, MsgPayload& 
 		std::string mac_env = "macaddress=" + mote->getMac();
 		std::string tos_env = "tosaddress=" + tos;
 		char * const args[] = {
-			(char *) Configuration::vm["moteProgrammerPath"].as<std::string>().c_str(),
+			(char *) config.vm["moteProgrammerPath"].as<std::string>().c_str(),
 			(char *) mote->getTty().c_str(),
 			(char *) filename.c_str(),
 			NULL
@@ -394,8 +395,8 @@ result_t MoteHost::program(Mote *mote, MsgMoteAddresses& addresses, MsgPayload& 
 
 int MoteHost::main(int argc,char** argv)
 {
-	Configuration::read(argc,argv);
-	if (Configuration::vm["daemonize"].as<int>())
+	config.read(argc,argv);
+	if (config.vm["daemonize"].as<int>())
 	{
 		printf("Daemonizing!\n");
 		if (fork()) exit(0);
