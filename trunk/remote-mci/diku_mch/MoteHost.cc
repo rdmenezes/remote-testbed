@@ -216,12 +216,10 @@ void MoteHost::handleMessage()
 		MoteMsg moteMsg(buffer,buflen);
 
 		moteI = devices.motes.find(addresses.getMac());
-		printf("HOSTMSGTYPE_MOTEMSG for TOS=%u MAC=%s\n",
-		       addresses.getTosAddress(), addresses.getMac().c_str());
 
 		if (moteI == devices.motes.end())
 		{
-			printf("UNKNOWN MOTE!\n");
+			printf("Mote %s unknown!\n", addresses.getMac().c_str());
 			MsgHostConfirm msgHostConfirm(MSGHOSTCONFIRM_UNKNOWN_MOTE,addresses,msgHostRequest.getMessage());
 			HostMsg msgReply(msgHostConfirm);
 			msg.sendMsg(clientsock,msgReply);
@@ -250,6 +248,8 @@ void MoteHost::handleRequest(Mote* mote, MsgMoteAddresses& addresses, MsgRequest
 {
 	uint8_t command = request.getCommand();
 	result_t result;
+
+	printf("Mote %s got command=%u\n", addresses.getMac().c_str(), command);
 
 	switch (command)
 	{
