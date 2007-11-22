@@ -10,12 +10,6 @@ MsgMoteConnectionInfo::MsgMoteConnectionInfo(std::string p_mac, std::string p_pa
 {
 }
 
-MsgMoteConnectionInfo::MsgMoteConnectionInfo(const MsgMoteConnectionInfo& o) : path()
-{
-	path = o.path;
-	mac = o.mac;
-}
-
 MsgMoteConnectionInfo::~MsgMoteConnectionInfo()
 {}
 
