@@ -2,7 +2,7 @@
 
 namespace remote { namespace diku_mcs {
 
-MoteAddresses::MoteAddresses(uint16_t p_tosAddress, std::string p_mac)
+MoteAddresses::MoteAddresses(std::string p_mac, uint16_t p_tosAddress)
               : tosAddress(p_tosAddress), mac(p_mac)
 {
 }
