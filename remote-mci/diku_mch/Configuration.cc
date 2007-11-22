@@ -80,6 +80,4 @@ void Configuration::read(int argc, char **argv)
 	notify(vm);
 }
 
-po::variables_map Configuration::vm;
-
 }}

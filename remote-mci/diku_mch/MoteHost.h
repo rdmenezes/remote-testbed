@@ -45,6 +45,7 @@ class MoteHost
 		static fd_set fdset;
 		static Message msg;
 		static DeviceManager devices;
+		static Configuration config;
 };
 
 }}
