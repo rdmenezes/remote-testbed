@@ -11,7 +11,7 @@ The Re-Mote Testbed Framework consists of 4 basic components:
 
 DatabaseComponent
 
-   Contains sql scripts for creating and managing the MySQL database. It is used by the web service and mote control component for tracking the state--static as well as dynamic--of the testbed. The underlying data model is based on the three fundamental entities: motes, mote host sites, and user sessions.
+   Contains SQL scripts for creating and maintaining the MySQL database. It is used by the web service and mote control component for tracking the state--static as well as dynamic--of the testbed. The underlying data model is based on the three fundamental entities: motes, mote host sites, and user sessions.
 
 WebServiceComponent
 
@@ -34,5 +34,6 @@ Before deploying, please also read the SecurityConsiderations.
 The source code is available either as [http://code.google.com/p/remote-testbed/downloads/list downloadable release archives] or--if you want to keep in sync with the latest source of the framework--directly from the CodeRepositories. While the first option is generally more stable, the last option allows you to keep track of your local changes and is preferred if you intend to contribute code back to the project.
 
 == Installing the Testbed ==
+=== Library and Program Dependencies ===
 == Deploying Motes ==
 == Maintaining Users ==
