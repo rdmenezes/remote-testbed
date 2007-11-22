@@ -41,11 +41,12 @@ class SerialControl
 		int getFd();
 		status_t getStatus();
 	protected:
+		bool hasChild() { return childPid != -1; }
 		void cleanUpProgram();
 		bool clearDTR();
 		bool setDTR();
 		int port;
-		bool isRunning, isOpen, isProgramming, wasProgramming;
+		bool isRunning, isOpen, wasProgramming;
 		pid_t childPid;
 		result_t prg_result;
 		std::string tty;
