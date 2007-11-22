@@ -90,7 +90,7 @@ result_t SerialControl::program(const std::string& mac, uint16_t tosAddress, std
 		return FAILURE;
 
 	flashFile = program;
-	prg_result = FAILURE; // no result yet
+	childResult = FAILURE; // no result yet
 	return SUCCESS;
 }
 
@@ -126,7 +126,7 @@ bool SerialControl::runChild(char * const args[])
 
 bool SerialControl::getProgrammingResult(result_t& result )
 {
-	result = prg_result;
+	result = childResult;
 	bool wasPrg = wasProgramming;
 	wasProgramming = false;
 	return wasPrg;
@@ -147,9 +147,9 @@ void SerialControl::cleanUpProgram()
 
 	waitpid(childPid, &status, 0);
 	if (WIFEXITED(status) && WEXITSTATUS(status) == 0) {
-		prg_result = SUCCESS;
+		childResult = SUCCESS;
 	} else {
-		prg_result = FAILURE;
+		childResult = FAILURE;
 	}
 	childPid = -1;
 	close(port);
