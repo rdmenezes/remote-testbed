@@ -367,7 +367,21 @@ result_t MoteHost::program(Mote *mote, MsgMoteAddresses& addresses, MsgPayload& 
 		return FAILURE;
 
 	if (writeImageFile(filename, image)) {
-		return mote->program(mote->getMac(), addresses.getTosAddress(), filename);
+		std::string tos = getTosStr(addresses.getTosAddress());
+		char * const args[] = {
+			(char *) Configuration::vm["moteProgrammerPath"].as<std::string>().c_str(),
+			(char *) mote->getTty().c_str(),
+			"115200",
+			(char *) filename.c_str(),
+			(char *) mote->getMac().c_str(),
+			(char *) tos.c_str(),
+			NULL
+		};
+
+		log("Programming TTY %s\n", mote->getTty().c_str());
+
+		if (mote->runChild(args))
+			return SUCCESS;
 	}
 
 	return FAILURE;

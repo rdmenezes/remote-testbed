@@ -30,7 +30,6 @@ class SerialControl
 		result_t openTty();
 		result_t closeTty();
 		bool runChild(char * const args[]);
-		result_t program(const std::string& mac, uint16_t tosAddress, std::string program);
 		result_t getChildResult();
 		result_t cancelProgramming();
 		result_t reset();
@@ -40,6 +39,7 @@ class SerialControl
 		ssize_t writeBuf(const char *buf, size_t len);
 		int getFd();
 		status_t getStatus();
+		const std::string& getTty();
 	protected:
 		bool hasChild() { return childPid != -1; }
 		void cleanUpProgram();
