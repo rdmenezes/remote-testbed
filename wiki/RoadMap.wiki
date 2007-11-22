@@ -65,8 +65,6 @@ Changes to the "backbone" infrastructure is the main focus. The plan is to make 
 
  * Issue 10: Remove the `tosaddress` and `macaddress` site specific tables.
 
- * Issue 17: Although this design approach will require some more initial thoughts and work, it will reduce the need for future changes wrt. mote attribute handling.
-
  * Issue 22: Make logging easier and more configurable.
 
 == Re-Mote Testbed Framework version 2.0 ==
@@ -82,6 +80,8 @@ Open issues sorted by [http://code.google.com/p/remote-testbed/issues/list?q=mil
  * Issue 11: Reorganizing the files of the DB module will further improve the self-documenting hierarchy of this module.
 
  * Issue 15: Reorganizing the GUI code will make it more hackable in Java IDEs, which are very good at catching stuff like deprecated methods.
+
+ * Issue 17: Although this design approach will require some more initial thoughts and work, it will reduce the need for future changes wrt. mote attribute handling.
 
  * Issue 19: Use inotify in MCH to watch the device hierarchy
 
