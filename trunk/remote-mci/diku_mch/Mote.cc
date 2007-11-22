@@ -31,7 +31,6 @@ void Mote::validate(std::string& p_path, std::string& p_tty)
 
 		testmote->openTty();
 		bool testOpen = testmote->isOpen;
-		testmote->closeTty();
 		delete testmote;
 
 		if (testOpen) {

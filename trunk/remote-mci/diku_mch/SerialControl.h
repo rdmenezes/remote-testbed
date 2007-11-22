@@ -26,6 +26,7 @@ class SerialControl
 {
 	public:
 		SerialControl(std::string& tty);
+		~SerialControl();
 		result_t openTty();
 		result_t closeTty();
 		bool runChild(char * const args[], char * const envp[]);
