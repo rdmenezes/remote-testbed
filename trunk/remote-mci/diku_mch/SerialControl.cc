@@ -207,9 +207,9 @@ bool SerialControl::clearDTR()
 	return true;
 }
 
-int SerialControl::readBuf(char* buf, int len)
+ssize_t SerialControl::readBuf(char *buf, size_t len)
 {
-	int res = read(port, buf, len);
+	ssize_t res = read(port, buf, len);
 
 	if (res <= 0 && hasChild()) {
 		cleanUpProgram();
@@ -217,7 +217,7 @@ int SerialControl::readBuf(char* buf, int len)
 	return res;
 }
 
-int SerialControl::writeBuf(const char* buf, int len)
+ssize_t SerialControl::writeBuf(const char* buf, size_t len)
 {
 	return write(port, buf, len);
 }

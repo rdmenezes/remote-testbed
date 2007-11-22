@@ -36,8 +36,8 @@ class SerialControl
 		result_t reset();
 		result_t start();
 		result_t stop();
-		int readBuf(char *buf, int len);
-		int writeBuf(const char *buf, int len);
+		ssize_t readBuf(char *buf, size_t len);
+		ssize_t writeBuf(const char *buf, size_t len);
 		int getFd();
 		status_t getStatus();
 	protected:

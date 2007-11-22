@@ -293,16 +293,14 @@ void MoteHost::handleRequest(Mote* mote, MsgMoteAddresses& addresses, MsgRequest
 
 void MoteHost::handleMoteData(Mote* mote)
 {
-	int readlen = 1000;
-	char* buf = new char[1000];
+	char buf[1000];
+	ssize_t readlen = sizeof(buf);
 
 	MsgMoteAddresses msgMoteAddresses(0, mote->getMac());
 
-	while ( readlen == 1000 )
-	{
-		readlen = mote->readBuf(buf,1000);
-		if (readlen > 0)
-		{
+	while (readlen == sizeof(buf)) {
+		readlen = mote->readBuf(buf, sizeof(buf));
+		if (readlen > 0) {
 			printf("'%.*s'", readlen, buf);
 			uint32_t len = readlen;
 			MsgPayload msgData;
@@ -337,8 +335,6 @@ void MoteHost::handleMoteData(Mote* mote)
 			log("Invalidating mote '%s'\n", mote->getMac().c_str());
 		}
 	}
-
-	delete buf;
 }
 
 bool MoteHost::writeImageFile(std::string filename, MsgPayload& image)
