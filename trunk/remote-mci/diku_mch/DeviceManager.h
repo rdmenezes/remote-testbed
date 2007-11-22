@@ -1,6 +1,7 @@
 #ifndef _DEVICEMANAGER_H_
 #define _DEVICEMANAGER_H_
 
+#include <map>
 #include <string>
 #include <errno.h>
 #include <sys/types.h>
