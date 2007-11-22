@@ -44,8 +44,9 @@ class SerialControl
 		void cleanUpProgram();
 		bool clearDTR();
 		bool setDTR();
-		int port,prg_pid;
+		int port;
 		bool isRunning, isOpen, isProgramming, wasProgramming;
+		pid_t childPid;
 		result_t prg_result;
 		std::string tty;
 		std::string flashFile;
