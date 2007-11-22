@@ -46,7 +46,7 @@ class SerialControl
 		bool clearDTR();
 		bool setDTR();
 		int port;
-		bool isRunning, isOpen, wasProgramming;
+		bool isRunning, isOpen;
 		pid_t childPid;
 		result_t childResult;
 		std::string tty;
