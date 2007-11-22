@@ -89,7 +89,6 @@ result_t SerialControl::program(const std::string& mac, uint16_t tosAddress, std
 	if (!runChild(args))
 		return FAILURE;
 
-	flashFile = program;
 	return SUCCESS;
 }
 
@@ -154,8 +153,6 @@ void SerialControl::cleanUpProgram()
 	childPid = -1;
 	close(port);
 	openTty();
-	remove(flashFile.c_str());
-	flashFile = "";
 }
 
 result_t SerialControl::reset()

@@ -323,6 +323,7 @@ void MoteHost::handleMoteData(Mote* mote)
 
 		if (result != NOT_SUPPORTED) {
 			printf("Programming done!\n");
+			remove(getImageFilename(mote).c_str());
 			MsgConfirm msgConfirm(MOTECOMMAND_PROGRAM, result, mote->getStatus());
 			MoteMsg moteMsg(msgConfirm);
 			MsgPayload msgPayload(moteMsg);
