@@ -124,11 +124,12 @@ bool SerialControl::runChild(char * const args[])
 	return hasChild();
 }
 
-bool SerialControl::getProgrammingResult(result_t& result )
+result_t SerialControl::getChildResult()
 {
-	result = childResult;
+	result_t result = childResult;
+
 	childResult = NOT_SUPPORTED;
-	return result != NOT_SUPPORTED;
+	return result;
 }
 
 result_t SerialControl::cancelProgramming()

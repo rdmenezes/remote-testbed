@@ -31,7 +31,7 @@ class SerialControl
 		result_t closeTty();
 		bool runChild(char * const args[]);
 		result_t program(const std::string& mac, uint16_t tosAddress, std::string program);
-		bool getProgrammingResult(result_t& result);
+		result_t getChildResult();
 		result_t cancelProgramming();
 		result_t reset();
 		result_t start();

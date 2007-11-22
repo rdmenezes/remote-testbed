@@ -319,9 +319,9 @@ void MoteHost::handleMoteData(Mote* mote)
 	// check if we're done programming
 	if ( readlen <= 0 )
 	{
-		uint8_t result;
-		if (mote->getProgrammingResult(result))
-		{
+		result_t result = mote->getChildResult();
+
+		if (result != NOT_SUPPORTED) {
 			printf("Programming done!\n");
 			MsgConfirm msgConfirm(MOTECOMMAND_PROGRAM, result, mote->getStatus());
 			MoteMsg moteMsg(msgConfirm);
