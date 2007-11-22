@@ -357,14 +357,18 @@ bool MoteHost::writeImageFile(std::string filename, MsgPayload& image)
 	return false;
 }
 
+std::string MoteHost::getImageFilename(Mote *mote)
+{
+	return "/var/run/motehost-" + mote->getMac();
+}
+
 result_t MoteHost::program(Mote *mote, MsgMoteAddresses& addresses, MsgPayload& image)
 {
-	std::string filename;
+	std::string filename = getImageFilename(mote);
 
 	if (mote->getStatus() == MOTE_PROGRAMMING)
 		return FAILURE;
 
-	filename = "/var/run/motehost-" + mote->getMac() + ".s19";
 	if (writeImageFile(filename, image)) {
 		return mote->program(mote->getMac(), addresses.getTosAddress(), filename);
 	}
