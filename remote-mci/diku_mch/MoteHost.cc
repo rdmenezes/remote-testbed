@@ -368,19 +368,23 @@ result_t MoteHost::program(Mote *mote, MsgMoteAddresses& addresses, MsgPayload& 
 
 	if (writeImageFile(filename, image)) {
 		std::string tos = getTosStr(addresses.getTosAddress());
+		std::string mac_env = "macaddress=" + mote->getMac();
+		std::string tos_env = "tosaddress=" + tos;
 		char * const args[] = {
 			(char *) Configuration::vm["moteProgrammerPath"].as<std::string>().c_str(),
 			(char *) mote->getTty().c_str(),
-			"115200",
 			(char *) filename.c_str(),
-			(char *) mote->getMac().c_str(),
-			(char *) tos.c_str(),
+			NULL
+		};
+		char * const envp[] = {
+			(char *) mac_env.c_str(),
+			(char *) tos_env.c_str(),
 			NULL
 		};
 
 		log("Programming TTY %s\n", mote->getTty().c_str());
 
-		if (mote->runChild(args))
+		if (mote->runChild(args, envp))
 			return SUCCESS;
 	}
 
