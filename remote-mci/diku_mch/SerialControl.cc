@@ -3,7 +3,7 @@
 namespace remote { namespace diku_mch {
 
 SerialControl::SerialControl(std::string& p_tty)
-	: isRunning(false), isOpen(false), isProgramming(false), wasProgramming(false), childPid(-1)
+	: isRunning(false), isOpen(false), wasProgramming(false), childPid(-1)
 {
 	tty = p_tty;
 }
@@ -91,7 +91,6 @@ result_t SerialControl::program(const std::string& mac, uint16_t tosAddress, std
 		return FAILURE;
 
 	flashFile = program;
-	isProgramming = true;
 	prg_result = FAILURE; // no result yet
 	return SUCCESS;
 }
@@ -137,7 +136,7 @@ bool SerialControl::getProgrammingResult(result_t& result )
 
 result_t SerialControl::cancelProgramming()
 {
-	if (!isProgramming)
+	if (!hasChild())
 		return FAILURE;
 	kill(childPid, SIGKILL);
 	cleanUpProgram();
@@ -154,9 +153,9 @@ void SerialControl::cleanUpProgram()
 	} else {
 		prg_result = FAILURE;
 	}
+	childPid = -1;
 	close(port);
 	openTty();
-	isProgramming = false;
 	wasProgramming = true;
 	remove(flashFile.c_str());
 	flashFile = "";
@@ -218,7 +217,7 @@ int SerialControl::readBuf(char* buf, int len)
 {
 	int res = read(port, buf, len);
 
-	if (res <= 0 && isProgramming) {
+	if (res <= 0 && hasChild()) {
 		cleanUpProgram();
 	}
 	return res;
@@ -236,7 +235,7 @@ int SerialControl::getFd()
 
 status_t SerialControl::getStatus()
 {
-	if (isProgramming) return MOTE_PROGRAMMING;
+	if (hasChild()) return MOTE_PROGRAMMING;
 	if (!isOpen) return MOTE_UNAVAILABLE;
 	if (isRunning) return MOTE_RUNNING;
 	return MOTE_STOPPED;
