@@ -8,6 +8,13 @@ SerialControl::SerialControl(std::string& p_tty)
 	tty = p_tty;
 }
 
+SerialControl::~SerialControl()
+{
+	cancelProgramming();
+	if (isOpen)
+		closeTty();
+}
+
 result_t SerialControl::openTty()
 {
 	log("Opening TTY %s\n", tty.c_str());
