@@ -128,7 +128,7 @@ void Host::findOrCreateMote(MsgMoteConnectionInfo& info)
 	selectRes.disable_exceptions();
 	row = selectRes.fetch_row();
 
-	MoteAddresses* newtarget  = new MoteAddresses(0, mac);
+	MoteAddresses *newtarget = new MoteAddresses(mac);
 
 	if ( !row || row.empty() )
 	{
@@ -188,8 +188,8 @@ void Host::handleMotesFoundList(MsgMoteConnectionInfoList& infolist)
 
 void Host::request(MCIAddress& address, MsgPayload& request )
 {
-	MsgMoteAddresses addresses(((MoteAddresses&)address).tosAddress,
-	                           ((MoteAddresses&)address).mac);
+	MsgMoteAddresses addresses(((MoteAddresses&)address).mac,
+				   ((MoteAddresses&)address).tosAddress);
 	MsgHostRequest msgHostRequest(addresses,request);
 	HostMsg message(msgHostRequest);
 

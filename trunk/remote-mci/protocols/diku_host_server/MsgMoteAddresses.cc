@@ -3,7 +3,7 @@
 
 namespace remote { namespace protocols { namespace diku_host_server {
 
-MsgMoteAddresses::MsgMoteAddresses(uint16_t tosAddress, std::string p_mac)
+MsgMoteAddresses::MsgMoteAddresses(std::string p_mac, uint16_t tosAddress)
                 : tosAddress(tosAddress), mac(p_mac)
 {
 }

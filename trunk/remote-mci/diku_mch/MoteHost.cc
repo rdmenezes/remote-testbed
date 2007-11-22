@@ -296,7 +296,7 @@ void MoteHost::handleMoteData(Mote* mote)
 	char buf[1000];
 	ssize_t readlen = sizeof(buf);
 
-	MsgMoteAddresses msgMoteAddresses(0, mote->getMac());
+	MsgMoteAddresses msgMoteAddresses(mote->getMac());
 
 	while (readlen == sizeof(buf)) {
 		readlen = mote->readBuf(buf, sizeof(buf));
