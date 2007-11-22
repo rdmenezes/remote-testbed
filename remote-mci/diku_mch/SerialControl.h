@@ -48,7 +48,7 @@ class SerialControl
 		int port;
 		bool isRunning, isOpen, wasProgramming;
 		pid_t childPid;
-		result_t prg_result;
+		result_t childResult;
 		std::string tty;
 		std::string flashFile;
 		struct termios newsertio, oldsertio;
