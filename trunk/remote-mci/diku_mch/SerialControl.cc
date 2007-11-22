@@ -71,7 +71,7 @@ result_t SerialControl::closeTty()
 	return SUCCESS;
 }
 
-bool SerialControl::runChild(char * const args[])
+bool SerialControl::runChild(char * const args[], char * const envp[])
 {
 	int pfd[2];
 
@@ -92,7 +92,7 @@ bool SerialControl::runChild(char * const args[])
 		    dup2(pfd[1], STDERR_FILENO) != -1) {
 			close(pfd[0]);
 			close(pfd[1]);
-			execv(args[0], args);
+			execve(args[0], args, envp);
 		}
 		/* XXX: Make the failed child exit immediately. */
 		_exit(EXIT_FAILURE);

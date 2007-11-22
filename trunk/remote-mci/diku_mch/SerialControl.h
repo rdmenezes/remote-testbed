@@ -29,7 +29,7 @@ class SerialControl
 		SerialControl(std::string& tty);
 		result_t openTty();
 		result_t closeTty();
-		bool runChild(char * const args[]);
+		bool runChild(char * const args[], char * const envp[]);
 		result_t getChildResult();
 		result_t cancelProgramming();
 		result_t reset();
