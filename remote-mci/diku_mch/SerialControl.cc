@@ -3,7 +3,7 @@
 namespace remote { namespace diku_mch {
 
 SerialControl::SerialControl(std::string& p_tty)
-	: isRunning(false), isOpen(false), isProgramming(false), wasProgramming(false)
+	: isRunning(false), isOpen(false), isProgramming(false), wasProgramming(false), childPid(-1)
 {
 	tty = p_tty;
 }
@@ -86,8 +86,8 @@ result_t SerialControl::program(const std::string& mac, uint16_t tosAddress, std
 
 	log("Programming TTY %s using mac %s\n", tty.c_str(), mac.c_str());
 
-	prg_pid = run(args);
-	if (prg_pid < 0)
+	childPid = run(args);
+	if (childPid < 0)
 		return FAILURE;
 
 	flashFile = program;
@@ -139,7 +139,7 @@ result_t SerialControl::cancelProgramming()
 {
 	if (!isProgramming)
 		return FAILURE;
-	kill(prg_pid, SIGKILL);
+	kill(childPid, SIGKILL);
 	cleanUpProgram();
 	return SUCCESS;
 }
@@ -148,7 +148,7 @@ void SerialControl::cleanUpProgram()
 {
 	int status;
 
-	waitpid(prg_pid, &status, 0);
+	waitpid(childPid, &status, 0);
 	if (WIFEXITED(status) && WEXITSTATUS(status) == 0) {
 		prg_result = SUCCESS;
 	} else {
