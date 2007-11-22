@@ -71,27 +71,6 @@ result_t SerialControl::closeTty()
 	return SUCCESS;
 }
 
-result_t SerialControl::program(const std::string& mac, uint16_t tosAddress, std::string program)
-{
-	std::string tos = getTosStr(tosAddress);
-	char * const args[] = {
-		(char *) Configuration::vm["moteProgrammerPath"].as<std::string>().c_str(),
-		(char *) tty.c_str(),
-		"115200",
-		(char *) program.c_str(),
-		(char *) mac.c_str(),
-		(char *) tos.c_str(),
-		NULL
-	};
-
-	log("Programming TTY %s using mac %s\n", tty.c_str(), mac.c_str());
-
-	if (!runChild(args))
-		return FAILURE;
-
-	return SUCCESS;
-}
-
 bool SerialControl::runChild(char * const args[])
 {
 	int pfd[2];
@@ -220,6 +199,11 @@ ssize_t SerialControl::readBuf(char *buf, size_t len)
 ssize_t SerialControl::writeBuf(const char* buf, size_t len)
 {
 	return write(port, buf, len);
+}
+
+const std::string& SerialControl::getTty()
+{
+	return tty;
 }
 
 int SerialControl::getFd()
