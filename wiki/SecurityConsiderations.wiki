@@ -7,7 +7,7 @@ This page tries to give an overview of security issues related to the various co
 
 In its current shape, the server code should not be considered as
 secure as desirable. It has been written with robustness in mind,
-however, there is still room for improvements (e.g. see issue 1).
+however, there is still room for improvements.
 
 = The Running System =
 
@@ -31,3 +31,11 @@ are allowed to join the mote control infrastructure.
 Data between the client and web services are sent as clear
 text. This may pose problems, if credentials used in the
 testbed are system wide for the implicated users.
+
+= Related Issues =
+
+Below, an overview of the security related issues recorded in the issue tracker is listed:
+
+ * Issue 1: User derived input in the web services was not handled properly.
+
+Search the issue tracker for [http://code.google.com/p/remote-testbed/issues/list?can=1&q=label:Security issues marked as security related].
