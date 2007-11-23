@@ -32,7 +32,7 @@ Data between the client and web services are sent as clear
 text. This may pose problems, if credentials used in the
 testbed are system wide for the implicated users.
 
-= Related Issues =
+= Fixed and Open Security Issues =
 
 Below, an overview of the security related issues recorded in the issue tracker is listed:
 
