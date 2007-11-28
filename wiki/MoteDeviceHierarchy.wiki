@@ -1,0 +1,19 @@
+#summary The file structure of the mote device hierarchy
+
+= Mote Device Hierarchy =
+
+The 
+
+By default the hierarchy lives
+
+== Attribute Files ==
+
+*path*
+
+*platform*
+
+== Attribute Files ==
+
+*tty*
+
+*programmer*
