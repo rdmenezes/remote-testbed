@@ -1,4 +1,5 @@
 #summary The file structure of the mote device hierarchy
+#labels Deprecated
 
 = Mote Device Hierarchy =
 
