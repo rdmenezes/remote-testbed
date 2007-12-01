@@ -2,10 +2,9 @@
 
 namespace remote { namespace diku_mch {
 
-SerialControl::SerialControl(std::string& p_tty)
+SerialControl::SerialControl()
 	: isRunning(false), isOpen(false), childPid(-1), childResult(NOT_SUPPORTED)
 {
-	tty = p_tty;
 }
 
 SerialControl::~SerialControl()

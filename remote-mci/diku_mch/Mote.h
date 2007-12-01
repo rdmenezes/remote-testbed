@@ -1,6 +1,7 @@
 #ifndef _MOTE_H_
 #define _MOTE_H_
 
+#include "libgen.h"
 #include "SerialControl.h"
 
 namespace remote { namespace diku_mch {
@@ -8,9 +9,7 @@ namespace remote { namespace diku_mch {
 class Mote : public SerialControl
 {
 	public:
-		/** Create a new mote.
-		 * Just after creation, isValid will always return true.
-		 */
+		/** Create a new mote. */
 		Mote(std::string& mac, std::string& directory, std::string& path, std::string& tty);
 
 		bool isValid();
@@ -24,6 +23,7 @@ class Mote : public SerialControl
 		const std::string& getDevicePath();
 
 	private:
+		std::string readLink(std::string linkname);
 		std::string mac;
 		std::string directory;
 		std::string path;
