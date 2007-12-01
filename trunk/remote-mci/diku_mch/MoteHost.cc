@@ -408,5 +408,5 @@ int MoteHost::main(int argc,char** argv)
 
 int main(int argc,char** argv)
 {
-	return  remote::diku_mch::MoteHost::main(argc,argv);
+	return remote::diku_mch::MoteHost::main(argc,argv);
 }
