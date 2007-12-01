@@ -13,6 +13,7 @@ diku_mch_SOURCES = \
  SerialControl.h
 
 diku_mch_DEPENDENCIES = \
+ $(top_builddir)/libutil/libutil.a \
  $(top_builddir)/protocols/libprotocols.a
 
 diku_mch_LDADD = \

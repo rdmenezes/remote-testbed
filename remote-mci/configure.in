@@ -165,6 +165,7 @@ AC_CONFIG_FILES([
 		 diku_mch/plugpiper/Makefile
 		 diku_mcs/Makefile
 		 doc/Makefile
+		 libutil/Makefile
 		 mcs/Makefile
 		 protocols/Makefile
 ])

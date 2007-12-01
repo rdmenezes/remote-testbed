@@ -1,7 +1,7 @@
 #ifndef _MOTE_H_
 #define _MOTE_H_
 
-#include "libgen.h"
+#include "libutil/File.h"
 #include "SerialControl.h"
 
 namespace remote { namespace diku_mch {
@@ -26,8 +26,6 @@ class Mote : public SerialControl
 		std::string getProgrammerPath();
 
 	private:
-		std::string readFile(std::string filename);
-		std::string readLink(std::string linkname);
 		std::string mac;
 		std::string directory;
 		std::string path;
