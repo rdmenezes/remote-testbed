@@ -18,8 +18,7 @@ diku_mch_DEPENDENCIES = \
 
 diku_mch_LDADD = \
  $(diku_mch_DEPENDENCIES) \
- $(BOOST_PROGRAM_OPTIONS_LIB) \
- $(BOOST_REGEX_LIB)
+ $(BOOST_PROGRAM_OPTIONS_LIB)
 
 SUBDIRS	= plugpiper
 

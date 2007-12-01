@@ -16,15 +16,15 @@ SerialControl::~SerialControl()
 
 result_t SerialControl::openTty()
 {
-	log("Opening TTY %s\n", tty.c_str());
 	if (isOpen()) {
-		log("TTY already open for %s\n", tty.c_str());
+		Log::debug("TTY already open for %s", tty.c_str());
 		return FAILURE;
 	}
 
+	Log::info("Opening TTY %s", tty.c_str());
 	port = open(tty.c_str(), O_RDWR | O_NOCTTY | O_NONBLOCK);
 	if (port < 0) {
-		log("No device connected on %s.\n", tty.c_str());
+		Log::error("No device connected on %s", tty.c_str());
 		return FAILURE;
 	}
 
@@ -65,11 +65,11 @@ result_t SerialControl::openTty()
 
 result_t SerialControl::closeTty()
 {
-	log("Closing SerialControl for %s\n", tty.c_str());
 	if (!isOpen()) {
-		log("SerialControl not open for %s\n", tty.c_str());
+		Log::debug("TTY already closed for %s", tty.c_str());
 		return FAILURE;
 	}
+	Log::info("Closing %s", tty.c_str());
 	stop();
 	tcsetattr(port, TCSANOW, &oldsertio);
 	close(port);

@@ -15,7 +15,9 @@ void MoteHost::lookForServer()
 {
 	while (1)
 	{
-		printf("Attempting to connect to server %s using port %u...\n", config.vm["serverAddress"].as<std::string>().c_str(),config.vm["serverPort"].as<uint16_t>());
+		Log::info("Attempting to connect to server %s using port %u...",
+			  config.vm["serverAddress"].as<std::string>().c_str(),
+			  config.vm["serverPort"].as<uint16_t>());
 
 		clientsock = openClientSocket(config.vm["serverAddress"].as<std::string>(), config.vm["serverPort"].as<uint16_t>() );
 		// set keepalive options
@@ -23,7 +25,7 @@ void MoteHost::lookForServer()
 
 		if (clientsock >= 0)
 		{
-			printf("Server connected...\n");
+			Log::info("Server connected...");
 			try
 			{
 				serviceLoop();
@@ -31,14 +33,16 @@ void MoteHost::lookForServer()
 			}
 			catch (remote::protocols::MMSException e)
 			{
-				fprintf(stderr,"Exception: %s\n",e.what());
+				Log::error("Exception: %s", e.what());
 			}
-			printf( "Server disconnected, attempting reconnect in %llu seconds\n",config.vm["serverConnectionRetryInterval"].as<uint64_t>());
+			Log::error("Server disconnected, attempting reconnect in %llu seconds",
+				   config.vm["serverConnectionRetryInterval"].as<uint64_t>());
 			usleep(config.vm["serverConnectionRetryInterval"].as<uint64_t>()*1000000);
 		}
 		else
 		{
-			printf("Server connection failed, trying again in %llu seconds...\n",config.vm["serverConnectionRetryInterval"].as<uint64_t>());
+			Log::error("Server connection failed, trying again in %llu seconds...",
+				   config.vm["serverConnectionRetryInterval"].as<uint64_t>());
 			usleep(config.vm["serverConnectionRetryInterval"].as<uint64_t>()*1000000);
 		}
 	}
@@ -62,7 +66,7 @@ void MoteHost::serviceLoop()
 	}
 	// the first thing to do is send all current mote information to the server
 	devices.refresh(config.vm["devicePath"].as<std::string>());
-	printf("Sending mote list to server\n");
+	Log::debug("Sending mote list to server");
 	MsgPlugEvent msgPlugEvent(PLUG_MOTES);
 	if (makeMoteInfoList(devices.motes, msgPlugEvent.getInfoList()))
 	{
@@ -71,10 +75,10 @@ void MoteHost::serviceLoop()
 		msg.sendMsg(clientsock,hostMsg);
 	}
 
-	printf("Building initial fd set.\n");
+	Log::debug("Building initial fd set");
 	// prepare file descriptors
 	int maxfd = rebuildFdSet(fdset);
-	printf("Entering service loop.\n");
+	Log::debug("Entering service loop");
 	while ( res > -1 )
 	{
 		// wait for non-blocking reads on the fds
@@ -146,7 +150,7 @@ void MoteHost::handlePlugEvent()
 	char c;
 	// empty the pipe
 	int i = 1;
-	printf("\nHandling plug event\n");
+	Log::info("Handling plug event");
 	while ( i == 1 )
 	{
 		i = read(plugpipe,&c,1);
@@ -155,12 +159,7 @@ void MoteHost::handlePlugEvent()
 			close(plugpipe);
 			plugpipe = open(config.vm["usbPlugEventPipe"].as<std::string>().c_str(),O_RDONLY | O_NONBLOCK);
 		}
-		else
-		{
-			printf("%c",c);
-		}
 	}
-	printf("\n");
 
 	devices.refresh(config.vm["devicePath"].as<std::string>());
 
@@ -222,7 +221,7 @@ void MoteHost::handleMessage()
 
 		if (moteI == devices.motes.end())
 		{
-			printf("Mote %s unknown!\n", addresses.getMac().c_str());
+			Log::warn("Mote %s unknown!", addresses.getMac().c_str());
 			MsgHostConfirm msgHostConfirm(MSGHOSTCONFIRM_UNKNOWN_MOTE,addresses,msgHostRequest.getMessage());
 			HostMsg msgReply(msgHostConfirm);
 			msg.sendMsg(clientsock,msgReply);
@@ -252,7 +251,7 @@ void MoteHost::handleRequest(Mote* mote, MsgMoteAddresses& addresses, MsgRequest
 	uint8_t command = request.getCommand();
 	result_t result;
 
-	printf("Mote %s got command=%u\n", addresses.getMac().c_str(), command);
+	Log::debug("Mote %s got command=%u", addresses.getMac().c_str(), command);
 
 	switch (command)
 	{
@@ -263,7 +262,7 @@ void MoteHost::handleRequest(Mote* mote, MsgMoteAddresses& addresses, MsgRequest
 				return;
 			break;
 		case MOTECOMMAND_CANCELPROGRAMMING:
-			printf("User cancelling programming\n");
+			Log::info("User cancelling programming");
 			result = mote->cancelProgramming();
 			break;
 		case MOTECOMMAND_STATUS:
@@ -279,7 +278,7 @@ void MoteHost::handleRequest(Mote* mote, MsgMoteAddresses& addresses, MsgRequest
 			result = mote->stop();
 			break;
 		default:
-			printf("Unknown command %u\n", command);
+			Log::error("Unkown command %u", command);
 			return;
 	}
 
@@ -304,7 +303,7 @@ void MoteHost::handleMoteData(Mote* mote)
 	while (readlen == sizeof(buf)) {
 		readlen = mote->readBuf(buf, sizeof(buf));
 		if (readlen > 0) {
-			printf("'%.*s'", readlen, buf);
+			Log::debug("'%.*s'", readlen, buf);
 			uint32_t len = readlen;
 			MsgPayload msgData;
 			msgData.setPayload(len,(uint8_t*)buf);
@@ -323,7 +322,7 @@ void MoteHost::handleMoteData(Mote* mote)
 		result_t result = mote->getChildResult();
 
 		if (result != NOT_SUPPORTED) {
-			printf("Programming done!\n");
+			Log::info("Programming done!");
 			remove(mote->getImagePath().c_str());
 			MsgConfirm msgConfirm(MOTECOMMAND_PROGRAM, result, mote->getStatus());
 			MoteMsg moteMsg(msgConfirm);
@@ -335,7 +334,7 @@ void MoteHost::handleMoteData(Mote* mote)
 		} else {
 			mote->invalidate();
 			mote->closeTty();
-			log("Invalidating mote '%s'\n", mote->getMac().c_str());
+			Log::warn("Invalidating mote '%s'", mote->getMac().c_str());
 		}
 	}
 }
@@ -377,15 +376,17 @@ result_t MoteHost::program(Mote *mote, MsgMoteAddresses& addresses, MsgPayload& 
 int MoteHost::main(int argc,char** argv)
 {
 	config.read(argc,argv);
+	Log::open("diku_mch", LOG_INFO);
 	if (config.vm["daemonize"].as<int>())
 	{
-		printf("Daemonizing!\n");
+		Log::info("Daemonizing!");
 		if (fork()) exit(0);
 		setsid();
 		fclose(stdin);
 		fclose(stdout);
 		fclose(stderr);
 	}
+
 	MoteHost::lookForServer();
 	return 0;
 }
