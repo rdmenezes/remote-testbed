@@ -321,7 +321,7 @@ void MoteHost::handleMoteData(Mote* mote)
 
 		if (result != NOT_SUPPORTED) {
 			printf("Programming done!\n");
-			remove(getImageFilename(mote).c_str());
+			remove(mote->getImagePath().c_str());
 			MsgConfirm msgConfirm(MOTECOMMAND_PROGRAM, result, mote->getStatus());
 			MoteMsg moteMsg(msgConfirm);
 			MsgPayload msgPayload(moteMsg);
@@ -354,14 +354,9 @@ bool MoteHost::writeImageFile(std::string filename, MsgPayload& image)
 	return false;
 }
 
-std::string MoteHost::getImageFilename(Mote *mote)
-{
-	return "/var/run/motehost-" + mote->getMac();
-}
-
 result_t MoteHost::program(Mote *mote, MsgMoteAddresses& addresses, MsgPayload& image)
 {
-	std::string filename = getImageFilename(mote);
+	std::string filename = mote->getImagePath();
 
 	if (mote->getStatus() == MOTE_PROGRAMMING)
 		return FAILURE;
