@@ -2,8 +2,8 @@
 
 namespace remote { namespace diku_mch {
 
-Mote::Mote(std::string& p_mac, std::string& p_path, std::string& p_tty)
-	: SerialControl(p_tty), mac(p_mac), path(p_path), isvalid(true)
+Mote::Mote(std::string& p_mac, std::string& p_directory, std::string& p_path, std::string& p_tty)
+	: SerialControl(p_tty), mac(p_mac), directory(p_directory), path(p_path), isvalid(true)
 {
 	log("New mote %s at %s\n", mac.c_str(), path.c_str());
 }
@@ -27,7 +27,7 @@ void Mote::validate(std::string& p_path, std::string& p_tty)
 	}
 
 	if (p_tty != tty) {
-		Mote *testmote = new Mote(mac, path, p_tty);
+		Mote *testmote = new Mote(mac, directory, path, p_tty);
 
 		testmote->openTty();
 		bool testOpen = testmote->isOpen;
@@ -52,6 +52,11 @@ void Mote::validate(std::string& p_path, std::string& p_tty)
 const std::string& Mote::getMac()
 {
 	return mac;
+}
+
+const std::string& Mote::getDirectory()
+{
+	return directory;
 }
 
 const std::string& Mote::getDevicePath()
