@@ -21,6 +21,7 @@ class Mote : public SerialControl
 		const std::string& getMac();
 		const std::string& getDirectory();
 		const std::string& getDevicePath();
+		std::string getImagePath();
 
 	private:
 		std::string readFile(std::string filename);

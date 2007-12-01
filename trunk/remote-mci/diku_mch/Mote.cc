@@ -60,6 +60,11 @@ const std::string& Mote::getDevicePath()
 	return path;
 }
 
+std::string Mote::getImagePath()
+{
+	return "/var/run/motehost-" + mac;
+}
+
 std::string Mote::readFile(std::string filename)
 {
 	char buffer[1024];

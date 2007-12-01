@@ -38,7 +38,6 @@ class MoteHost
 		static void handleMoteData(Mote* p_mote);
 		static int rebuildFdSet(fd_set& fdset);
 		static bool writeImageFile(std::string filename, MsgPayload& image);
-		static std::string getImageFilename(Mote *mote);
 		static result_t program(Mote *mote, MsgMoteAddresses& addresses, MsgPayload& image);
 		static int clientsock; // port for the server connection
 		static int plugpipe; // pipe for plug events
