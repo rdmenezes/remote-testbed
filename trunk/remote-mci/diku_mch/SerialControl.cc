@@ -16,6 +16,8 @@ SerialControl::~SerialControl()
 
 result_t SerialControl::openTty()
 {
+	struct termios newsertio;
+
 	if (isOpen()) {
 		Log::debug("TTY already open for %s", tty.c_str());
 		return FAILURE;
