@@ -42,11 +42,12 @@ class SerialControl
 		const std::string& getTty();
 	protected:
 		bool hasChild();
+		bool isOpen();
 		void cleanUpProgram();
 		bool clearDTR();
 		bool setDTR();
 		int port;
-		bool isRunning, isOpen;
+		bool isRunning, portIsOpen;
 		pid_t childPid;
 		result_t childResult;
 		std::string tty;

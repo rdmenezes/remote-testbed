@@ -35,7 +35,7 @@ void Mote::validate()
 		log("Changed TTY from %s to %s\n", tty.c_str(), p_tty.c_str());
 		tty = p_tty;
 
-		if (isOpen)
+		if (isOpen())
 			closeTty();
 		if (openTty() == FAILURE)
 			isvalid = false;
