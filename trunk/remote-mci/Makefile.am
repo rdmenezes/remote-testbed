@@ -1,4 +1,4 @@
-SUBDIRS = doc protocols
+SUBDIRS = doc libutil protocols
 
 if CONFIG_DIKU_MCH
 SUBDIRS += diku_mch
