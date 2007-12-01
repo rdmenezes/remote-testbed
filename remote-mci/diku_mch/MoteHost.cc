@@ -357,7 +357,7 @@ result_t MoteHost::program(Mote *mote, MsgMoteAddresses& addresses, MsgPayload& 
 			NULL
 		};
 
-		log("Programming TTY %s\n", mote->getTty().c_str());
+		Log::info("Programming TTY %s", mote->getTty().c_str());
 
 		if (mote->runChild(args, envp))
 			return SUCCESS;

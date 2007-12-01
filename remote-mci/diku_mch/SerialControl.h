@@ -14,7 +14,6 @@
 #include <sys/ioctl.h>
 
 #include "libutil/Log.h"
-#include "macros.h"
 #include "types.h"
 #include "motecontrol/localconstants.h"
 
