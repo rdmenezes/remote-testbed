@@ -15,36 +15,32 @@ void MoteHost::lookForServer()
 {
 	while (1)
 	{
-		Log::info("Attempting to connect to server %s using port %u...",
-			  config.vm["serverAddress"].as<std::string>().c_str(),
-			  config.vm["serverPort"].as<uint16_t>());
+		std::string host = config.vm["serverAddress"].as<std::string>();
+		uint16_t port = config.vm["serverPort"].as<uint16_t>();
 
-		clientsock = openClientSocket(config.vm["serverAddress"].as<std::string>(), config.vm["serverPort"].as<uint16_t>() );
+		Log::info("Connecting to %s on port %u...", host.c_str(), port);
+		clientsock = openClientSocket(host, port);
 		// set keepalive options
-		setKeepAlive( clientsock, 3, 120, 30);
+		setKeepAlive(clientsock, 3, 120, 30);
 
-		if (clientsock >= 0)
-		{
-			Log::info("Server connected...");
-			try
-			{
+		if (clientsock >= 0) {
+			Log::info("Connected!");
+			try {
 				serviceLoop();
 				close(clientsock);
-			}
-			catch (remote::protocols::MMSException e)
-			{
+
+			} catch (remote::protocols::MMSException e) {
 				Log::error("Exception: %s", e.what());
 			}
-			Log::error("Server disconnected, attempting reconnect in %llu seconds",
-				   config.vm["serverConnectionRetryInterval"].as<uint64_t>());
-			usleep(config.vm["serverConnectionRetryInterval"].as<uint64_t>()*1000000);
+			Log::error("Disconnected");
+
+		} else {
+			Log::error("Connection failed");
 		}
-		else
-		{
-			Log::error("Server connection failed, trying again in %llu seconds...",
-				   config.vm["serverConnectionRetryInterval"].as<uint64_t>());
-			usleep(config.vm["serverConnectionRetryInterval"].as<uint64_t>()*1000000);
-		}
+
+		Log::info("Reconnecting in %llu seconds...",
+			  config.vm["serverConnectionRetryInterval"].as<uint64_t>());
+		usleep(config.vm["serverConnectionRetryInterval"].as<uint64_t>() * 1000000);
 	}
 }
 
