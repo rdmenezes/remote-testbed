@@ -20,7 +20,7 @@ class Mote : public SerialControl
 		void validate(std::string& path, std::string& tty);
 
 		const std::string& getMac();
-		const std::string& getPath();
+		const std::string& getDevicePath();
 
 	private:
 		std::string mac;
