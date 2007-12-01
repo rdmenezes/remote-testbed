@@ -1,7 +1,7 @@
 #ifndef MOTEADDRESSES_H_
 #define MOTEADDRESSES_H_
+
 #include <string>
-#include "types.h"
 #include "MCIAddress.h"
 
 namespace remote { namespace diku_mcs {
