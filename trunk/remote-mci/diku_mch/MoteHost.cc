@@ -20,11 +20,10 @@ void MoteHost::lookForServer()
 
 		Log::info("Connecting to %s on port %u...", host.c_str(), port);
 		clientsock = openClientSocket(host, port);
-		// set keepalive options
-		setKeepAlive(clientsock, 3, 120, 30);
-
 		if (clientsock >= 0) {
 			Log::info("Connected!");
+			setKeepAlive(clientsock, 3, 120, 30);
+
 			try {
 				serviceLoop();
 				close(clientsock);
