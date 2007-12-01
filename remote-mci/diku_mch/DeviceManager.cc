@@ -13,9 +13,6 @@ struct invalidate : public std::unary_function<std::pair<const std::string, Mote
 	{ if (x.second) x.second->invalidate(); }
 };
 
-/** Refresh the mote device database.
- * Update the registered devices to match the existing system using a
- * "mark and sweep" approach. */
 void DeviceManager::refresh(std::string devicePath)
 {
 	/* Invalidate all existing motes. */
@@ -46,7 +43,6 @@ void DeviceManager::refresh(std::string devicePath)
 	}
 }
 
-/** Open /dev/remote and register information about each mote. */
 void DeviceManager::readMoteDevices(std::string devicePath)
 {
 	struct dirent *dentry;
