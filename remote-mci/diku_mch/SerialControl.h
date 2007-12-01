@@ -52,7 +52,7 @@ class SerialControl
 		pid_t childPid;
 		result_t childResult;
 		std::string tty;
-		struct termios newsertio, oldsertio;
+		struct termios oldsertio;
 };
 
 }}
