@@ -367,10 +367,19 @@ int MoteHost::main(int argc,char** argv)
 {
 	config.read(argc,argv);
 	Log::open("diku_mch", LOG_INFO);
-	if (config.vm["daemonize"].as<int>())
-	{
-		Log::info("Daemonizing!");
-		if (fork()) exit(0);
+	if (config.vm["daemonize"].as<int>()) {
+		switch (fork()) {
+		case -1:
+			Log::error("Failed to fork daemon");
+			exit(EXIT_FAILURE);
+
+		default:
+			_exit(EXIT_SUCCESS);
+
+		case 0:
+			Log::info("Running as daemon");
+		}
+
 		setsid();
 		fclose(stdin);
 		fclose(stdout);
