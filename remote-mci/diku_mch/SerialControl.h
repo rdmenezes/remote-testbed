@@ -2,6 +2,7 @@
 #define _SERIALCONTROL_H_
 
 #include <string>
+#include <errno.h>
 #include <termios.h>
 #include <stdio.h>
 #include <stdlib.h>
