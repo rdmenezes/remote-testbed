@@ -387,6 +387,8 @@ result_t MoteHost::program(Mote *mote, MsgMoteAddresses& addresses, MsgPayload& 
 
 		if (mote->runChild(args, envp))
 			return SUCCESS;
+
+		remove(filename.c_str());
 	}
 
 	return FAILURE;
