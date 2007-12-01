@@ -9,7 +9,7 @@ namespace remote { namespace protocols { namespace diku_host_server {
 class MsgMoteAddresses : public BaseMsg
 {
 	public:
-		MsgMoteAddresses(std::string mac, uint16_t tosAddress = 0);
+		MsgMoteAddresses(std::string mac, std::string tosAddress = "");
 		MsgMoteAddresses(uint8_t*& buffer, uint32_t& buflen);
 		~MsgMoteAddresses();
 		uint32_t getLength();
@@ -21,7 +21,7 @@ class MsgMoteAddresses : public BaseMsg
 	protected:
 		uint8_t* read(uint8_t* buffer, uint32_t& buflen);
 
-		uint16_t tosAddress;
+		MsgPayload tosAddress;
 		MsgPayload mac;
 };
 

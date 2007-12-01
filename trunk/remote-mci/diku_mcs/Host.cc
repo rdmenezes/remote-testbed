@@ -191,7 +191,7 @@ void Host::handleMotesFoundList(MsgMoteConnectionInfoList& infolist)
 void Host::request(MCIAddress& address, MsgPayload& request )
 {
 	MsgMoteAddresses addresses(((MoteAddresses&)address).mac,
-				   atoi(((MoteAddresses&)address).tosAddress.c_str()));
+				   ((MoteAddresses&)address).tosAddress);
 	MsgHostRequest msgHostRequest(addresses,request);
 	HostMsg message(msgHostRequest);
 
