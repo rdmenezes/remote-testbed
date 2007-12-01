@@ -3,21 +3,21 @@
 namespace remote { namespace diku_mch {
 
 SerialControl::SerialControl()
-	: isRunning(false), isOpen(false), childPid(-1), childResult(NOT_SUPPORTED)
+	: isRunning(false), portIsOpen(false), childPid(-1), childResult(NOT_SUPPORTED)
 {
 }
 
 SerialControl::~SerialControl()
 {
 	cancelProgramming();
-	if (isOpen)
+	if (isOpen())
 		closeTty();
 }
 
 result_t SerialControl::openTty()
 {
 	log("Opening TTY %s\n", tty.c_str());
-	if (isOpen) {
+	if (isOpen()) {
 		log("TTY already open for %s\n", tty.c_str());
 		return FAILURE;
 	}
@@ -53,7 +53,7 @@ result_t SerialControl::openTty()
 	tcflush(port, TCIFLUSH);
 	tcsetattr(port, TCSANOW, &newsertio);
 
-	isOpen = true;
+	portIsOpen = true;
 	// open in a stopped state
 	if (stop() == SUCCESS) {
 		return SUCCESS;
@@ -66,14 +66,14 @@ result_t SerialControl::openTty()
 result_t SerialControl::closeTty()
 {
 	log("Closing SerialControl for %s\n", tty.c_str());
-	if (!isOpen) {
+	if (!isOpen()) {
 		log("SerialControl not open for %s\n", tty.c_str());
 		return FAILURE;
 	}
 	stop();
 	tcsetattr(port, TCSANOW, &oldsertio);
 	close(port);
-	isOpen = false;
+	portIsOpen = false;
 	return SUCCESS;
 }
 
@@ -142,7 +142,7 @@ void SerialControl::cleanUpProgram()
 
 result_t SerialControl::reset()
 {
-	if (!isOpen)
+	if (!isOpen())
 		return FAILURE;
 	if (isRunning) {
 		stop();
@@ -156,7 +156,7 @@ result_t SerialControl::reset()
 
 result_t SerialControl::start()
 {
-	if (!isOpen || !clearDTR())
+	if (!isOpen() || !clearDTR())
 		return FAILURE;
 	isRunning = true;
 	return SUCCESS;
@@ -164,7 +164,7 @@ result_t SerialControl::start()
 
 result_t SerialControl::stop()
 {
-	if (!isOpen || !setDTR())
+	if (!isOpen() || !setDTR())
 		return FAILURE;
 	isRunning = false;
 	return SUCCESS;
@@ -175,7 +175,7 @@ bool SerialControl::setDTR()
 	int tmp = TIOCM_DTR;
 
 	if (ioctl(port, TIOCMBIS, &tmp) == -1) {
-		isOpen = false;
+		portIsOpen = false;
 		return false;
 	}
 	return true;
@@ -186,7 +186,7 @@ bool SerialControl::clearDTR()
 	int tmp = TIOCM_DTR;
 
 	if (ioctl(port, TIOCMBIC, &tmp) == -1) {
-		isOpen = false;
+		portIsOpen = false;
 		return false;
 	}
 	return true;
@@ -212,6 +212,11 @@ bool SerialControl::hasChild()
 	return childPid != -1;
 }
 
+bool SerialControl::isOpen()
+{
+	return portIsOpen;
+}
+
 const std::string& SerialControl::getTty()
 {
 	return tty;
@@ -225,7 +230,7 @@ int SerialControl::getFd()
 status_t SerialControl::getStatus()
 {
 	if (hasChild()) return MOTE_PROGRAMMING;
-	if (!isOpen) return MOTE_UNAVAILABLE;
+	if (!isOpen()) return MOTE_UNAVAILABLE;
 	if (isRunning) return MOTE_RUNNING;
 	return MOTE_STOPPED;
 }
