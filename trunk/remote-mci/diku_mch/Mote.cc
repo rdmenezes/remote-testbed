@@ -65,6 +65,11 @@ std::string Mote::getImagePath()
 	return directory + "image";
 }
 
+std::string Mote::getProgrammerPath()
+{
+	return directory + "programmer";
+}
+
 std::string Mote::readFile(std::string filename)
 {
 	char buffer[1024];

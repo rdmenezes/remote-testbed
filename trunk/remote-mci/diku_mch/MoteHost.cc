@@ -365,7 +365,7 @@ result_t MoteHost::program(Mote *mote, MsgMoteAddresses& addresses, MsgPayload& 
 		std::string mac_env = "macaddress=" + mote->getMac();
 		std::string tos_env = "tosaddress=" + addresses.getTosAddress();
 		char * const args[] = {
-			(char *) config.vm["moteProgrammerPath"].as<std::string>().c_str(),
+			(char *) mote->getProgrammerPath().c_str(),
 			(char *) mote->getTty().c_str(),
 			(char *) filename.c_str(),
 			NULL

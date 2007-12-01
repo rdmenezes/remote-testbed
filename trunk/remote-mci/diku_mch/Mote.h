@@ -22,6 +22,7 @@ class Mote : public SerialControl
 		const std::string& getDirectory();
 		const std::string& getDevicePath();
 		std::string getImagePath();
+		std::string getProgrammerPath();
 
 	private:
 		std::string readFile(std::string filename);

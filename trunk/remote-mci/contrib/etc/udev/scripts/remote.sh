@@ -6,7 +6,7 @@
 #
 # SYNOPSIS
 # --------
-# /etc/udev/scripts/remote.sh MOTEMAC MOTEPATH
+# /etc/udev/scripts/remote.sh MOTEMAC MOTEPATH PROGRAMMER
 #
 # DESCRIPTION
 # -----------
@@ -36,6 +36,10 @@
 #	path should be used when reinserting the same mote into the same
 #	port.
 #
+# PROGRAMMER::
+#
+#	The path to the mote flash programmer.
+#
 # ENVIRONMENT VARIABLES
 # ---------------------
 # The script has been designed to rely on as few environment variables
@@ -52,6 +56,11 @@
 #	with the given MAC address. This file is created by this script
 #	using the MOTEPATH command line argument.
 #
+# /dev/remote/${MOTEMAC}/programmer::
+#
+#	Symlink to the mote flash programmer as specified via the
+#	PROGRAMMER option. The symlink is created by this script.
+#
 # /dev/remote/${MOTEMAC}/tty::
 #
 #	Symlink to the tty device that can be used for controlling the
@@ -62,9 +71,9 @@
 #
 # EXAMPLE
 # -------
-# As an example here is the arguments given from the dig528-2 UDEV rule:
+# As an example here is the arguments given in the dig528-2 UDEV rule:
 #
-#	/etc/udev/scripts/remote.sh 0050C237%s{serial} %E{PHYSDEVPATH}"
+#  /etc/udev/scripts/remote.sh 0050C237%s{serial} %E{PHYSDEVPATH} /sbin/hc08sprg
 #
 # AUTHOR
 # ------
@@ -92,6 +101,7 @@ PLUGPIPER="/sbin/plugpiper"
 
 MOTEMAC="$1"
 MOTEPATH="$2"
+PROGRAMMER="$3"
 
 info ()
 {
@@ -113,6 +123,8 @@ add)
 	test -e "$DEVROOT/$MOTEMAC/tty" || die "No TTY exists for '$MOTEMAC'"
 	test -e "$DEVROOT/$MOTEMAC/path" && die "Path exists for '$MOTEMAC'"
 	echo "$MOTEPATH" > "$DEVROOT/$MOTEMAC/path"
+	ln -s "$PROGRAMMER" "$DEVROOT/$MOTEMAC/programmer" ||
+		die "Failed to create program symlink"
 	info "adding mote '$MOTEMAC' with path '$MOTEPATH'"
 	;;
 
