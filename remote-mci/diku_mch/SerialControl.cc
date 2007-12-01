@@ -23,8 +23,8 @@ result_t SerialControl::openTty()
 
 	Log::info("Opening TTY %s", tty.c_str());
 	port = open(tty.c_str(), O_RDWR | O_NOCTTY | O_NONBLOCK);
-	if (port < 0) {
-		Log::error("No device connected on %s", tty.c_str());
+	if (port == -1) {
+		Log::error("Failed to open %s: %s", tty.c_str(), strerror(errno));
 		return FAILURE;
 	}
 
