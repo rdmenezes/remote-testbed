@@ -19,7 +19,6 @@ class Mote : public SerialControl
 		void validate();
 
 		const std::string& getMac();
-		const std::string& getDirectory();
 		const std::string& getDevicePath();
 		const std::string& getPlatform();
 		std::string getImagePath();
