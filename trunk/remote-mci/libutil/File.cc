@@ -81,4 +81,21 @@ std::string File::readLink(std::string linkname)
 	return filename;
 }
 
+bool File::writeFile(std::string filename, const void *data, uint32_t datalen)
+{
+	ssize_t filesize;
+	int fd = open(filename.c_str(), O_CREAT | O_TRUNC | O_WRONLY);
+
+	if (fd < 0)
+		return false;
+
+	filesize = write(fd, data, datalen);
+	close(fd);
+	if (filesize == (ssize_t) datalen)
+		return true;
+
+	remove(filename.c_str());
+	return false;
+}
+
 }}
