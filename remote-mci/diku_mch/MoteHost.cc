@@ -328,9 +328,9 @@ void MoteHost::handleMoteData(Mote* mote)
 			Message msg;
 			msg.sendMsg(clientsock,hostMsg);
 		} else {
+			Log::info("Invalidating mote '%s'", mote->getMac().c_str());
 			mote->invalidate();
 			mote->closeTty();
-			Log::warn("Invalidating mote '%s'", mote->getMac().c_str());
 		}
 	}
 }
