@@ -40,9 +40,9 @@ void MsgMoteAddresses::print(FILE* s)
 {
 }
 
-uint16_t MsgMoteAddresses::getTosAddress()
+std::string MsgMoteAddresses::getTosAddress()
 {
-	return tosAddress;
+	return getTosStr(tosAddress);
 }
 
 std::string MsgMoteAddresses::getMac()
