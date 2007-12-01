@@ -185,9 +185,8 @@ bool MoteHost::makeMoteInfoList(motemap_t& motelist, MsgMoteConnectionInfoList& 
 
 	for (moteI = motelist.begin(); moteI != motelist.end(); moteI++) {
 		Mote *mote = moteI->second;
-		MsgMoteConnectionInfo info(mote->getMac(), mote->getPath());
+		MsgMoteConnectionInfo info(mote->getMac(), mote->getDevicePath());
 
-		printf("Mote %s at %s\n", mote->getMac().c_str(), mote->getPath().c_str());
 		infolist.addMoteInfo(info);
 	}
 

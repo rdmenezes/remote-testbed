@@ -54,7 +54,7 @@ const std::string& Mote::getMac()
 	return mac;
 }
 
-const std::string& Mote::getPath()
+const std::string& Mote::getDevicePath()
 {
 	return path;
 }
