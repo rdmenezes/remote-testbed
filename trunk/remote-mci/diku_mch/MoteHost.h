@@ -100,7 +100,6 @@ private:
 
 	static int clientsock;		/**< Server connection socket. */
 	static int plugpipe;		/**< Plug event pipe. */
-	static fd_set fdset;		/**< File descriptor set. */
 	static Message msg;		/**< Message manager. */
 	static DeviceManager devices;	/**< Mote device manager. */
 	static Configuration config;	/**< Option manager. */
