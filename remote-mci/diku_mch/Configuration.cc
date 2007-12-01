@@ -45,13 +45,6 @@ void Configuration::read(int argc, char **argv)
 	("serverConnectionRetryInterval",
 		po::value<uint64_t>()->default_value(30),
 		"Number of seconds to wait between server connection retries.")
-	/* FIXME: To make the MCH support multiple platforms, this should
-	 * be made platform aware. It might also require a moteImageExtension
-	 * option to set the extension of flash images although it having it
-	 * hardcoded for each platform should be OK and simpler. */
-	("moteProgrammerPath",
-		po::value<std::string>()->default_value("/usr/bin/hc08sprg"),
-		"Path to the DIG528-2 flash programmer.")
 	;
 
 	try {
