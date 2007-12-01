@@ -101,13 +101,12 @@ void DeviceManager::readMoteDevices(std::string devicePath)
 	while ((dentry = readdir(deviceDir))) {
 		std::string moteMac = dentry->d_name;
 		std::string entryPath = devicePath + "/" + dentry->d_name + "/";
-		std::string moteTty = entryPath + "tty";
 		std::string motePath = readMoteDeviceFile(entryPath + "path");
 
 		if (motePath == "")
 			continue;
 
-		updateMote(moteMac, entryPath, motePath, moteTty);
+		updateMote(moteMac, entryPath, motePath);
 	}
 
 	closedir(deviceDir);
@@ -116,16 +115,16 @@ void DeviceManager::readMoteDevices(std::string devicePath)
 /** Update the mote device.
  * Search for an existing mote based on the MAC given in the serial
  * number. */
-void DeviceManager::updateMote(std::string& mac, std::string& directory, std::string& path, std::string& tty)
+void DeviceManager::updateMote(std::string& mac, std::string& directory, std::string& path)
 {
 	motemap_t::iterator m = motes.find(mac);
 	if (m != motes.end()) {
 		// we found a mote with the same MAC address
 		// just make sure the info is up-to-date
-		m->second->validate(path, tty);
+		m->second->validate(path);
 
 	} else {
-		Mote *mote = new Mote(mac, directory, path, tty);
+		Mote *mote = new Mote(mac, directory, path);
 
 		if (mote->isValid()) {
 			// this must be a new mote, add it to the collection

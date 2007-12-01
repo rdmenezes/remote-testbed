@@ -29,7 +29,7 @@ class DeviceManager
 
 	private:
 		void readMoteDevices(std::string devicePath);
-		void updateMote(std::string& mac, std::string& directory, std::string& path, std::string& tty);
+		void updateMote(std::string& mac, std::string& directory, std::string& path);
 		std::string readMoteDeviceFile(std::string path);
 };
 
