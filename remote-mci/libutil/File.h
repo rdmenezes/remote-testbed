@@ -10,6 +10,7 @@ class File
 	public:
 		static std::string readFile(std::string filename);
 		static std::string readLink(std::string linkname);
+		static bool writeFile(std::string filename, const void *data, uint32_t datalen);
 };
 
 }}

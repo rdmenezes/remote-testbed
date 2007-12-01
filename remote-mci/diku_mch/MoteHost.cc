@@ -2,6 +2,8 @@
 
 namespace remote { namespace diku_mch {
 
+using namespace remote::util;
+
 int MoteHost::clientsock;
 int MoteHost::plugpipe;
 fd_set MoteHost::fdset;
@@ -338,23 +340,6 @@ void MoteHost::handleMoteData(Mote* mote)
 	}
 }
 
-bool MoteHost::writeImageFile(std::string filename, MsgPayload& image)
-{
-	ssize_t filesize;
-	int fd = open(filename.c_str(), O_CREAT | O_TRUNC | O_WRONLY);
-
-	if (fd < 0)
-		return false;
-
-	filesize = write(fd, (const void *) image.getData(), image.getDataLength());
-	close(fd);
-	if (filesize == (ssize_t) image.getDataLength())
-		return true;
-
-	remove(filename.c_str());
-	return false;
-}
-
 result_t MoteHost::program(Mote *mote, MsgMoteAddresses& addresses, MsgPayload& image)
 {
 	std::string filename = mote->getImagePath();
@@ -362,7 +347,7 @@ result_t MoteHost::program(Mote *mote, MsgMoteAddresses& addresses, MsgPayload& 
 	if (mote->getStatus() == MOTE_PROGRAMMING)
 		return FAILURE;
 
-	if (writeImageFile(filename, image)) {
+	if (File::writeFile(filename, image.getData(), image.getDataLength())) {
 		std::string mac_env = "macaddress=" + mote->getMac();
 		std::string tos_env = "tosaddress=" + addresses.getTosAddress();
 		char * const args[] = {
