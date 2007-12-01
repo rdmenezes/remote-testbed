@@ -5,7 +5,7 @@
 namespace remote { namespace diku_mcs {
 
 Host::Host( int fd, dbkey_t p_id, std::string ip, hostmapbykey_t& p_hostMap )
-     : FileDescriptor(fd), id(p_id), message_in(), ipaddress(ip), hostMap(p_hostMap)
+	: FileDescriptor(fd), id(p_id), message_in(), ipaddress(ip), hostMap(p_hostMap)
 {
 	hostMap[id] = this;
 	protocols::setSendTimeout( fd,5,0); // 5 second host send timeout should be adequate

@@ -34,7 +34,7 @@ void DeviceManager::refresh(std::string devicePath)
 	motemap_t::iterator moteI = motes.begin();
 	while (moteI != motes.end()) {
 		if (moteI->second) {
-			if  (!moteI->second->isValid()) {
+			if (!moteI->second->isValid()) {
 				moteI->second->closeTty();
 				lostMotes.insert(*moteI);
 				motes.erase(moteI);
