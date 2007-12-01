@@ -11,7 +11,7 @@ class Mote : public SerialControl
 		/** Create a new mote.
 		 * Just after creation, isValid will always return true.
 		 */
-		Mote(std::string& mac, std::string& path, std::string& tty);
+		Mote(std::string& mac, std::string& directory, std::string& path, std::string& tty);
 
 		bool isValid();
 
@@ -20,10 +20,12 @@ class Mote : public SerialControl
 		void validate(std::string& path, std::string& tty);
 
 		const std::string& getMac();
+		const std::string& getDirectory();
 		const std::string& getDevicePath();
 
 	private:
 		std::string mac;
+		std::string directory;
 		std::string path;
 		bool isvalid;
 };

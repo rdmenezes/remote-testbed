@@ -107,7 +107,7 @@ void DeviceManager::readMoteDevices(std::string devicePath)
 		if (motePath == "")
 			continue;
 
-		updateMote(moteMac, motePath, moteTty);
+		updateMote(moteMac, entryPath, motePath, moteTty);
 	}
 
 	closedir(deviceDir);
@@ -116,7 +116,7 @@ void DeviceManager::readMoteDevices(std::string devicePath)
 /** Update the mote device.
  * Search for an existing mote based on the MAC given in the serial
  * number. */
-void DeviceManager::updateMote(std::string& mac, std::string& path, std::string& tty)
+void DeviceManager::updateMote(std::string& mac, std::string& directory, std::string& path, std::string& tty)
 {
 	motemap_t::iterator m = motes.find(mac);
 	if (m != motes.end()) {
@@ -125,7 +125,8 @@ void DeviceManager::updateMote(std::string& mac, std::string& path, std::string&
 		m->second->validate(path, tty);
 
 	} else {
-		Mote *mote = new Mote(mac, path, tty);
+		Mote *mote = new Mote(mac, directory, path, tty);
+
 		if (mote->openTty() == SUCCESS) {
 			// this must be a new mote, add it to the collection
 			motemap_t::value_type elm(mac, mote);
