@@ -45,26 +45,26 @@ void MoteHost::lookForServer()
 
 void MoteHost::serviceLoop()
 {
+	std::string eventPipe = config.vm["usbPlugEventPipe"].as<std::string>();
 	int res = 0 ,p;
 
-	remove(config.vm["usbPlugEventPipe"].as<std::string>().c_str());
-	if ( mkfifo(config.vm["usbPlugEventPipe"].as<std::string>().c_str(),666) == -1)
-	{
-		std::string err = "Failed to make fifo "+config.vm["usbPlugEventPipe"].as<std::string>()+": "+strerror(errno);
+	remove(eventPipe.c_str());
+	if (mkfifo(eventPipe.c_str(), 666) == -1) {
+		std::string err = "Failed to make fifo " + eventPipe + ": " + strerror(errno);
 		__THROW__ (err.c_str());
 	}
-	plugpipe = open(config.vm["usbPlugEventPipe"].as<std::string>().c_str(),O_RDONLY | O_NONBLOCK);
-	if ( plugpipe < 0 )
-	{
-		std::string err = "Failed to open fifo "+config.vm["usbPlugEventPipe"].as<std::string>()+": "+strerror(errno);
+
+	plugpipe = open(eventPipe.c_str(), O_RDONLY | O_NONBLOCK);
+	if (plugpipe < 0) {
+		std::string err = "Failed to open fifo " + eventPipe + ": " + strerror(errno);
 		__THROW__ (err.c_str());
 	}
+
 	// the first thing to do is send all current mote information to the server
 	devices.refresh(config.vm["devicePath"].as<std::string>());
 	Log::debug("Sending mote list to server");
 	MsgPlugEvent msgPlugEvent(PLUG_MOTES);
-	if (makeMoteInfoList(devices.motes, msgPlugEvent.getInfoList()))
-	{
+	if (makeMoteInfoList(devices.motes, msgPlugEvent.getInfoList())) {
 		HostMsg hostMsg(msgPlugEvent);
 		Message msg;
 		msg.sendMsg(clientsock,hostMsg);
