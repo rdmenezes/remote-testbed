@@ -59,13 +59,12 @@ void DeviceManager::readMoteDevices(std::string devicePath)
 	}
 
 	while ((dentry = readdir(deviceDir))) {
-		std::string moteMac = dentry->d_name;
-		std::string entryPath = devicePath + "/" + dentry->d_name + "/";
+		std::string mac = dentry->d_name;
 
-		if (moteMac == "." || moteMac == "..")
+		if (mac == "." || mac == "..")
 			continue;
 
-		updateMote(moteMac, entryPath);
+		updateMote(mac, devicePath + "/" + mac + "/");
 	}
 
 	closedir(deviceDir);
@@ -74,7 +73,7 @@ void DeviceManager::readMoteDevices(std::string devicePath)
 /** Update the mote device.
  * Search for an existing mote based on the MAC given in the serial
  * number. */
-void DeviceManager::updateMote(std::string& mac, std::string& directory)
+void DeviceManager::updateMote(std::string mac, std::string directory)
 {
 	motemap_t::iterator m = motes.find(mac);
 	if (m != motes.end()) {
