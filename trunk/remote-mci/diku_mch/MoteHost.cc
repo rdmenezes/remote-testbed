@@ -13,10 +13,10 @@ Configuration MoteHost::config;
 
 void MoteHost::lookForServer()
 {
-	while (1)
-	{
+	while (1) {
 		std::string host = config.vm["serverAddress"].as<std::string>();
 		uint16_t port = config.vm["serverPort"].as<uint16_t>();
+		uint64_t secs = config.vm["serverConnectionRetryInterval"].as<uint64_t>(); 
 
 		Log::info("Connecting to %s on port %u...", host.c_str(), port);
 		clientsock = openClientSocket(host, port);
@@ -38,9 +38,8 @@ void MoteHost::lookForServer()
 			Log::error("Connection failed");
 		}
 
-		Log::info("Reconnecting in %llu seconds...",
-			  config.vm["serverConnectionRetryInterval"].as<uint64_t>());
-		usleep(config.vm["serverConnectionRetryInterval"].as<uint64_t>() * 1000000);
+		Log::info("Reconnecting in %llu seconds...", secs);
+		usleep(secs * 1000000);
 	}
 }
 
