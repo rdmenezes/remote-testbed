@@ -6,7 +6,6 @@ using namespace remote::util;
 
 int MoteHost::clientsock;
 int MoteHost::plugpipe;
-fd_set MoteHost::fdset;
 Message MoteHost::msg;
 DeviceManager MoteHost::devices;
 Configuration MoteHost::config;
@@ -45,7 +44,8 @@ void MoteHost::lookForServer()
 void MoteHost::serviceLoop()
 {
 	std::string eventPipe = config.vm["usbPlugEventPipe"].as<std::string>();
-	int res = 0 ,p;
+	fd_set fdset;
+	int res = 0, p;
 
 	remove(eventPipe.c_str());
 	if (mkfifo(eventPipe.c_str(), 666) == -1) {
@@ -69,12 +69,10 @@ void MoteHost::serviceLoop()
 		msg.sendMsg(clientsock,hostMsg);
 	}
 
-	Log::debug("Building initial fd set");
-	// prepare file descriptors
-	int maxfd = rebuildFdSet(fdset);
 	Log::debug("Entering service loop");
-	while ( res > -1 )
-	{
+	while (res > -1) {
+		int maxfd = rebuildFdSet(fdset);
+
 		// wait for non-blocking reads on the fds
 		res = select(maxfd+1, &fdset, NULL, NULL, NULL);
 
@@ -102,8 +100,6 @@ void MoteHost::serviceLoop()
 				moteI++;
 			}
 		}
-
-		maxfd = rebuildFdSet(fdset);
 	}
 	close(plugpipe);
 }
