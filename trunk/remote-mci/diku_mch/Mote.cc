@@ -2,10 +2,10 @@
 
 namespace remote { namespace diku_mch {
 
-Mote::Mote(std::string& p_mac, std::string& p_directory, std::string& p_path)
+Mote::Mote(std::string& p_mac, std::string& p_directory)
 	: SerialControl(), mac(p_mac), directory(p_directory)
 {
-	validate(p_path);
+	validate();
 	log("New mote %s at %s\n", mac.c_str(), path.c_str());
 }
 
@@ -20,14 +20,15 @@ void Mote::invalidate()
 	isvalid = false;
 }
 
-void Mote::validate(std::string& p_path)
+void Mote::validate()
 {
 	std::string p_tty = directory + "tty";
 
 	isvalid = true;
-	if (p_path != path) {
-		path = p_path;
-	}
+
+	path = readFile(directory + "path");
+	if (path == "")
+		isvalid = false;
 
 	p_tty = readLink(directory + "tty");
 	if (p_tty != tty) {
@@ -57,6 +58,46 @@ const std::string& Mote::getDirectory()
 const std::string& Mote::getDevicePath()
 {
 	return path;
+}
+
+std::string Mote::readFile(std::string filename)
+{
+	char buffer[1024];
+	ssize_t size, i;
+	int fd;
+
+	fd = open(filename.c_str(), O_RDONLY | O_NONBLOCK);
+	if (fd < 0)
+		return std::string("");
+
+	do {
+		size = read(fd, buffer, sizeof(buffer) - 1);
+	} while ((size < 0) && (errno == EAGAIN || errno == EINTR));
+
+	/* Non-blocking, so we should have the full contents now. */
+	close(fd);
+
+	/* Sanitize the string to only hold sane ASCII characters. */
+	for (i = size - 1; i >= 0; i--) {
+		int c = buffer[i];
+
+		if (c <= ' ' || c > 126) {
+			/* Discard cruft at the end. */
+			if (i + 1 == size) {
+				size--;
+				continue;
+			}
+
+			c = '_';
+		} else if (c == '\'' || c == '"' || c == '\\') {
+			c = '_';
+		}
+
+		buffer[i] = c;
+	}
+	buffer[size] = 0;
+
+	return std::string(buffer);
 }
 
 std::string Mote::readLink(std::string linkname)

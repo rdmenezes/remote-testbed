@@ -46,46 +46,6 @@ void DeviceManager::refresh(std::string devicePath)
 	}
 }
 
-std::string DeviceManager::readMoteDeviceFile(std::string path)
-{
-	char buffer[1024];
-	ssize_t size, i;
-	int fd;
-
-	fd = open(path.c_str(), O_RDONLY | O_NONBLOCK);
-	if (fd < 0)
-		return std::string("");
-
-	do {
-		size = read(fd, buffer, sizeof(buffer) - 1);
-	} while ((size < 0) && (errno == EAGAIN || errno == EINTR));
-
-	/* Non-blocking, so we should have the full contents now. */
-	close(fd);
-
-	/* Sanitize the string to only hold sane ASCII characters. */
-	for (i = size - 1; i >= 0; i--) {
-		int c = buffer[i];
-
-		if (c <= ' ' || c > 126) {
-			/* Discard cruft at the end. */
-			if (i + 1 == size) {
-				size--;
-				continue;
-			}
-
-			c = '_';
-		} else if (c == '\'' || c == '"' || c == '\\') {
-			c = '_';
-		}
-
-		buffer[i] = c;
-	}
-	buffer[size] = 0;
-
-	return std::string(buffer);
-}
-
 /** Open /dev/remote and register information about each mote. */
 void DeviceManager::readMoteDevices(std::string devicePath)
 {
@@ -101,12 +61,11 @@ void DeviceManager::readMoteDevices(std::string devicePath)
 	while ((dentry = readdir(deviceDir))) {
 		std::string moteMac = dentry->d_name;
 		std::string entryPath = devicePath + "/" + dentry->d_name + "/";
-		std::string motePath = readMoteDeviceFile(entryPath + "path");
 
-		if (motePath == "")
+		if (moteMac == "." || moteMac == "..")
 			continue;
 
-		updateMote(moteMac, entryPath, motePath);
+		updateMote(moteMac, entryPath);
 	}
 
 	closedir(deviceDir);
@@ -115,16 +74,16 @@ void DeviceManager::readMoteDevices(std::string devicePath)
 /** Update the mote device.
  * Search for an existing mote based on the MAC given in the serial
  * number. */
-void DeviceManager::updateMote(std::string& mac, std::string& directory, std::string& path)
+void DeviceManager::updateMote(std::string& mac, std::string& directory)
 {
 	motemap_t::iterator m = motes.find(mac);
 	if (m != motes.end()) {
 		// we found a mote with the same MAC address
 		// just make sure the info is up-to-date
-		m->second->validate(path);
+		m->second->validate();
 
 	} else {
-		Mote *mote = new Mote(mac, directory, path);
+		Mote *mote = new Mote(mac, directory);
 
 		if (mote->isValid()) {
 			// this must be a new mote, add it to the collection
