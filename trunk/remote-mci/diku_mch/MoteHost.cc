@@ -368,9 +368,8 @@ result_t MoteHost::program(Mote *mote, MsgMoteAddresses& addresses, MsgPayload& 
 		return FAILURE;
 
 	if (writeImageFile(filename, image)) {
-		std::string tos = getTosStr(addresses.getTosAddress());
 		std::string mac_env = "macaddress=" + mote->getMac();
-		std::string tos_env = "tosaddress=" + tos;
+		std::string tos_env = "tosaddress=" + addresses.getTosAddress();
 		char * const args[] = {
 			(char *) config.vm["moteProgrammerPath"].as<std::string>().c_str(),
 			(char *) mote->getTty().c_str(),

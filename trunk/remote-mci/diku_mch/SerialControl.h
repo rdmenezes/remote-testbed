@@ -12,7 +12,6 @@
 #include <sys/wait.h>
 #include <sys/ioctl.h>
 
-#include "common/format.h"
 #include "macros.h"
 #include "types.h"
 #include "motecontrol/localconstants.h"
