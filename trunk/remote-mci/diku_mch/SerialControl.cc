@@ -175,6 +175,7 @@ bool SerialControl::setDTR()
 	int tmp = TIOCM_DTR;
 
 	if (ioctl(port, TIOCMBIS, &tmp) == -1) {
+		Log::error("ioctl(%s) failed: %s", tty.c_str(), strerror(errno));
 		portIsOpen = false;
 		return false;
 	}
@@ -186,6 +187,7 @@ bool SerialControl::clearDTR()
 	int tmp = TIOCM_DTR;
 
 	if (ioctl(port, TIOCMBIC, &tmp) == -1) {
+		Log::error("ioctl(%s) failed: %s", tty.c_str(), strerror(errno));
 		portIsOpen = false;
 		return false;
 	}

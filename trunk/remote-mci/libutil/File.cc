@@ -5,6 +5,7 @@
 #include <libgen.h>
 
 #include "libutil/File.h"
+#include "libutil/Log.h"
 
 namespace remote { namespace util {
 
@@ -15,12 +16,19 @@ std::string File::readFile(std::string filename)
 	int fd;
 
 	fd = open(filename.c_str(), O_RDONLY | O_NONBLOCK);
-	if (fd < 0)
+	if (fd < 0) {
+		Log::error("open(%s) failed: %s", filename.c_str(), strerror(errno));
 		return std::string("");
+	}
 
 	do {
 		size = read(fd, buffer, sizeof(buffer) - 1);
 	} while ((size < 0) && (errno == EAGAIN || errno == EINTR));
+
+	if (size == -1) {
+		Log::error("read(%s) failed: %s", filename.c_str(), strerror(errno));
+		size = 0;
+	}
 
 	/* Non-blocking, so we should have the full contents now. */
 	close(fd);
@@ -56,8 +64,10 @@ std::string File::readLink(std::string linkname)
 	int relative = 0;
 
 	buflen = readlink(linkname.c_str(), buf, sizeof(buf));
-	if (buflen == -1 || linkname.size() >= sizeof(buf))
+	if (buflen == -1) {
+		Log::error("readlink(%s) failed: %s", linkname.c_str(), strerror(errno));
 		return std::string("");
+	}
 
 	buf[buflen] = 0;
 	filename = buf;
@@ -69,6 +79,11 @@ std::string File::readLink(std::string linkname)
 
 	if (!relative)
 		return filename;
+
+	if (linkname.size() >= sizeof(buf)) {
+		Log::error("Link name too long: %s", linkname.c_str());
+		return std::string("");
+	}
 
 	linkname.copy(buf, linkname.size());
 	do
@@ -86,10 +101,15 @@ bool File::writeFile(std::string filename, const void *data, uint32_t datalen)
 	ssize_t filesize;
 	int fd = open(filename.c_str(), O_CREAT | O_TRUNC | O_WRONLY);
 
-	if (fd < 0)
+	if (fd < 0) {
+		Log::error("open(%s) failed: %s", filename.c_str(), strerror(errno));
 		return false;
+	}
 
 	filesize = write(fd, data, datalen);
+	if (fd < 0)
+		Log::error("write(%s) failed: %s", filename.c_str(), strerror(errno));
+
 	close(fd);
 	if (filesize == (ssize_t) datalen)
 		return true;
