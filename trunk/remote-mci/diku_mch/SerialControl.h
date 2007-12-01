@@ -24,7 +24,7 @@ using namespace protocols::motecontrol;
 class SerialControl
 {
 	public:
-		SerialControl(std::string& tty);
+		SerialControl();
 		~SerialControl();
 		result_t openTty();
 		result_t closeTty();
