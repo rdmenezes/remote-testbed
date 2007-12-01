@@ -161,7 +161,6 @@ AM_CONDITIONAL(CONFIG_DIKU_MCS, test "x$CONFIG_DIKU_MCS" = "xyes")
 
 AC_CONFIG_FILES([
 		 Makefile
-		 common/Makefile
 		 diku_mch/Makefile
 		 diku_mch/plugpiper/Makefile
 		 diku_mcs/Makefile

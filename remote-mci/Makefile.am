@@ -1,4 +1,4 @@
-SUBDIRS = doc common protocols
+SUBDIRS = doc protocols
 
 if CONFIG_DIKU_MCH
 SUBDIRS += diku_mch
