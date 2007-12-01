@@ -8,7 +8,7 @@ Mote::Mote(std::string& p_mac, std::string& p_directory)
 	: SerialControl(), mac(p_mac), directory(p_directory)
 {
 	validate();
-	log("Mote %s (%s) at %s\n", mac.c_str(), platform.c_str(), path.c_str());
+	Log::info("Mote %s (%s) @ %s", mac.c_str(), platform.c_str(), path.c_str());
 }
 
 
@@ -38,7 +38,7 @@ void Mote::validate()
 
 	p_tty = File::readLink(directory + "tty");
 	if (p_tty != tty) {
-		log("Changed TTY from %s to %s\n", tty.c_str(), p_tty.c_str());
+		Log::debug("Mote TTY '%s' -> '%s'", tty.c_str(), p_tty.c_str());
 		tty = p_tty;
 
 		if (isOpen())
@@ -48,7 +48,7 @@ void Mote::validate()
 	}
 
 	if (!isvalid)
-		log("Mote at %s is invalid.\n", tty.c_str());
+		Log::warn("Mote %s @ %s is invalid", mac.c_str(), tty.c_str());
 }
 
 const std::string& Mote::getMac()

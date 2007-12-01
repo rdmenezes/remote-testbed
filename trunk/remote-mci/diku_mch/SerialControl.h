@@ -13,6 +13,7 @@
 #include <sys/wait.h>
 #include <sys/ioctl.h>
 
+#include "libutil/Log.h"
 #include "macros.h"
 #include "types.h"
 #include "motecontrol/localconstants.h"
@@ -21,6 +22,7 @@ namespace remote { namespace diku_mch {
 
 using namespace protocols;
 using namespace protocols::motecontrol;
+using namespace util;
 
 class SerialControl
 {
