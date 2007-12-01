@@ -32,11 +32,10 @@ void Mote::validate(std::string& p_path, std::string& p_tty)
 		log("Changed TTY from %s to %s\n", tty.c_str(), p_tty.c_str());
 		tty = p_tty;
 
-		if (isOpen) {
+		if (isOpen)
 			closeTty();
-			openTty();
-			isvalid = isOpen;
-		}
+		if (openTty() == FAILURE)
+			isvalid = false;
 	}
 
 	if (!isvalid)
