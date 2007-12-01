@@ -16,11 +16,11 @@ class MoteAddresses : public MCIAddress
 	public:
 		/** Constructor
 		 * \param p_tosAddress TOS address
-		 * \param p_macAddress MAC address
+		 * \param p_mac MAC address
 		**/
-		MoteAddresses(std::string p_mac, uint16_t p_tosAddress = 0);
+		MoteAddresses(std::string p_mac, std::string p_tosAddress = "");
 		/** TOS address **/
-		uint16_t tosAddress;
+		std::string tosAddress;
 		/** MAC address **/
 		std::string mac;
 };

@@ -1,4 +1,3 @@
-#include "common/format.h"
 #include "Host.h"
 #include "macros.h"
 
@@ -132,7 +131,7 @@ void Host::findOrCreateMote(MsgMoteConnectionInfo& info)
 
 	if ( !row || row.empty() )
 	{
-		std::string tos;
+		std::ostringstream oss;
 
 		selectRes.purge();
 		// create the mote using site_id only - the mote class will create the
@@ -140,13 +139,14 @@ void Host::findOrCreateMote(MsgMoteConnectionInfo& info)
 		mote = new Mote(site_id,(MoteControlInfrastructure&)*this,*newtarget);
 		// TODO: error checking
 		// create the mac and tos address database records using the mote id
-		newtarget->tosAddress = (uint16_t) mote->mote_id;
+		oss << (uint16_t) mote->mote_id;
+		newtarget->tosAddress = oss.str();
 
-		tos = getTosStr(newtarget->tosAddress);
 		log("Attributes: macaddress=%s tosaddress=%s platform=%s\n",
-		    mac.c_str(), tos.c_str(), info.getPlatform().c_str());
+		    mac.c_str(), newtarget->tosAddress.c_str(),
+		    info.getPlatform().c_str());
 		mote->setAttribute("macaddress", mac);
-		mote->setAttribute("tosaddress", tos);
+		mote->setAttribute("tosaddress", newtarget->tosAddress);
 		mote->setAttribute("platform", info.getPlatform());
 	}
 	else
@@ -158,7 +158,7 @@ void Host::findOrCreateMote(MsgMoteConnectionInfo& info)
 		mote = new Mote(mote_id,site_id,(MoteControlInfrastructure&)*this,*newtarget);
 
 		// get the tos address mote attribute
-		newtarget->tosAddress = atoi(mote->getAttribute("tosaddress").c_str());
+		newtarget->tosAddress = mote->getAttribute("tosaddress");
 		// TODO: error checking
 	}
 
@@ -191,7 +191,7 @@ void Host::handleMotesFoundList(MsgMoteConnectionInfoList& infolist)
 void Host::request(MCIAddress& address, MsgPayload& request )
 {
 	MsgMoteAddresses addresses(((MoteAddresses&)address).mac,
-				   ((MoteAddresses&)address).tosAddress);
+				   atoi(((MoteAddresses&)address).tosAddress.c_str()));
 	MsgHostRequest msgHostRequest(addresses,request);
 	HostMsg message(msgHostRequest);
 
