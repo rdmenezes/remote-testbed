@@ -6,7 +6,7 @@
 #
 # SYNOPSIS
 # --------
-# /etc/udev/scripts/remote.sh MOTEMAC MOTEPATH PROGRAMMER
+# /etc/udev/scripts/remote.sh PLATFORM MOTEMAC MOTEPATH PROGRAMMER
 #
 # DESCRIPTION
 # -----------
@@ -22,15 +22,19 @@
 #
 # OPTIONS
 # -------
+# PLATFORM::
+#
+#	The first argument is the name of the mote platform.
+#
 # MOTEMAC::
 #
-#	The first argument is the mote MAC, part of which can often be
+#	The second argument is the mote MAC, part of which can often be
 #	acquired using %s{serial} or similar sysfs entry and combined
 #	with a well-known vendor and product ID.
 #
 # MOTEPATH::
 #
-#	The second is the desired device path, which should be a unique
+#	The third is the desired device path, which should be a unique
 #	enough to fully describe the bus, where the mote is attached,
 #	but should be reproducable in such a way that the same device
 #	path should be used when reinserting the same mote into the same
@@ -56,6 +60,11 @@
 #	with the given MAC address. This file is created by this script
 #	using the MOTEPATH command line argument.
 #
+# /dev/remote/${MOTEMAC}/platform::
+#
+#	This file contains the name of the mote platform and is created
+#	by this script using the MOTEPLATFORM command line argument.
+#
 # /dev/remote/${MOTEMAC}/programmer::
 #
 #	Symlink to the mote flash programmer as specified via the
@@ -73,7 +82,7 @@
 # -------
 # As an example here is the arguments given in the dig528-2 UDEV rule:
 #
-#  /etc/udev/scripts/remote.sh 0050C237%s{serial} %E{PHYSDEVPATH} /sbin/hc08sprg
+#  /etc/udev/scripts/remote.sh dig528-2 0050C237%s{serial} %E{PHYSDEVPATH} /sbin/hc08sprg
 #
 # AUTHOR
 # ------
@@ -99,9 +108,10 @@ PLUGPIPER="/sbin/plugpiper"
 # The script
 ########################################################################
 
-MOTEMAC="$1"
-MOTEPATH="$2"
-PROGRAMMER="$3"
+PLATFORM="$1"
+MOTEMAC="$2"
+MOTEPATH="$3"
+PROGRAMMER="$4"
 
 info ()
 {
@@ -123,9 +133,10 @@ add)
 	test -e "$DEVROOT/$MOTEMAC/tty" || die "No TTY exists for '$MOTEMAC'"
 	test -e "$DEVROOT/$MOTEMAC/path" && die "Path exists for '$MOTEMAC'"
 	echo "$MOTEPATH" > "$DEVROOT/$MOTEMAC/path"
+	echo "$PLATFORM" > "$DEVROOT/$MOTEMAC/platform"
 	ln -s "$PROGRAMMER" "$DEVROOT/$MOTEMAC/programmer" ||
 		die "Failed to create program symlink"
-	info "adding mote '$MOTEMAC' with path '$MOTEPATH'"
+	info "mote '$MOTEMAC' with path '$MOTEPATH' and platform '$PLATFORM'"
 	;;
 
 remove)

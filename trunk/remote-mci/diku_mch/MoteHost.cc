@@ -185,7 +185,8 @@ bool MoteHost::makeMoteInfoList(motemap_t& motelist, MsgMoteConnectionInfoList& 
 
 	for (moteI = motelist.begin(); moteI != motelist.end(); moteI++) {
 		Mote *mote = moteI->second;
-		MsgMoteConnectionInfo info(mote->getMac(), mote->getDevicePath());
+		MsgMoteConnectionInfo info(mote->getMac(), mote->getDevicePath(),
+					   mote->getPlatform());
 
 		infolist.addMoteInfo(info);
 	}
