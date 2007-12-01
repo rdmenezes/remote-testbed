@@ -62,7 +62,7 @@ const std::string& Mote::getDevicePath()
 
 std::string Mote::getImagePath()
 {
-	return "/var/run/motehost-" + mac;
+	return directory + "image";
 }
 
 std::string Mote::readFile(std::string filename)
