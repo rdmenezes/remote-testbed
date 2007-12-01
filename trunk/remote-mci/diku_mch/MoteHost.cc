@@ -29,6 +29,9 @@ void MoteHost::lookForServer()
 
 			} catch (remote::protocols::MMSException e) {
 				Log::error("Exception: %s", e.what());
+
+			} catch (remote::error e) {
+				Log::error("Exception: %s", e.what());
 			}
 			Log::error("Disconnected");
 
@@ -47,16 +50,12 @@ void MoteHost::serviceLoop()
 	fd_set fdset;
 
 	remove(eventPipe.c_str());
-	if (mkfifo(eventPipe.c_str(), 666) == -1) {
-		std::string err = "Failed to make fifo " + eventPipe + ": " + strerror(errno);
-		__THROW__ (err.c_str());
-	}
+	if (mkfifo(eventPipe.c_str(), 666) == -1)
+		throw remote::error(errno, "Failed to make fifo " + eventPipe);
 
 	plugpipe = open(eventPipe.c_str(), O_RDONLY | O_NONBLOCK);
-	if (plugpipe < 0) {
-		std::string err = "Failed to open fifo " + eventPipe + ": " + strerror(errno);
-		__THROW__ (err.c_str());
-	}
+	if (plugpipe < 0)
+		throw remote::error(errno, "Failed to open fifo " + eventPipe);
 
 	// the first thing to do is send all current mote information to the server
 	devices.refresh(config.vm["devicePath"].as<std::string>());
@@ -188,9 +187,8 @@ void MoteHost::handleMessage()
 		HostMsg hostMsg(buffer,buflen);
 
 		if (hostMsg.getType() != HOSTMSGTYPE_HOSTREQUEST)
-		{
-			__THROW__ ("Can only handle hostmote messages!");
-		}
+			throw remote::error("Can only handle hostmote messages!");
+
 		MsgHostRequest& msgHostRequest = hostMsg.getHostRequest();
 		MsgMoteAddresses& addresses = msgHostRequest.getMoteAddresses();
 		buffer = (uint8_t*)msgHostRequest.getMessage().getData();
@@ -221,7 +219,7 @@ void MoteHost::handleMessage()
 			break;
 		}
 		default:
-			__THROW__ ("Invalid message type!");
+			throw remote::error("Invalid message type!");
 		}
 	}
 }

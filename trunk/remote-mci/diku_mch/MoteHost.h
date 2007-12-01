@@ -8,6 +8,7 @@
 #include "macros.h"
 #include "types.h"
 
+#include "libutil/error.h"
 #include "tcputil.h"
 #include "Message.h"
 #include "motecontrol/MoteMsg.h"
