@@ -45,7 +45,6 @@ void MoteHost::serviceLoop()
 {
 	std::string eventPipe = config.vm["usbPlugEventPipe"].as<std::string>();
 	fd_set fdset;
-	int res = 0, p;
 
 	remove(eventPipe.c_str());
 	if (mkfifo(eventPipe.c_str(), 666) == -1) {
@@ -70,35 +69,26 @@ void MoteHost::serviceLoop()
 	}
 
 	Log::debug("Entering service loop");
-	while (res > -1) {
+	while (true) {
 		int maxfd = rebuildFdSet(fdset);
 
 		// wait for non-blocking reads on the fds
-		res = select(maxfd+1, &fdset, NULL, NULL, NULL);
+		if (select(maxfd+1, &fdset, NULL, NULL, NULL) == -1)
+			break;
 
-		if ( res > -1 )
-		{
-			if (FD_ISSET(clientsock,&fdset))
-			{
-				handleMessage();
-			}
+		if (FD_ISSET(clientsock, &fdset))
+			handleMessage();
 
-			if (FD_ISSET(plugpipe,&fdset))
-			{
-				handlePlugEvent();
-			}
+		if (FD_ISSET(plugpipe, &fdset))
+			handlePlugEvent();
 
-			motemap_t::const_iterator moteI = devices.motes.begin();
+		motemap_t::const_iterator moteI = devices.motes.begin();
 
-			while (moteI != devices.motes.end())
-			{
-				p = moteI->second->getFd();
-				if (p > 0 && FD_ISSET(p,&fdset))
-				{
-					handleMoteData(moteI->second);
-				}
-				moteI++;
-			}
+		while (moteI != devices.motes.end()) {
+			int p = moteI->second->getFd();
+			if (p > 0 && FD_ISSET(p, &fdset))
+				handleMoteData(moteI->second);
+			moteI++;
 		}
 	}
 	close(plugpipe);
