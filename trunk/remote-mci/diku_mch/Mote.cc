@@ -24,7 +24,7 @@ void Mote::invalidate()
 
 void Mote::validate()
 {
-	std::string p_tty = directory + "tty";
+	std::string oldTty = tty;
 
 	isvalid = true;
 
@@ -36,11 +36,12 @@ void Mote::validate()
 	if (platform == "")
 		isvalid = false;
 
-	p_tty = File::readLink(directory + "tty");
-	if (p_tty != tty) {
-		Log::debug("Mote TTY '%s' -> '%s'", tty.c_str(), p_tty.c_str());
-		tty = p_tty;
+	tty = File::readLink(directory + "tty");
+	if (tty == "")
+		isvalid = false;
 
+	if (tty != "" && tty != oldTty) {
+		Log::debug("Mote TTY '%s' -> '%s'", oldTty.c_str(), tty.c_str());
 		if (isOpen())
 			closeTty();
 		if (openTty() == FAILURE)
