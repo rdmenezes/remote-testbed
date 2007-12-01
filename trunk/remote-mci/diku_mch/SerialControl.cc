@@ -208,6 +208,11 @@ ssize_t SerialControl::writeBuf(const char* buf, size_t len)
 	return write(port, buf, len);
 }
 
+bool SerialControl::hasChild()
+{
+	return childPid != -1;
+}
+
 const std::string& SerialControl::getTty()
 {
 	return tty;

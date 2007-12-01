@@ -40,7 +40,7 @@ class SerialControl
 		status_t getStatus();
 		const std::string& getTty();
 	protected:
-		bool hasChild() { return childPid != -1; }
+		bool hasChild();
 		void cleanUpProgram();
 		bool clearDTR();
 		bool setDTR();
