@@ -127,7 +127,7 @@ void DeviceManager::updateMote(std::string& mac, std::string& directory, std::st
 	} else {
 		Mote *mote = new Mote(mac, directory, path, tty);
 
-		if (mote->openTty() == SUCCESS) {
+		if (mote->isValid()) {
 			// this must be a new mote, add it to the collection
 			motemap_t::value_type elm(mac, mote);
 			motes.insert(elm);
