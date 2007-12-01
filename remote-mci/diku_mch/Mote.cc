@@ -6,7 +6,7 @@ Mote::Mote(std::string& p_mac, std::string& p_directory)
 	: SerialControl(), mac(p_mac), directory(p_directory)
 {
 	validate();
-	log("New mote %s at %s\n", mac.c_str(), path.c_str());
+	log("Mote %s (%s) at %s\n", mac.c_str(), platform.c_str(), path.c_str());
 }
 
 
@@ -28,6 +28,10 @@ void Mote::validate()
 
 	path = readFile(directory + "path");
 	if (path == "")
+		isvalid = false;
+
+	platform = readFile(directory + "platform");
+	if (platform == "")
 		isvalid = false;
 
 	p_tty = readLink(directory + "tty");
@@ -58,6 +62,11 @@ const std::string& Mote::getDirectory()
 const std::string& Mote::getDevicePath()
 {
 	return path;
+}
+
+const std::string& Mote::getPlatform()
+{
+	return platform;
 }
 
 std::string Mote::getImagePath()

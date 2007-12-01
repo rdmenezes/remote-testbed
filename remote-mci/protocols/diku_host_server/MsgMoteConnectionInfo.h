@@ -10,7 +10,8 @@ class MsgMoteConnectionInfo : public BaseMsg
 {
 	public:
 		MsgMoteConnectionInfo();
-		MsgMoteConnectionInfo(std::string p_mac, std::string p_path);
+		MsgMoteConnectionInfo(std::string p_mac, std::string p_path,
+				      std::string p_platform);
 		virtual ~MsgMoteConnectionInfo();
 		void operator = (const MsgMoteConnectionInfo& o);
 
@@ -23,9 +24,11 @@ class MsgMoteConnectionInfo : public BaseMsg
 		void write(int fd);
 		MsgPayload& getPath();
 		std::string getMac();
+		std::string getPlatform();
 	private:
 		MsgPayload mac;
 		MsgPayload path;
+		MsgPayload platform;
 };
 
 }}}

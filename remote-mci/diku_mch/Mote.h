@@ -21,6 +21,7 @@ class Mote : public SerialControl
 		const std::string& getMac();
 		const std::string& getDirectory();
 		const std::string& getDevicePath();
+		const std::string& getPlatform();
 		std::string getImagePath();
 		std::string getProgrammerPath();
 
@@ -30,6 +31,7 @@ class Mote : public SerialControl
 		std::string mac;
 		std::string directory;
 		std::string path;
+		std::string platform;
 		bool isvalid;
 };
 

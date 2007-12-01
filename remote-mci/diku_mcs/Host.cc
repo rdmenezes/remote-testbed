@@ -143,9 +143,11 @@ void Host::findOrCreateMote(MsgMoteConnectionInfo& info)
 		newtarget->tosAddress = (uint16_t) mote->mote_id;
 
 		tos = getTosStr(newtarget->tosAddress);
-		log("Setting attributes: MAC=%s TOS=%s\n", mac.c_str(), tos.c_str());
+		log("Attributes: macaddress=%s tosaddress=%s platform=%s\n",
+		    mac.c_str(), tos.c_str(), info.getPlatform().c_str());
 		mote->setAttribute("macaddress", mac);
 		mote->setAttribute("tosaddress", tos);
+		mote->setAttribute("platform", info.getPlatform());
 	}
 	else
 	{
