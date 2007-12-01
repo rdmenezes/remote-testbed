@@ -2,10 +2,10 @@
 
 namespace remote { namespace diku_mch {
 
-Mote::Mote(std::string& p_mac, std::string& p_directory, std::string& p_path, std::string& p_tty)
+Mote::Mote(std::string& p_mac, std::string& p_directory, std::string& p_path)
 	: SerialControl(), mac(p_mac), directory(p_directory)
 {
-	validate(p_path, p_tty);
+	validate(p_path);
 	log("New mote %s at %s\n", mac.c_str(), path.c_str());
 }
 
@@ -20,8 +20,10 @@ void Mote::invalidate()
 	isvalid = false;
 }
 
-void Mote::validate(std::string& p_path, std::string& p_tty)
+void Mote::validate(std::string& p_path)
 {
+	std::string p_tty = directory + "tty";
+
 	isvalid = true;
 	if (p_path != path) {
 		path = p_path;

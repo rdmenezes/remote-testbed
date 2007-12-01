@@ -10,13 +10,13 @@ class Mote : public SerialControl
 {
 	public:
 		/** Create a new mote. */
-		Mote(std::string& mac, std::string& directory, std::string& path, std::string& tty);
+		Mote(std::string& mac, std::string& directory, std::string& path);
 
 		bool isValid();
 
 		void invalidate();
 
-		void validate(std::string& path, std::string& tty);
+		void validate(std::string& path);
 
 		const std::string& getMac();
 		const std::string& getDirectory();
