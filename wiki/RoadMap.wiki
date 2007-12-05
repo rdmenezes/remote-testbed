@@ -31,6 +31,8 @@ Not a lot will change on the client side, but it should be polished a bit, espec
 
  * Issue 25: Improve handling of defunct motes.
 
+ * Issue 26: Add message board web service to announce testbed updates.
+
 === Security ===
 
 The focus for this release is not security and no extensive code audit has been made, but since this release is intended to change the status of the framework from "testing" to "production", problem areas that have been uncovered in the release cycle need to be fixed.
