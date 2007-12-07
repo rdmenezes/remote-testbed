@@ -3,7 +3,7 @@
 namespace remote { namespace diku_mch {
 
 SerialControl::SerialControl()
-	: isRunning(false), portIsOpen(false), childPid(-1), childResult(NOT_SUPPORTED)
+	: port(-1), isRunning(false), portIsOpen(false), childPid(-1), childResult(NOT_SUPPORTED)
 {
 }
 
@@ -75,6 +75,7 @@ result_t SerialControl::closeTty()
 	stop();
 	tcsetattr(port, TCSANOW, &oldsertio);
 	close(port);
+	port = -1;
 	portIsOpen = false;
 	return SUCCESS;
 }
@@ -137,8 +138,8 @@ void SerialControl::cleanUpProgram()
 	} else {
 		childResult = FAILURE;
 	}
-	childPid = -1;
 	close(port);
+	port = childPid = -1;
 	openTty();
 }
 
