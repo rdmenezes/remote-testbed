@@ -106,7 +106,7 @@ int MoteHost::rebuildFdSet(fd_set& fdset)
 	{
 		pmote = moteI->second;
 		p = pmote->getFd();
-		if (p > 0 && pmote->isValid())
+		if (p > 0)
 		{
 			if (p > maxp) {maxp = p;}
 			FD_SET(p, &fdset);
@@ -308,9 +308,6 @@ void MoteHost::handleMoteData(Mote* mote)
 			HostMsg hostMsg(msgHostConfirm);
 			Message msg;
 			msg.sendMsg(clientsock,hostMsg);
-		} else {
-			Log::info("Invalidating mote '%s'", mote->getMac().c_str());
-			mote->invalidate();
 		}
 	}
 }
