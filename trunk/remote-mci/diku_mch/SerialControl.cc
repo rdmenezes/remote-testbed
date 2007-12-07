@@ -201,6 +201,8 @@ ssize_t SerialControl::readBuf(char *buf, size_t len)
 {
 	ssize_t res = read(port, buf, len);
 
+	if (res <= 0 && !hasChild())
+		closeTty();
 	if (res <= 0 && hasChild()) {
 		cleanUpProgram();
 	}
