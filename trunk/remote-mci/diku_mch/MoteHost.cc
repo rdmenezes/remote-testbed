@@ -295,8 +295,7 @@ void MoteHost::handleMoteData(Mote* mote)
 	}
 
 	// check if we're done programming
-	if ( readlen <= 0 )
-	{
+	if (readlen <= 0) {
 		result_t result = mote->getChildResult();
 
 		if (result != NOT_SUPPORTED) {
