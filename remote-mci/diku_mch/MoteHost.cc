@@ -311,7 +311,6 @@ void MoteHost::handleMoteData(Mote* mote)
 		} else {
 			Log::info("Invalidating mote '%s'", mote->getMac().c_str());
 			mote->invalidate();
-			mote->closeTty();
 		}
 	}
 }
