@@ -40,13 +40,8 @@ void Mote::validate()
 	if (tty == "")
 		isvalid = false;
 
-	if (tty != "" && tty != oldTty) {
-		Log::debug("Mote TTY '%s' -> '%s'", oldTty.c_str(), tty.c_str());
-		if (isOpen())
-			closeTty();
-		if (openTty() == FAILURE)
-			isvalid = false;
-	}
+	if (!isOpen() && openTty() == FAILURE)
+		isvalid = false;
 
 	if (!isvalid)
 		Log::warn("Mote %s @ %s is invalid", mac.c_str(), tty.c_str());
