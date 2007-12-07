@@ -28,8 +28,6 @@ class SerialControl
 	public:
 		SerialControl();
 		~SerialControl();
-		result_t openTty();
-		result_t closeTty();
 		bool runChild(char * const args[], char * const envp[]);
 		result_t getChildResult();
 		result_t cancelProgramming();
@@ -44,6 +42,8 @@ class SerialControl
 	protected:
 		bool hasChild();
 		bool isOpen();
+		result_t openTty();
+		result_t closeTty();
 		void cleanUpProgram();
 		bool clearDTR();
 		bool setDTR();
