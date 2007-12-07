@@ -10,6 +10,7 @@ SerialControl::SerialControl()
 SerialControl::~SerialControl()
 {
 	cancelProgramming();
+
 	if (isOpen())
 		closeTty();
 }
@@ -57,12 +58,12 @@ result_t SerialControl::openTty()
 
 	portIsOpen = true;
 	// open in a stopped state
-	if (stop() == SUCCESS) {
-		return SUCCESS;
-	} else {
+	if (stop() == FAILURE) {
 		closeTty();
 		return FAILURE;
 	}
+
+	return SUCCESS;
 }
 
 result_t SerialControl::closeTty()
@@ -72,7 +73,6 @@ result_t SerialControl::closeTty()
 		return FAILURE;
 	}
 	Log::info("Closing %s", tty.c_str());
-	stop();
 	tcsetattr(port, TCSANOW, &oldsertio);
 	close(port);
 	port = -1;
@@ -87,6 +87,7 @@ bool SerialControl::runChild(char * const args[], char * const envp[])
 	if (pipe(pfd) < 0)
 		return false;
 	closeTty();
+
 	if ((childPid = fork())) {
 		/* Only use the reader end if we forked. */
 		if (hasChild())
@@ -203,6 +204,7 @@ ssize_t SerialControl::readBuf(char *buf, size_t len)
 
 	if (res <= 0 && !hasChild())
 		closeTty();
+
 	if (res <= 0 && hasChild()) {
 		cleanUpProgram();
 	}
