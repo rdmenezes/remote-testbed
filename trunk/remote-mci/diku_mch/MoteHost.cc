@@ -339,8 +339,7 @@ result_t MoteHost::program(Mote *mote, MsgMoteAddresses& addresses, MsgPayload& 
 
 		Log::info("Programming TTY %s", mote->getTty().c_str());
 
-		if (mote->stop() == SUCCESS &&
-		    mote->runChild(args, envp))
+		if (mote->runChild(args, envp))
 			return SUCCESS;
 
 		remove(filename.c_str());
