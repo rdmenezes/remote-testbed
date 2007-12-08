@@ -296,11 +296,10 @@ void MoteHost::handleMoteData(Mote* mote)
 
 	// check if we're done programming
 	if (readlen <= 0) {
-		result_t result = mote->getChildResult();
-
-		if (result != NOT_SUPPORTED) {
+		if (mote->getStatus() == MOTE_PROGRAMMING) {
 			Log::info("Programming done!");
 			remove(mote->getImagePath().c_str());
+			result_t result = mote->getChildResult();
 			MsgConfirm msgConfirm(MOTECOMMAND_PROGRAM, result, mote->getStatus());
 			MoteMsg moteMsg(msgConfirm);
 			MsgPayload msgPayload(moteMsg);

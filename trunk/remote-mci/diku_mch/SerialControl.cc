@@ -3,7 +3,7 @@
 namespace remote { namespace diku_mch {
 
 SerialControl::SerialControl()
-	: port(-1), isRunning(false), portIsOpen(false), childPid(-1), childResult(NOT_SUPPORTED)
+	: port(-1), isRunning(false), portIsOpen(false), childPid(-1)
 {
 }
 
@@ -108,16 +108,14 @@ bool SerialControl::runChild(char * const args[], char * const envp[])
 		_exit(EXIT_FAILURE);
 	}
 
-	childResult = NOT_SUPPORTED;
 	return hasChild();
 }
 
 result_t SerialControl::getChildResult()
 {
-	result_t result = childResult;
-
-	childResult = NOT_SUPPORTED;
-	return result;
+	if (hasChild() && cleanUpProgram())
+		return SUCCESS;
+	return FAILURE;
 }
 
 result_t SerialControl::cancelProgramming()
@@ -129,19 +127,16 @@ result_t SerialControl::cancelProgramming()
 	return SUCCESS;
 }
 
-void SerialControl::cleanUpProgram()
+bool SerialControl::cleanUpProgram()
 {
 	int status;
 
 	waitpid(childPid, &status, 0);
-	if (WIFEXITED(status) && WEXITSTATUS(status) == 0) {
-		childResult = SUCCESS;
-	} else {
-		childResult = FAILURE;
-	}
 	close(port);
 	port = childPid = -1;
 	openTty();
+
+	return WIFEXITED(status) && WEXITSTATUS(status) == 0;
 }
 
 result_t SerialControl::reset()
@@ -205,9 +200,6 @@ ssize_t SerialControl::readBuf(char *buf, size_t len)
 	if (res <= 0 && !hasChild())
 		closeTty();
 
-	if (res <= 0 && hasChild()) {
-		cleanUpProgram();
-	}
 	return res;
 }
 
