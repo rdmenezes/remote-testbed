@@ -27,6 +27,9 @@ void Mote::validate()
 	std::string oldTty = tty;
 
 	isvalid = true;
+	programmer = directory + "programmer";
+	if (programmer == "" || !File::exists(programmer))
+		isvalid = false;
 
 	path = File::readFile(directory + "path");
 	if (path == "")
@@ -47,6 +50,41 @@ void Mote::validate()
 		Log::warn("Mote %s @ %s is invalid", mac.c_str(), tty.c_str());
 }
 
+
+result_t Mote::program(std::string tos, const uint8_t *image, uint32_t imagelen)
+{
+	std::string filename = getImagePath();
+
+	if (hasChild())
+		return FAILURE;
+
+	if (File::writeFile(filename, image, imagelen)) {
+		std::string mac_env = "macaddress=" + mac;
+		std::string tos_env = "tosaddress=" + tos;
+		char * const args[] = {
+			(char *) programmer.c_str(),
+			(char *) tty.c_str(),
+			(char *) filename.c_str(),
+			NULL
+		};
+		char * const envp[] = {
+			(char *) mac_env.c_str(),
+			(char *) tos_env.c_str(),
+			NULL
+		};
+
+		Log::info("Programming TTY %s", tty.c_str());
+
+		if (runChild(args, envp))
+			return SUCCESS;
+
+		remove(filename.c_str());
+	}
+
+	return FAILURE;
+}
+
+
 const std::string& Mote::getMac()
 {
 	return mac;
@@ -65,11 +103,6 @@ const std::string& Mote::getPlatform()
 std::string Mote::getImagePath()
 {
 	return directory + "image";
-}
-
-std::string Mote::getProgrammerPath()
-{
-	return directory + "programmer";
 }
 
 }}

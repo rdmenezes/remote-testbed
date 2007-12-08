@@ -88,17 +88,6 @@ private:
 	 */
 	static int rebuildFdSet(fd_set& fdset);
 
-	/** Start programming a mote.
-	 *
-	 * This will fork a child process to do the actual programming.
-	 *
-	 * @param mote		The mote to program.
-	 * @param addresses	The address information of the mote.
-	 * @param image		The flash image which to use.
-	 * @return		SUCCESS if the programming was started.
-	 */
-	static result_t program(Mote *mote, MsgMoteAddresses& addresses, MsgPayload& image);
-
 	static int clientsock;		/**< Server connection socket. */
 	static int plugpipe;		/**< Plug event pipe. */
 	static Message msg;		/**< Message manager. */

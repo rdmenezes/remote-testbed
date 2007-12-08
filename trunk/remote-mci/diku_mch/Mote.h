@@ -45,6 +45,17 @@ public:
 	 */
 	void validate();
 
+	/** Start programming a mote.
+	 *
+	 * This will fork a child process to do the actual programming.
+	 *
+	 * @param tos		The tos address of the mote.
+	 * @param image		The flash image which to use.
+	 * @param imagelen	The length of the flash image data.
+	 * @return		SUCCESS if the programming was started.
+	 */
+	result_t program(std::string tos, const uint8_t *image, uint32_t imagelen);
+
 	/** Get MAC address.
 	 *
 	 * @return	The MAC address.
@@ -77,18 +88,6 @@ public:
 	 */
 	const std::string& getPlatform();
 
-	/** Get mote programmer path.
-	 *
-	 * When programming the mote this path should be used.
-	 *
-	 * The programmer path is derived "programmer" file in the mote
-	 * device directory. It is a symlink pointing to a binary or
-	 * script on the system capable of programming the mote.
-	 *
-	 * @return	The path to the mote programmer binary.
-	 */
-	std::string getProgrammerPath();
-
 	/** Get path to flash image file.
 	 *
 	 * This path can be used to temporarily save flash images when a
@@ -101,6 +100,7 @@ public:
 private:
 	std::string mac;	/**< MAC address. */
 	std::string directory;	/**< Device directory path. */
+	std::string programmer;	/**< Path to mote programmer binary. */
 	std::string path;	/**< Physical device path. */
 	std::string platform;	/**< Platform name. */
 	bool isvalid;		/**< Valid flag. */
