@@ -118,4 +118,11 @@ bool File::writeFile(std::string filename, const void *data, uint32_t datalen)
 	return false;
 }
 
+bool File::exists(std::string filename)
+{
+	struct stat buf;
+
+	return stat(filename.c_str(), &buf) >= 0;
+}
+
 }}

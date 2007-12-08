@@ -234,7 +234,9 @@ void MoteHost::handleRequest(Mote* mote, MsgMoteAddresses& addresses, MsgRequest
 	switch (command)
 	{
 		case MOTECOMMAND_PROGRAM:
-			result = program(mote, addresses, request.getFlashImage());
+			result = mote->program(addresses.getTosAddress(),
+					       request.getFlashImage().getData(),
+					       request.getFlashImage().getDataLength());
 			// don't confirm until programming is done
 			if (result == SUCCESS)
 				return;
@@ -309,39 +311,6 @@ void MoteHost::handleMoteData(Mote* mote)
 			msg.sendMsg(clientsock,hostMsg);
 		}
 	}
-}
-
-result_t MoteHost::program(Mote *mote, MsgMoteAddresses& addresses, MsgPayload& image)
-{
-	std::string filename = mote->getImagePath();
-
-	if (mote->getStatus() == MOTE_PROGRAMMING)
-		return FAILURE;
-
-	if (File::writeFile(filename, image.getData(), image.getDataLength())) {
-		std::string mac_env = "macaddress=" + mote->getMac();
-		std::string tos_env = "tosaddress=" + addresses.getTosAddress();
-		char * const args[] = {
-			(char *) mote->getProgrammerPath().c_str(),
-			(char *) mote->getTty().c_str(),
-			(char *) filename.c_str(),
-			NULL
-		};
-		char * const envp[] = {
-			(char *) mac_env.c_str(),
-			(char *) tos_env.c_str(),
-			NULL
-		};
-
-		Log::info("Programming TTY %s", mote->getTty().c_str());
-
-		if (mote->runChild(args, envp))
-			return SUCCESS;
-
-		remove(filename.c_str());
-	}
-
-	return FAILURE;
 }
 
 

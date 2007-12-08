@@ -31,8 +31,16 @@ public:
 	 * @param filename	The name of the file to write.
 	 * @param data		The file content.
 	 * @param datalen	The length of the content.
+	 * @return		True if the whole file was written.
 	 */
 	static bool writeFile(std::string filename, const void *data, uint32_t datalen);
+
+	/** Check if file exists.
+	 *
+	 * @param filename	The name of the file.
+	 * @return		True if the file exists.
+	 */
+	static bool exists(std::string filename);
 };
 
 }}
