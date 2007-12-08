@@ -9,8 +9,7 @@ SerialControl::SerialControl()
 
 SerialControl::~SerialControl()
 {
-	cancelProgramming();
-
+	endChild(true);
 	if (isOpen())
 		closeTty();
 }
@@ -113,30 +112,30 @@ bool SerialControl::runChild(char * const args[], char * const envp[])
 
 result_t SerialControl::getChildResult()
 {
-	if (hasChild() && cleanUpProgram())
-		return SUCCESS;
-	return FAILURE;
+	return endChild(false) ? SUCCESS : FAILURE;
 }
 
 result_t SerialControl::cancelProgramming()
 {
-	if (!hasChild())
-		return FAILURE;
-	kill(childPid, SIGKILL);
-	cleanUpProgram();
-	return SUCCESS;
+	return endChild(true) ? SUCCESS : FAILURE;
 }
 
-bool SerialControl::cleanUpProgram()
+bool SerialControl::endChild(bool killChild)
 {
 	int status;
+
+	if (!hasChild())
+		return false;
+
+	if (killChild)
+		kill(childPid, SIGKILL);
 
 	waitpid(childPid, &status, 0);
 	close(port);
 	port = childPid = -1;
 	openTty();
 
-	return WIFEXITED(status) && WEXITSTATUS(status) == 0;
+	return killChild || (WIFEXITED(status) && WEXITSTATUS(status) == 0);
 }
 
 result_t SerialControl::reset()
