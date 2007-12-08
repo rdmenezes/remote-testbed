@@ -44,13 +44,12 @@ class SerialControl
 		bool isOpen();
 		result_t openTty();
 		result_t closeTty();
-		void cleanUpProgram();
+		bool cleanUpProgram();
 		bool clearDTR();
 		bool setDTR();
 		int port;
 		bool isRunning, portIsOpen;
 		pid_t childPid;
-		result_t childResult;
 		std::string tty;
 		struct termios oldsertio;
 };
