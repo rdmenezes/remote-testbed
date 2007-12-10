@@ -97,6 +97,8 @@ Open issues sorted by [http://code.google.com/p/remote-testbed/issues/list?q=mil
 
  * Re-Mote Eclipse plugin
 
+ * Issue 27: Bring together different sites running Re-Mote infrastructure
+
 === Interoperability ===
 
  * Issue 8: MCH should support IPv6, however, as long as it is not requested (and thus there are no testers) this can be postponed.
