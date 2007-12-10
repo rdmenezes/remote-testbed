@@ -97,7 +97,7 @@ Open issues sorted by [http://code.google.com/p/remote-testbed/issues/list?q=mil
 
  * Re-Mote Eclipse plugin
 
- * Issue 27: Bring together different sites running Re-Mote infrastructure
+ * Issue 27: Bring together different sites based on the Re-Mote infrastructure
 
 === Interoperability ===
 
