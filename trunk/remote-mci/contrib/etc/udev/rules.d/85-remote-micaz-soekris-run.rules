@@ -1,14 +1,17 @@
-# TMoteSky remote udev rules
+# MicaZ remote udev rules
 # Copyright (c) 2007 Rostislav Spinar <rostislav.spinar@cit.ie>
 #################################################################
 ## Create /dev/remote/{platform}{serial}/* files
 #
 # See remote.sh for description of all parameters
 #
-# Rules tested on the laptop running Gentoo and having
-# both TMoteSky and MicaZ connected to the USB hub.
+# Rules tested on the Soekris board NET4521 running 
+# stripped down version of the Gentoo and having both 
+# TMoteSky and MicaZ connected to the USB hub. Since
+# NET4521 board comes without USB we had to use 
+# PCMCIA-USB card as a interface for USB hubs.
 
-DEVPATH=="/class/usb_device/*", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", RUN+="/etc/udev/scripts/remote.sh TMoteSky 04036001%s{serial} %E{PHYSDEVPATH} /sbin/bsl"
+SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6010", RUN+="/bin/bash -c '/etc/udev/scripts/remote.sh MicaZ 04036010%s{serial} ${DEVPATH%%%%/tty*} /sbin/uisp'"
 
 ## Remove /dev/remote/{platform}{serial}/* files
 # The idVendor and idProduct attributes are not defined on some
