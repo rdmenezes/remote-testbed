@@ -48,7 +48,7 @@ class SerialControl
 		result_t power(const std::string cmd);
 		bool controlDTR(bool enable);
 		int port;
-		bool isRunning, portIsOpen;
+		bool isRunning;
 		pid_t childPid;
 		std::string tty;
 		struct termios oldsertio;
