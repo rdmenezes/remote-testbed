@@ -5,10 +5,13 @@
 #
 # See remote.sh for description of all parameters
 #
-# Rules tested on the laptop running Gentoo and having
-# both TMoteSky and MicaZ connected to the USB hub.
+# Rules tested on the Soekris board NET4521 running 
+# stripped down version of the Gentoo and having both 
+# TMoteSky and MicaZ connected to the USB hub. Since
+# NET4521 board comes without USB we had to use 
+# PCMCIA-USB card as a interface for USB hubs.
 
-DEVPATH=="/class/usb_device/*", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", RUN+="/etc/udev/scripts/remote.sh TMoteSky 04036001%s{serial} %E{PHYSDEVPATH} /sbin/bsl"
+SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", RUN+="/bin/bash -c '/etc/udev/scripts/remote.sh TMoteSky 04036001%s{serial} ${DEVPATH%%%%/tty*} /sbin/bsl'"
 
 ## Remove /dev/remote/{platform}{serial}/* files
 # The idVendor and idProduct attributes are not defined on some
