@@ -140,32 +140,40 @@ bool SerialControl::endChild(bool killChild)
 
 result_t SerialControl::reset()
 {
-	if (!isOpen())
-		return FAILURE;
-	if (isRunning) {
-		stop();
-		start();
-	} else {
-		start();
-		stop();
-	}
-	return SUCCESS;
+	return power("reset");
 }
 
 result_t SerialControl::start()
 {
-	if (!isOpen() || !controlDTR(false))
-		return FAILURE;
-	isRunning = true;
-	return SUCCESS;
+	return power("start");
 }
 
 result_t SerialControl::stop()
 {
-	if (!isOpen() || !controlDTR(true))
+	return power("stop");
+}
+
+result_t SerialControl::power(const std::string cmd)
+{
+	bool resetting = cmd == "reset";
+
+	if (!isOpen())
 		return FAILURE;
-	isRunning = false;
-	return SUCCESS;
+
+	if (!resetting || controlDTR(isRunning)) {
+		bool enable = resetting ? !isRunning : cmd == "stop";
+
+		if (controlDTR(enable)) {
+			isRunning = enable;
+			return SUCCESS;
+		}
+
+		/* Mirror that the first reset DTR change succeeded. */
+		if (resetting)
+			isRunning = !isRunning;
+	}
+
+	return FAILURE;
 }
 
 bool SerialControl::controlDTR(bool enable)

@@ -45,6 +45,7 @@ class SerialControl
 		result_t openTty();
 		result_t closeTty();
 		bool endChild(bool killChild);
+		result_t power(const std::string cmd);
 		bool controlDTR(bool enable);
 		int port;
 		bool isRunning, portIsOpen;
