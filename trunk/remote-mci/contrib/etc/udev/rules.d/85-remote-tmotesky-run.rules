@@ -1,0 +1,16 @@
+# TMoteSky remote udev rules
+# Copyright (c) 2007 Rostislav Spinar <rostislav.spinar@cit.ie>
+#################################################################
+## Create /dev/remote/{platform}{serial}/path containing the path
+# We are mainly interested in getting the USB BUS path so
+# anything but the actual usb_device event which defines a usable
+# DEVPATH environment variable.
+
+SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", RUN+="/bin/bash -c '/etc/udev/scripts/remote.sh TMoteSky 04036001%s{serial} ${DEVPATH%%%%/tty*}'"
+
+## Remove /dev/remote/{platform}{serial}/* files
+# The idVendor and idProduct attributes are not defined on some
+# udev systems. Instead, catch all tty events and use a general
+# device cleanup script.
+
+SUBSYSTEM=="tty", ACTION=="remove", RUN+="/etc/udev/scripts/remote.sh"
