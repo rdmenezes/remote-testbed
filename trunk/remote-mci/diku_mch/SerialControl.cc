@@ -57,12 +57,7 @@ result_t SerialControl::openTty()
 
 	portIsOpen = true;
 	// open in a stopped state
-	if (stop() == FAILURE) {
-		closeTty();
-		return FAILURE;
-	}
-
-	return SUCCESS;
+	return stop();
 }
 
 result_t SerialControl::closeTty()
@@ -173,6 +168,8 @@ result_t SerialControl::power(const std::string cmd)
 			isRunning = !isRunning;
 	}
 
+	Log::error("Failed to %s %s: %s", cmd.c_str(), tty.c_str(), strerror(errno));
+	closeTty();
 	return FAILURE;
 }
 
@@ -181,12 +178,7 @@ bool SerialControl::controlDTR(bool enable)
 	int tmp = TIOCM_DTR;
 	int req = enable ? TIOCMBIS : TIOCMBIC;
 
-	if (ioctl(port, req, &tmp) == -1) {
-		Log::error("ioctl(%s) failed: %s", tty.c_str(), strerror(errno));
-		portIsOpen = false;
-		return false;
-	}
-	return true;
+	return ioctl(port, req, &tmp) != -1;
 }
 
 ssize_t SerialControl::readBuf(char *buf, size_t len)
