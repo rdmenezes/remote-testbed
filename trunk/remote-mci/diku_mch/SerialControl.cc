@@ -154,7 +154,7 @@ result_t SerialControl::reset()
 
 result_t SerialControl::start()
 {
-	if (!isOpen() || !clearDTR())
+	if (!isOpen() || !controlDTR(false))
 		return FAILURE;
 	isRunning = true;
 	return SUCCESS;
@@ -162,29 +162,18 @@ result_t SerialControl::start()
 
 result_t SerialControl::stop()
 {
-	if (!isOpen() || !setDTR())
+	if (!isOpen() || !controlDTR(true))
 		return FAILURE;
 	isRunning = false;
 	return SUCCESS;
 }
 
-bool SerialControl::setDTR()
+bool SerialControl::controlDTR(bool enable)
 {
 	int tmp = TIOCM_DTR;
+	int req = enable ? TIOCMBIS : TIOCMBIC;
 
-	if (ioctl(port, TIOCMBIS, &tmp) == -1) {
-		Log::error("ioctl(%s) failed: %s", tty.c_str(), strerror(errno));
-		portIsOpen = false;
-		return false;
-	}
-	return true;
-}
-
-bool SerialControl::clearDTR()
-{
-	int tmp = TIOCM_DTR;
-
-	if (ioctl(port, TIOCMBIC, &tmp) == -1) {
+	if (ioctl(port, req, &tmp) == -1) {
 		Log::error("ioctl(%s) failed: %s", tty.c_str(), strerror(errno));
 		portIsOpen = false;
 		return false;

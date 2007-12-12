@@ -45,8 +45,7 @@ class SerialControl
 		result_t openTty();
 		result_t closeTty();
 		bool endChild(bool killChild);
-		bool clearDTR();
-		bool setDTR();
+		bool controlDTR(bool enable);
 		int port;
 		bool isRunning, portIsOpen;
 		pid_t childPid;
