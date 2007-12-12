@@ -1,0 +1,5 @@
+# MicaZ remote udev rules
+# Copyright (c) 2007 Rostislav Spinar <rostislav.spinar@cit.ie>
+
+SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6010", PROGRAM="/etc/udev/scripts/remote-micaz-symlink.sh 04036010%s{serial}", SYMLINK+="remote/04036010%s{serial}/tty/%c"
+
