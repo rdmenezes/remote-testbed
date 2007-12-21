@@ -1,5 +1,5 @@
-#summary Development roadmap and release plans
 #labels Phase-Requirements,Phase-Implementation
+ b6#summary Development roadmap and release plans
 
 = The Re-Mote Roadmap =
 
@@ -79,6 +79,8 @@ Open issues sorted by [http://code.google.com/p/remote-testbed/issues/list?q=mil
 
  * Issue 12: Add application to make testbed administration easier. Crucial for large testbeds.
 
+ * Issue 28: Rename TOSADDRESS to NETADDRESS
+
 === Infrastructure ===
 
  * Issue 11: Reorganizing the files of the DB module will further improve the self-documenting hierarchy of this module.
@@ -88,8 +90,6 @@ Open issues sorted by [http://code.google.com/p/remote-testbed/issues/list?q=mil
  * Issue 17: Although this design approach will require some more initial thoughts and work, it will reduce the need for future changes wrt. mote attribute handling.
 
  * Issue 19: Use inotify in MCH to watch the device hierarchy
-
- * Issue 28: Rename TOSADDRESS to NETADDRESS
 
 === Performance ===
 
