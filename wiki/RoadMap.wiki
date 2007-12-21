@@ -89,6 +89,12 @@ Open issues sorted by [http://code.google.com/p/remote-testbed/issues/list?q=mil
 
  * Issue 19: Use inotify in MCH to watch the device hierarchy
 
+ * Issue 28: Rename TOSADDRESS to NETADDRESS
+
+=== Performance ===
+
+ * Issue 29: Make use of a new BSL for TMote Sky & TelosB platform written in C++
+
 == Re-Mote Testbed Framework version "future" ==
 
 Open issues sorted by [http://code.google.com/p/remote-testbed/issues/list?q=milestone-future&can=2&x=component&y=status&mode=grid status] or [http://code.google.com/p/remote-testbed/issues/list?q=milestone-future&can=2&x=component&y=priority&mode=grid     priority]. [http://code.google.com/p/remote-testbed/issues/list?q=milestone-future&can=1 All] issues belonging to this milestone.
