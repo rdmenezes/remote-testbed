@@ -1,4 +1,4 @@
-#summary Source code from version controlled repositories
+#summary Where to get the source code
 #labels Phase-Implementation
 
 = Source Code ==
