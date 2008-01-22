@@ -1,5 +1,5 @@
 #summary How to setup and synchronize between git and SVN
-#labels Phase-Implementation
+#labels Manual-Developer
 
 = Synchronizing the SVN Repository =
 
