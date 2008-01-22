@@ -1,5 +1,5 @@
 #summary Proposal for better logging infrastructure in the MCI component
-#labels Phase-RFC,Component-MCI
+#labels Manual-Developer,Phase-RFC,Component-MCI
 
 = Logging Infrastructure Enhancement Proposal =
 
