@@ -1,5 +1,5 @@
 #summary Information for developers
-#labels Phase-Implementation,Featured
+#labels Manual-Developer,Featured
 
 = Developing Re-Mote =
 
