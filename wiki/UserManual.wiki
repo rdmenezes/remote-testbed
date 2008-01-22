@@ -1,5 +1,5 @@
 #summary Manual for using the Re-Mote client
-#labels Component-Docs,Featured
+#labels Manual-User,Featured
 
 = Re-Mote Client User Manual =
 
