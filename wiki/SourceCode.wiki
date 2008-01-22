@@ -1,5 +1,5 @@
 #summary Where to get the source code for the various components
-#labels Phase-Implementation
+#labels Manual-Administrator,Phase-Implementation
 
 = Source Code ==
 
