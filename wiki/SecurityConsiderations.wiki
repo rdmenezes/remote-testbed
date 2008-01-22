@@ -1,5 +1,5 @@
-#summary Security considerations for developers and deployers
-#labels Phase-Design,Component-GUI,Component-WS,Component-MCI,Component-DB
+#summary Security considerations for administrators
+#labels Manual-Administrator,Component-GUI,Component-WS,Component-MCI,Component-DB
 
 = Security Considerations =
 
