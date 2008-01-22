@@ -1,5 +1,5 @@
 #summary Overview of the Re-Mote Mote Control Infrastructure (remote-mci)
-#labels Phase-Deploy,Component-MCI
+#labels Manual-Administrator,Component-MCI
 
 ...
 
