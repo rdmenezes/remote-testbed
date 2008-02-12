@@ -1,5 +1,5 @@
 #summary Development roadmap and release plans
-#labels Manual-Developer,Phase-Implementation,Phase-Requirements
+#labels Manual-Developer,Phase-Implementation,Phase-Requirements,Featured
 
 = The Re-Mote Roadmap =
 
