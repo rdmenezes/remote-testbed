@@ -9,7 +9,7 @@ The source code is available either as [http://code.google.com/p/remote-testbed/
 
 The primary version control system used for managing the DIKU source code tree is [http://git.or.cz/ git]. The SVN repository is updated in a one-way fashion and provided mainly for easing distribution. Read about how this is done in SvnSynchronization.
 
-*[http://repo.or.cz/w/remote.git The git repositories]*
+*[http://repo.or.cz/w/remote.git The git repositories] [http://repo.or.cz/w/remote/remote-mci.git (MCI)] [http://repo.or.cz/w/remote/remote-db.git (DB)] [http://repo.or.cz/w/remote/remote-ws.git (WS)] [http://repo.or.cz/w/remote/remote-gui.git (GUI)]*
 
   The "official" Re-Mote git repositories are publicly available at [http://repo.or.cz/ repo.or.cz], where the repositories can be browsed via gitweb and where you are free to create and host your own "fork" of each of these repositories. Instructions on how to clone the different repositories are provided on each of the module pages.
 
