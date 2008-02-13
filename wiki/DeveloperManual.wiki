@@ -7,7 +7,7 @@ This document is currently mostly a placeholder. It should be expanded as needed
 
 == Getting the Source Code ==
 
-Several repositories exists allowing you to choose your preferred way of getting the latest SourceCode. Note that the primary version control system used for managing the official Re-Mote source code is [http://git.or.cz/ git]. The [http://code.google.com/p/remote-testbed/source SVN repository] is updated in a "write-only" one-way fashion and provided mainly for easing distribution. Read about how this is done in SvnSynchronization.
+Several repositories exists allowing you to choose your preferred way of getting the latest SourceCode.
 
 == Release Planning ==
 
