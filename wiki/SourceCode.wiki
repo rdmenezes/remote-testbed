@@ -7,7 +7,7 @@ The source code is available either as [http://code.google.com/p/remote-testbed/
 
 == Official/master Repositories ==
 
-Note that the primary version control system used for managing the official source code tree is [http://git.or.cz/ git]. The [http://code.google.com/p/remote-testbed/source SVN repository] is updated in a "write-only" one-way fashion and provided mainly for easing distribution. Read about how this is done in SvnSynchronization.
+The primary version control system used for managing the official source code tree is [http://git.or.cz/ git]. The [http://code.google.com/p/remote-testbed/source SVN repository] is updated in a one-way fashion and provided mainly for easing distribution. Read about how this is done in SvnSynchronization.
 
 *[http://repo.or.cz/w/remote.git The "official" git repositories]*
 
