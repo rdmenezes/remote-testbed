@@ -1,11 +1,13 @@
 #summary Where to get the source code for the various components
 #labels Manual-Administrator,Phase-Implementation
 
-= Source Code ==
+= Getting the Source Code ==
 
-To get the latest version of the source code, use either of the repositories described below.
+The source code is available either as [http://code.google.com/p/remote-testbed/downloads/list downloadable release archives] or using one of the repositories described below. The released archives are generally more stable, but may temporarily lack important features and fixes. If you want to keep in sync with the latest source of the framework getting the source from one of the repository below is recommended. It also allows you to easily keep track of any local changes you make and makes it easier to contribute code back to the project.
 
 == Official/master Repositories ==
+
+Note that the primary version control system used for managing the official source code tree is [http://git.or.cz/ git]. The [http://code.google.com/p/remote-testbed/source SVN repository] is updated in a "write-only" one-way fashion and provided mainly for easing distribution. Read about how this is done in SvnSynchronization.
 
 *[http://repo.or.cz/w/remote.git The "official" git repositories]*
 
