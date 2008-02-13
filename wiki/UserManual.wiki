@@ -3,7 +3,7 @@
 
 = Re-Mote Client User Manual =
 
-This is a placeholder for now, please help expand it to cover important parts of client usage. It will probably be moved to a [http://docs.google.com/Doc?id=dq76tkh_13cxkgjpgs Google Document] so it is easier to include screenshots and provide different formats (PDF).
+_This is a placeholder for now, please help expand it to cover important parts of client usage. It will probably be moved to a [http://docs.google.com/Doc?id=dq76tkh_13cxkgjpgs Google Document] so it is easier to include screenshots and provide different formats (PDF)._
 
 == Downloading and Running the Re-Mote Client ==
 
