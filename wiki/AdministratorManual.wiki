@@ -118,7 +118,7 @@ $ mysql --user=remote_admin \
 	--password=remote \
 	REMOTE < diku_specific_infrastructure/scripts/create_tables.sql
 }}}
- and:
+and:
 {{{
 $ mysql --user=remote_admin \
 	--password=remote \
