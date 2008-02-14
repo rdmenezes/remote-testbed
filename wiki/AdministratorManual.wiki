@@ -12,7 +12,7 @@ Table of contents:
  * [#Installing_the_Testbed Installing the Testbed]
    * [#Setting_up_the_Database Setting up the Database]
    * [#Building_and_Deploying_the_Web_Services Building and Deploying the Web Services]
-   * [#Installing_the_Mote_Control_Host_and_Mote_Control Server Installing the Mote Control Host and Mote Control Server]
+   * [#Installing_the_Mote_Control_Host_and_Mote_Control_Server Installing the Mote Control Host and Mote Control Server]
  * [#Managing_Users_and_Projects Managing Users and Projects]
 
 == An Overview of the Testbed Framework ==
