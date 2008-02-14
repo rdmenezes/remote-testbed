@@ -1,5 +1,5 @@
 #summary Manual for using the Re-Mote client
-#labels Featured
+#labels Type-Manual,Featured
 
 = Re-Mote User Manual =
 
