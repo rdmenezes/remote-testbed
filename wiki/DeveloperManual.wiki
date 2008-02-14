@@ -11,7 +11,16 @@ Several repositories exists allowing you to choose your preferred way of getting
 
 == Release Planning ==
 
-The RoadMap contains the plan of future major milestones and uses the [http://code.google.com/p/remote-testbed/issues/list issue tracker] to manage the different tasks. Additional [http://code.google.com/p/remote-testbed/w/list?q=label:Phase-RFC design documents] may exist from time to time, detailing enhancement proposals.
+The RoadMap contains the plan of future major milestones and uses the [http://code.google.com/p/remote-testbed/issues/list issue tracker] to manage the different tasks. Additional [http://code.google.com/p/remote-testbed/w/list?q=label:Type-Proposal design documents] may exist from time to time, detailing enhancement proposals.
+
+== The Build Process ==
+
+Both of the above are used for generating WSDL files describing
+the services made available. Using the WSDL files, client Java classes
+for accessing the webservices can then be created and compiled for use
+by the Re-Mote client.
+
+ * Something about the Makefile rules for deploying. Saying that they are best for localhost?
 
 == Testing the Deployment ==
 
