@@ -127,10 +127,12 @@ $ mysql --user=remote_admin \
 
 === Building and Deploying the Web Services ===
 
- * First build the server jar file by running `make` in the component's top-level directory.
- * Then copy lib/remote-ws-server.jar to the $TOMCAT/webapps/axis/WEB-INF/lib directory on your server. Verify that tomcat notices the new library and reloads the context. Note, you should configure the settings related to the `deploy-jar` rule in the `Makefile` to do this for you, if you plan to do some tweaking of the server-side code yourself.
- * Deploy the the web services using the WSDD files in the `wsdd` directory. The `Makefile`'s `deploy-wsdd` rule might be of help, however, you need to change the default credentials in the top of the file.
- * Use a browser to view the axis start page and follow the link to the list of deployed web services to verify that the 3 new web services are advertised.
+The following steps are needed to install the web services:
+
+ # First build the server jar file by running `make` in the component's top-level directory.
+ # Then copy `lib/remote-ws-server.jar` to the `$TOMCAT/webapps/axis/WEB-INF/lib` directory on your server. Verify in the log file that tomcat notices the new library and reloads the context. *Note*, if you plan to do a little tweaking of the server-side code yourself, you can configure the `DEPLOYHOST` and `DEPLOYPATH` settings in the start of the `Makefile` to make the `deploy-jar` rule do this for you.
+ # Request axis to deploy the the web services using the WSDD files in the `wsdd` directory. The `Makefile`'s `deploy-wsdd` rule might be of help, however, you need to change the default credentials in the top of the `Makefile`. This only needs to be done once.
+ # Use a browser to view the axis start page and follow the link to the list of deployed web services to verify that the 3 new web services are advertised.
 
 == remote-mci ==
 
