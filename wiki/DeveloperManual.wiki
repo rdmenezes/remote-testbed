@@ -12,3 +12,10 @@ Several repositories exists allowing you to choose your preferred way of getting
 == Release Planning ==
 
 The RoadMap contains the plan of future major milestones and uses the [http://code.google.com/p/remote-testbed/issues/list issue tracker] to manage the different tasks. Additional [http://code.google.com/p/remote-testbed/w/list?q=label:Phase-RFC design documents] may exist from time to time, detailing enhancement proposals.
+
+== Testing the Deployment ==
+
+The web services can be tested:
+
+ * Using SOAPMonitor, see contrib/soapmonitor/ in `remote-ws`.
+ * Using tcpmon
