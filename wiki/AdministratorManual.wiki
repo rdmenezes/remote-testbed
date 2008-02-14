@@ -8,7 +8,9 @@ _This page should be gradually extended to hold all information useful for admin
 Table of contents:
 
  * [#An_Overview_of_the_Testbed_Framework An Overview of the Testbed Framework]
+ * [#Considerations_Before_Deploying Considerations Before Deploying]
  * [#Installing_the_Testbed Installing the Testbed]
+ * [#Managing_Users_and_Projects Managing Users and Projects]
 
 == An Overview of the Testbed Framework ==
 
@@ -30,7 +32,7 @@ GUI Client (`remote-gui`)
 
    Implements client Java-libraries for interacting both with the web services and the mote control server and a GUI client allowing users to connect to a testbed, program motes, and monitor console output from motes. The client has been written to work with different testbeds and should not require any changes regardless of differences in for example the user model.
 
-== Considerations ==
+== Considerations Before Deploying ==
 
 Before deploying, please also read the SecurityConsiderations.
 
