@@ -36,4 +36,55 @@ The source code is available either as [http://code.google.com/p/remote-testbed/
 == Installing the Testbed ==
 === Library and Program Dependencies ===
 == Deploying Motes ==
-== Maintaining Users ==
+
+== Managing Users and Projects ==
+
+The *user_model* module in the database component contains a series of scripts, which can be used for managing user and project information. Users and projects accounts are created separately and can afterward be associated by adding a user to a project allowing users to
+be members of multiple different project.
+
+Below is a small example where a user and a project is set up. It assumes that the `user_model/scripts/credentials.sh` file has been changed to automatically set database password. This can be done via something like the following:
+{{{
+export USER=remote_admin
+export PASS=remote
+export HOST=localhost
+export MYSQL="mysql -u$USER -p$PASS -h$HOST"
+export DBNAME=REMOTE
+}}}
+
+First, create a user:
+{{{
+$ ./user_model/scripts/create_user.sh
+Enter login of new user:
+fonseca
+Enter password of new user:
+secret
+Enter email address of new user:
+fonseca@diku.dk
+Enter full name of new user:
+Jonas Fonseca
+insert into user(login,password,name,email) values ('fonseca',md5('secret'),'Jonas Fonseca','fonseca@diku.dk');
+}}}
+
+Next, create a project:
+{{{
+$ ./user_model/scripts/create_project.sh
+Enter name of new project:
+test
+creating test;
+insert into project(name) values ('test');
+}}}
+
+Finally, add the user to the project:
+{{{
+./user_model/scripts/add_user_project.sh
+Enter login of user:
+fonseca
+Enter name of project:
+test
+insert into user_project(user_id,project_id) select (select id from user where login='fonseca'),(select id from project where name='test')
+grant select,insert,delete,update on test.* to 'fonseca'@'%'
+}}}
+
+The remaining scripts can be used for changing a user password,
+removing a user from a project, and deleting a user or project
+account.
