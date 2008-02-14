@@ -1,5 +1,5 @@
 #summary How to install and maintain a testbeds with Re-Mote
-#labels Manual-Administrator,Featured
+#labels Featured
 
 _This page should be gradually extended to hold all information useful for administrators, from instructions on how to install and configure the testbed as well as information about maintaining a running testbed._
 
