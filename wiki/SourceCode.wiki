@@ -1,5 +1,5 @@
 #summary Where to get the source code for the various components
-#labels Manual-Administrator,Phase-Implementation
+#labels Manual-Administrator
 
 = Getting the Source Code ==
 
@@ -13,7 +13,7 @@ The primary version control system used for managing the DIKU source code tree i
 
   The "official" Re-Mote git repositories are publicly available at [http://repo.or.cz/ repo.or.cz], where the repositories can be browsed via gitweb and where you are free to create and host your own "fork" of each of these repositories. Instructions on how to clone the different repositories are provided on each of the module pages.
 
-*[http://code.google.com/p/remote-testbed/source The SVN repository] [http://code.google.com/p/remote-testbed/source/browse (browse)] [http://code.google.com/p/remote-testbed/source/changes (changes)]*
+*[http://code.google.com/p/remote-testbed/source The SVN repository] [http://code.google.com/p/remote-testbed/source/browse/trunk (browse)] [http://code.google.com/p/remote-testbed/source/list (changes)]*
 
   This SVN repository is periodically synchronized with the git repositoriew. In other words, the newest changes are always available first in the git repositories. As of around 2007-11-01 the SvnSynchronization process tries to mirror the history as good as possible.
 
