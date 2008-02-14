@@ -1,5 +1,5 @@
 #summary Information for developers
-#labels Featured
+#labels Type-Manual,Featured
 
 = Developing Re-Mote =
 
