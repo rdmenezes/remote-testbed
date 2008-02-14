@@ -9,19 +9,19 @@ _This page should be gradually extended to hold all information useful for admin
 
 The Re-Mote Testbed Framework consists of 4 basic components:
 
-DatabaseComponent
+Database Scripts
 
    Contains SQL scripts for creating and maintaining the MySQL database. It is used by the web service and mote control component for tracking the state--static as well as dynamic--of the testbed. The underlying data model is based on the three fundamental entities: motes, mote host sites, and user sessions.
 
-WebServiceComponent
+Web Services
 
    Defines Java-classes that provide web services which allow clients to interact with the testbed. The web services are responsible for authenticating users, granting access to motes, and getting mote specific information, such as availability and MAC address.
 
-MoteControlComponent
+Mote Control Infrastructure
 
    Provides the infrastructure that keeps track of which motes have been deployed and where. It is divided into two parts: the mote control host (MCH), which is responsible for the low-level interaction with the motes in the testbed, and the mote control server (MCS), which serves mainly as message forwarder between mote hosts and connected clients. Written in C++ for performance.
 
-ClientComponent
+GUI Client
 
    Implements client Java-libraries for interacting both with the web services and the mote control server and a GUI client allowing users to connect to a testbed, program motes, and monitor console output from motes. The client has been written to work with different testbeds and should not require any changes regardless of differences in for example the user model.
 
