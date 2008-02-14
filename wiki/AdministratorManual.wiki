@@ -10,6 +10,9 @@ Table of contents:
  * [#An_Overview_of_the_Testbed_Framework An Overview of the Testbed Framework]
  * [#Before_Deploying_the_Testbed Before Deploying the Testbed]
  * [#Installing_the_Testbed Installing the Testbed]
+   * [#Setting_up_the_Database Setting up the Database]
+   * [#Building_and_Deploying_the_Web_Services Building and Deploying the Web Services]
+   * [#Installing_the_Mote_Control_Host_and_Mote_Control Server Installing the Mote Control Host and Mote Control Server]
  * [#Managing_Users_and_Projects Managing Users and Projects]
 
 == An Overview of the Testbed Framework ==
@@ -79,9 +82,7 @@ Before deploying, first also read the SecurityConsiderations. It lists informati
 
 First get the SourceCode for the `remote-db`, `remote-ws`, and `remote-mci` components. You should install the components in the following order:
 
-=== The Database ==
-
-_The instructions for setting up the database is listed below and in the component's [http://remote-testbed.googlecode.com/svn/trunk/remote-db/README README]._
+=== Setting up the Database ===
 
 By default the database will be named `REMOTE` with privileges granted
 to the user named `remote_admin` having the password `remote`. This is
@@ -134,7 +135,7 @@ The following steps are needed to install the web services:
  # Request axis to deploy the the web services using the WSDD files in the `wsdd` directory. The `Makefile`'s `deploy-wsdd` rule might be of help, however, you need to change the default credentials in the top of the `Makefile`. This only needs to be done once.
  # Use a browser to view the axis start page and follow the link to the list of deployed web services to verify that the 3 new web services are advertised.
 
-== remote-mci ==
+== Installing the Mote Control Host and Mote Control Server ==
 
    ./configure " '--without-boost-regex' 'CXXFLAGS=-I/usr/include/boost-1_33/'
 
