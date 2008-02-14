@@ -1,5 +1,5 @@
 #summary Information for developers
-#labels Manual-Developer,Featured
+#labels Featured
 
 = Developing Re-Mote =
 
