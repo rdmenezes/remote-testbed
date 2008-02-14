@@ -1,16 +1,4 @@
 #summary Manual for using the Re-Mote client
 #labels Manual-User
 
-= Re-Mote Client User Manual =
-
-_This is a placeholder for now, please help expand it to cover important parts of client usage. It will probably be moved to a [http://docs.google.com/Doc?id=dq76tkh_13cxkgjpgs Google Document] so it is easier to include screenshots and provide different formats (PDF)._
-
-== Downloading and Running the Re-Mote Client ==
-
-The Re-Mote Client can be downloaded from the [http://code.google.com/p/remote-testbed/downloads/list?can=2&q=label:Application-Client download area]. You should generally always choose the latest version; the one with the highest version number. Prerelease versions may exists that should be considered less stable. You are welcome to help test these!
-
-The client is provided as an executable .jar archive, and requires that a recent version of the Java runtime is installed on your system.
-
-== Configuration File ==
-
-The client automatically creates a configuration file called `.re-mote`. This file is used for keeping information about which testbed server and port the client should connect to on startup. It also stores the most recent project and user name for easy later authorization.
+The user manual has been moved to [http://docs.google.com/Doc?id=dq76tkh_13cxkgjpgs Google Document]. This will hopefully make it easier to manage contributers and in the end provide a good quality user manual with screenshots and availability in different formats.
