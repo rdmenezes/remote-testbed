@@ -1,5 +1,5 @@
 #summary Security considerations for administrators
-#labels Manual-Administrator,Component-GUI,Component-WS,Component-MCI,Component-DB
+#labels Component-GUI,Component-WS,Component-MCI,Component-DB
 
 = Security Considerations =
 
