@@ -4,11 +4,10 @@ The Re-Mote WebServices
 This package contains the files for building and deploying the
 webservice components used by Re-Mote.
 
-The Java classes responsible of the server specific part of the services
-are in the src/ directory. The web service deployment descriptors are in
-wsdd. Both of the above are used for generating WSDL files describing
-the services made available. Using the WSDL files, client Java classes
-for accessing the webservices can then be created and compiled for use
-by the Re-Mote client. Jar files are located in lib/ and contain
-dependencies for making the various conversions and for compiling the
-server and client specific packages.
+It has the following structure:
+
+  wsdd		The web service deployment descriptors.
+  src		Java classes responsible for the server specific
+		part of the services.
+  lib		Jar files for generating client stubs and dependencies
+		for the client and server.
