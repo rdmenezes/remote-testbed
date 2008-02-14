@@ -1,5 +1,4 @@
 #summary Where to get the source code for the various components
-#labels Manual-Administrator
 
 = Getting the Source Code ==
 
