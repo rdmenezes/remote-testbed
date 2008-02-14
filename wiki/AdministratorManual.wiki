@@ -1,8 +1,6 @@
 #summary How to install and maintain a testbeds with Re-Mote
 #labels Manual-Administrator,Featured
 
-= Administrators Guide to Re-Mote =
-
 _This page should be gradually extended to hold all information useful for administrators, from instructions on how to install and configure the testbed as well as information about maintaining a running testbed._
 
 Table of contents:
@@ -15,7 +13,7 @@ Table of contents:
    * [#Installing_the_Mote_Control_Host_and_Mote_Control_Server Installing the Mote Control Host and Mote Control Server]
  * [#Managing_Users_and_Projects Managing Users and Projects]
 
-== An Overview of the Testbed Framework ==
+= An Overview of the Testbed Framework =
 
 The Re-Mote Testbed Framework consists of 4 basic components:
 
@@ -35,14 +33,14 @@ GUI Client (`remote-gui`)
 
    Implements client Java-libraries for interacting both with the web services and the mote control server and a GUI client allowing users to connect to a testbed, program motes, and monitor console output from motes. The client has been written to work with different testbeds and should not require any changes regardless of differences in for example the user model.
 
-== Before Deploying the Testbed ==
+= Before Deploying the Testbed =
 
 Before deploying, first also read the SecurityConsiderations. It lists information about what ports needs to be open on the server etc.
 
-=== Library and Program Dependencies ===
+== Library and Program Dependencies ==
 
 
-=== Setting up Tomcat and Axis for Re-Mote ===
+== Setting up Tomcat and Axis for Re-Mote ==
 
  # Start out by copying the `axis/` example directory from the axis-bin-1.4 release to the $TOMCAT/webapps directory. Note, in order for tomcat to be able to remember your configuration of deployed services etc. and reload it between reboots, you need to make the `axis/WEB-INF` directory writable. Settings will be maintained in a file called `server-config.xml`.
  # Install database specific jar files i the $TOMCAT/common/lib directory:
@@ -78,11 +76,11 @@ Before deploying, first also read the SecurityConsiderations. It lists informati
  * Check that the axis start page loads. If it does, also check that dependencies are satisfied by going to the "Validation" page.
 
 
-== Installing the Testbed ==
+= Installing the Testbed =
 
 First get the SourceCode for the `remote-db`, `remote-ws`, and `remote-mci` components. You should install the components in the following order:
 
-=== Setting up the Database ===
+== Setting up the Database ==
 
 By default the database will be named `REMOTE` with privileges granted
 to the user named `remote_admin` having the password `remote`. This is
@@ -126,7 +124,7 @@ $ mysql --user=remote_admin \
 	REMOTE < diku_specific_infrastructure/scripts/insert_attribute_types.sql
 }}}
 
-=== Building and Deploying the Web Services ===
+== Building and Deploying the Web Services ==
 
 The following steps are needed to install the web services:
 
@@ -139,7 +137,7 @@ The following steps are needed to install the web services:
 
    ./configure " '--without-boost-regex' 'CXXFLAGS=-I/usr/include/boost-1_33/'
 
-== Managing Users and Projects ==
+= Managing Users and Projects =
 
 The *user_model* module in the database component contains a series of scripts, which can be used for managing user and project information. Users and projects accounts are created separately and can afterward be associated by adding a user to a project allowing users to
 be members of multiple different project.
