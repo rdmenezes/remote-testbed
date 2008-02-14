@@ -5,8 +5,10 @@
 
 _This page should be gradually extended to hold all information useful for administrators, from instructions on how to install and configure the testbed as well as information about maintaining a running testbed._
 
-[#An_Overview_of_the_Testbed_Framework An Overview of the Testbed Framework]
-[#Installing_the_Testbed Installing the Testbed]
+Table of contents:
+
+ * [#An_Overview_of_the_Testbed_Framework An Overview of the Testbed Framework]
+ * [#Installing_the_Testbed Installing the Testbed]
 
 == An Overview of the Testbed Framework ==
 
