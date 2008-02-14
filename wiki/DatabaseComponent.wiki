@@ -1,4 +1,4 @@
 #summary Overview of the Re-Mote Database Component (remote-db)
-#labels Manual-Administrator,Component-DB,Phase-Deploy
+#labels Deprecated
 
 The content from this page has been moved to the [AdministratorManual#Setting_up_the_Database AdministratorManual] page.
