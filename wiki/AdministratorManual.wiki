@@ -1,9 +1,9 @@
 #summary How to install and maintain a testbeds with Re-Mote
 #labels Type-Manual,Featured
 
-This manual for testbed administrators has instructions on how to install and configure a testbed as well as information about maintaining a running testbed.
+This manual for administrators has instructions on how to install and configure a testbed as well as information about maintaining a running testbed.
 
-Table of contents:
+*Table of contents:*
 
  * [#An_Overview_of_the_Testbed_Framework An Overview of the Testbed Framework]
  * [#Before_Deploying_the_Testbed Before Deploying the Testbed]
@@ -12,6 +12,8 @@ Table of contents:
    * [#Building_and_Deploying_the_Web_Services Building and Deploying the Web Services]
    * [#Installing_the_Mote_Control_Host_and_Mote_Control_Server Installing the Mote Control Host and Mote Control Server]
  * [#Managing_Users_and_Projects Managing Users and Projects]
+
+----
 
 = An Overview of the Testbed Framework =
 
@@ -32,6 +34,8 @@ _Mote Control Infrastructure_ (`remote-mci`)
 _GUI Client_ (`remote-gui`)
 
    Implements client Java-libraries for interacting both with the web services and the mote control server and a GUI client allowing users to connect to a testbed, program motes, and monitor console output from motes. The client has been written to work with different testbeds and should not require any changes regardless of for example different user credential requirements.
+
+----
 
 = Before Deploying the Testbed =
 
@@ -96,6 +100,7 @@ In addition, all components requires that a POSIX compliant shell (e.g. `bash`) 
  * Restart tomcat. Note, while changes in the axis specific configuration files will automatically be noticed by tomcat, always remember to restart tomcat after changing the `server.xml` file.
  * Check that the axis start page loads. If it does, also check that dependencies are satisfied by going to the "Validation" page.
 
+----
 
 = Installing the Testbed =
 
@@ -157,6 +162,8 @@ The following steps are needed to install the web services:
 == Installing the Mote Control Host and Mote Control Server ==
 
    ./configure " '--without-boost-regex' 'CXXFLAGS=-I/usr/include/boost-1_33/'
+
+----
 
 = Managing Users and Projects =
 
