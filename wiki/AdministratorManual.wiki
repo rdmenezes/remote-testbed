@@ -74,27 +74,29 @@ In addition, all components requires that a POSIX compliant shell (e.g. `bash`) 
  # Modify `$TOMCAT/conf/server.xml` to declare a resource for the database:
 {{{
 <Server port="8005" shutdown="SHUTDOWN">
-	<!-- ... -->
-	<Service name="Catalina">
-		<!-- ... -->
-		<Engine name="Catalina" defaultHost="localhost">
-			<!-- ... -->
-			<Host name="localhost" appBase="webapps"
-				unpackWARs="true" autoDeploy="true"
-				xmlValidation="false" xmlNamespaceAware="false">
-				<!-- ... -->
-				<Context path="/axis" docBase="axis"
-					debug="5" reloadable="true" crossContext="true">
-					<!-- ... -->
-					<Resource name="jdbc/REMOTE" auth="Container" type="javax.sql.DataSource"
-						maxActive="100" maxIdle="30" maxWait="10000"
-						username="remote_admin" password="remote"
-						driverClassName="com.mysql.jdbc.Driver"
-						url="jdbc:mysql://localhost/REMOTE?autoReconnect=true"/>
-				</Context>
-			</Host>
-		</Engine>
-	</Service>
+  <!-- ... -->
+  <Service name="Catalina">
+    <!-- ... -->
+    <Engine name="Catalina" defaultHost="localhost">
+      <!-- ... -->
+      <Host name="localhost" appBase="webapps"
+            unpackWARs="true" autoDeploy="true"
+            xmlValidation="false" xmlNamespaceAware="false">
+        <!-- ... -->
+        <Context path="/axis" docBase="axis"
+                 debug="5" reloadable="true"
+                 crossContext="true">
+          <!-- ... -->
+          <Resource name="jdbc/REMOTE" auth="Container"
+                    type="javax.sql.DataSource"
+                    maxActive="100" maxIdle="30" maxWait="10000"
+                    username="remote_admin" password="remote"
+                    driverClassName="com.mysql.jdbc.Driver"
+                    url="jdbc:mysql://localhost/REMOTE?autoReconnect=true"/>
+        </Context>
+      </Host>
+    </Engine>
+  </Service>
 </Server>
 }}}
  * Restart tomcat. Note, while changes in the axis specific configuration files will automatically be noticed by tomcat, always remember to restart tomcat after changing the `server.xml` file.
