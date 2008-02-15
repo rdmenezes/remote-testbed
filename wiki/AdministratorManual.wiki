@@ -1,7 +1,7 @@
 #summary How to install and maintain a testbeds with Re-Mote
 #labels Type-Manual,Featured
 
-_This page should be gradually extended to hold all information useful for administrators, from instructions on how to install and configure the testbed as well as information about maintaining a running testbed._
+This manual for testbed administrators has instructions on how to install and configure a testbed as well as information about maintaining a running testbed.
 
 Table of contents:
 
@@ -17,28 +17,41 @@ Table of contents:
 
 The Re-Mote Testbed Framework consists of 4 basic components:
 
-Database Scripts (`remote-db`)
+_Database Scripts_ (`remote-db`)
 
    Contains SQL scripts for creating and maintaining the MySQL database. It is used by the web service and mote control component for tracking the state--static as well as dynamic--of the testbed. The underlying data model is based on the three fundamental entities: motes, mote host sites, and user sessions.
 
-Web Services (`remote-ws`)
+_Web Services_ (`remote-ws`)
 
    Defines Java-classes that provide web services which allow clients to interact with the testbed. The web services are responsible for authenticating users, granting access to motes, and getting mote specific information, such as availability and MAC address.
 
-Mote Control Infrastructure (`remote-mci`)
+_Mote Control Infrastructure_ (`remote-mci`)
 
    Provides the infrastructure that keeps track of which motes have been deployed and where. It is divided into two parts: the mote control host (MCH), which is responsible for the low-level interaction with the motes in the testbed, and the mote control server (MCS), which serves mainly as message forwarder between mote hosts and connected clients. Written in C++ for performance.
 
-GUI Client (`remote-gui`)
+_GUI Client_ (`remote-gui`)
 
-   Implements client Java-libraries for interacting both with the web services and the mote control server and a GUI client allowing users to connect to a testbed, program motes, and monitor console output from motes. The client has been written to work with different testbeds and should not require any changes regardless of differences in for example the user model.
+   Implements client Java-libraries for interacting both with the web services and the mote control server and a GUI client allowing users to connect to a testbed, program motes, and monitor console output from motes. The client has been written to work with different testbeds and should not require any changes regardless of for example different user credential requirements.
 
 = Before Deploying the Testbed =
 
-Before deploying, first also read the SecurityConsiderations. It lists information about what ports needs to be open on the server etc.
+Before deploying, you are advised to first read the SecurityConsiderations. It lists information about potential security threads, including what ports needs to be open on the server.
 
 == Library and Program Dependencies ==
 
+In the table below, build and runtime dependencies for each component is listed along with the supported versions. Other versions may also be supported, since the listed version mostly reflects a tested and known good release.
+
+|| *Component*  || *Dependency*                                        || *Version* ||
+|| `remote-db`  || MySQL server and client program and utilities       || - ||
+|| `remote-mci` || C compiler and C++ compiler (e.g. gcc)              || - ||
+||              || MySQL C library and development files               || >= 5.0.45 ||
+||              || MySQL C++ library and development files             || >= 2.0.7 ||
+||              || Boost program options library and development files || >= 1.34.1 ||
+|| `remote-ws`  || Java runtime and compiler                           || - ||
+||              || Apache Tomcat                                       || >= 5.5 ||
+||              || Axis                                                || >= 1.4 ||
+
+In addition, all components requires that a POSIX compliant shell (e.g. bash) and make are installed on the system.
 
 == Setting up Tomcat and Axis for Re-Mote ==
 
