@@ -8,7 +8,7 @@ This manual for administrators has instructions on how to install and configure 
  * [#An_Overview_of_the_Testbed_Framework An Overview of the Testbed Framework]
  * [#Before_Deploying_the_Testbed Before Deploying the Testbed]
    * [#Library_and_Program_Dependencies Library and Program Dependencies]
-   * [#Setting_up_Tomcat_and_Axis_for_Re-Mote Setting up Tomcat and Axis for Re-Mote]
+   * [#Setting_up_Tomcat_and_Axis Setting up Tomcat and Axis]
  * [#Installing_the_Testbed Installing the Testbed]
    * [#Setting_up_the_Database Setting up the Database]
    * [#Building_and_Deploying_the_Web_Services Building and Deploying the Web Services]
@@ -67,7 +67,7 @@ In addition, all components requires that a POSIX compliant shell (e.g. `bash`) 
 ||              || Apache Tomcat                                       || >= 5.5 ||
 ||              || Axis                                                || >= 1.4 ||
 
-== Setting up Tomcat and Axis for Re-Mote ==
+== Setting up Tomcat and Axis ==
 
  # Start out by copying the `axis/` example directory from the axis-bin-1.4 release to the $TOMCAT/webapps directory. Note, in order for tomcat to be able to remember your configuration of deployed services etc. and reload it between reboots, you need to make the `axis/WEB-INF` directory writable. Settings will be maintained in a file called `server-config.xml`.
  # Install database specific jar files i the $TOMCAT/common/lib directory:
