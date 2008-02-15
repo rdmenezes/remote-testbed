@@ -1,5 +1,5 @@
 #summary Security considerations for administrators
-#labels Component-GUI,Component-WS,Component-MCI,Component-DB,Type-Project
+#labels Type-Project
 
 = Security Considerations =
 
