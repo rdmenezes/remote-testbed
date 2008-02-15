@@ -47,7 +47,7 @@ In the tables below, build and runtime dependencies for each component are liste
 ||              || MySQL C++ library and development files             || >= 2.0.7 ||
 ||              || Boost program options library and development files || >= 1.34.1 ||
 ||              || Autoconf (_only if building from SVN/git checkout_) || >= 2.59 ||
-||              || Autoconf (_only if building from SVN/git checkout_) || >= 1.4 ||
+||              || Automake (_only if building from SVN/git checkout_) || >= 1.4 ||
 || `remote-ws`  || Java runtime and compiler                           || - ||
 
 In addition, all components requires that a POSIX compliant shell (e.g. `bash`) and GNU `make` are installed on the system.
