@@ -7,6 +7,8 @@ This manual for administrators has instructions on how to install and configure 
 
  * [#An_Overview_of_the_Testbed_Framework An Overview of the Testbed Framework]
  * [#Before_Deploying_the_Testbed Before Deploying the Testbed]
+   * [#Library_and_Program_Dependencies Library and Program Dependencies]
+   * [#Setting_up_Tomcat_and_Axis_for_Re-Mote Setting up Tomcat and Axis for Re-Mote]
  * [#Installing_the_Testbed Installing the Testbed]
    * [#Setting_up_the_Database Setting up the Database]
    * [#Building_and_Deploying_the_Web_Services Building and Deploying the Web Services]
@@ -17,23 +19,23 @@ This manual for administrators has instructions on how to install and configure 
 
 = An Overview of the Testbed Framework =
 
-The Re-Mote Testbed Framework consists of 4 basic components:
+The Re-Mote Testbed Framework consists of four components:
 
 _Database Scripts_ (`remote-db`)
 
-   Contains SQL scripts for creating and maintaining the MySQL database. It is used by the web service and mote control component for tracking the state--static as well as dynamic--of the testbed. The underlying data model is based on the three fundamental entities: motes, mote host sites, and user sessions.
+   Contains SQL scripts for creating and maintaining the MySQL database. It is used by the web services and the mote control infrastructure for tracking the state--static as well as dynamic--of the testbed. The underlying data model is based on the three fundamental entities: motes, mote host sites, and user sessions.
 
 _Web Services_ (`remote-ws`)
 
-   Defines Java-classes that provide web services which allow clients to interact with the testbed. The web services are responsible for authenticating users, granting access to motes, and getting mote specific information, such as availability and MAC address.
+   Defines Java-classes that provide web services, which allow clients to interact with the testbed. The web services are responsible for authenticating users, granting access to motes, and getting mote specific information, such as availability and MAC address.
 
 _Mote Control Infrastructure_ (`remote-mci`)
 
-   Provides the infrastructure that keeps track of which motes have been deployed and where. It is divided into two parts: the mote control host (MCH), which is responsible for the low-level interaction with the motes in the testbed, and the mote control server (MCS), which serves mainly as message forwarder between mote hosts and connected clients. Written in C++ for performance.
+   Provides the infrastructure that keeps track of which motes have been deployed and where. It is divided into two parts: the _mote control host_, which is responsible for the low-level interaction with the motes in the testbed, and the _mote control server_, which serves mainly as message forwarder between mote hosts and connected clients. Written in C++ for performance.
 
 _GUI Client_ (`remote-gui`)
 
-   Implements client Java-libraries for interacting both with the web services and the mote control server and a GUI client allowing users to connect to a testbed, program motes, and monitor console output from motes. The client has been written to work with different testbeds and should not require any changes regardless of for example different user credential requirements.
+   Implements client Java-libraries for interacting both with the web services and the mote control server and a GUI client allowing users to connect to a testbed, program motes, and monitor console output from motes. This component is the only one that does not require any site specific customization.
 
 ----
 
