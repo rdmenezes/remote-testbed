@@ -1,4 +1,4 @@
-#summary Where to get the source code for the various components
+#summary Where to get the latest source code
 #labels Type-Project
 
 = Getting the Source Code ==
