@@ -5,20 +5,32 @@
 
 The source code is available either as [http://code.google.com/p/remote-testbed/downloads/list downloadable release archives] or using one of the repositories described below. The released archives are generally more stable, but may lack important features and fixes. If you want to keep in sync with the latest source of the framework getting the source from one of the repository below is recommended. It also allows you to easily keep track of any local changes you make and makes it easier to contribute code back to the project.
 
-== DIKU Repositories ==
+*Google Code SVN Repository*
 
-The primary version control system used for managing the DIKU source code tree is [http://git.or.cz/ git]. The SVN repository is updated in a one-way fashion and provided mainly for easing distribution. Read about how this is done in SvnSynchronization.
+  The SVN repository hosted by Google Code is provided mainly for easing distribution. It  is periodically synchronized with one of the git repositories, meaning that the newest changes are always available first in the git repositories. As of around 2007-11-01 the SvnSynchronization process tries to mirror the history as good as possible. 
 
-*[http://code.google.com/p/remote-testbed/source The SVN repository] [http://code.google.com/p/remote-testbed/source/browse/trunk (browse)] [http://code.google.com/p/remote-testbed/source/list (changes)]*
+  Use this command to anonymously check out the latest project source code:
+{{{
+svn checkout http://remote-testbed.googlecode.com/svn/trunk/ remote-testbed
+}}}
 
-  This SVN repository is periodically synchronized with the git repositories. In other words, the newest changes are always available first in the git repositories. As of around 2007-11-01 the SvnSynchronization process tries to mirror the history as good as possible.
+  You may also want to _[http://code.google.com/p/remote-testbed/source/browse/trunk browse the code]_, or _[http://code.google.com/p/remote-testbed/source/list view recent changes]_.
 
-*[http://repo.or.cz/w/remote.git The git repositories] [http://repo.or.cz/w/remote/remote-mci.git (MCI)] [http://repo.or.cz/w/remote/remote-db.git (DB)] [http://repo.or.cz/w/remote/remote-ws.git (WS)] [http://repo.or.cz/w/remote/remote-gui.git (GUI)]*
+*DIKU Repositories*
 
-  The git repositories are publicly available at [http://repo.or.cz/ repo.or.cz], where the repositories can be browsed via gitweb and where you are free to create and host your own "fork" of each of these repositories. Instructions on how to clone the different repositories are provided on each of the module pages.
+  The DIKU [http://git.or.cz/ git] [http://repo.or.cz/w/remote.git repositories] are hosted by [http://repo.or.cz/ repo.or.cz], where they can be browsed via gitweb and where you are free to create and host your own "fork" of each of these repositories.
 
-== CIT Repositories ==
+  Use this command to anonymously clone and check out the latest project source code for a given repository:
+{{{
+git clone git://repo.or.cz/remote/remote-$repo.git
+}}}
+  More instructions on how to clone a repository, as well as a list of recent changes and code browsing, are available on the [http://repo.or.cz/w/remote/remote-db.git remote-db], [http://repo.or.cz/w/remote/remote-ws.git remote-ws], [http://repo.or.cz/w/remote/remote-mci.git remote-mci], and [http://repo.or.cz/w/remote/remote-gui.git remote-gui] gitweb pages.
 
-*[http://testbed.aws.cit.ie/dev/remote/ CIT git repositories]*
+*CIT Repositories*
 
-  Rosta maintains git repositories with CIT specific changes at http://testbed.aws.cit.ie/dev/remote/, all clonable via the HTTP transport.
+  Rosta maintains git repositories with CIT specific changes at http://testbed.aws.cit.ie/dev/remote/.
+
+  Use the following command to anonymously clone and check out the latest project source code for a given repository:
+{{{
+git clone http://testbed.aws.cit.ie/dev/remote/remote-$repo.git
+}}}
