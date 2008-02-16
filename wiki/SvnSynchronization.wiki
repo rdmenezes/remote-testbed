@@ -3,6 +3,8 @@
 
 = Synchronizing the SVN Repository =
 
+As of around 2007-11-01, the SVN synchronization process tries to mirror the history as good as possible. Before this date, synchronization was batched into merges.
+
 == Setting up the SVN transport ==
 
 Assumes `$module` is set to either of `remote-{db,gui,mci,ws}`
