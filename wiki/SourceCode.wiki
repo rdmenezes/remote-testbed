@@ -1,7 +1,7 @@
 #summary Where to get the latest source code
 #labels Type-Project
 
-The source code is available either as [http://code.google.com/p/remote-testbed/downloads/list downloadable release archives] or using one of the repositories listed below. The released archives are generally more stable, but may lack important features and fixes. If you want to keep in sync with the latest source code of the framework getting the source from one of the repository below is recommended. It also allows you to easily keep track of local changes and makes it easy to contribute code back to the project.
+The source code is available either as [http://code.google.com/p/remote-testbed/downloads/list archives] or using one of the repositories listed below. Generally, the released archives are more stable, but may lack important features and fixes. If you want to keep in sync with the latest source code, tracking one of the repository below is recommended. It also allows you to easily keep track of local changes and makes it easy to contribute code back to the project.
 
 *Google Code SVN Repository*
 
