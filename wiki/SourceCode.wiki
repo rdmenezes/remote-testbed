@@ -5,7 +5,7 @@ The source code is available either as [http://code.google.com/p/remote-testbed/
 
 *Google Code SVN Repository*
 
-  The SVN repository hosted by Google Code is periodically updated witsynchronized with one of the [http://git.or.cz/ git] repositories.  is provided mainly for easing distribution. It
+  The SVN repository hosted by Google Code is periodically synchronized with one of the [http://git-scm.org/ git] repositories.  is provided mainly for easing distribution. It
 
   Use this command to anonymously check out the latest project source code:
 {{{
