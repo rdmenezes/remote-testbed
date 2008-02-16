@@ -1,11 +1,11 @@
 #summary Where to get the latest source code
 #labels Type-Project
 
-The source code is available either as [http://code.google.com/p/remote-testbed/downloads/list downloadable release archives] or using one of the repositories described below. The released archives are generally more stable, but may lack important features and fixes. If you want to keep in sync with the latest source of the framework getting the source from one of the repository below is recommended. It also allows you to easily keep track of any local changes you make and makes it easier to contribute code back to the project.
+The source code is available either as [http://code.google.com/p/remote-testbed/downloads/list downloadable release archives] or using one of the repositories listed below. The released archives are generally more stable, but may lack important features and fixes. If you want to keep in sync with the latest source code of the framework getting the source from one of the repository below is recommended. It also allows you to easily keep track of local changes and makes it easy to contribute code back to the project.
 
 *Google Code SVN Repository*
 
-  The SVN repository hosted by Google Code is provided mainly for easing distribution. It  is periodically synchronized with one of the git repositories, meaning that the newest changes are always available first in the git repositories. As of around 2007-11-01 the SvnSynchronization process tries to mirror the history as good as possible. 
+  The SVN repository hosted by Google Code is periodically updated witsynchronized with one of the [http://git.or.cz/ git] repositories.  is provided mainly for easing distribution. It
 
   Use this command to anonymously check out the latest project source code:
 {{{
@@ -16,13 +16,14 @@ svn checkout http://remote-testbed.googlecode.com/svn/trunk/ remote-testbed
 
 *DIKU Repositories*
 
-  The DIKU [http://git.or.cz/ git] [http://repo.or.cz/w/remote.git repositories] are hosted by [http://repo.or.cz/ repo.or.cz], where they can be browsed via gitweb and where you are free to create and host your own "fork" of each of these repositories.
+  The DIKU git [http://repo.or.cz/w/remote.git repositories] are hosted by [http://repo.or.cz/ repo.or.cz], where they can be browsed via gitweb and where you are free to create and host your own "fork" of each of these repositories.
 
   Use this command to anonymously clone and check out the latest project source code for a given repository:
 {{{
 git clone git://repo.or.cz/remote/remote-$repo.git
 }}}
-  More instructions on how to clone a repository, as well as a list of recent changes and code browsing, are available on the [http://repo.or.cz/w/remote/remote-db.git remote-db], [http://repo.or.cz/w/remote/remote-ws.git remote-ws], [http://repo.or.cz/w/remote/remote-mci.git remote-mci], and [http://repo.or.cz/w/remote/remote-gui.git remote-gui] gitweb pages.
+  The [http://repo.or.cz/w/remote/remote-db.git remote-db], [http://repo.or.cz/w/remote/remote-ws.git remote-ws], [http://repo.or.cz/w/remote/remote-mci.git remote-mci], and [http://repo.or.cz/w/remote/remote-gui.git remote-gui] gitweb pages have more _instructions on cloning_, _recent changes_, and _code browsing_.
+
 
 *CIT Repositories*
 
