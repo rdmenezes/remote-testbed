@@ -5,7 +5,7 @@ The source code is available either as [http://code.google.com/p/remote-testbed/
 
 *Google Code SVN Repository*
 
-  The SVN repository hosted by Google Code is periodically synchronized with one of the [http://git-scm.org/ git] repositories.  is provided mainly for easing distribution. It
+  The SVN repository hosted by Google Code is not used for day to day development. Instead it serves mainly as an additional and convinient method of distribution. It is periodically synchronized with one of the [http://git-scm.org/ git] repositories. More information in SvnSynchronization.
 
   Use this command to anonymously check out the latest project source code:
 {{{
@@ -22,7 +22,7 @@ svn checkout http://remote-testbed.googlecode.com/svn/trunk/ remote-testbed
 {{{
 git clone git://repo.or.cz/remote/remote-$repo.git
 }}}
-  More _instructions on cloning_, _recent changes_, and _code browsing_ on the [http://repo.or.cz/w/remote/remote-db.git remote-db], [http://repo.or.cz/w/remote/remote-ws.git remote-ws], [http://repo.or.cz/w/remote/remote-mci.git remote-mci], and [http://repo.or.cz/w/remote/remote-gui.git remote-gui] gitweb pages.
+  Browse the code and view recent changes on the [http://repo.or.cz/w/remote/remote-db.git remote-db], [http://repo.or.cz/w/remote/remote-ws.git remote-ws], [http://repo.or.cz/w/remote/remote-mci.git remote-mci], and [http://repo.or.cz/w/remote/remote-gui.git remote-gui] gitweb pages.
 
 
 *CIT Repositories*
