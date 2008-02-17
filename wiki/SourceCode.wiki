@@ -16,13 +16,12 @@ svn checkout http://remote-testbed.googlecode.com/svn/trunk/ remote-testbed
 
 *DIKU Repositories*
 
-  The DIKU git [http://repo.or.cz/w/remote.git repositories] are hosted by [http://repo.or.cz/ repo.or.cz], where they can be browsed via gitweb and where you are free to create and host your own "fork" of each of these repositories.
+  The DIKU git [http://repo.or.cz/w/remote.git repositories] serves as the main integration place for new feature. They are hosted by [http://repo.or.cz/ repo.or.cz], where you can browse the code and view recent changes in the [http://repo.or.cz/w/remote/remote-db.git remote-db], [http://repo.or.cz/w/remote/remote-ws.git remote-ws], [http://repo.or.cz/w/remote/remote-mci.git remote-mci], and [http://repo.or.cz/w/remote/remote-gui.git remote-gui] gitweb pages.
 
   Use this command to anonymously clone and check out the latest project source code for a given repository:
 {{{
 git clone git://repo.or.cz/remote/remote-$repo.git
 }}}
-  Browse the code and view recent changes on the [http://repo.or.cz/w/remote/remote-db.git remote-db], [http://repo.or.cz/w/remote/remote-ws.git remote-ws], [http://repo.or.cz/w/remote/remote-mci.git remote-mci], and [http://repo.or.cz/w/remote/remote-gui.git remote-gui] gitweb pages.
 
 
 *CIT Repositories*
