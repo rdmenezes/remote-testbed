@@ -186,7 +186,7 @@ To install on the local system to the location provided with the `--prefix` opti
 {{{
 $ make install
 }}}
-You should also install an start up script (e.g. into `/etc/init.d/`) so the mote control host and server is started when the system is booted. Examples are provided in the contrib directory.
+You should also install an start up script (e.g. into `/etc/init.d/`) so the mote control host and server is started when the system is booted. Examples for different systems are provided in the [http://remote-testbed.googlecode.com/svn/trunk/remote-mci/contrib/etc/init.d/ contrib] directory.
 
 ----
 
