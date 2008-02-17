@@ -95,8 +95,8 @@ If you are building `remote-mci` from an SVN or git checkout you will also need 
   </Service>
 </Server>
 }}}
- * Restart tomcat. Note, while changes in the axis specific configuration files will automatically be noticed by tomcat, always remember to restart tomcat after changing the `server.xml` file.
- * Check that the axis start page loads. If it does, also check that dependencies are satisfied by going to the "Validation" page.
+ # Restart tomcat. Note, while changes in the axis specific configuration files will automatically be noticed by tomcat, always remember to restart tomcat after changing the `server.xml` file.
+ # Check that the axis start page loads. If it does, also check that dependencies are satisfied by going to the "Validation" page.
 
 ----
 
@@ -106,29 +106,20 @@ Before starting the installation, get the SourceCode. You should install the com
 
 == Setting up the Database ==
 
-By default the database will be named `REMOTE` with privileges granted
-to the user named `remote_admin` having the password `remote`. This is
-all done in `remote_core/scripts/create_remote_db.sql`, which should be
-run first when creating a new database for a testbed.
-
-*Note*, if you change the username or password, you should also
-change the `user_model/scripts/credentials.sh` script to mirror
-what you changed. See below for
-
-Create the database by running the command:
+First, create the database by running the command:
 {{{
 $ mysql < remote_core/scripts/create_remote_db.sql
 }}}
-as a user, who has write privileges, e.g. root.
+as a user, who has write privileges, e.g. root. By default, the database will be named `REMOTE` with privileges granted to the user named `remote_admin` having the password `remote`. If you change the username and password (_which is highly recommended_), you should also change the `user_model/scripts/credentials.sh` script to mirror the new database credentials.
 
-After creating the database, create the tables using the supplied script and specifying the username, password, and database on the command line:
+After creating the database, create the core testbed tables using the supplied script and specifying the username, password, and database on the command line:
 {{{
 $ mysql --user=remote_admin \
 	--password=remote \
 	REMOTE < remote_core/scripts/create_tables.sql
 }}}
 
-Then create the tables for the user mode:
+Then create the tables for the user model:
 {{{
 $ mysql --user=remote_admin \
 	--password=remote \
@@ -150,16 +141,52 @@ $ mysql --user=remote_admin \
 
 == Building and Deploying the Web Services ==
 
-The following steps are needed to install the web services:
+First, build the server jar file by running `make` in the component's top-level directory.
+{{{
+$ make
+}}}
 
- # First build the server jar file by running `make` in the component's top-level directory.
- # Then copy `lib/remote-ws-server.jar` to the `$TOMCAT/webapps/axis/WEB-INF/lib` directory on your server. Verify in the log file that tomcat notices the new library and reloads the context. *Note*, if you plan to do a little tweaking of the server-side code yourself, you can configure the `DEPLOYHOST` and `DEPLOYPATH` settings in the start of the `Makefile` to make the `deploy-jar` rule do this for you.
- # Request axis to deploy the the web services using the WSDD files in the `wsdd` directory. The `Makefile`'s `deploy-wsdd` rule might be of help, however, you need to change the default credentials in the top of the `Makefile`. This only needs to be done once.
- # Use a browser to view the axis start page and follow the link to the list of deployed web services to verify that the 3 new web services are advertised.
+Then copy the jar file to the appropriate `lib/` directory on your server:
+{{{
+$ scp lib/remote-ws-server.jar remote-server:$TOMCAT/webapps/axis/WEB-INF/lib
+}}}
+Verify in the log file that tomcat notices the new library and reloads the context. If you plan to do a little tweaking of the server-side code yourself, you can configure the `DEPLOYHOST` and `DEPLOYPATH` settings in the start of the `Makefile` to make the `deploy-jar` rule do this for you.
+
+Request axis to deploy the the web services using the WSDD files in the `wsdd/` directory.
+{{{
+$ java org.apache.axis.client.AdminClient wsdd/*.wsdd
+}}}
+The above command assumes you have set the `CLASSPATH` environment to include the axis libraries. The `deploy-wsdd` rule in the `Makefile` might be of help, however, you need to change the default credentials in the top of the `Makefile`. This only needs to be done once.
+
+Finally, verify that the 3 new web services are advertised by entering the URL of the axis start page in your browser and following the link to the list of deployed web services.
 
 == Installing the Mote Control Host and Mote Control Server ==
 
-   ./configure " '--without-boost-regex' 'CXXFLAGS=-I/usr/include/boost-1_33/'
+If you are building from an SVN or git checkout, first run the bootstrap script to generate the build files.
+{{{
+$ ./bootstrap
+}}}
+
+Configure what you would like to build. Usually it is enough to just run:
+{{{
+$ ./configure
+}}}
+Options and important environment variables can be listed by passing `--help`. The following example shows how to only build the mote control host program with the boost library installed in a custom location:
+{{{
+$ ./configure --prefix=/ --bindir=/sbin --disable-diku-mcs CXXFLAGS=-I/usr/include/boost-1_33/
+}}}
+Verify that the configuration summary printed at the end of the script execution corresponds to your requirements.
+
+Build all configured programs
+{{{
+$ make
+}}}
+
+To install on the local system to the location provided with the `--prefix` option, run:
+{{{
+$ make install
+}}}
+You should also install an start up script (e.g. into `/etc/init.d/`) so the mote control host and server is started when the system is booted. Examples are provided in the contrib directory.
 
 ----
 
