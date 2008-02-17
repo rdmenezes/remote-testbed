@@ -1,5 +1,5 @@
-#summary Where to get the latest source code
-#labels Type-Project
+﻿#summary Where to get the latest source code
+#labels Section-Project
 
 The source code is available either as [http://code.google.com/p/remote-testbed/downloads/list?q=label:Type-Archive archives] or using one of the repositories listed below. Generally, the released archives are more stable, but may lack important features and fixes. If you want to keep in sync with the latest source code, tracking one of the repository below is recommended. It also allows you to easily keep track of local changes and makes it easy to contribute code back to the project.
 

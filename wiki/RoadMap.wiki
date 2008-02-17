@@ -1,5 +1,5 @@
-#summary Development roadmap and release plans
-#labels Type-Project,Featured
+﻿#summary Development roadmap and release plans
+#labels Section-Project,Featured
 
 = The Re-Mote Roadmap =
 

@@ -1,5 +1,5 @@
-#summary Information for developers
-#labels Type-Manual,Featured
+﻿#summary Information for developers
+#labels Section-Manual,Featured
 
 = Developing Re-Mote =
 
@@ -11,7 +11,7 @@ Several repositories exists allowing you to choose your preferred way of getting
 
 == Release Planning ==
 
-The RoadMap contains the plan of future major milestones and uses the [http://code.google.com/p/remote-testbed/issues/list issue tracker] to manage the different tasks. Additional [http://code.google.com/p/remote-testbed/w/list?q=label:Type-Proposal design documents] may exist from time to time, detailing enhancement proposals.
+The RoadMap contains the plan of future major milestones and uses the [http://code.google.com/p/remote-testbed/issues/list issue tracker] to manage the different tasks. Additional [http://code.google.com/p/remote-testbed/w/list?q=label:Section-Proposal design documents] may exist from time to time, detailing enhancement proposals.
 
 == The Build Process ==
 

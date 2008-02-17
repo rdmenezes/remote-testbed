@@ -1,5 +1,5 @@
-#summary How to setup and synchronize between git and SVN
-#labels Type-Project
+﻿#summary How to setup and synchronize between git and SVN
+#labels Section-Project
 
 = Synchronizing the SVN Repository =
 

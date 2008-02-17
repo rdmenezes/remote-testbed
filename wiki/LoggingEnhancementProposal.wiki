@@ -1,5 +1,5 @@
-#summary Proposal for better logging infrastructure in the MCI component
-#labels Type-Proposal,Component-MCI
+﻿#summary Proposal for better logging infrastructure in the MCI component
+#labels Section-Proposal,Component-MCI,Status-Draft
 
 = Logging Infrastructure Enhancement Proposal =
 

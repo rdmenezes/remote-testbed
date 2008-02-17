@@ -1,5 +1,5 @@
-#summary Security considerations for administrators
-#labels Type-Project
+﻿#summary Security considerations for administrators
+#labels Section-Project
 
 = Security Considerations =
 
