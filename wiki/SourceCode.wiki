@@ -22,7 +22,7 @@ svn checkout http://remote-testbed.googlecode.com/svn/trunk/ remote-testbed
 {{{
 git clone git://repo.or.cz/remote/remote-$repo.git
 }}}
-  The [http://repo.or.cz/w/remote/remote-db.git remote-db], [http://repo.or.cz/w/remote/remote-ws.git remote-ws], [http://repo.or.cz/w/remote/remote-mci.git remote-mci], and [http://repo.or.cz/w/remote/remote-gui.git remote-gui] gitweb pages have more _instructions on cloning_, _recent changes_, and _code browsing_.
+  More _instructions on cloning_, _recent changes_, and _code browsing_ on the [http://repo.or.cz/w/remote/remote-db.git remote-db], [http://repo.or.cz/w/remote/remote-ws.git remote-ws], [http://repo.or.cz/w/remote/remote-mci.git remote-mci], and [http://repo.or.cz/w/remote/remote-gui.git remote-gui] gitweb pages.
 
 
 *CIT Repositories*
