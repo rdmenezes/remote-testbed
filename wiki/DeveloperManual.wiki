@@ -5,9 +5,9 @@
 
 This document is currently mostly a placeholder. It should be expanded as needed to cover important aspects related to the development of Re-Mote.
 
-== Getting the Source Code ==
+== Getting and Publishing the Source Code ==
 
-Several repositories exists allowing you to choose your preferred way of getting the latest SourceCode.
+Several repositories exists allowing you to choose your preferred way of getting the latest SourceCode. The service provided by http://repo.or.cz allows you to create and host your own "fork" of each of the DIKU repositories.
 
 == Release Planning ==
 
