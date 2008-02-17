@@ -102,7 +102,7 @@ If you are building `remote-mci` from an SVN or git checkout you will also need 
 
 = Installing the Testbed =
 
-First get the SourceCode for the `remote-db`, `remote-ws`, and `remote-mci` components. You should install the components in the following order:
+Before starting the installation, get the SourceCode. You should install the components in the following order: `remote-db`, `remote-ws`, `remote-mci`.
 
 == Setting up the Database ==
 
