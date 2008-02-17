@@ -45,11 +45,9 @@ Before deploying, you are advised to first read the SecurityConsiderations. It l
 
 == Library and Program Dependencies ==
 
-All components requires that a POSIX compliant shell (e.g. `bash`) and GNU `make` are installed on the system. For building and running the web services a Java runtime and compiler must be available. The mote control infrastructure requires that both a C and C++ compiler (e.g. gcc) has been installed. Note that for the C and C++ libraries listed below, development files such as header files are often packaged separately.
+All components requires that a POSIX compliant shell (e.g. `bash`) and GNU `make` are installed on the system. For building and running the web services a Java runtime and compiler must be available. The mote control infrastructure requires that both a C and C++ compiler (e.g. gcc) has been installed. Note that for the C and C++ libraries listed below, development files such as header files are often packaged separately. For each dependency, a tested and "known-good" minimum version is listed. This is only informational and other versions may also be supported.
 
-The mote control hosts depends on udev (>= 113) and the boost program options library (>= 1.34.1).
-
-The server-side (mote control server, database etc.) build and runtime dependencies are listed in the following table sorted by component. The noted version is only informational and is listed because it has been tested and is a _known-good_ minimum version. Other versions may also be supported.
+The server-side (mote control server, database etc.) build and runtime dependencies are listed in the following table:
 
 || *Component*  || *Dependency*                                   || *Version* ||
 || `remote-db`  || MySQL server and client program and utilities  || - ||
@@ -59,7 +57,9 @@ The server-side (mote control server, database etc.) build and runtime dependenc
 || `remote-ws`  || Apache Tomcat                                  || >= 5.5 ||
 ||              || Axis                                           || >= 1.4 ||
 
-If you are building from an SVN or git checkout you will also need autoconf (>= 2.59) and automake (>= 1.4) to generate the `configure` script and `Makefile`s.
+The mote control host depends on udev (>= 113) and the boost program options library (>= 1.34.1).
+
+If you are building `remote-mci` from an SVN or git checkout you will also need autoconf (>= 2.59) and automake (>= 1.4) to generate the `configure` script and `Makefile`s.
 
 == Setting up Tomcat and Axis ==
 
