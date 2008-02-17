@@ -110,9 +110,9 @@ First, create the database by running the command:
 {{{
 $ mysql < remote_core/scripts/create_remote_db.sql
 }}}
-as a user, who has write privileges, e.g. root. By default, the database will be named `REMOTE` with privileges granted to the user named `remote_admin` having the password `remote`. If you change the username and password (_which is highly recommended_), you should also change the `user_model/scripts/credentials.sh` script to mirror the new database credentials.
+as a user, who has write privileges, e.g. root. By default, the database will be named `REMOTE` with privileges granted to the user named `remote_admin` having the password `remote`. If you change the user name and password (_which is highly recommended_), you should also change the `user_model/scripts/credentials.sh` script to mirror the new database credentials.
 
-After creating the database, create the core testbed tables using the supplied script and specifying the username, password, and database on the command line:
+After creating the database, create the core testbed tables using the supplied script and specifying the user name, password, and database on the command line:
 {{{
 $ mysql --user=remote_admin \
 	--password=remote \
