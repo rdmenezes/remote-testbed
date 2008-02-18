@@ -5,6 +5,10 @@
 
 This document is currently mostly a placeholder. It should be expanded as needed to cover important aspects related to the development of Re-Mote.
 
+== Recommended Reading ==
+
+To get an understanding of the framework, [http://remote-testbed.googlecode.com/files/Zeuthen-2007.pdf the initial project report] by Esben Zeuthen gives a good understanding of the design considerations. You should also get familiar with information in the AdministratorManual and UserManual and have the SecurityConsiderations in mind when touching parts of the code involving networking.
+
 == Getting and Publishing the Source Code ==
 
 Several repositories exists allowing you to choose your preferred way of getting the latest SourceCode. The service provided by http://repo.or.cz/ allows you to create and host your own "fork" of each of the DIKU repositories.
