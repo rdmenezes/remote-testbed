@@ -7,4 +7,4 @@ The user manual is merely a stub for now and clearly not satisfactory introducti
 
 Below all available versions and formats are listed:
 
- * Re-Mote v1.0 [http://docs.google.com/Doc?id=dq76tkh_13cxkgjpgs HTML] [http://docs.google.com/MiscCommands?command=saveasdoc&docID=dq76tkh_13cxkgjpgs&exportFormat=pdf PDF] [http://docs.google.com/MiscCommands?command=saveasdoc&docID=dq76tkh_13cxkgjpgs&exportFormat=doc Word].
+ * Re-Mote v1.0 [[http://docs.google.com/Doc?id=dq76tkh_13cxkgjpgs HTML]] [[http://docs.google.com/MiscCommands?command=saveasdoc&docID=dq76tkh_13cxkgjpgs&exportFormat=pdf PDF]] [[http://docs.google.com/MiscCommands?command=saveasdoc&docID=dq76tkh_13cxkgjpgs&exportFormat=doc Word]].
