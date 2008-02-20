@@ -1,5 +1,5 @@
 ﻿#summary Proposal for switching to using udev in the MCI component
-#labels Section-Proposal,Component-MCI,Status-Final,REP-101
+#labels Section-Proposal,Component-MCI,Status-Final,Proposal-101
 
 = Udev Device Management =
 
