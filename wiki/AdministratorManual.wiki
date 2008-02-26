@@ -56,6 +56,8 @@ The server-side (mote control server, database etc.) build and runtime dependenc
 ||              || Boost program options library                  || >= 1.34.1 ||
 || `remote-ws`  || Apache Tomcat                                  || >= 5.5 ||
 ||              || Axis                                           || >= 1.4 ||
+||              || MySQL JDBC Connector Java library              || >= 5.0.4 ||
+
 
 The mote control host depends on udev (>= 113) and the boost program options library (>= 1.34.1).
 
