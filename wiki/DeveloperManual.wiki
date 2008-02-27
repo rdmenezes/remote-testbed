@@ -5,9 +5,11 @@
 
 This document is currently mostly a placeholder. It should be expanded as needed to cover important aspects related to the development of Re-Mote.
 
-== Recommended Reading ==
+== Documentation and Recommended Reading ==
 
 To get an understanding of the framework, [http://remote-testbed.googlecode.com/files/Zeuthen-2007.pdf the initial project report] by Esben Zeuthen gives a good understanding of the design considerations. You should also get familiar with information in the AdministratorManual and UserManual and have the SecurityConsiderations in mind when touching parts of the code involving networking.
+
+Javadoc for the [http://remote-testbed.googlecode.com/svn/trunk/javadoc/remote-ws/index.html remote-ws] and [http://remote-testbed.googlecode.com/svn/trunk/javadoc/remote-ws/index.html remote-gui] may serve as an introduction and reference for these components.
 
 == Getting and Publishing the Source Code ==
 
