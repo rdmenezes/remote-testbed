@@ -1,0 +1,10 @@
+#summary Brainstorm page for future versions.
+#labels Section-Proposal,Status-Draft
+
+None of the ideas and suggestions on this page carry any meaning other than give a basis for the future planning of the Re-Mote Testbed Framework. Some of the ideas may be fleshed out in more details in separate REP (Re-Mote Enhancement Proposal) design documents later on, but right now this page serves mostly as a collection of 
+
+[http://code.google.com/p/remote-testbed/issues/list?q=label:Milestone-Release2.0 Some issues] have already been assigned to the next major milestone.
+
+ * [http://ws.apache.org/axis2/1_3/migration.html Move to Axis 2] as the platform for client RPC
+
+ * Combine the DB and WS components into one all-in-on server module. Can later be followed with control libraries from the GUI component that are going to be needed for running jobs on the server.
