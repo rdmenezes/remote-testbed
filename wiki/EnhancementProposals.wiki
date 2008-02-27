@@ -8,3 +8,5 @@ None of the ideas and suggestions on this page carry any meaning other than give
  * [http://ws.apache.org/axis2/1_3/migration.html Move to Axis 2] as the platform for client RPC
 
  * Combine the DB and WS components into one all-in-on server module. Can later be followed with control libraries from the GUI component that are going to be needed for running jobs on the server.
+
+ * Restructure the Java package namespace to use `remote.foo` instead of `diku.distlab` (remote-gui) or nothing at all (remote-ws).
