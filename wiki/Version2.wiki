@@ -5,6 +5,6 @@ None of the ideas and suggestions on this page carry any meaning other than give
 
 [http://code.google.com/p/remote-testbed/issues/list?q=label:Milestone-Release2.0 Some issues] have already been assigned to this milestone.
 
- * Move to Axis 2 as the platform for client RPC
+* Move to Axis 2 as the platform for client RPC
 
- * Combine the DB and WS components into one all-in-on server module. Can later be followed with control libraries from the GUI component that are going to be needed for running jobs on the server.
+* Combine the DB and WS components into one all-in-on server module. Can later be followed with control libraries from the GUI component that are going to be needed for running jobs on the server.
