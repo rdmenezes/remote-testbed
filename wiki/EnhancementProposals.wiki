@@ -10,3 +10,5 @@ None of the ideas and suggestions on this page carry any meaning other than give
  * Combine the DB and WS components into one all-in-on server module. Can later be followed with control libraries from the GUI component that are going to be needed for running jobs on the server.
 
  * Restructure the Java package namespace to use `remote.foo` instead of `diku.distlab` (remote-gui) or nothing at all (remote-ws).
+
+ * Add support for "Re-Mote Testbed Descriptor" which should provide a way for clients to get and keep updated with information on which host and port the mote control server and web services are on. This *resource discovery* mechanism could be as simple as a web service making it possible to start a client with a simple URL to add a testbed to "known places".
