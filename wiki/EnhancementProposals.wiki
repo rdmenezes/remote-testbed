@@ -20,3 +20,5 @@ None of the ideas and suggestions on this page carry any meaning other than give
  * Testbed project should have a description field.
 
  * Add user 'roles' (owner & member) and a user interface so users can manage projects themselves.
+
+ * Fill a new database with sane defaults (0/0/0-position, default site, admin-user/project, allow host connections from 127.0.0.1).
