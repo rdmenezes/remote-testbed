@@ -16,3 +16,7 @@ None of the ideas and suggestions on this page carry any meaning other than give
  * Replace Boost::program_options with small custom config file parser. This dependency is overkill and it is a major pain to have to compile Boost just to read a very simple config file.
 
  * Make it possible to specify IP ranges for which most host connections the mote control server should allow.
+
+ * Testbed project should have a description field.
+
+ * Add user 'roles' (owner & member) and a user interface so users can manage projects themselves.
