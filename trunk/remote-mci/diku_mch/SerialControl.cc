@@ -157,7 +157,7 @@ result_t SerialControl::power(const std::string cmd)
 		bool enable = resetting ? !isRunning : cmd == "stop";
 
 		if (controlDTR(enable)) {
-			isRunning = enable;
+			isRunning = !enable;
 			return SUCCESS;
 		}
 
