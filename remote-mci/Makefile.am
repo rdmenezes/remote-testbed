@@ -25,9 +25,6 @@ EXTRA_DIST = \
 doc doxygen:
 	$(MAKE) -C doc code
 
-rfc:
-	$(MAKE) -C doc/rfc
-
 ctags:
 	find . -name "*.cc" -or -name "*.h" | ctags -L -
 
