@@ -1,5 +1,0 @@
-.ftdi_sio_dig528.*.cmd
-.tmp_versions
-Module.symvers
-ftdi_sio_dig528.ko
-ftdi_sio_dig528.mod.c
