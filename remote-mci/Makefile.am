@@ -8,15 +8,9 @@ if CONFIG_DIKU_MCS
 SUBDIRS += mcs diku_mcs
 endif
 
-# TODO: At some point these should probably be moved to
-# contrib/Makefile.am with the choice to autogenerate
-# some of them depending on the configure scripts via
-# AC_OUTPUT. --jonas
-CONTRIB_EXTRA_DIST = \
- contrib/etc/* \
- contrib/etc/init.d/* \
- contrib/etc/udev/rules.d/* \
- contrib/etc/udev/scripts/*
+# TODO: At some point the contrib EXTRA_DIST should probably be moved to
+# contrib/Makefile.am with the choice to autogenerate some of them
+# depending on the configure scripts via AC_OUTPUT. --jonas
 
 EXTRA_DIST = \
  AUTHORS \
@@ -26,7 +20,7 @@ EXTRA_DIST = \
  README \
  TODO \
  bootstrap \
- $(CONTRIB_EXTRA_DIST)
+ contrib
 
 doc doxygen:
 	$(MAKE) -C doc code
