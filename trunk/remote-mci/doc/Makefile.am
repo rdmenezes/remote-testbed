@@ -1,4 +1,5 @@
 EXTRA_DIST = \
+ diku_mch \
  Doxyfile
 
 code: Doxyfile
