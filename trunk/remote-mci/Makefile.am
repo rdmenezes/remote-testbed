@@ -18,7 +18,6 @@ EXTRA_DIST = \
  INSTALL \
  NEWS \
  README \
- TODO \
  bootstrap \
  contrib
 
