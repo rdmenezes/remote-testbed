@@ -99,7 +99,7 @@ std::string File::readLink(std::string linkname)
 bool File::writeFile(std::string filename, const void *data, uint32_t datalen)
 {
 	ssize_t filesize;
-	int fd = open(filename.c_str(), O_CREAT | O_TRUNC | O_WRONLY);
+	int fd = open(filename.c_str(), O_CREAT | O_TRUNC | O_WRONLY, 0644);
 
 	if (fd < 0) {
 		Log::error("open(%s) failed: %s", filename.c_str(), strerror(errno));
