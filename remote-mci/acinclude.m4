@@ -62,6 +62,7 @@ if test "x$want_boost" = "xyes"; then
 	if test "$ax_cv_boost_program_options" = yes; then
 		AC_DEFINE(HAVE_BOOST_PROGRAM_OPTIONS,[1],[Define if the Boost::PROGRAM_OPTIONS library is available])
 		BN=boost_program_options
+		AC_LANG_PUSH(C++)
 		if test "x$ax_boost_user_program_options_lib" = "x"; then
 			for ax_lib in $BN $BN-$CC $BN-$CC-mt $BN-$CC-mt-s $BN-$CC-s \
 				lib$BN lib$BN-$CC lib$BN-$CC-mt lib$BN-$CC-mt-s lib$BN-$CC-s \
@@ -77,6 +78,7 @@ if test "x$want_boost" = "xyes"; then
 					[CONFIG_BOOST_PROGRAM_OPTIONS="no"])
 			done
 		fi
+		AC_LANG_POP([C++])
 		if test "x$CONFIG_BOOST_PROGRAM_OPTIONS" = "xno"; then
 			AC_MSG_ERROR([Could not link against [$ax_lib] !])
 		fi
