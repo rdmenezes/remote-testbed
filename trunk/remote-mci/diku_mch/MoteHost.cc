@@ -50,7 +50,7 @@ void MoteHost::serviceLoop()
 	fd_set fdset;
 
 	remove(eventPipe.c_str());
-	if (mkfifo(eventPipe.c_str(), 666) == -1)
+	if (mkfifo(eventPipe.c_str(), 0666) == -1)
 		throw remote::error(errno, "Failed to make fifo " + eventPipe);
 
 	plugpipe = open(eventPipe.c_str(), O_RDONLY | O_NONBLOCK);
