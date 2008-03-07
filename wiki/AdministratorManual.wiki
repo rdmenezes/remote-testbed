@@ -37,6 +37,10 @@ _GUI Client_ (`remote-gui`)
 
    Implements client Java-libraries for interacting both with the web services and the mote control server and a GUI client allowing users to connect to a testbed, program motes, and monitor console output from motes. This component is the only one that does not require any site specific customization.
 
+To give an idea of how everything is connected the following figure gives an overview:
+
+http://remote-testbed.googlecode.com/svn/trunk/javadoc/images/WSNTestbedDeri.png
+
 ----
 
 = Before Deploying the Testbed =
