@@ -10,7 +10,7 @@ const std::string Mote::STOP = "stop";
 const std::string Mote::RESET = "reset";
 
 Mote::Mote(std::string& p_mac, std::string& p_directory)
-	: SerialControl(), mac(p_mac), directory(p_directory)
+	: SerialControl(), mac(p_mac), directory(p_directory), isRunning(false)
 {
 	validate();
 	if (isvalid && !setupTty(STOP))
@@ -67,6 +67,48 @@ void Mote::validate()
 }
 
 
+result_t Mote::start()
+{
+	return power(START);
+}
+
+result_t Mote::stop()
+{
+	return power(STOP);
+}
+
+result_t Mote::reset()
+{
+	return power(RESET);
+}
+
+result_t Mote::power(const std::string cmd)
+{
+	bool resetting = cmd == RESET;
+
+	if (!isOpen())
+		return FAILURE;
+
+	if (!resetting || controlDTR(isRunning)) {
+		bool enable = resetting ? !isRunning : cmd == STOP;
+
+		if (controlDTR(enable)) {
+			isRunning = !enable;
+			return SUCCESS;
+		}
+
+		/* Mirror that the first reset DTR change succeeded. */
+		if (resetting)
+			isRunning = !isRunning;
+	}
+
+	Log::error("Failed to %s mote %s: %s",
+		   cmd.c_str(), mac.c_str(), strerror(errno));
+	closeTty();
+	return FAILURE;
+}
+
+
 result_t Mote::program(std::string tos, const uint8_t *image, uint32_t imagelen)
 {
 	if (hasChild())
@@ -115,6 +157,15 @@ result_t Mote::getChildResult(bool force)
 		success = false;
 
 	return success ? SUCCESS : FAILURE;
+}
+
+
+status_t Mote::getStatus()
+{
+	if (hasChild()) return MOTE_PROGRAMMING;
+	if (!isOpen()) return MOTE_UNAVAILABLE;
+	if (isRunning) return MOTE_RUNNING;
+	return MOTE_STOPPED;
 }
 
 

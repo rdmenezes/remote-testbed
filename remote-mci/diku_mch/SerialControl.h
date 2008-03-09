@@ -15,12 +15,9 @@
 
 #include "libutil/Log.h"
 #include "types.h"
-#include "motecontrol/localconstants.h"
 
 namespace remote { namespace diku_mch {
 
-using namespace protocols;
-using namespace protocols::motecontrol;
 using namespace util;
 
 class SerialControl
@@ -29,23 +26,17 @@ class SerialControl
 		SerialControl();
 		~SerialControl();
 		bool runChild(char * const args[], char * const envp[]);
-		result_t reset();
-		result_t start();
-		result_t stop();
 		ssize_t readBuf(char *buf, size_t len);
 		ssize_t writeBuf(const char *buf, size_t len);
 		int getFd();
-		status_t getStatus();
 	protected:
 		bool hasChild();
 		bool isOpen();
 		bool openTty();
 		void closeTty();
 		bool endChild(bool killChild);
-		result_t power(const std::string cmd);
 		bool controlDTR(bool enable);
 		int port;
-		bool isRunning;
 		pid_t childPid;
 		std::string tty;
 		struct termios oldsertio;
