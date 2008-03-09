@@ -3,7 +3,7 @@
 namespace remote { namespace diku_mch {
 
 SerialControl::SerialControl()
-	: port(-1), isRunning(false), childPid(-1)
+	: port(-1), childPid(-1)
 {
 }
 
@@ -116,46 +116,6 @@ bool SerialControl::endChild(bool killChild)
 	return killChild || (WIFEXITED(status) && WEXITSTATUS(status) == 0);
 }
 
-result_t SerialControl::reset()
-{
-	return power("reset");
-}
-
-result_t SerialControl::start()
-{
-	return power("start");
-}
-
-result_t SerialControl::stop()
-{
-	return power("stop");
-}
-
-result_t SerialControl::power(const std::string cmd)
-{
-	bool resetting = cmd == "reset";
-
-	if (!isOpen())
-		return FAILURE;
-
-	if (!resetting || controlDTR(isRunning)) {
-		bool enable = resetting ? !isRunning : cmd == "stop";
-
-		if (controlDTR(enable)) {
-			isRunning = !enable;
-			return SUCCESS;
-		}
-
-		/* Mirror that the first reset DTR change succeeded. */
-		if (resetting)
-			isRunning = !isRunning;
-	}
-
-	Log::error("Failed to %s %s: %s", cmd.c_str(), tty.c_str(), strerror(errno));
-	closeTty();
-	return FAILURE;
-}
-
 bool SerialControl::controlDTR(bool enable)
 {
 	int tmp = TIOCM_DTR;
@@ -192,14 +152,6 @@ bool SerialControl::isOpen()
 int SerialControl::getFd()
 {
 	return port;
-}
-
-status_t SerialControl::getStatus()
-{
-	if (hasChild()) return MOTE_PROGRAMMING;
-	if (!isOpen()) return MOTE_UNAVAILABLE;
-	if (isRunning) return MOTE_RUNNING;
-	return MOTE_STOPPED;
 }
 
 }}

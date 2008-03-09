@@ -3,8 +3,12 @@
 
 #include "libutil/File.h"
 #include "SerialControl.h"
+#include "motecontrol/localconstants.h"
 
 namespace remote { namespace diku_mch {
+
+using namespace protocols;
+using namespace protocols::motecontrol;
 
 /** MCH Mote
  *
@@ -50,6 +54,24 @@ public:
 	 */
 	void validate();
 
+	/** Start mote.
+	 *
+	 * @return	SUCCESS if mote was started.
+	 */
+	result_t start();
+
+	/** Stop mote.
+	 *
+	 * @return	SUCCESS if mote was stopped.
+	 */
+	result_t stop();
+
+	/** Reset mote.
+	 *
+	 * @return	SUCCESS if mote was reset.
+	 */
+	result_t reset();
+
 	/** Start programming a mote.
 	 *
 	 * This will fork a child process to do the actual programming.
@@ -73,6 +95,12 @@ public:
 	 * @return		SUCCESS if the child exited with code 0.
 	 */
 	result_t getChildResult(bool force = false);
+
+	/** Get mote status.
+	 *
+	 * @return	The mote status code.
+	 */
+	status_t getStatus();
 
 	/** Get MAC address.
 	 *
@@ -117,6 +145,13 @@ private:
 	 */
 	bool setupTty(const std::string cmd);
 
+	/** Execute power command.
+	 *
+	 * @param cmd	Command to execute, may be: start, stop, or reset.
+	 * @return	SUCCESS if power command was executed.
+	 */
+	result_t power(const std::string cmd);
+
 	std::string mac;	/**< MAC address. */
 	std::string directory;	/**< Device directory path. */
 	std::string imagefile;	/**< Path to temporary flash image file. */
@@ -124,6 +159,7 @@ private:
 	std::string path;	/**< Physical device path. */
 	std::string platform;	/**< Platform name. */
 	bool isvalid;		/**< Valid flag. */
+	bool isRunning;		/**< Mote is started or stopped? */
 };
 
 }}
