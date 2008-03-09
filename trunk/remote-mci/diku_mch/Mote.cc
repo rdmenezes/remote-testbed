@@ -61,6 +61,7 @@ result_t Mote::program(std::string tos, const uint8_t *image, uint32_t imagelen)
 	if (File::writeFile(filename, image, imagelen)) {
 		std::string mac_env = "macaddress=" + mac;
 		std::string tos_env = "tosaddress=" + tos;
+		std::string platform_env = "platform=" + platform;
 		char * const args[] = {
 			(char *) programmer.c_str(),
 			(char *) tty.c_str(),
@@ -70,6 +71,7 @@ result_t Mote::program(std::string tos, const uint8_t *image, uint32_t imagelen)
 		char * const envp[] = {
 			(char *) mac_env.c_str(),
 			(char *) tos_env.c_str(),
+			(char *) platform_env.c_str(),
 			NULL
 		};
 
