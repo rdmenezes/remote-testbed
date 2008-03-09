@@ -38,7 +38,6 @@ class SerialControl
 		ssize_t writeBuf(const char *buf, size_t len);
 		int getFd();
 		status_t getStatus();
-		const std::string& getTty();
 	protected:
 		bool hasChild();
 		bool isOpen();

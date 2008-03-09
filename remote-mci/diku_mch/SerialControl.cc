@@ -201,11 +201,6 @@ bool SerialControl::isOpen()
 	return port != -1 && !hasChild();
 }
 
-const std::string& SerialControl::getTty()
-{
-	return tty;
-}
-
 int SerialControl::getFd()
 {
 	return port;
