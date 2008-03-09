@@ -23,7 +23,7 @@ Mote::Mote(std::string& p_mac, std::string& p_directory)
 
 bool Mote::setupTty(const std::string cmd)
 {
-	if (!openTty(ttyData))
+	if (!openTty(platform, ttyData))
 		return false;
 
 	if (cmd == START || cmd == STOP || cmd == RESET)
@@ -49,8 +49,12 @@ void Mote::validate()
 	imagefile = directory + "image";
 
 	programmer = directory + "programmer";
-	if (programmer == "" || !File::exists(programmer))
+	if (!File::exists(programmer))
 		isvalid = false;
+
+	controller = directory + "controller";
+	if (!File::exists(controller))
+		controller = "";
 
 	path = File::readFile(directory + "path");
 	if (path == "")
@@ -95,7 +99,27 @@ result_t Mote::power(const std::string cmd)
 	if (!isOpen())
 		return FAILURE;
 
-	if (!resetting || controlDTR(isRunning)) {
+	if (controller != "") {
+		std::string platform_env = "platform=" + platform;
+		char * const args[] = {
+			(char *) controller.c_str(),
+			(char *) ttyControl.c_str(),
+			(char *) cmd.c_str(),
+			NULL
+		};
+		char * const envp[] = {
+			(char *) platform_env.c_str(),
+			NULL
+		};
+
+		Log::info("Control mote %s to %s", mac.c_str(), cmd.c_str());
+
+		if (runChild(args, envp)) {
+			controlCmd = cmd;
+			return SUCCESS;
+		}
+
+	} else if (!resetting || controlDTR(isRunning)) {
 		bool enable = resetting ? !isRunning : cmd == STOP;
 
 		if (controlDTR(enable)) {
@@ -163,6 +187,13 @@ result_t Mote::getChildResult(bool force)
 	bool success = endChild(force);
 	bool afterProgramming = controlCmd == PROGRAM;
 	const std::string cmd = afterProgramming ? STOP : NONE;
+
+	if (success) {
+		if (controlCmd == START || controlCmd == RESET)
+			isRunning = true;
+		else if (controlCmd == STOP)
+			isRunning = false;
+	}
 
 	if (afterProgramming)
 		remove(imagefile.c_str());

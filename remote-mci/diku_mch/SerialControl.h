@@ -32,7 +32,7 @@ class SerialControl
 	protected:
 		bool hasChild();
 		bool isOpen();
-		bool openTty(const std::string tty);
+		bool openTty(const std::string platform, const std::string tty);
 		void closeTty();
 		bool endChild(bool killChild);
 		bool controlDTR(bool enable);

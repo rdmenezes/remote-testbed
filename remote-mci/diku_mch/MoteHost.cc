@@ -296,6 +296,12 @@ void MoteHost::handleMoteData(Mote* mote)
 
 		if (controlCmd == Mote::PROGRAM)
 			command = MOTECOMMAND_PROGRAM;
+		else if (controlCmd == Mote::START)
+			command = MOTECOMMAND_START;
+		else if (controlCmd == Mote::STOP)
+			command = MOTECOMMAND_STOP;
+		else if (controlCmd == Mote::RESET)
+			command = MOTECOMMAND_RESET;
 		else
 			return;
 
