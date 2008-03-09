@@ -41,7 +41,7 @@ void Mote::validate()
 	if (tty == "")
 		isvalid = false;
 
-	if (!isOpen() && openTty() == FAILURE)
+	if (!isOpen() && !openTty())
 		isvalid = false;
 
 	if (!isvalid)

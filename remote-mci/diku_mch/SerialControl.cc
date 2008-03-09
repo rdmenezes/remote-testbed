@@ -14,20 +14,20 @@ SerialControl::~SerialControl()
 		closeTty();
 }
 
-result_t SerialControl::openTty()
+bool SerialControl::openTty()
 {
 	struct termios newsertio;
 
 	if (isOpen()) {
 		Log::debug("TTY already open for %s", tty.c_str());
-		return FAILURE;
+		return false;
 	}
 
 	Log::info("Opening TTY %s", tty.c_str());
 	port = open(tty.c_str(), O_RDWR | O_NOCTTY | O_NONBLOCK);
 	if (port == -1) {
 		Log::error("Failed to open %s: %s", tty.c_str(), strerror(errno));
-		return FAILURE;
+		return false;
 	}
 
 	tcgetattr(port, &oldsertio); /* save current port settings */
@@ -56,20 +56,17 @@ result_t SerialControl::openTty()
 	tcsetattr(port, TCSANOW, &newsertio);
 
 	// open in a stopped state
-	return stop();
+	return stop() == SUCCESS;
 }
 
-result_t SerialControl::closeTty()
+void SerialControl::closeTty()
 {
-	if (!isOpen()) {
-		Log::debug("TTY already closed for %s", tty.c_str());
-		return FAILURE;
-	}
-	Log::info("Closing %s", tty.c_str());
+	if (!isOpen())
+		return;
+
 	tcsetattr(port, TCSANOW, &oldsertio);
 	close(port);
 	port = -1;
-	return SUCCESS;
 }
 
 bool SerialControl::runChild(char * const args[], char * const envp[])
