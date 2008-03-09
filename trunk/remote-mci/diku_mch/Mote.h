@@ -18,6 +18,11 @@ namespace remote { namespace diku_mch {
 class Mote : public SerialControl
 {
 public:
+	static const std::string NONE;
+	static const std::string START;
+	static const std::string STOP;
+	static const std::string RESET;
+
 	/** Create a new mote.
 	 *
 	 * A newly created will automatically be validated using
@@ -104,9 +109,13 @@ public:
 private:
 	/** Setup TTY port.
 	 *
+	 * This will setup the TTY by opening it. The command parameter
+	 * can be used to indicate in what power mode the mote should start.
+	 *
+	 * @param cmd	Command to execute, if non-empty string.
 	 * @return	True if setup succeeded.
 	 */
-	bool setupTty();
+	bool setupTty(const std::string cmd);
 
 	std::string mac;	/**< MAC address. */
 	std::string directory;	/**< Device directory path. */
