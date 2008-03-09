@@ -23,7 +23,7 @@ Mote::Mote(std::string& p_mac, std::string& p_directory)
 
 bool Mote::setupTty(const std::string cmd)
 {
-	if (!openTty())
+	if (!openTty(ttyData))
 		return false;
 
 	if (cmd == START || cmd == STOP || cmd == RESET)
@@ -60,8 +60,12 @@ void Mote::validate()
 	if (platform == "")
 		isvalid = false;
 
-	tty = File::readLink(directory + "tty");
-	if (tty == "")
+	ttyData = File::readLink(directory + "tty/data");
+	if (ttyData == "")
+		isvalid = false;
+
+	ttyControl = File::readLink(directory + "tty/control");
+	if (ttyControl == "")
 		isvalid = false;
 
 	if (!isvalid)
@@ -122,7 +126,7 @@ result_t Mote::program(std::string tos, const uint8_t *image, uint32_t imagelen)
 		std::string platform_env = "platform=" + platform;
 		char * const args[] = {
 			(char *) programmer.c_str(),
-			(char *) tty.c_str(),
+			(char *) ttyControl.c_str(),
 			(char *) imagefile.c_str(),
 			NULL
 		};

@@ -32,13 +32,12 @@ class SerialControl
 	protected:
 		bool hasChild();
 		bool isOpen();
-		bool openTty();
+		bool openTty(const std::string tty);
 		void closeTty();
 		bool endChild(bool killChild);
 		bool controlDTR(bool enable);
 		int port;
 		pid_t childPid;
-		std::string tty;
 		struct termios oldsertio;
 };
 
