@@ -8,7 +8,18 @@ Mote::Mote(std::string& p_mac, std::string& p_directory)
 	: SerialControl(), mac(p_mac), directory(p_directory)
 {
 	validate();
+	if (isvalid && !setupTty())
+		isvalid = false;
+
 	Log::info("Mote %s (%s) @ %s", mac.c_str(), platform.c_str(), path.c_str());
+}
+
+bool Mote::setupTty()
+{
+	if (!openTty())
+		return false;
+
+	return true;
 }
 
 
@@ -41,9 +52,6 @@ void Mote::validate()
 
 	tty = File::readLink(directory + "tty");
 	if (tty == "")
-		isvalid = false;
-
-	if (!isOpen() && !openTty())
 		isvalid = false;
 
 	if (!isvalid)
