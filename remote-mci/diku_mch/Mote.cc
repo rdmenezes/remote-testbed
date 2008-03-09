@@ -4,20 +4,28 @@ namespace remote { namespace diku_mch {
 
 using namespace remote::util;
 
+const std::string Mote::NONE = "none";
+const std::string Mote::START = "start";
+const std::string Mote::STOP = "stop";
+const std::string Mote::RESET = "reset";
+
 Mote::Mote(std::string& p_mac, std::string& p_directory)
 	: SerialControl(), mac(p_mac), directory(p_directory)
 {
 	validate();
-	if (isvalid && !setupTty())
+	if (isvalid && !setupTty(STOP))
 		isvalid = false;
 
 	Log::info("Mote %s (%s) @ %s", mac.c_str(), platform.c_str(), path.c_str());
 }
 
-bool Mote::setupTty()
+bool Mote::setupTty(const std::string cmd)
 {
 	if (!openTty())
 		return false;
+
+	if (cmd == START || cmd == STOP || cmd == RESET)
+		return power(cmd) == SUCCESS;
 
 	return true;
 }
@@ -100,9 +108,10 @@ result_t Mote::cancelProgramming()
 result_t Mote::getChildResult(bool force)
 {
 	bool success = endChild(force);
+	const std::string cmd = STOP;
 
 	remove(imagefile.c_str());
-	if (!setupTty())
+	if (!setupTty(cmd))
 		success = false;
 
 	return success ? SUCCESS : FAILURE;

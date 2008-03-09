@@ -55,8 +55,7 @@ bool SerialControl::openTty()
 	tcflush(port, TCIFLUSH);
 	tcsetattr(port, TCSANOW, &newsertio);
 
-	// open in a stopped state
-	return stop() == SUCCESS;
+	return true;
 }
 
 void SerialControl::closeTty()
