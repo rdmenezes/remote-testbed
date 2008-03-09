@@ -26,6 +26,7 @@ public:
 	static const std::string START;
 	static const std::string STOP;
 	static const std::string RESET;
+	static const std::string PROGRAM;
 
 	/** Create a new mote.
 	 *
@@ -134,6 +135,14 @@ public:
 	 */
 	const std::string& getPlatform();
 
+	/** Get control command.
+	 *
+	 * Get name of the command currently being executed.
+	 *
+	 * @return	Command name.
+	 */
+	const std::string& getControlCommand();
+
 private:
 	/** Setup TTY port.
 	 *
@@ -160,6 +169,7 @@ private:
 	std::string platform;	/**< Platform name. */
 	bool isvalid;		/**< Valid flag. */
 	bool isRunning;		/**< Mote is started or stopped? */
+	std::string controlCmd;	/**< The command being executed. */
 };
 
 }}
