@@ -56,6 +56,19 @@ public:
 	 */
 	result_t program(std::string tos, const uint8_t *image, uint32_t imagelen);
 
+	/** Cancel mote programming.
+	 *
+	 * @return		SUCCESS if mote was being programmed.
+	 */
+	result_t cancelProgramming();
+
+	/** Get result of exiting child.
+	 *
+	 * @param force		Whether to force the child to exit.
+	 * @return		SUCCESS if the child exited with code 0.
+	 */
+	result_t getChildResult(bool force = false);
+
 	/** Get MAC address.
 	 *
 	 * @return	The MAC address.

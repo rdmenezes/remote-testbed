@@ -29,8 +29,6 @@ class SerialControl
 		SerialControl();
 		~SerialControl();
 		bool runChild(char * const args[], char * const envp[]);
-		result_t getChildResult();
-		result_t cancelProgramming();
 		result_t reset();
 		result_t start();
 		result_t stop();
