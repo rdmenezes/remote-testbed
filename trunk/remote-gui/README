@@ -55,3 +55,4 @@ The following external libraries are required for the client modules:
 Additionally the main module making up the actual program needs:
 
 	idw-gpl.jar (version 1.4.0) 
+	jlfgr-1_0.jar
