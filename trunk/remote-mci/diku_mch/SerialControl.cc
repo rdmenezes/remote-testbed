@@ -14,7 +14,7 @@ SerialControl::~SerialControl()
 		closeTty();
 }
 
-bool SerialControl::openTty(const std::string tty)
+bool SerialControl::openTty(const std::string platform, const std::string tty)
 {
 	struct termios newsertio;
 
@@ -34,9 +34,13 @@ bool SerialControl::openTty(const std::string tty)
 
 	/*
 	 * 8 data, no parity, 1 stop bit. Ignore modem control lines. Enable
-	 * receive. Set 38400 baud rate. NO HARDWARE FLOW CONTROL!
+	 * receive. NO HARDWARE FLOW CONTROL!
 	 */
-	newsertio.c_cflag = B38400 | CS8 | CLOCAL | CREAD;
+	newsertio.c_cflag = CS8 | CLOCAL | CREAD;
+
+	/* Set baud rate. */
+	if (platform == "dig582-2")
+		newsertio.c_cflag |= B38400;
 
 	/* Raw input. Ignore errors and breaks. */
 	newsertio.c_iflag = IGNBRK | IGNPAR;

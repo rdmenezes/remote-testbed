@@ -164,6 +164,7 @@ private:
 	std::string mac;	/**< MAC address. */
 	std::string directory;	/**< Device directory path. */
 	std::string imagefile;	/**< Path to temporary flash image file. */
+	std::string controller;	/**< Path to mote control binary. */
 	std::string programmer;	/**< Path to mote programmer binary. */
 	std::string ttyControl;	/**< Path to control TTY. */
 	std::string ttyData;	/**< Path to console data TTY. */

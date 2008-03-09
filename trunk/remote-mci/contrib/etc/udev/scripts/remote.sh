@@ -6,7 +6,7 @@
 #
 # SYNOPSIS
 # --------
-# /etc/udev/scripts/remote.sh PLATFORM MOTEMAC MOTEPATH PROGRAMMER
+# /etc/udev/scripts/remote.sh PLATFORM MOTEMAC MOTEPATH PROGRAMMER CONTROLLER
 #
 # DESCRIPTION
 # -----------
@@ -44,6 +44,9 @@
 #
 #	The path to the mote flash programmer.
 #
+# CONTROLLER:
+#	The path to the external script for controlling the mote.
+#
 # ENVIRONMENT VARIABLES
 # ---------------------
 # The script has been designed to rely on as few environment variables
@@ -70,6 +73,13 @@
 #	Symlink to the mote flash programmer as specified via the
 #	PROGRAMMER option. The symlink is created by this script.
 #
+# /dev/remote/${MOTEMAC}/controller::
+#
+#	Symlink to the mote controller as specified via the CONTROLLER
+#	option. The symlink is created by this script. This option is
+#	relevant only for motes which need external script for their
+#	control.
+#
 # /dev/remote/${MOTEMAC}/tty::
 #
 #	Symlink to the tty device that can be used for controlling the
@@ -87,6 +97,7 @@
 # AUTHOR
 # ------
 # Copyright (c) 2007 Jonas Fonseca <fonseca@diku.dk>
+#		2008 Rostislav Spinar <rostislav.spinar@cit.ie>
 #
 ########################################################################
 # Configuration section
@@ -112,6 +123,7 @@ PLATFORM="$1"
 MOTEMAC="$2"
 MOTEPATH="$3"
 PROGRAMMER="$4"
+CONTROLLER="$5"
 
 info ()
 {
@@ -136,6 +148,10 @@ add)
 	echo "$PLATFORM" > "$DEVROOT/$MOTEMAC/platform"
 	ln -s "$PROGRAMMER" "$DEVROOT/$MOTEMAC/programmer" ||
 		die "Failed to create program symlink"
+	if [ -n "$CONTROLLER" ]
+		ln -s "$CONTROLLER" "$DEVROOT/$MOTEMAC/controller" ||
+			die "Failed to create program symlink"
+	fi
 	info "mote '$MOTEMAC' with path '$MOTEPATH' and platform '$PLATFORM'"
 	;;
 
