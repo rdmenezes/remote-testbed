@@ -326,7 +326,7 @@ void MoteHost::confirmRequest(Mote *mote, uint8_t command, result_t result)
 int MoteHost::main(int argc,char** argv)
 {
 	config.read(argc,argv);
-	Log::open("diku_mch", LOG_INFO);
+	Log::open("diku_mch", Log::INFO);
 	if (config.vm["daemonize"].as<int>()) {
 		switch (fork()) {
 		case -1:

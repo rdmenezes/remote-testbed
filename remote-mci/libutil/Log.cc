@@ -12,18 +12,18 @@
 namespace remote { namespace util {
 
 void
-Log::open(const char *ident, int level, FILE *file)
+Log::open(const char *ident, int level, const FILE *file)
 {
 	if (use_syslog()) {
 		closelog();
 	}
 
-	log_ident = ident;
-	log_level = level;
-	log_file = file;
+	Log::ident = ident;
+	Log::level = level;
+	Log::file = file;
 
 	if (use_syslog()) {
-		openlog(log_ident, 0, LOG_DAEMON);
+		openlog(Log::ident, 0, LOG_DAEMON);
 	}
 }
 
@@ -67,7 +67,17 @@ Log::put(int priority, const char *format, va_list params)
 
 	time(&t);
 	timestr = ctime(&t);
-	fprintf(log_file, "%s - %s %s\n", strsep(&timestr, "\n"), log_ident, buf);
+	fprintf((FILE *) Log::file, "%s - %s %s\n", strsep(&timestr, "\n"), Log::ident, buf);
+}
+
+void
+Log::fatal(const char *format, ...)
+{
+	va_list params;
+
+	va_start(params, format);
+	put(Log::FATAL, format, params);
+	va_end(params);
 }
 
 void
@@ -76,7 +86,7 @@ Log::error(const char *format, ...)
 	va_list params;
 
 	va_start(params, format);
-	put(LOG_ERR, format, params);
+	put(Log::ERROR, format, params);
 	va_end(params);
 }
 
@@ -86,7 +96,7 @@ Log::warn(const char *format, ...)
 	va_list params;
 
 	va_start(params, format);
-	put(LOG_WARNING, format, params);
+	put(Log::WARN, format, params);
 	va_end(params);
 }
 
@@ -96,7 +106,7 @@ Log::info(const char *format, ...)
 	va_list params;
 
 	va_start(params, format);
-	put(LOG_INFO, format, params);
+	put(Log::INFO, format, params);
 	va_end(params);
 }
 
@@ -106,12 +116,13 @@ Log::debug(const char *format, ...)
 	va_list params;
 
 	va_start(params, format);
-	put(LOG_DEBUG, format, params);
+	put(Log::DEBUG, format, params);
 	va_end(params);
 }
 
-const char *Log::log_ident;
-FILE *Log::log_file;
-int Log::log_level;
+const char *Log::ident;
+const FILE *Log::file;
+int Log::level;
+const FILE *Log::SYSLOG = NULL;
 
 }}
