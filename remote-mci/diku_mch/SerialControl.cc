@@ -113,7 +113,6 @@ bool SerialControl::endChild(bool killChild)
 	waitpid(childPid, &status, 0);
 	close(port);
 	port = childPid = -1;
-	openTty();
 
 	return killChild || (WIFEXITED(status) && WEXITSTATUS(status) == 0);
 }
