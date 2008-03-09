@@ -24,8 +24,6 @@ void Mote::invalidate()
 
 void Mote::validate()
 {
-	std::string oldTty = tty;
-
 	isvalid = true;
 	programmer = directory + "programmer";
 	if (programmer == "" || !File::exists(programmer))
