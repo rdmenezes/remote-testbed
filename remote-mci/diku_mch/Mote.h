@@ -101,18 +101,10 @@ public:
 	 */
 	const std::string& getPlatform();
 
-	/** Get path to flash image file.
-	 *
-	 * This path can be used to temporarily save flash images when a
-	 * mote is being reprogrammed.
-	 *
-	 * @return	Path to flash image file.
-	 */
-	std::string getImagePath();
-
 private:
 	std::string mac;	/**< MAC address. */
 	std::string directory;	/**< Device directory path. */
+	std::string imagefile;	/**< Path to temporary flash image file. */
 	std::string programmer;	/**< Path to mote programmer binary. */
 	std::string path;	/**< Physical device path. */
 	std::string platform;	/**< Platform name. */

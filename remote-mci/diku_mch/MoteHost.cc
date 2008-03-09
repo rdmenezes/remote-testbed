@@ -292,7 +292,6 @@ void MoteHost::handleMoteData(Mote* mote)
 	if (readlen <= 0) {
 		if (mote->getStatus() == MOTE_PROGRAMMING) {
 			Log::info("Programming done!");
-			remove(mote->getImagePath().c_str());
 			result_t result = mote->getChildResult();
 			confirmRequest(mote, MOTECOMMAND_PROGRAM, result);
 		}
