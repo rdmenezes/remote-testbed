@@ -9,7 +9,7 @@
 # both TMoteSky and MicaZ connected to the USB hub.
 
 
-DEVPATH=="/class/usb_device/*", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6010", RUN+="/etc/udev/scripts/remote.sh MicaZ 04036010%s{serial} %E{PHYSDEVPATH} /sbin/uisp"
+DEVPATH=="/class/usb_device/*", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6010", RUN+="/etc/udev/scripts/remote.sh MicaZ 04036010%s{serial} %E{PHYSDEVPATH} /sbin/program-mote.sh /sbin/control-mote.sh"
 
 ## Remove /dev/remote/{platform}{serial}/* files
 # The idVendor and idProduct attributes are not defined on some

@@ -11,7 +11,7 @@
 # NET4521 board comes without USB we had to use 
 # PCMCIA-USB card as a interface for USB hubs.
 
-SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", RUN+="/bin/bash -c '/etc/udev/scripts/remote.sh TMoteSky 04036001%s{serial} ${DEVPATH%%%%/tty*} /sbin/bsl'"
+SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", RUN+="/bin/bash -c '/etc/udev/scripts/remote.sh TMoteSky 04036001%s{serial} ${DEVPATH%%%%/tty*} /sbin/program-mote.sh /sbin/control-mote.sh'"
 
 ## Remove /dev/remote/{platform}{serial}/* files
 # The idVendor and idProduct attributes are not defined on some
