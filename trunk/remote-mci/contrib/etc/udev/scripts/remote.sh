@@ -90,9 +90,11 @@
 #
 # EXAMPLE
 # -------
-# As an example here is the arguments given in the dig528-2 UDEV rule:
+# As an example, the dig528-2 and MicaZ UDEV rules use the following
+# arguments:
 #
 #  /etc/udev/scripts/remote.sh dig528-2 0050C237%s{serial} %E{PHYSDEVPATH} /sbin/hc08sprg
+#  /etc/udev/scripts/remote.sh MicaZ 04036010%s{serial} %E{PHYSDEVPATH} /sbin/program-mote.sh /sbin/control-mote.sh
 #
 # AUTHOR
 # ------

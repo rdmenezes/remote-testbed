@@ -41,6 +41,10 @@ bool SerialControl::openTty(const std::string platform, const std::string tty)
 	/* Set baud rate. */
 	if (platform == "dig582-2")
 		newsertio.c_cflag |= B38400;
+	else if(platform == "TMoteSky")
+		newsertio.c_cflag = B115200;
+	else if (platform == "MicaZ")
+		newsertio.c_cflag = B57600;
 
 	/* Raw input. Ignore errors and breaks. */
 	newsertio.c_iflag = IGNBRK | IGNPAR;
