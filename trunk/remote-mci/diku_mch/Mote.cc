@@ -45,7 +45,7 @@ void Mote::validate()
 		isvalid = false;
 
 	if (!isvalid)
-		Log::warn("Mote %s @ %s is invalid", mac.c_str(), tty.c_str());
+		Log::warn("Mote %s is invalid", mac.c_str());
 }
 
 
@@ -73,7 +73,7 @@ result_t Mote::program(std::string tos, const uint8_t *image, uint32_t imagelen)
 			NULL
 		};
 
-		Log::info("Programming TTY %s", tty.c_str());
+		Log::info("Programming mote %s", mac.c_str());
 
 		if (runChild(args, envp))
 			return SUCCESS;
