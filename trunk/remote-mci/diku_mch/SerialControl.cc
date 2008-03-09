@@ -14,7 +14,7 @@ SerialControl::~SerialControl()
 		closeTty();
 }
 
-bool SerialControl::openTty()
+bool SerialControl::openTty(const std::string tty)
 {
 	struct termios newsertio;
 
