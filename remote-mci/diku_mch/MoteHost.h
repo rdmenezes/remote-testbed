@@ -73,6 +73,14 @@ private:
 	 */
 	static void handleMoteData(Mote *mote);
 
+	/** Send request confirmation message.
+	 *
+	 * @param mote		The mote for which the request was addressed.
+	 * @param command	The request command that was executed.
+	 * @param result	The result of the command execution.
+	 */
+	static void confirmRequest(Mote *mote, uint8_t command, result_t result);
+
 	/** Prepare plug event message payload.
 	 *
 	 * @param motelist	The mote map from which prepare the message.

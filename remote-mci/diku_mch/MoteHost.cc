@@ -262,15 +262,7 @@ void MoteHost::handleRequest(Mote* mote, MsgMoteAddresses& addresses, MsgRequest
 			return;
 	}
 
-	{
-		MsgConfirm msgConfirm(command, result, mote->getStatus());
-		MoteMsg moteMsg(msgConfirm);
-		MsgPayload msgPayload(moteMsg);
-		MsgHostConfirm msgHostConfirm(MSGHOSTCONFIRM_OK,addresses,msgPayload);
-		HostMsg hostMsg(msgHostConfirm);
-		Message msg;
-		msg.sendMsg(clientsock,hostMsg);
-	}
+	confirmRequest(mote, command, result);
 }
 
 void MoteHost::handleMoteData(Mote* mote)
@@ -302,17 +294,22 @@ void MoteHost::handleMoteData(Mote* mote)
 			Log::info("Programming done!");
 			remove(mote->getImagePath().c_str());
 			result_t result = mote->getChildResult();
-			MsgConfirm msgConfirm(MOTECOMMAND_PROGRAM, result, mote->getStatus());
-			MoteMsg moteMsg(msgConfirm);
-			MsgPayload msgPayload(moteMsg);
-			MsgHostConfirm msgHostConfirm(MSGHOSTCONFIRM_OK,msgMoteAddresses,msgPayload);
-			HostMsg hostMsg(msgHostConfirm);
-			Message msg;
-			msg.sendMsg(clientsock,hostMsg);
+			confirmRequest(mote, MOTECOMMAND_PROGRAM, result);
 		}
 	}
 }
 
+void MoteHost::confirmRequest(Mote *mote, uint8_t command, result_t result)
+{
+	MsgMoteAddresses addresses(mote->getMac());
+	MsgConfirm msgConfirm(command, result, mote->getStatus());
+	MoteMsg moteMsg(msgConfirm);
+	MsgPayload msgPayload(moteMsg);
+	MsgHostConfirm msgHostConfirm(MSGHOSTCONFIRM_OK,addresses,msgPayload);
+	HostMsg hostMsg(msgHostConfirm);
+	Message msg;
+	msg.sendMsg(clientsock, hostMsg);
+}
 
 int MoteHost::main(int argc,char** argv)
 {
