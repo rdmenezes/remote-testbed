@@ -9,16 +9,40 @@ namespace remote { namespace util {
 
 class Log {
 	public:
+		/** Log level specifiers
+		 *
+		 * The following log levels can be used to specify the default
+		 * log level when opening a log. They are listed in the order
+		 * of priority starting with the most important. When
+		 * specifying the log level, messages with higher priorities
+		 * are automatically included, e.g. Log::INFO will include
+		 * Log::ERROR and Log::FATAL.
+		 *
+		 * The specifiers all maps internally to syslog priorities as
+		 * defined in <syslog.h>.
+		 */
+		enum {
+			FATAL = LOG_EMERG,
+			ERROR = LOG_ERR,
+			WARN  = LOG_WARNING,
+			INFO  = LOG_INFO,
+			DEBUG = LOG_DEBUG,
+		};
+
+		/** Syslog specifier
+		 *
+		 * May be passed when opening a log, to specify that
+		 * syslog should be used. E.g.:
+		 *
+		 * 	Log::open("remote-mch", Log::INFO, Log::SYSLOG);
+		 */
+		static const FILE *SYSLOG;
+
 		/** Setup logging
 		 *
 		 * Configures the various logging options and prepares
 		 * for future calls to redirect messages to the
 		 * requested place.
-		 *
-		 * The default log level can be one of the log level
-		 * identifier defined by the <syslog.h> system header:
-		 * LOG_EMERG, LOG_ERR, LOG_WARNING, LOG_INFO, or
-		 * LOG_DEBUG.
 		 *
 		 * The log file is an ordinary file handle. It should be
 		 * a file opened in append mode. To use syslog, pass NULL.
@@ -30,14 +54,13 @@ class Log {
 		 *			than this will be discarded.
 		 * @param file		The log file handle.
 		 */
-		static void open(const char *ident, int level = LOG_DEBUG,
-				 FILE *file = stdout);
+		static void open(const char *ident, int level = Log::INFO,
+				 const FILE *file = stdout);
 
 		/** Fatal error message
 		 *
 		 * An emergency condition occurred rendering the system
-		 * unusable. When syslog is enabled this will map to a
-		 * LOG_EMERG message.
+		 * unusable.
 		 */
 		static void fatal(const char *format, ...);
 
@@ -67,13 +90,13 @@ class Log {
 
 	private:
 		static void put(int priority, const char *format, va_list params);
-		static const char *log_ident;
-		static FILE *log_file;
-		static int log_level;
+		static const char *ident;
+		static const FILE *file;
+		static int level;
 
 		static inline bool use_syslog()
 		{
-			return log_file == NULL;
+			return Log::file == SYSLOG;
 		}
 
 		/* This might be a bad hardcoded way to discard messages of
@@ -81,7 +104,7 @@ class Log {
 		 * glibc states that EMERG < ERR < WARNING < INFO < DEBUG. */
 		static inline bool ignore(int priority)
 		{
-			return priority > log_level;
+			return priority > Log::level;
 		}
 };
 
