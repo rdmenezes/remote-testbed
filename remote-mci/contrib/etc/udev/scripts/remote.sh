@@ -150,7 +150,7 @@ add)
 	echo "$PLATFORM" > "$DEVROOT/$MOTEMAC/platform"
 	ln -s "$PROGRAMMER" "$DEVROOT/$MOTEMAC/programmer" ||
 		die "Failed to create program symlink"
-	if [ -n "$CONTROLLER" ]
+	if [ -n "$CONTROLLER" ]; then
 		ln -s "$CONTROLLER" "$DEVROOT/$MOTEMAC/controller" ||
 			die "Failed to create program symlink"
 	fi
