@@ -102,6 +102,12 @@ public:
 	const std::string& getPlatform();
 
 private:
+	/** Setup TTY port.
+	 *
+	 * @return	True if setup succeeded.
+	 */
+	bool setupTty();
+
 	std::string mac;	/**< MAC address. */
 	std::string directory;	/**< Device directory path. */
 	std::string imagefile;	/**< Path to temporary flash image file. */
