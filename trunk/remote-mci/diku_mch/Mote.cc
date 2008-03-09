@@ -102,6 +102,9 @@ result_t Mote::getChildResult(bool force)
 	bool success = endChild(force);
 
 	remove(imagefile.c_str());
+	if (!setupTty())
+		success = false;
+
 	return success ? SUCCESS : FAILURE;
 }
 
