@@ -15,11 +15,10 @@ BUILDDIR	= build
 CLASSDIR	= $(BUILDDIR)/classes
 BOOTDIR		= $(BUILDDIR)/boot
 DOCDIR		= $(BUILDDIR)/doc
+MAINJAR		= $(BOOTDIR)/main/main.jar
+MAINSRC		= $(shell find src/ -name "*.java")
 BOOTJAR		= boot/one-jar-boot-0.95.jar
 BOOTMANIFEST	= boot/manifest.txt
-MAINJAR		= main/main.jar
-MAINMANIFEST	= main/manifest.txt
-MAINSRC		= $(shell find src/ -name "*.java")
 REMOTEJAR	= Re-Mote.jar
 
 WSJARS		= activation.jar axis.jar commons-discovery-0.2.jar \
@@ -36,7 +35,7 @@ export CLASSPATH
 all: $(REMOTEJAR)
 
 clean:
-	$(RM) -r $(BUILDDIR) $(REMOTEJAR) $(MAINJAR) tags
+	$(RM) -r $(BUILDDIR) $(REMOTEJAR) tags
 
 tags:
 	$(CTAGS) $(MAINSRC)
@@ -58,10 +57,11 @@ $(REMOTEJAR): $(MAINJAR) $(WSLIBDIRJARS)
 	cd $(BOOTDIR) && $(JAR) xf $(PWD)/$(BOOTJAR)
 	cp $(WSLIBDIRJARS) $(BOOTDIR)/lib
 	$(JAR) cmf $(BOOTMANIFEST) $@ -C $(BOOTDIR) . && \
-	$(JAR) uf $@ icons config lib $(MAINJAR) || \
+	$(JAR) uf $@ icons config lib || \
 	$(RM) $@
 
 $(MAINJAR): $(MAINSRC)
-	@mkdir -p $(CLASSDIR)
+	@mkdir -p $(CLASSDIR) $(@D)
 	$(JAVAC) -d $(CLASSDIR) $(MAINSRC)
-	$(JAR) cmf $(MAINMANIFEST) $@ -C $(CLASSDIR) .
+	echo "Main-Class: gui.ReMote" > $(@D)/manifest.txt
+	$(JAR) cmf $(@D)/manifest.txt $@ -C $(CLASSDIR) .
