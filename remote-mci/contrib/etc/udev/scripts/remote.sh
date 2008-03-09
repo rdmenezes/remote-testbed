@@ -44,7 +44,8 @@
 #
 #	The path to the mote flash programmer.
 #
-# CONTROLLER:
+# CONTROLLER::
+#
 #	The path to the external script for controlling the mote.
 #
 # ENVIRONMENT VARIABLES
@@ -57,36 +58,37 @@
 #
 # FILES
 # -----
-# /dev/remote/${MOTEMAC}/path::
+# /dev/remote/MOTEMAC/path::
 #
 #	The physical UDEV device path (or similar) for the mote device
 #	with the given MAC address. This file is created by this script
 #	using the MOTEPATH command line argument.
 #
-# /dev/remote/${MOTEMAC}/platform::
+# /dev/remote/MOTEMAC/platform::
 #
 #	This file contains the name of the mote platform and is created
 #	by this script using the MOTEPLATFORM command line argument.
 #
-# /dev/remote/${MOTEMAC}/programmer::
+# /dev/remote/MOTEMAC/programmer::
 #
 #	Symlink to the mote flash programmer as specified via the
 #	PROGRAMMER option. The symlink is created by this script.
 #
-# /dev/remote/${MOTEMAC}/controller::
+# /dev/remote/MOTEMAC/controller::
 #
 #	Symlink to the mote controller as specified via the CONTROLLER
 #	option. The symlink is created by this script. This option is
 #	relevant only for motes which need external script for their
 #	control.
 #
-# /dev/remote/${MOTEMAC}/tty::
+# /dev/remote/MOTEMAC/tty/control::
+# /dev/remote/MOTEMAC/tty/data::
 #
-#	Symlink to the tty device that can be used for controlling the
-#	mote with the given MAC address. This should be set up using a
-#	UDEV rule containing the SYMLINK key. This script assumes that
-#	the tty symlink exists when it is called. If this is not the
-#	case it will error out.
+#	Symlink to the data and control tty devices that can be used for
+#	reading console output and controlling the mote with the given
+#	MAC address. This should be set up using a UDEV rule containing
+#	the SYMLINK key. This script assumes that the tty symlink exists
+#	when it is called. If this is not the case it will error out.
 #
 # EXAMPLE
 # -------
