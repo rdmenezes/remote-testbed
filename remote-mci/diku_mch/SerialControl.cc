@@ -100,16 +100,6 @@ bool SerialControl::runChild(char * const args[], char * const envp[])
 	return hasChild();
 }
 
-result_t SerialControl::getChildResult()
-{
-	return endChild(false) ? SUCCESS : FAILURE;
-}
-
-result_t SerialControl::cancelProgramming()
-{
-	return endChild(true) ? SUCCESS : FAILURE;
-}
-
 bool SerialControl::endChild(bool killChild)
 {
 	int status;

@@ -84,6 +84,18 @@ result_t Mote::program(std::string tos, const uint8_t *image, uint32_t imagelen)
 	return FAILURE;
 }
 
+result_t Mote::cancelProgramming()
+{
+	return getChildResult(true);
+}
+
+result_t Mote::getChildResult(bool force)
+{
+	bool success = endChild(force);
+
+	return success ? SUCCESS : FAILURE;
+}
+
 
 const std::string& Mote::getMac()
 {
