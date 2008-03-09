@@ -8,9 +8,11 @@ const std::string Mote::NONE = "none";
 const std::string Mote::START = "start";
 const std::string Mote::STOP = "stop";
 const std::string Mote::RESET = "reset";
+const std::string Mote::PROGRAM = "program";
 
 Mote::Mote(std::string& p_mac, std::string& p_directory)
-	: SerialControl(), mac(p_mac), directory(p_directory), isRunning(false)
+	: SerialControl(), mac(p_mac), directory(p_directory), isRunning(false),
+	  controlCmd(NONE)
 {
 	validate();
 	if (isvalid && !setupTty(STOP))
@@ -133,8 +135,10 @@ result_t Mote::program(std::string tos, const uint8_t *image, uint32_t imagelen)
 
 		Log::info("Programming mote %s", mac.c_str());
 
-		if (runChild(args, envp))
+		if (runChild(args, envp)) {
+			controlCmd = PROGRAM;
 			return SUCCESS;
+		}
 
 		remove(imagefile.c_str());
 	}
@@ -144,28 +148,40 @@ result_t Mote::program(std::string tos, const uint8_t *image, uint32_t imagelen)
 
 result_t Mote::cancelProgramming()
 {
+	if (getControlCommand() != PROGRAM)
+		return FAILURE;
+
 	return getChildResult(true);
 }
 
 result_t Mote::getChildResult(bool force)
 {
 	bool success = endChild(force);
-	const std::string cmd = STOP;
+	bool afterProgramming = controlCmd == PROGRAM;
+	const std::string cmd = afterProgramming ? STOP : NONE;
 
-	remove(imagefile.c_str());
+	if (afterProgramming)
+		remove(imagefile.c_str());
 	if (!setupTty(cmd))
 		success = false;
 
+	controlCmd = NONE;
 	return success ? SUCCESS : FAILURE;
 }
 
 
 status_t Mote::getStatus()
 {
-	if (hasChild()) return MOTE_PROGRAMMING;
+	if (hasChild() && controlCmd == PROGRAM)
+		return MOTE_PROGRAMMING;
 	if (!isOpen()) return MOTE_UNAVAILABLE;
 	if (isRunning) return MOTE_RUNNING;
 	return MOTE_STOPPED;
+}
+
+const std::string& Mote::getControlCommand()
+{
+	return hasChild() ? controlCmd : NONE;
 }
 
 

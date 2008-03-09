@@ -237,9 +237,6 @@ void MoteHost::handleRequest(Mote* mote, MsgMoteAddresses& addresses, MsgRequest
 			result = mote->program(addresses.getTosAddress(),
 					       request.getFlashImage().getData(),
 					       request.getFlashImage().getDataLength());
-			// don't confirm until programming is done
-			if (result == SUCCESS)
-				return;
 			break;
 		case MOTECOMMAND_CANCELPROGRAMMING:
 			Log::info("User cancelling programming");
@@ -261,6 +258,10 @@ void MoteHost::handleRequest(Mote* mote, MsgMoteAddresses& addresses, MsgRequest
 			Log::error("Unkown command %u", command);
 			return;
 	}
+
+	/* Postpone confirmation for long running control commands. */
+	if (mote->getControlCommand() != Mote::NONE)
+		return;
 
 	confirmRequest(mote, command, result);
 }
@@ -288,13 +289,19 @@ void MoteHost::handleMoteData(Mote* mote)
 		}
 	}
 
-	// check if we're done programming
+	/* Check if we're done executing an external command. */
 	if (readlen <= 0) {
-		if (mote->getStatus() == MOTE_PROGRAMMING) {
-			Log::info("Programming done!");
-			result_t result = mote->getChildResult();
-			confirmRequest(mote, MOTECOMMAND_PROGRAM, result);
-		}
+		const std::string controlCmd = mote->getControlCommand();
+		uint8_t command;
+
+		if (controlCmd == Mote::PROGRAM)
+			command = MOTECOMMAND_PROGRAM;
+		else
+			return;
+
+		confirmRequest(mote, command, mote->getChildResult());
+		Log::info("Mote %s %s done!", mote->getMac().c_str(),
+			  controlCmd.c_str());
 	}
 }
 
