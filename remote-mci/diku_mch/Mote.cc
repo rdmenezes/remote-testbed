@@ -200,7 +200,6 @@ result_t Mote::getChildResult(bool force)
 	if (!setupTty(cmd))
 		success = false;
 
-	controlCmd = NONE;
 	return success ? SUCCESS : FAILURE;
 }
 
