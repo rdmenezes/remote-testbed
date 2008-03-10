@@ -9,7 +9,7 @@ import motedata.SimpleTable;
 /** Service class for getting mote data.
  *
  * The mote data can be anything from availability information, mote
- * attributes such as MAC and TOS address, as well as site attributes
+ * attributes such as MAC and net address, as well as site attributes
  * such as position.
  */
 public class MoteData {
