@@ -47,7 +47,7 @@ doc:
 	$(JAVADOC) -d $(DOCDIR) $(MAINSRC)
 
 test-build: $(MAINJAR)
-	$(JAVA) gui.ReMote
+	$(JAVA) remote.gui.ReMote
 
 test-jar: $(REMOTEJAR)
 	$(JAVA) -jar $(REMOTEJAR)
@@ -63,5 +63,5 @@ $(REMOTEJAR): $(MAINJAR) $(WSLIBDIRJARS)
 $(MAINJAR): $(MAINSRC)
 	@mkdir -p $(CLASSDIR) $(@D)
 	$(JAVAC) -d $(CLASSDIR) $(MAINSRC)
-	echo "Main-Class: gui.ReMote" > $(@D)/manifest.txt
+	echo "Main-Class: remote.gui.ReMote" > $(@D)/manifest.txt
 	$(JAR) cmf $(@D)/manifest.txt $@ -C $(CLASSDIR) .
