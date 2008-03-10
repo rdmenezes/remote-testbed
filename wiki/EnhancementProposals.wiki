@@ -24,3 +24,5 @@ None of the ideas and suggestions on this page carry any meaning other than give
  * Fill a new database with sane defaults (0/0/0-position, default site, admin-user/project, allow host connections from 127.0.0.1).
 
  * Conditionally #include header files based on config/config.h
+
+ * Re-Mote Eclipse plugin
