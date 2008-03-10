@@ -60,9 +60,10 @@ public class OrderingsAllMotesView {
 
 		protected static String getToolTip(TableRow row) {
 			try {
-				//return "mote";
-				return row.get("tosaddress") + " - (" + row.get("macaddress")
-						+ ") @ " + row.get("site");
+				return row.get("tosaddress")
+				     + " - " + row.get("platform")
+				     + " (" + row.get("macaddress") + ") @ "
+				     + row.get("site");
 			} catch (Exception e) {
 				e.printStackTrace();
 				return "";
