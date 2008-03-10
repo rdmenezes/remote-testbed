@@ -29,10 +29,6 @@ Not a lot will change on the client side, but it should be polished a bit, espec
 
  * Issue 16: This should both improve error handling during start-up and make it possible to configure MCS server and port via a dialog.
 
- * Issue 25: Improve handling of defunct motes.
-
- * Issue 26: Add message board web service to announce testbed updates.
-
  * Issue 30: Improve MCS mysql exception handling.
 
 === Security ===
@@ -71,8 +67,6 @@ Changes to the "backbone" infrastructure is the main focus. The plan is to make 
 
  * Issue 10: Remove the `tosaddress` and `macaddress` site specific tables.
 
- * Issue 22: Make logging easier and more configurable.
-
  * Issue 15: Reorganizing the GUI code will make it more hackable in Java IDEs, which are very good at catching stuff like deprecated methods.
 
 === Performance ===
@@ -87,6 +81,8 @@ Open issues sorted by [http://code.google.com/p/remote-testbed/issues/list?q=lab
 
  * Issue 12: Add application to make testbed administration easier. Crucial for large testbeds.
 
+ * Issue 26: Add message board web service to announce testbed updates.
+
  * Issue 28: Rename TOSADDRESS to NETADDRESS
 
 === Infrastructure ===
@@ -97,6 +93,8 @@ Open issues sorted by [http://code.google.com/p/remote-testbed/issues/list?q=lab
 
  * Issue 19: Use inotify in MCH to watch the device hierarchy
 
+ * Issue 22: Make logging easier and more configurable.
+
 == Re-Mote Testbed Framework version "future" ==
 
 Open issues sorted by [http://code.google.com/p/remote-testbed/issues/list?q=label:milestone-future&can=2&x=component&y=status&mode=grid status] or [http://code.google.com/p/remote-testbed/issues/list?q=label:milestone-future&can=2&x=component&y=priority&mode=grid     priority]. [http://code.google.com/p/remote-testbed/issues/list?q=label:milestone-future&can=1 All] issues belonging to this milestone.
@@ -104,6 +102,8 @@ Open issues sorted by [http://code.google.com/p/remote-testbed/issues/list?q=lab
 === Usability ===
 
  * Issue 27: Bring together different sites based on the Re-Mote infrastructure
+
+ * Issue 25: Improve handling of defunct motes.
 
 === Interoperability ===
 
