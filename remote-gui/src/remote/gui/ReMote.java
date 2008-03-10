@@ -89,6 +89,14 @@ import remote.gui.util.TableRowOrdering;
 
 public class ReMote extends JFrame implements SessionEventListener,AuthenticationListener {
 
+private String aboutText
+		= "Re-Mote client version 1.0\n\n"
+		+ " - Written by Esben Zeuthen, Jonas Fonseca and Rosta Spinar\n\n"
+		+ "This software uses InfoNode Docking Windows "
+		+ "http://www.infonode.net)\n\n"
+		+ "This software is free of charge and is available from "
+		+ "http://remote-testbed.googlecode.com/";
+	
 	private static int VIEW_ALL_MOTES = 0;
 
 	private static int VIEW_CONTROLLED_MOTES = 1;
@@ -100,11 +108,6 @@ public class ReMote extends JFrame implements SessionEventListener,Authenticatio
 	private DockingWindowListener viewListener = null;
 
 	private JMenuBar jJMenuBar = null;
-
-	private JMenu helpMenu = null;
-
-
-	private JMenuItem aboutMenuItem = null;
 
 	private RootWindow rootWindow = null;
 
@@ -159,10 +162,6 @@ public class ReMote extends JFrame implements SessionEventListener,Authenticatio
 			g.setColor(oldColor);
 		}
 	};
-
-
-
-	private JMenuItem quickHelpMenuItem;
 
 	protected HashMap moteViews = new HashMap();
 
@@ -384,59 +383,35 @@ public class ReMote extends JFrame implements SessionEventListener,Authenticatio
 			});
 			//submenu.add(menuitem);
 			jJMenuBar.add(submenu);
+			// HELP MENU
+			submenu = new JMenu("Help");
+
+			menuitem = new JMenuItem();
+			menuitem.setText("About Re-Mote...");
+			menuitem.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					JTextPane about = new JTextPane();
+					about.setText(aboutText);
+					about.setEditable(false);
+					JDialog aboutDialog = new JDialog(ReMote.this,"About Re-Mote",true);
+					aboutDialog.add(about, BorderLayout.CENTER);
+					Dimension prefSize = about.getPreferredSize();
+					if (prefSize.width > 400)
+						prefSize.width = 400;
+					if (prefSize.height > 400)
+						prefSize.height = 400;
+
+					aboutDialog.setSize(prefSize);
+					aboutDialog.setVisible(true);
+				}
+			});
+			submenu.add(menuitem);
+			jJMenuBar.add(submenu);
+
 		}
 		return jJMenuBar;
 	}
 
-	/**
-	 * This method initializes jMenu
-	 *
-	 * @return javax.swing.JMenu
-	 */
-	private JMenu getHelpMenu() {
-		if (helpMenu == null) {
-			helpMenu = new JMenu();
-			helpMenu.setText("Help");
-			helpMenu.add(getQuickHelpMenuItem());
-			helpMenu.add(getAboutMenuItem());
-		}
-		return helpMenu;
-	}
-
-	private JMenuItem getAboutMenuItem() {
-		if (aboutMenuItem == null) {
-			aboutMenuItem = new JMenuItem();
-			aboutMenuItem.setText("About Re-Mote...");
-			aboutMenuItem.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					JTextArea aboutText = new JTextArea("Re-Mote version 0.9 by Esben Zeuthen\n\n" +
-						"This software uses InfoNode Docking Windows (http://www.infonode.net)\n\n" +
-						"This software is free of charge and is available from http://www.sf.net/projects/re-mote");
-					aboutText.setEditable(false);
-					aboutText.setLineWrap(true);
-					aboutText.setWrapStyleWord(true);
-					JDialog aboutDialog = new JDialog(ReMote.this,"About Re-Mote",true);
-					aboutDialog.add(aboutText,BorderLayout.CENTER);
-					aboutDialog.setSize(200,200);
-					aboutDialog.setVisible(true);
-				}
-			});
-		}
-		return aboutMenuItem;
-	}
-
-	private JMenuItem getQuickHelpMenuItem() {
-		if (quickHelpMenuItem == null) {
-			quickHelpMenuItem = new JMenuItem();
-			//quickHelpMenuItem.setText("Quick help...");
-			quickHelpMenuItem.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-
-				}
-			});
-		}
-		return quickHelpMenuItem;
-	}
 
 	private View getAllMotesView() {
 		try {
