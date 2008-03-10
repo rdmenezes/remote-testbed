@@ -14,6 +14,9 @@ public class IconResources {
 	public static ImageIcon RESET_MOTE;
 	public static ImageIcon MOTE_CONSOLE;
 	public static ImageIcon MOTE_RELEASE;
+	public static ImageIcon MOTE_DIG528_2;
+	public static ImageIcon MOTE_MICAZ;
+	public static ImageIcon MOTE_TMOTE_SKY;
 	public static ImageIcon CONSOLE_CLEAR;
 	public static ImageIcon VIEW_REFRESH;
 	public static ImageIcon ERROR;
@@ -41,6 +44,9 @@ public class IconResources {
 		RESET_MOTE = new ImageIcon(IconResources.class.getResource("/icons/redo16.gif"));
 		MOTE_CONSOLE = new ImageIcon(IconResources.class.getResource("/toolbarButtonGraphics/development/Host16.gif"));
 		MOTE_RELEASE = new ImageIcon(IconResources.class.getResource("/toolbarButtonGraphics/general/Delete16.gif"));
+		MOTE_DIG528_2 = new ImageIcon(IconResources.class.getResource("/icons/mote-dig528-2.png"));
+		MOTE_MICAZ = new ImageIcon(IconResources.class.getResource("/icons/mote-micaz.png"));
+		MOTE_TMOTE_SKY = new ImageIcon(IconResources.class.getResource("/icons/mote-tmote-sky.png"));
 		CONSOLE_CLEAR = new ImageIcon(IconResources.class.getResource("/icons/delete16.gif"));
 		VIEW_REFRESH = new ImageIcon(ReMote.class.getResource("/toolbarButtonGraphics/general/Refresh16.gif"));
 		ERROR = new ImageIcon(ReMote.class.getResource("/icons/error.png"));

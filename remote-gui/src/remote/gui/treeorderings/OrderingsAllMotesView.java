@@ -23,29 +23,36 @@ public class OrderingsAllMotesView {
 		protected MoteNodeRenderer(Comparable key, TableRow row) {
 			super(key);
 			mote.setBackground(new Color(0, true));
-			String labeltext = "";
-			ImageIcon icon = IconResources.MOTE;
-			JLabel label = new JLabel(icon);
-
-			icon = null;
-			labeltext = key.toString();
+			ImageIcon moteicon = IconResources.MOTE;
+			ImageIcon usageicon = null;
 			try {
+				String platform = row.get("platform").toString();
+				if (platform.equalsIgnoreCase("micaz")) {
+					moteicon = IconResources.MOTE_MICAZ;
+				} else if (platform.equalsIgnoreCase("tmotesky")) {
+					moteicon = IconResources.MOTE_TMOTE_SKY;
+				} else if (platform.equalsIgnoreCase("dig528-2")) {
+					moteicon = IconResources.MOTE_DIG528_2;
+				}
+
 				String availability = row.get("mote_usage").toString();
 				if (availability.equals("available")) {
-					icon = null;
+					usageicon = null;
 				} else if (availability.equals("occupied")) {
-					icon = IconResources.MOTE_OCCUPIED;
+					usageicon = IconResources.MOTE_OCCUPIED;
 				} else if (availability.equals("controlled")) {
-					icon = IconResources.MOTE_CONTROLLED;
+					usageicon = IconResources.MOTE_CONTROLLED;
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			label.setText(labeltext);
+
+			JLabel label = new JLabel(moteicon);
+			label.setText(key.toString());
 			mote.setToolTipText(getToolTip(row));
 			mote.add(label);
-			if (icon != null) {
-				mote.add(new JLabel(icon));
+			if (usageicon != null) {
+				mote.add(new JLabel(usageicon));
 			}
 		}
 
@@ -95,7 +102,6 @@ public class OrderingsAllMotesView {
 
 	/**public static TableRowOrdering BY_MOTE_ID
 	= new RenderableOrdering("mote_id","mote_id",true);**/
-
 
 	public static TableRowOrdering[] orderings
 	= { BY_TOS,BY_MAC,BY_USAGE };
