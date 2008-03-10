@@ -234,7 +234,7 @@ private String aboutText
 	public static void main(String[] args) throws Exception {
 		// UIManager.setLookAndFeel(new InfoNodeLookAndFeel());
 		ReMote application = new ReMote();
-		application.show();
+		application.setVisible(true);
 	}
 
 	/**
