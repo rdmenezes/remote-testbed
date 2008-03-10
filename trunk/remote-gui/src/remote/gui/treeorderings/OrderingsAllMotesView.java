@@ -1,8 +1,5 @@
 package remote.gui.treeorderings;
 
-import remote.gui.ReMote;
-import remote.gui.RenderableTreeNode;
-
 import java.awt.Color;
 import java.awt.Component;
 
@@ -12,6 +9,9 @@ import javax.swing.JPanel;
 
 import remote.gui.util.MoteControlRow;
 import remote.gui.util.TableRowOrdering;
+import remote.gui.ReMote;
+import remote.gui.RenderableTreeNode;
+import remote.gui.IconResources;
 
 import remote.service.motedata.client.TableRow;
 
@@ -24,28 +24,19 @@ public class OrderingsAllMotesView {
 			super(key);
 			mote.setBackground(new Color(0, true));
 			String labeltext = "";
-			java.net.URL imageURL = ReMote.class
-					.getResource("/icons/mote16x16.png");
-			ImageIcon icon = new ImageIcon(imageURL);
+			ImageIcon icon = IconResources.MOTE;
 			JLabel label = new JLabel(icon);
+
+			icon = null;
+			labeltext = key.toString();
 			try {
-				labeltext = key.toString();
-				imageURL = null;
 				String availability = row.get("mote_usage").toString();
 				if (availability.equals("available")) {
-					imageURL = null;
-				/*} else if (availability.equals("available_project")) {
-					imageURL = ReMote.class.getResource("/icons/clock.png");
-
-				} else if (availability.equals("reserved")) {
-					imageURL = ReMote.class.getResource("/icons/lock_off.png");*/
-
+					icon = null;
 				} else if (availability.equals("occupied")) {
-					imageURL = ReMote.class.getResource("/icons/lock_on.png");
-				/*} else if (availability.equals("occupied_project")) {
-					imageURL = ReMote.class.getResource("/icons/lock_on.png");*/
+					icon = IconResources.MOTE_OCCUPIED;
 				} else if (availability.equals("controlled")) {
-					imageURL = ReMote.class.getResource("/icons/user.gif");
+					icon = IconResources.MOTE_CONTROLLED;
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -53,8 +44,8 @@ public class OrderingsAllMotesView {
 			label.setText(labeltext);
 			mote.setToolTipText(getToolTip(row));
 			mote.add(label);
-			if (imageURL != null) {
-				mote.add(new JLabel(new ImageIcon(imageURL)));
+			if (icon != null) {
+				mote.add(new JLabel(icon));
 			}
 		}
 
