@@ -55,7 +55,7 @@ TTY="$1"
 IMAGE="$2"
 
 #Have it as a env. variable
-NETADDRESS="$tosaddress"
+NETADDRESS="$netaddress"
 PLATFORM="$platform"
 
 IMAGEHEX="${IMAGE%.*}".ihex
@@ -83,12 +83,12 @@ if [[ ! -e "$IMAGE" ]]; then
 fi
 
 #This works for TOS1 & TOS2
+echo "$PLATFORM : changing node id..."
+echo "$PLATFORM : changing node id..."
+echo "$PLATFORM : programming image..."
+
 case "$PLATFORM" in
 	"TMoteSky")
-		echo "$PLATFORM : changing node id..."
-		echo "$PLATFORM : converting flash image (Intel Hex)..."
-		echo "$PLATFORM : programming image..."
-
 		#echo "tos-set-symbols --objcopy msp430-objcopy --objdump msp430-objdump --exe $IMAGE $IMAGE TOS_LOCAL_ADDRESS=$NETADDRESS TOS_NODE_ID=$NETADDRESS ActiveMessageAddressC\$addr=$NETADDRESS"
 		tos-set-symbols --objcopy msp430-objcopy --objdump msp430-objdump --exe "$IMAGE" "$IMAGE" TOS_LOCAL_ADDRESS="$NETADDRESS" TOS_NODE_ID="$NETADDRESS" ActiveMessageAddressC\$addr="$NETADDRESS" > /dev/null 2>&1
 
@@ -107,10 +107,6 @@ case "$PLATFORM" in
 		rm -f "$IMAGEHEX"
 		;;
 	"MicaZ")
-		echo "$PLATFORM : changing node id..."
-		echo "$PLATFORM : converting flash image (Intel Hex)..."
-		echo "$PLATFORM : programming image..."
-		
 		#echo "tos-set-symbols --exe $IMAGE $IMAGE TOS_LOCAL_ADDRESS=$NETADDRESS TOS_NODE_ID=$NETADDRESS ActiveMessageAddressC\$addr=$NETADDRESS"
 		tos-set-symbols --exe "$IMAGE" "$IMAGE" TOS_LOCAL_ADDRESS="$NETADDRESS" TOS_NODE_ID="$NETADDRESS" ActiveMessageAddressC\$addr="$NETADDRESS" > /dev/null 2>&1
 

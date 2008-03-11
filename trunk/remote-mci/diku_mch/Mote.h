@@ -77,12 +77,12 @@ public:
 	 *
 	 * This will fork a child process to do the actual programming.
 	 *
-	 * @param tos		The tos address of the mote.
+	 * @param netaddress	The net address of the mote.
 	 * @param image		The flash image which to use.
 	 * @param imagelen	The length of the flash image data.
 	 * @return		SUCCESS if the programming was started.
 	 */
-	result_t program(std::string tos, const uint8_t *image, uint32_t imagelen);
+	result_t program(std::string netaddress, const uint8_t *image, uint32_t imagelen);
 
 	/** Cancel mote programming.
 	 *

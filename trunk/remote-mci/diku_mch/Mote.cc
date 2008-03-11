@@ -139,14 +139,14 @@ result_t Mote::power(const std::string cmd)
 }
 
 
-result_t Mote::program(std::string tos, const uint8_t *image, uint32_t imagelen)
+result_t Mote::program(std::string net, const uint8_t *image, uint32_t imagelen)
 {
 	if (hasChild())
 		return FAILURE;
 
 	if (File::writeFile(imagefile, image, imagelen)) {
 		std::string mac_env = "macaddress=" + mac;
-		std::string tos_env = "tosaddress=" + tos;
+		std::string net_env = "netaddress=" + net;
 		std::string platform_env = "platform=" + platform;
 		char * const args[] = {
 			(char *) programmer.c_str(),
@@ -156,7 +156,7 @@ result_t Mote::program(std::string tos, const uint8_t *image, uint32_t imagelen)
 		};
 		char * const envp[] = {
 			(char *) mac_env.c_str(),
-			(char *) tos_env.c_str(),
+			(char *) net_env.c_str(),
 			(char *) platform_env.c_str(),
 			NULL
 		};

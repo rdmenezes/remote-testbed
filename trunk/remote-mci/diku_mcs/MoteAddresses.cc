@@ -2,8 +2,8 @@
 
 namespace remote { namespace diku_mcs {
 
-MoteAddresses::MoteAddresses(std::string p_mac, std::string p_tosAddress)
-              : tosAddress(p_tosAddress), mac(p_mac)
+MoteAddresses::MoteAddresses(std::string p_mac, std::string p_netAddress)
+              : netAddress(p_netAddress), mac(p_mac)
 {
 }
 
