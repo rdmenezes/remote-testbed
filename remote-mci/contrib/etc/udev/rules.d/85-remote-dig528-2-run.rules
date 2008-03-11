@@ -4,7 +4,7 @@
 ## Create /dev/remote/{serial}/* files
 # For the path file use the physical device path given (only) for
 # the usb_device event via the PHYSDEVPATH env variable.
-DEVPATH=="/class/usb_device/*", ATTRS{idVendor}=="0050", ATTRS{idProduct}=="c237", RUN+="/lib/udev/remote-device-add dig582-2 0050C237%s{serial} %E{PHYSDEVPATH} /sbin/hc08sprg"
+DEVPATH=="/class/usb_device/*", ATTRS{idVendor}=="0050", ATTRS{idProduct}=="c237", RUN+="/lib/udev/remote-device-add dig528-2 0050C237%s{serial} %E{PHYSDEVPATH} /sbin/hc08sprg"
 
 ## Remove /dev/remote/{serial}/* files
 # The idVendor and idProduct attributes are not defined on some UDEV
