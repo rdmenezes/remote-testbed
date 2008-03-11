@@ -29,8 +29,8 @@ public class OrderingsControlledMotesView {
 
 		private MoteControlRow row = null;
 
-		public MoteControlNodeRenderer(Comparable key, MoteControlRow row) {
-			super(key);
+		public MoteControlNodeRenderer(Comparable key, MoteControlRow row, boolean numeric) {
+			super(key, numeric);
 			this.row = row;
 			panel.setBackground(new Color(0, true));
 
@@ -123,22 +123,24 @@ public class OrderingsControlledMotesView {
 	};
 
 	private static class RenderableOrdering extends SimpleTableRowOrdering {
+		boolean numeric;
 
-		public RenderableOrdering(String key, String name, boolean total)
+		public RenderableOrdering(String key, String name, boolean total, boolean numeric)
 		{
 			super(key,name,total);
+			this.numeric = numeric;
 		}
 
 		public Comparable getKey(TableRow row) {
-			return new MoteControlNodeRenderer(super.getKey(row),(MoteControlRow)row);
+			return new MoteControlNodeRenderer(super.getKey(row), (MoteControlRow) row, numeric);
 		}
 	};
 
 	public static TableRowOrdering BY_STATUS = new SimpleTableRowOrdering("status","status",false);
 
-	public static TableRowOrdering BY_MAC = new RenderableOrdering("macaddress", "MAC",true);
+	public static TableRowOrdering BY_MAC = new RenderableOrdering("macaddress", "MAC", true, false);
 
-	public static TableRowOrdering BY_TOS = new RenderableOrdering("tosaddress", "TOS",true);
+	public static TableRowOrdering BY_TOS = new RenderableOrdering("tosaddress", "TOS", true, true);
 
 	public static TableRowOrdering[] orderings = { BY_TOS, BY_MAC,BY_STATUS };
 

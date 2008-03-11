@@ -20,8 +20,8 @@ public class OrderingsAllMotesView {
 	private static class MoteNodeRenderer extends RenderableTreeNode {
 		JPanel mote = new JPanel();
 
-		protected MoteNodeRenderer(Comparable key, TableRow row) {
-			super(key);
+		protected MoteNodeRenderer(Comparable key, TableRow row, boolean numeric) {
+			super(key, numeric);
 			mote.setBackground(new Color(0, true));
 			ImageIcon moteicon = IconResources.MOTE;
 			ImageIcon usageicon = null;
@@ -75,13 +75,15 @@ public class OrderingsAllMotesView {
 	}
 
 	private static class RenderableOrdering extends SimpleTableRowOrdering {
+		boolean numeric;
 
-		public RenderableOrdering(String key, String name, boolean total) {
+		public RenderableOrdering(String key, String name, boolean total, boolean numeric) {
 			super(key, name, total);
+			this.numeric = numeric;
 		}
 
 		public Comparable getKey(TableRow row) {
-			return new MoteNodeRenderer(super.getKey(row), row);
+			return new MoteNodeRenderer(super.getKey(row), row, numeric);
 		}
 	};
 
@@ -95,10 +97,10 @@ public class OrderingsAllMotesView {
 	= new SimpleTableRowOrdering("room", "room", false);**/
 
 	public static TableRowOrdering BY_TOS
-	= new RenderableOrdering("tosaddress","TOS",true);
+	= new RenderableOrdering("tosaddress", "TOS", true, true);
 
 	public static TableRowOrdering BY_MAC
-	= new RenderableOrdering("macaddress","MAC",true);
+	= new RenderableOrdering("macaddress", "MAC", true, true);
 
 	/**public static TableRowOrdering BY_MOTE_ID
 	= new RenderableOrdering("mote_id","mote_id",true);**/
