@@ -2,11 +2,11 @@
 #
 # NAME
 # ----
-# remote-micaz-symlink.sh - script for creating symlinks for MicaZ 
+# remote-device-rename - script for naming TTY device files
 #
 # SYNOPSIS
 # --------
-# /etc/udev/scripts/remote-micaz-symlink.sh MOTEMAC
+# /lib/udev/remote-device-name MOTEMAC
 #
 # DESCRIPTION
 # -----------
@@ -29,11 +29,10 @@
 #	acquired using %s{serial} or similar sysfs entry and combined
 #	with a well-known vendor and product ID.
 #
-#
 # FILES
 # -----
-# /dev/remote/${MOTEMAC}/tty/control::
-# /dev/remote/${MOTEMAC}/tty/data::
+# /dev/remote/MOTEMAC/tty/control::
+# /dev/remote/MOTEMAC/tty/data::
 #
 #	Symlinks to the tty device that can be used for controlling the
 #	mote with the given MAC address. This should be set up using a
@@ -43,12 +42,12 @@
 # -------
 # As an example here is the arguments given from the MicaZ UDEV rule:
 #
-#	/etc/udev/scripts/remote-micaz-symlink.sh 04036010%s{serial}
+#	/lib/udev/remote-device-name 04036010%s{serial}
 #
 # AUTHOR
 # ------
 # Copyright (c) 2007 Jonas Fonseca <fonseca@diku.dk>
-#                    Rosta Spinar <rostislav.spinar@cit.ie>
+# Copyright (c) 2008 Rosta Spinar <rostislav.spinar@cit.ie>
 #
 ########################################################################
 # Configuration section
@@ -66,18 +65,13 @@ LOGFILE="/var/log/remote-udev.log"
 
 MOTEMAC="$1"
 
-info ()
-{
-	test -n "$LOGFILE" && echo "[$(date)] $*" >> "$LOGFILE"
-}
-
 die ()
 {
-	info "$*"
+	test -n "$LOGFILE" && echo "[$(date)] $*" >> "$LOGFILE"
 	exit 0
 }
 
-test -n "$MOTEMAC" || die "Symlink MicaZ: No mote MAC defined"
+test -n "$MOTEMAC" || die "remote-device-name: No mote MAC defined"
 
 if test -e "$DEVROOT/$MOTEMAC/tty/control"
 then
