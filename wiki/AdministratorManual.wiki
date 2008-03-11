@@ -41,7 +41,7 @@ _GUI Client_ (`remote-gui`)
 
 To give an idea of how everything is connected the following figure gives an overview:
 
-http://remote-testbed.googlecode.com/svn/trunk/javadoc/images/WSNTestbedDeri.png
+http://remote-testbed.googlecode.com/svn/trunk/documentation/images/WSNTestbedDeri.png
 
 ----
 
