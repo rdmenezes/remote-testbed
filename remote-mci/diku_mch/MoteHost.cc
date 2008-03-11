@@ -234,7 +234,7 @@ void MoteHost::handleRequest(Mote* mote, MsgMoteAddresses& addresses, MsgRequest
 	switch (command)
 	{
 		case MOTECOMMAND_PROGRAM:
-			result = mote->program(addresses.getTosAddress(),
+			result = mote->program(addresses.getNetAddress(),
 					       request.getFlashImage().getData(),
 					       request.getFlashImage().getDataLength());
 			break;

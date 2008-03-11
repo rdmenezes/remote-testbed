@@ -138,15 +138,15 @@ void Host::findOrCreateMote(MsgMoteConnectionInfo& info)
 		// mote database record itself
 		mote = new Mote(site_id,(MoteControlInfrastructure&)*this,*newtarget);
 		// TODO: error checking
-		// create the mac and tos address database records using the mote id
+		// create the mac and net address database records using the mote id
 		oss << (uint16_t) mote->mote_id;
-		newtarget->tosAddress = oss.str();
+		newtarget->netAddress = oss.str();
 
-		log("Attributes: macaddress=%s tosaddress=%s platform=%s\n",
-		    mac.c_str(), newtarget->tosAddress.c_str(),
+		log("Attributes: macaddress=%s netaddress=%s platform=%s\n",
+		    mac.c_str(), newtarget->netAddress.c_str(),
 		    info.getPlatform().c_str());
 		mote->setAttribute("macaddress", mac);
-		mote->setAttribute("tosaddress", newtarget->tosAddress);
+		mote->setAttribute("netaddress", newtarget->netAddress);
 		mote->setAttribute("platform", info.getPlatform());
 	}
 	else
@@ -157,8 +157,8 @@ void Host::findOrCreateMote(MsgMoteConnectionInfo& info)
 		// update the mote database record to reflect the new site
 		mote = new Mote(mote_id,site_id,(MoteControlInfrastructure&)*this,*newtarget);
 
-		// get the tos address mote attribute
-		newtarget->tosAddress = mote->getAttribute("tosaddress");
+		// get the net address mote attribute
+		newtarget->netAddress = mote->getAttribute("netaddress");
 		// TODO: error checking
 	}
 
@@ -191,7 +191,7 @@ void Host::handleMotesFoundList(MsgMoteConnectionInfoList& infolist)
 void Host::request(MCIAddress& address, MsgPayload& request )
 {
 	MsgMoteAddresses addresses(((MoteAddresses&)address).mac,
-				   ((MoteAddresses&)address).tosAddress);
+				   ((MoteAddresses&)address).netAddress);
 	MsgHostRequest msgHostRequest(addresses,request);
 	HostMsg message(msgHostRequest);
 

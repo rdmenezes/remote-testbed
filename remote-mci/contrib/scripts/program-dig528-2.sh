@@ -5,4 +5,4 @@
 #
 # Expects the TTY-path and program-file as the first and second parameter.
 
-exec /sbin/hc08sprg "$1" 115200 "$2" "$macaddress" "$tosaddress"
+exec /sbin/hc08sprg "$1" 115200 "$2" "$macaddress" "$netaddress"

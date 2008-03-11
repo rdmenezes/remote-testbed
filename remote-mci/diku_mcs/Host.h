@@ -26,7 +26,7 @@ class Host;
 
 typedef struct moteinfo_s
 {
-	uint16_t tosAddress;
+	uint16_t netAddress;
 } moteinfo_t;
 
 typedef std::map<std::string, Mote *> motemapbymac_t;
