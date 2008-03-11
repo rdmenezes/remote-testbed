@@ -7,7 +7,7 @@ This pages provides an overview of the plans concerning all future milestones.  
 
 Get an overview of the status of open issues and what needs work via the issue tracker's search page; links are provided for each milestone. Resolved issues are displayed with a "strike through" link.
 
-To complement the roadmap, larger tasks and design changes requiring detailed investigation should be described and discussed in [http://code.google.com/p/remote-testbed/w/list?q=label:Phase-RFC enhancement proposal documents].
+To complement the roadmap, larger tasks and design changes requiring detailed investigation should be described and discussed in [http://code.google.com/p/remote-testbed/w/list?q=label:Section-Proposal enhancement proposal documents].
 
 == Re-Mote Testbed Framework version 1.0 ==
 
