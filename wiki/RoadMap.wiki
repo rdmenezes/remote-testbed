@@ -1,6 +1,8 @@
 ﻿#summary Development roadmap and release plans
 #labels Section-Project,Featured
 
+= The Re-Mote Development Roadmap =
+
 This pages provides an overview of the plans concerning all future milestones.  For each milestone, tasks are listed into related groups. Any significant task has an associated issue for tracking its progress and status; issues should always be created when a task involves several modules. Most details for tasks are available in the task's associated issue page.
 
 Get an overview of the status of open issues and what needs work via the issue tracker's search page; links are provided for each milestone. Resolved issues are displayed with a "strike through" link.
