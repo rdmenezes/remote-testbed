@@ -1,8 +1,6 @@
 #summary Archive of roadmaps for previous releases.
 #labels Section-Project
 
-= Roadmap Archive =
-
 Below roadmaps for previous releases are available starting with the newest.
 
 == Re-Mote Testbed Framework version 1.0 ==
