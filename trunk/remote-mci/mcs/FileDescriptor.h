@@ -26,7 +26,7 @@ class FileDescriptor
 {
 	public:
 		/** Main service loop using poll() system call to receive fd events**/
-		static void serviceLoop();
+		static bool serviceLoop();
 		/** Handles an event on a specific file descriptor **/
 		virtual void handleEvent(short events) = 0;
 		/** Clean up and destroy a FileDescriptor object **/
@@ -37,9 +37,11 @@ class FileDescriptor
 		FileDescriptor(int p_fd);
 		virtual ~FileDescriptor();
 		static void buildPollMap(pollfd* map);
+		static void installSignalHandlers();
+		static void exitSignalHandler(int signo);
 		static RETSIGTYPE timeoutHandler(int sig);
-		static void ignoreBrokenPipeSignals();
 		static filedescriptorsbyfd_t instances;
+		static int exitSignal;
 		static int currentFd;
 		int fd;
 

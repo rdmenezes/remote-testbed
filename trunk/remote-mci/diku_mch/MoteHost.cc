@@ -6,13 +6,14 @@ using namespace remote::util;
 
 int MoteHost::clientsock;
 int MoteHost::plugpipe;
+int MoteHost::exitSignal;
 Message MoteHost::msg;
 DeviceManager MoteHost::devices;
 Configuration MoteHost::config;
 
 void MoteHost::lookForServer()
 {
-	while (1) {
+	while (!exitDaemon()) {
 		std::string host = config.vm["serverAddress"].as<std::string>();
 		uint16_t port = config.vm["serverPort"].as<uint16_t>();
 		uint64_t secs = config.vm["serverConnectionRetryInterval"].as<uint64_t>(); 
@@ -26,6 +27,8 @@ void MoteHost::lookForServer()
 			try {
 				serviceLoop();
 				close(clientsock);
+				if (exitDaemon())
+					break;
 
 			} catch (remote::protocols::MMSException e) {
 				Log::error("Exception: %s", e.what());
@@ -68,7 +71,7 @@ void MoteHost::serviceLoop()
 	}
 
 	Log::debug("Entering service loop");
-	while (true) {
+	while (!exitDaemon()) {
 		int maxfd = rebuildFdSet(fdset);
 
 		// wait for non-blocking reads on the fds
@@ -324,8 +327,35 @@ void MoteHost::confirmRequest(Mote *mote, uint8_t command, result_t result)
 	msg.sendMsg(clientsock, hostMsg);
 }
 
-int MoteHost::main(int argc,char** argv)
+void MoteHost::handleSignal(int signo)
 {
+	exitSignal = signo;
+}
+
+void MoteHost::handleExit()
+{
+	Log::info("Shutting down: signal=%d", exitSignal);
+	remove(config.vm["pidFile"].as<std::string>().c_str());
+}
+
+void MoteHost::installSignalHandlers()
+{
+	struct sigaction sa;
+
+	memset(&sa, 0, sizeof(sa));
+	sa.sa_handler = MoteHost::handleSignal;
+	sigfillset(&sa.sa_mask);
+	sigaction(SIGINT, &sa, NULL);
+	sigaction(SIGTERM, &sa, NULL);
+	sigaction(SIGSEGV, &sa, NULL);
+	sigaction(SIGKILL, &sa, NULL);
+}
+
+int MoteHost::main(int argc, char** argv)
+{
+	std::ostringstream oss;
+	std::string pid;
+
 	config.read(argc,argv);
 	if (config.vm["daemonize"].as<int>()) {
 		Log::open("diku_mch", Log::INFO, Log::SYSLOG);
@@ -348,6 +378,16 @@ int MoteHost::main(int argc,char** argv)
 	} else {
 		Log::open("diku_mch", Log::INFO, stdout);
 	}
+
+	atexit(MoteHost::handleExit);
+	MoteHost::installSignalHandlers();
+
+	oss << getpid() << std::endl;
+	pid = oss.str();
+
+	if (!File::writeFile(config.vm["pidFile"].as<std::string>(),
+			     pid.c_str(), pid.size()))
+		Log::error("Failed to create .pid file");
 
 	MoteHost::lookForServer();
 	return 0;

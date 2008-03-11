@@ -17,6 +17,7 @@ diku_mcs_SOURCES = \
  moteserver.cc
 
 diku_mcs_DEPENDENCIES = \
+ $(top_builddir)/libutil/libutil.a \
  $(top_builddir)/mcs/libmcs.a \
  $(top_builddir)/protocols/libprotocols.a
 
