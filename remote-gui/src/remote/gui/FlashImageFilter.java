@@ -11,7 +11,7 @@ public class FlashImageFilter extends FileFilter {
 
         String extension = getExtension(f);
         if (extension != null) {
-            if (extension.equals("s19"))
+            if (extension.equals("exe") || extension.equals("s19") || extension.equals("sky"))
             {
                     return true;
             } else {
@@ -24,7 +24,7 @@ public class FlashImageFilter extends FileFilter {
 
     //The description of this filter
     public String getDescription() {
-        return "Flash images (*.s19)";
+        return "Flash images (*.exe, *.s19, *.sky)";
     }
 
     public static String getExtension(File f) {
