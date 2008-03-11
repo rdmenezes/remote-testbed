@@ -3,18 +3,18 @@
 #################################################################
 ## Create /dev/remote/{platform}{serial}/* files
 #
-# See remote.sh for description of all parameters
+# See remote-device-manager for description of all parameters
 #
 # Rules tested on the laptop running Gentoo and having
 # both TMoteSky and MicaZ connected to the USB hub.
 
 
-DEVPATH=="/class/usb_device/*", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6010", RUN+="/etc/udev/scripts/remote.sh MicaZ 04036010%s{serial} %E{PHYSDEVPATH} /sbin/program-mote.sh /sbin/control-mote.sh"
+DEVPATH=="/class/usb_device/*", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6010", RUN+="/lib/udev/remote-device-manager MicaZ 04036010%s{serial} %E{PHYSDEVPATH} /sbin/program-mote.sh /sbin/control-mote.sh"
 
 ## Remove /dev/remote/{platform}{serial}/* files
 # The idVendor and idProduct attributes are not defined on some
 # udev systems. Instead, catch all tty events and use a general
 # device cleanup script.
 
-SUBSYSTEM=="tty", ACTION=="remove", RUN+="/etc/udev/scripts/remote.sh"
+SUBSYSTEM=="tty", ACTION=="remove", RUN+="/lib/udev/remote-device-manager"
 
