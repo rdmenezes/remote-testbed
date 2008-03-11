@@ -112,7 +112,7 @@ public class OrderingsControlledMotesView {
 
 		protected static String getToolTip(TableRow row) {
 			try {
-				return row.get("tosaddress") + " - (" + row.get("macaddress")
+				return row.get("netaddress") + " - (" + row.get("macaddress")
 						+ ") @ " + row.get("site");
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -140,8 +140,8 @@ public class OrderingsControlledMotesView {
 
 	public static TableRowOrdering BY_MAC = new RenderableOrdering("macaddress", "MAC", true, false);
 
-	public static TableRowOrdering BY_TOS = new RenderableOrdering("tosaddress", "TOS", true, true);
+	public static TableRowOrdering BY_NET = new RenderableOrdering("netaddress", "NET", true, true);
 
-	public static TableRowOrdering[] orderings = { BY_TOS, BY_MAC,BY_STATUS };
+	public static TableRowOrdering[] orderings = { BY_NET, BY_MAC, BY_STATUS };
 
 }
