@@ -165,7 +165,7 @@ $ ./bootstrap
 
 Configure what you would like to build. Usually, it is enough to just run `configure`. Pass the `--help` option to list which options and environment variables can be used. The following example shows how to only build the mote control host program with the boost library installed in a custom location:
 {{{
-$ ./configure --prefix=/ --bindir=/sbin --disable-diku-mcs CXXFLAGS=-I/usr/include/boost-1_33/
+$ ./configure --prefix=/ --bindir=/sbin --disable-mcs CXXFLAGS=-I/usr/include/boost-1_33/
 }}}
 Verify that the configuration summary printed at the end of the script execution corresponds to your requirements.
 
