@@ -36,8 +36,8 @@ ADMINPASS       =
 #
 # Leave DEPLOYHOST empty to deploy files locally.
 
-DEPLOYHOST      = remote-server
-DEPLOYPATH      = /opt/apache-tomcat-5.5.12/webapps/axis/WEB-INF/classes/
+DEPLOYHOST      = testbed.aws.cit.ie
+DEPLOYPATH      = /var/lib/tomcat-5.5/webapps/axis/WEB-INF/lib
 
 DEPLOYLOCATION  = $(DEPLOYHOST)$(if $(DEPLOYHOST),:)$(DEPLOYPATH)
 
