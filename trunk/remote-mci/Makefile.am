@@ -1,3 +1,5 @@
+AUTOMAKE_OPTIONS = foreign dist-zip
+
 SUBDIRS = doc libutil protocols
 
 if CONFIG_MCH
@@ -13,10 +15,8 @@ endif
 # depending on the configure scripts via AC_OUTPUT. --jonas
 
 EXTRA_DIST = \
- AUTHORS \
  COPYING \
  INSTALL \
- NEWS \
  README \
  bootstrap \
  contrib
