@@ -68,7 +68,7 @@ public class MoteControlTable implements MoteListListener, SimpleMoteStatusListe
 		public int indexOf(String columnName) throws Exception {
 			if (columnName.equals("mote_id")) return MoteControlRow.COL_MOTE_ID;
 			if (columnName.equals("site")) return MoteControlRow.COL_SITE;
-			if (columnName.equals("tosaddress")) return MoteControlRow.COL_TOSADDRESS;
+			if (columnName.equals("netaddress")) return MoteControlRow.COL_NETADDRESS;
 			if (columnName.equals("macaddress")) return MoteControlRow.COL_MACADDRESS;
 			if (columnName.equals("status")) return MoteControlRow.COL_STATUS;
 			if (columnName.equals("lastrequest")) return MoteControlRow.COL_LAST_REQUEST;
@@ -88,8 +88,8 @@ public class MoteControlTable implements MoteListListener, SimpleMoteStatusListe
 					return "mote_id";
 				case MoteControlRow.COL_SITE:
 					return "Site";
-				case MoteControlRow.COL_TOSADDRESS:
-					return "TOS";
+				case MoteControlRow.COL_NETADDRESS:
+					return "NET";
 				case MoteControlRow.COL_MACADDRESS:
 					return "MAC";
 				case MoteControlRow.COL_STATUS:
@@ -111,8 +111,8 @@ public class MoteControlTable implements MoteListListener, SimpleMoteStatusListe
 					return "mote_id";
 				case MoteControlRow.COL_SITE:
 					return "site";
-				case MoteControlRow.COL_TOSADDRESS:
-					return "tosaddress";
+				case MoteControlRow.COL_NETADDRESS:
+					return "netaddress";
 				case MoteControlRow.COL_MACADDRESS:
 					return "macaddress";
 				case MoteControlRow.COL_STATUS:
@@ -135,7 +135,7 @@ public class MoteControlTable implements MoteListListener, SimpleMoteStatusListe
 					return Long.class;
 				case MoteControlRow.COL_SITE:
 					return String.class;
-				case MoteControlRow.COL_TOSADDRESS:
+				case MoteControlRow.COL_NETADDRESS:
 					return Integer.class;
 				case MoteControlRow.COL_MACADDRESS:
 					return String.class;

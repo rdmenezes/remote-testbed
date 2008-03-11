@@ -14,7 +14,7 @@ public class MoteControlRow extends MoteControl implements TableRow, Comparable{
 
 	public static final int COL_SITE = 1;
 
-	public static final int COL_TOSADDRESS = 2;
+	public static final int COL_NETADDRESS = 2;
 
 	public static final int COL_MACADDRESS = 3;
 
@@ -48,8 +48,8 @@ public class MoteControlRow extends MoteControl implements TableRow, Comparable{
 				return this.infoRow.get("mote_id");
 			case COL_SITE:
 				return this.infoRow.get("site");
-			case COL_TOSADDRESS:
-				return this.infoRow.get("tosaddress");
+			case COL_NETADDRESS:
+				return this.infoRow.get("netaddress");
 			case COL_MACADDRESS:
 				return this.infoRow.get("macaddress");
 			case COL_STATUS:

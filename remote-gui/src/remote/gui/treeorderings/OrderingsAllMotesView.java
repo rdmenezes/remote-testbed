@@ -58,7 +58,7 @@ public class OrderingsAllMotesView {
 
 		protected static String getToolTip(TableRow row) {
 			try {
-				return row.get("tosaddress")
+				return row.get("netaddress")
 				     + " - " + row.get("platform")
 				     + " (" + row.get("macaddress") + ") @ "
 				     + row.get("site");
@@ -96,8 +96,8 @@ public class OrderingsAllMotesView {
 	public static TableRowOrdering BY_ROOM
 	= new SimpleTableRowOrdering("room", "room", false);**/
 
-	public static TableRowOrdering BY_TOS
-	= new RenderableOrdering("tosaddress", "TOS", true, true);
+	public static TableRowOrdering BY_NET
+	= new RenderableOrdering("netaddress", "NET", true, true);
 
 	public static TableRowOrdering BY_MAC
 	= new RenderableOrdering("macaddress", "MAC", true, true);
@@ -106,6 +106,6 @@ public class OrderingsAllMotesView {
 	= new RenderableOrdering("mote_id","mote_id",true);**/
 
 	public static TableRowOrdering[] orderings
-	= { BY_TOS,BY_MAC,BY_USAGE };
+	= { BY_NET,BY_MAC,BY_USAGE };
 
 }

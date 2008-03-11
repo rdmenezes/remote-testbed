@@ -424,7 +424,7 @@ private String aboutText
 				MoteDataWrapper.updateMoteList();
 				Table table = MoteDataWrapper.getMoteTable();
 				TableBasedTree treeModel = new TableBasedTree(table, "Root",
-						new TableRowOrdering[] { OrderingsAllMotesView.BY_TOS });
+						new TableRowOrdering[] { OrderingsAllMotesView.BY_NET });
 
 				final JTree jTree = new JTree(treeModel);
 				jTree.setRootVisible(false);
@@ -521,7 +521,7 @@ private String aboutText
 				final TableBasedTree treeModel = new TableBasedTree(
 						table,
 						"Control",
-						new TableRowOrdering[] { OrderingsControlledMotesView.BY_TOS });
+						new TableRowOrdering[] { OrderingsControlledMotesView.BY_NET });
 
 				final JTree jTree = new JTree(treeModel);
 				jTree.setRootVisible(true);
@@ -779,7 +779,7 @@ private String aboutText
 
 				};
 				String mac = moteControlRow.get("macaddress").toString();
-				String tos = moteControlRow.get("tosaddress").toString();
+				String net = moteControlRow.get("netaddress").toString();
 				String site = moteControlRow.get("site").toString();
 
 				JToolBar jToolBar = new JToolBar();
@@ -826,7 +826,7 @@ private String aboutText
 				jPanel.add(jToolBar, BorderLayout.NORTH);
 				jPanel.add(console, BorderLayout.CENTER);
 				jPanel.add(jBottomPanel, BorderLayout.SOUTH);
-				moteView = new MoteView(tos + " (" + mac + ")@" + site, VIEW_ICON,
+				moteView = new MoteView(net + " (" + mac + ")@" + site, VIEW_ICON,
 						jPanel);
 				moteViews.put(moteControlRow, moteView);
 				viewMap.addView(moteView.getId(),moteView);
