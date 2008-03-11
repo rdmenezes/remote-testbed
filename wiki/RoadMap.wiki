@@ -27,8 +27,6 @@ Not a lot will change on the client side, but it should be polished a bit, espec
 
  * Issue 28: Rename TOSADDRESS to NETADDRESS
 
- * Issue 30: Improve MCS mysql exception handling.
-
 === Security ===
 
 The focus for this release is not security and no extensive code audit has been made, but since this release is intended to change the status of the framework from "testing" to "production", problem areas that have been uncovered in the release cycle need to be fixed.
@@ -92,6 +90,8 @@ Open issues sorted by [http://code.google.com/p/remote-testbed/issues/list?q=lab
  * Issue 19: Use inotify in MCH to watch the device hierarchy
 
  * Issue 22: Make logging easier and more configurable.
+
+ * Issue 30: Improve MCS mysql exception handling.
 
 === Interoperability ===
 
