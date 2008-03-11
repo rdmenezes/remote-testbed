@@ -13,5 +13,7 @@ source remote_core/tables/tbl_session.sql;
 source remote_core/tables/tbl_sessionattrtype.sql;
 source remote_core/tables/tbl_sessionattr.sql;
 source remote_core/tables/tbl_session_sessionattr.sql;
+source remote_core/tables/tbl_host.sql;
+source remote_core/tables/tbl_path.sql;
 
 set FOREIGN_KEY_CHECKS=1;
