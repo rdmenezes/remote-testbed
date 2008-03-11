@@ -1,24 +1,22 @@
 #!/bin/sh
 #
+# REMOTE-DEVICE-ADD(7)
+# ====================
+#
 # NAME
 # ----
-# remote.sh - script for maintaining the /dev/remote device hierarchy
+# remote-device-add - script for adding motes to the Re-Mote device hierarchy
 #
 # SYNOPSIS
 # --------
-# /etc/udev/scripts/remote.sh PLATFORM MOTEMAC MOTEPATH PROGRAMMER CONTROLLER
+# /lib/udev/remote-device-add PLATFORM MOTEMAC MOTEPATH PROGRAMMER CONTROLLER
 #
 # DESCRIPTION
 # -----------
 # This script is designed to be called via a UDEV rule's RUN key. It
-# sets up extra information for added motes and cleans up after removed
-# motes, as well as notifies the motehost about new events. It assumes
-# that when a device is added the associated TTY has already been
-# created.
-#
-# When called for an add ACTION, the script expects two command line
-# arguments described below. No arguments are expected when handling a
-# remove ACTION.
+# sets up extra information for added motes and notifies the motehost
+# about new events. It assumes that when a device is added the
+# associated TTY has already been created.
 #
 # OPTIONS
 # -------
@@ -50,11 +48,10 @@
 #
 # ENVIRONMENT VARIABLES
 # ---------------------
-# The script has been designed to rely on as few environment variables
-# as possible to make it more generic. Instead it relies on being passed
-# all important variables as command line arguments. The only
-# environment variable used is the ACTION environment variable set by
-# UDEV.
+# ACTION::
+#
+#	This environment variable is set by UDEV. Unless the value is
+#	"add" the script will exit.
 #
 # FILES
 # -----
@@ -95,13 +92,22 @@
 # As an example, the dig528-2 and MicaZ UDEV rules use the following
 # arguments:
 #
-#  /etc/udev/scripts/remote.sh dig528-2 0050C237%s{serial} %E{PHYSDEVPATH} /sbin/hc08sprg
-#  /etc/udev/scripts/remote.sh MicaZ 04036010%s{serial} %E{PHYSDEVPATH} /sbin/program-mote.sh /sbin/control-mote.sh
+#	/lib/udev/remote-device-add dig528-2 0050C237%s{serial} %E{PHYSDEVPATH} /sbin/hc08sprg
+#	/lib/udev/remote-device-add MicaZ 04036010%s{serial} %E{PHYSDEVPATH} /sbin/program-mote.sh /sbin/control-mote.sh
 #
-# AUTHOR
-# ------
+# COPYRIGHT
+# ---------
 # Copyright (c) 2007 Jonas Fonseca <fonseca@diku.dk>
-#		2008 Rostislav Spinar <rostislav.spinar@cit.ie>
+# Copyright (c) 2008 Rostislav Spinar <rostislav.spinar@cit.ie>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# SEE ALSO
+# --------
+# remote-device-remove(7)
 #
 ########################################################################
 # Configuration section
@@ -140,46 +146,24 @@ die ()
 	exit 0
 }
 
+test "$ACTION" = "add" || die "Requested action not add ($ACTION)"
 test -d "$DEVROOT" || die "Device root is not a directory ($DEVROOT)"
 
-case "$ACTION" in
-add)
-	test -n "$MOTEMAC" || die "No mote MAC defined"
-	test -n "$MOTEPATH" || die "No device path defined"
-	test -e "$DEVROOT/$MOTEMAC/tty/control" || die "No control TTY exists for '$MOTEMAC'"
-	test -e "$DEVROOT/$MOTEMAC/tty/data" || die "No data TTY exists for '$MOTEMAC'"
-	test -e "$DEVROOT/$MOTEMAC/path" && die "Path exists for '$MOTEMAC'"
-	echo "$MOTEPATH" > "$DEVROOT/$MOTEMAC/path"
-	echo "$PLATFORM" > "$DEVROOT/$MOTEMAC/platform"
-	ln -s "$PROGRAMMER" "$DEVROOT/$MOTEMAC/programmer" ||
-		die "Failed to create program symlink"
-	if [ -n "$CONTROLLER" ]; then
-		ln -s "$CONTROLLER" "$DEVROOT/$MOTEMAC/controller" ||
-			die "Failed to create program symlink"
-	fi
-	info "mote '$MOTEMAC' with path '$MOTEPATH' and platform '$PLATFORM'"
-	;;
+test -n "$MOTEMAC" || die "No mote MAC defined"
+test -n "$MOTEPATH" || die "No device path defined"
+test -e "$DEVROOT/$MOTEMAC/tty/control" || die "No control TTY exists for '$MOTEMAC'"
+test -e "$DEVROOT/$MOTEMAC/tty/data" || die "No data TTY exists for '$MOTEMAC'"
+test -e "$DEVROOT/$MOTEMAC/path" && die "Path exists for '$MOTEMAC'"
 
-remove)
-	tmpdir="$DEVROOT/.tmp"
-	# Use the tmpdir as a semaphore when multiple motes are removed
-	test -d "$tmpdir" && return
-	mkdir -p "$tmpdir" || die "Failed to create temp dir '$tmpdir'"
-	# Remove devices where no tty link exists.
-	ls "$DEVROOT/" | while read motedir;
-	do
-		dir="$DEVROOT/$motedir"
-		test -e "$dir/tty" && continue;
-		info "Removing mote '$motedir'"
-		# Cannot die here since we need to remove the temp dir
-		mv "$dir" "$tmpdir" || info "Failed to move '$dir' to '$tmpdir'"
-	done
-	# The temp directory is empty?
-	rmdir "$tmpdir" && return
-	# Fatal but the mote host should still be notified
-	rm -rf "$tmpdir" || info "Failed to remove directory '$tmpdir'"
-	;;
-esac
+echo "$MOTEPATH" > "$DEVROOT/$MOTEMAC/path"
+echo "$PLATFORM" > "$DEVROOT/$MOTEMAC/platform"
+ln -s "$PROGRAMMER" "$DEVROOT/$MOTEMAC/programmer" ||
+	die "Failed to create program symlink"
+if [ -n "$CONTROLLER" ]; then
+	ln -s "$CONTROLLER" "$DEVROOT/$MOTEMAC/controller" ||
+		die "Failed to create program symlink"
+fi
+info "mote '$MOTEMAC' with path '$MOTEPATH' and platform '$PLATFORM'"
 
 # Notify mote host
 test -p "$MCHPIPE" || die "Event pipe does not exist at '$MCHPIPE'"
