@@ -1,6 +1,7 @@
 *.a
 *.o
 *.tar.gz
+*.swp
 .deps
 /aclocal.m4
 /autom4te.cache
