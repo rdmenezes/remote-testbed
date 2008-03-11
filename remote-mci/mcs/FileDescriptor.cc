@@ -3,14 +3,14 @@
 
 namespace remote { namespace mcs {
 
-void FileDescriptor::serviceLoop()
+bool FileDescriptor::serviceLoop()
 {
 	unsigned int i, instanceCount;
 	int f;
 	filedescriptorsbyfd_t::iterator fileDescriptorIterator;
 	// register the timeout handler
 	signal( SIGALRM, timeoutHandler );
-	ignoreBrokenPipeSignals();
+	installSignalHandlers();
 
 	do
 	{
@@ -19,6 +19,8 @@ void FileDescriptor::serviceLoop()
 		FileDescriptor::buildPollMap(fdmap);
 		if ( poll(fdmap,instanceCount,-1) < 0)
 		{
+			if (errno == EINTR)
+				continue;
 			__THROW__("Error in poll!");
 		}
 
@@ -46,7 +48,9 @@ void FileDescriptor::serviceLoop()
 			fileDescriptorIterator->second->destroy(false);
 		}
 	}
-	while( true );
+	while (!exitSignal);
+
+	return exitSignal == 0;
 }
 
 FileDescriptor::FileDescriptor(int p_fd)
@@ -141,15 +145,32 @@ RETSIGTYPE FileDescriptor::timeoutHandler(int sig)
 	close(currentFd); // this should generate an exception
 }
 
-void FileDescriptor::ignoreBrokenPipeSignals()
+void FileDescriptor::exitSignalHandler(int signo)
+{
+	exitSignal = signo;
+}
+
+void FileDescriptor::installSignalHandlers()
 {
 	struct sigaction act;
+
+	memset(&act, 0, sizeof(act));
 	act.sa_handler = SIG_IGN;
 	act.sa_flags = 0;
 
-	sigaction(SIGPIPE,&act,NULL);
+	sigaction(SIGPIPE, &act, NULL);
+
+	memset(&act, 0, sizeof(act));
+	act.sa_handler = exitSignalHandler;
+	sigfillset(&act.sa_mask);
+	sigaction(SIGINT, &act, NULL);
+	sigaction(SIGTERM, &act, NULL);
+	sigaction(SIGSEGV, &act, NULL);
+	sigaction(SIGKILL, &act, NULL);
+
 }
 
 filedescriptorsbyfd_t FileDescriptor::instances;
 int FileDescriptor::currentFd = -1;
+int FileDescriptor::exitSignal = 0;
 }}

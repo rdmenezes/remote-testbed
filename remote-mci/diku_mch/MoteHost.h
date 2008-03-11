@@ -96,11 +96,37 @@ private:
 	 */
 	static int rebuildFdSet(fd_set& fdset);
 
+	/** Exit handler to be used with atexit.
+	 */
+	static void handleExit();
+
+	/** Handle received signal
+	 *
+	 * @param signo		The number of the received signal.
+	 */
+	static void handleSignal(int signo);
+
+	/** Install signal handlers
+	 *
+	 * Setup handlers to receive exit signals.
+	 */
+	static void installSignalHandlers();
+
+	/** Shutdown the mote host?
+	 *
+	 * @return		True if the mote host should shutdown.
+	 */
+	static inline bool exitDaemon()
+	{
+		return exitSignal != 0;
+	}
+
 	static int clientsock;		/**< Server connection socket. */
 	static int plugpipe;		/**< Plug event pipe. */
 	static Message msg;		/**< Message manager. */
 	static DeviceManager devices;	/**< Mote device manager. */
 	static Configuration config;	/**< Option manager. */
+	static int exitSignal;		/**< Caught exit signal or zero. */
 };
 
 }}

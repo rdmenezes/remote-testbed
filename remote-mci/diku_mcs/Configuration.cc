@@ -48,6 +48,9 @@ void Configuration::read(int argc, char **argv)
 	("hostListenerPort",
 		po::value<unsigned int>()->default_value(10001),
 		"Port number to use when listening for new hosts.")
+	("pidFile",
+		po::value<std::string>()->default_value("/var/run/diku_mcs.pid"),
+		"Path to the file containing the PID of the mote host.")
 	("log-file",
 		po::value<std::string>()->default_value("/var/log/diku_mcs.log"),
 		"Path to the output log file when running as a daemon.")

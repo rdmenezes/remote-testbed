@@ -35,7 +35,10 @@ void Configuration::read(int argc, char **argv)
 		"Path to the remote mote device hierarchy.")
 	("usbPlugEventPipe",
 		po::value<std::string>()->default_value("/var/run/motehost.events"),
-		"Path to the fifo notifying the motehost of mote hotplug events.")
+		"Path to the fifo notifying the mote host of mote hotplug events.")
+	("pidFile",
+		po::value<std::string>()->default_value("/var/run/diku_mch.pid"),
+		"Path to the file containing the PID of the mote host.")
 	("serverAddress",
 		po::value<std::string>()->default_value("localhost"),
 		"DNS or IP address of the mote server.")

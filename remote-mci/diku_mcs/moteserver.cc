@@ -7,13 +7,25 @@
 #include "macros.h"
 #include <exception>
 #include <unistd.h>
+#include "libutil/File.h"
 
 using namespace remote;
 using namespace remote::diku_mcs;
+using namespace remote::util;
+
+void handleExit()
+{
+	log("Shutting down\n");
+	remove(Configuration::vm["pidFile"].as<std::string>().c_str());
+}
 
 int main(int argc,char** argv)
 {
+	std::ostringstream oss;
+	std::string pid;
+
 	Configuration::read(argc,argv);
+	
 	if (Configuration::vm["daemonize"].as<int>())
 	{
 		printf("Daemonizing!\n");
@@ -35,10 +47,16 @@ int main(int argc,char** argv)
 
 	log("Starting mote server\n");
 
-	while (1)
-	{
-//		try
-//		{
+	atexit(handleExit);
+
+	oss << getpid() << std::endl;
+	pid = oss.str();
+
+	if (!File::writeFile(Configuration::vm["pidFile"].as<std::string>(),
+			     pid.c_str(), pid.size()))
+		log("Failed to create .pid file\n");
+
+	do {
 			dbConn.connect( Configuration::vm["dbName"].as<std::string>(),
 			                Configuration::vm["dbHost"].as<std::string>(),
 			                Configuration::vm["dbUser"].as<std::string>(),
@@ -51,12 +69,6 @@ int main(int argc,char** argv)
 			HostListener hostListener(Configuration::vm["hostListenerPort"].as<unsigned int>());
 			SessionListener sessionListener(Configuration::vm["sessionListenerPort"].as<unsigned int>());
 			log("Entering service loop\n");
-			FileDescriptor::serviceLoop();
-/*		}
-		catch (std::exception e)
-		{
-			log("Caught exception: %s - restarting listeners in 30 seconds\n",e.what());
-			usleep(30000000);
-		}*/
-	}
+
+	} while (FileDescriptor::serviceLoop());
 }
