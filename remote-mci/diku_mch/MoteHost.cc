@@ -91,6 +91,7 @@ void MoteHost::serviceLoop()
 		}
 	}
 	close(plugpipe);
+	remove(eventPipe.c_str());
 }
 
 int MoteHost::rebuildFdSet(fd_set& fdset)
