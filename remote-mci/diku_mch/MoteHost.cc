@@ -326,8 +326,8 @@ void MoteHost::confirmRequest(Mote *mote, uint8_t command, result_t result)
 int MoteHost::main(int argc,char** argv)
 {
 	config.read(argc,argv);
-	Log::open("diku_mch", Log::INFO);
 	if (config.vm["daemonize"].as<int>()) {
+		Log::open("diku_mch", Log::INFO, Log::SYSLOG);
 		switch (fork()) {
 		case -1:
 			Log::error("Failed to fork daemon");
@@ -344,6 +344,8 @@ int MoteHost::main(int argc,char** argv)
 		fclose(stdin);
 		fclose(stdout);
 		fclose(stderr);
+	} else {
+		Log::open("diku_mch", Log::INFO, stdout);
 	}
 
 	MoteHost::lookForServer();
