@@ -1,11 +1,11 @@
 SUBDIRS = doc libutil protocols
 
-if CONFIG_DIKU_MCH
-SUBDIRS += diku_mch
+if CONFIG_MCH
+SUBDIRS += mch
 endif
 
-if CONFIG_DIKU_MCS
-SUBDIRS += mcs diku_mcs
+if CONFIG_MCS
+SUBDIRS += mcs
 endif
 
 # TODO: At some point the contrib EXTRA_DIST should probably be moved to
