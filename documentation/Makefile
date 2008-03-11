@@ -7,10 +7,8 @@ WSDIR	= ../remote-ws
 DOCDIRS = $(realpath $(GUIDIR) $(WSDIR) $(MCIDIR))
 
 all:
-	mkdir old
-	mv remote-* old
+	git rm -r remote-*
 	$(foreach docdir,$(DOCDIRS),$(MAKE) -C $(docdir) DOCDIR=$(PWD)/$(notdir $(docdir)) doc;)
-	$(RM) -r old
 	git diff --name-only | \
 	while read file; do \
 		git diff --stat $$file | grep -q "1 insertions(+), 1 deletions(-)" || continue; \
