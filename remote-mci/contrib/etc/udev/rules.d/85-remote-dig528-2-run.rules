@@ -4,10 +4,10 @@
 ## Create /dev/remote/{serial}/* files
 # For the path file use the physical device path given (only) for
 # the usb_device event via the PHYSDEVPATH env variable.
-DEVPATH=="/class/usb_device/*", ATTRS{idVendor}=="0050", ATTRS{idProduct}=="c237", RUN+="/lib/udev/remote-device-manager dig582-2 0050C237%s{serial} %E{PHYSDEVPATH} /sbin/hc08sprg"
+DEVPATH=="/class/usb_device/*", ATTRS{idVendor}=="0050", ATTRS{idProduct}=="c237", RUN+="/lib/udev/remote-device-add dig582-2 0050C237%s{serial} %E{PHYSDEVPATH} /sbin/hc08sprg"
 
 ## Remove /dev/remote/{serial}/* files
 # The idVendor and idProduct attributes are not defined on some UDEV
-# systems.  Instead, catch all tty events and run the remote-device-manager 
-# script in "device cleanup" mode.
-DEVPATH=="/class/tty/*", ACTION=="remove", RUN+="/lib/udev/remote-device-manager"
+# systems.  Instead, catch all tty events and run the
+# remote-device-remove script to cleanup stale mote device files.
+DEVPATH=="/class/tty/*", ACTION=="remove", RUN+="/lib/udev/remote-device-remove"
