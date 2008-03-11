@@ -146,7 +146,8 @@ case "$ACTION" in
 add)
 	test -n "$MOTEMAC" || die "No mote MAC defined"
 	test -n "$MOTEPATH" || die "No device path defined"
-	test -e "$DEVROOT/$MOTEMAC/tty" || die "No TTY exists for '$MOTEMAC'"
+	test -e "$DEVROOT/$MOTEMAC/tty/control" || die "No control TTY exists for '$MOTEMAC'"
+	test -e "$DEVROOT/$MOTEMAC/tty/data" || die "No data TTY exists for '$MOTEMAC'"
 	test -e "$DEVROOT/$MOTEMAC/path" && die "Path exists for '$MOTEMAC'"
 	echo "$MOTEPATH" > "$DEVROOT/$MOTEMAC/path"
 	echo "$PLATFORM" > "$DEVROOT/$MOTEMAC/platform"
