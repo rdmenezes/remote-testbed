@@ -101,8 +101,6 @@ private String aboutText
 
 	private static int VIEW_CONTROLLED_MOTES = 1;
 
-	private static int VIEW_MOTE_MAP = 2;
-
 	private View[] views = new View[4];
 
 	private DockingWindowListener viewListener = null;
@@ -313,16 +311,8 @@ private String aboutText
 						if (b.isShowing())
 						{
 							b.split(a,Direction.LEFT,0.5f);
-						} else
-						{
-							b = getMoteMapView();
-							if (b.isShowing())
-							{
-								b.split(a,Direction.UP,0.666f);
-							} else
-							{
-								getRootWindow().getWindow().split(getAllMotesView(),Direction.LEFT,0.3f);
-							}
+						} else {
+							getRootWindow().getWindow().split(getAllMotesView(),Direction.LEFT,0.3f);
 						}
 					}
 				}
@@ -340,48 +330,12 @@ private String aboutText
 							b.split(a,Direction.RIGHT,0.5f);
 						} else
 						{
-							b = getMoteMapView();
-							if (b.isShowing())
-							{
-								b.split(a,Direction.UP,0.666f);
-							} else
-							{
-								getRootWindow().getWindow().split(getAllMotesView(),Direction.LEFT,0.3f);
-							}
+							getRootWindow().getWindow().split(getAllMotesView(),Direction.LEFT,0.3f);
 						}
 					}
 				}
 			});
 			submenu.add(menuitem);
-			menuitem = new JMenuItem("Mote map");
-			menuitem.addActionListener(new ActionListener(){
-				public void actionPerformed(ActionEvent e) {
-					DockingWindow a = getMoteMapView();
-
-					if (!a.isShowing()){
-						DockingWindow b = getAllMotesView();
-						DockingWindow c = getControlledMotesView();
-						if (b.isShowing() && c.isShowing()) {
-							b = b.getWindowParent().getWindowParent();
-						} else if (c.isShowing()) {
-							b = c;
-						}
-						if (b.isShowing())
-						{
-							b.split(a,Direction.DOWN,0.66f);
-						} else {
-							b = getRootWindow().getWindow();
-							if (b != null) {
-								b.split(a,Direction.LEFT,0.3f);
-							} else
-							{
-								getRootWindow().setWindow(a);
-							}
-						}
-					}
-				}
-			});
-			//submenu.add(menuitem);
 			jJMenuBar.add(submenu);
 			// HELP MENU
 			submenu = new JMenu("Help");
@@ -493,22 +447,6 @@ private String aboutText
 			}
 
 			return allMotesView;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	private View getMoteMapView() {
-		try {
-			View moteMapView = views[VIEW_MOTE_MAP];
-			if (moteMapView == null)
-			{
-				// TODO: implement the mote map functionality
-				moteMapView = new View("Topology map",VIEW_ICON,null);
-				views[VIEW_MOTE_MAP] = moteMapView;
-			}
-			return moteMapView;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -1221,18 +1159,9 @@ private String aboutText
 	public SplitWindow getSplitWindow1() {
 		if (splitWindow1 == null)
 		{
-			//splitWindow1 = new SplitWindow(true,0.3f,getSplitWindow2(),getMoteTabView());
 			splitWindow1 = new SplitWindow(true,0.3f,getSplitWindow3(),getMoteTabView());
 		}
 		return splitWindow1;
-	}
-
-	public SplitWindow getSplitWindow2() {
-		if (splitWindow2 == null)
-		{
-			splitWindow2 = new SplitWindow(false,0.5f,getSplitWindow3(),getMoteMapView());
-		}
-		return splitWindow2;
 	}
 
 	public SplitWindow getSplitWindow3() {
