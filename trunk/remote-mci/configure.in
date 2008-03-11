@@ -2,7 +2,7 @@
 
 AC_PREREQ(2.59)
 
-AC_INIT([remote-mci],[1.0pre0],[sensornet@diku.dk])
+AC_INIT([remote-mci],[1.0pre0],[remote-testbed@googlegroups.com])
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_HEADER([config/config.h])
 AC_CONFIG_SRCDIR([mcs/MoteControlInfrastructure.h])
@@ -38,13 +38,13 @@ AC_SUBST(m4_toupper(CONFIG_$1))
 ## Configure options.
 #######################################################################
 
-AC_ARG_ENABLE(diku-mch,
-AS_HELP_STRING([--disable-diku-mch],[disable building of the DIKU mote control host module]))
-REMOTE_PARSE_ENABLEVAL(diku_mch)
+AC_ARG_ENABLE(mch,
+AS_HELP_STRING([--disable-mch],[disable building of the mote control host module]))
+REMOTE_PARSE_ENABLEVAL(mch)
 
-AC_ARG_ENABLE(diku-mcs,
-AS_HELP_STRING([--disable-diku-mcs],[disable building of the DIKU mote control server module]))
-REMOTE_PARSE_ENABLEVAL(diku_mcs)
+AC_ARG_ENABLE(mcs,
+AS_HELP_STRING([--disable-mcs],[disable building of the mote control server module]))
+REMOTE_PARSE_ENABLEVAL(mcs)
 
 #######################################################################
 ## Checks for programs.
@@ -131,29 +131,29 @@ AC_TYPE_SIGNAL
 ## Check dependencies.
 #######################################################################
 
-if test "x$CONFIG_DIKU_MCH" = "xyes"; then
+if test "x$CONFIG_MCH" = "xyes"; then
 	if test "x$CONFIG_BOOST_PROGRAM_OPTIONS" != "xyes"; then
 		if test "x$enable_mch" = "xyes"; then
 			AC_MSG_ERROR([MCH dependencies not found on the system])
 		else
-			CONFIG_DIKU_MCH=no
+			CONFIG_MCH=no
 		fi
 	fi
 fi
-AM_CONDITIONAL(CONFIG_DIKU_MCH, test "x$CONFIG_DIKU_MCH" = "xyes")
+AM_CONDITIONAL(CONFIG_MCH, test "x$CONFIG_MCH" = "xyes")
 
-if test "x$CONFIG_DIKU_MCS" = "xyes"; then
+if test "x$CONFIG_MCS" = "xyes"; then
 	if test "x$CONFIG_BOOST_PROGRAM_OPTIONS" != "xyes" ||
 	   test "x$CONFIG_MYSQL" != "xyes" ||
 	   test "x$CONFIG_MYSQLPP" != "xyes"; then
 		if test "x$enable_mcs" = "xyes"; then
 			AC_MSG_ERROR([MCS dependencies not found on the system])
 		else
-			CONFIG_DIKU_MCS=no
+			CONFIG_MCS=no
 		fi
 	fi
 fi
-AM_CONDITIONAL(CONFIG_DIKU_MCS, test "x$CONFIG_DIKU_MCS" = "xyes")
+AM_CONDITIONAL(CONFIG_MCS, test "x$CONFIG_MCS" = "xyes")
 
 #######################################################################
 ## Output files.
@@ -161,11 +161,10 @@ AM_CONDITIONAL(CONFIG_DIKU_MCS, test "x$CONFIG_DIKU_MCS" = "xyes")
 
 AC_CONFIG_FILES([
 		 Makefile
-		 diku_mch/Makefile
-		 diku_mch/plugpiper/Makefile
-		 diku_mcs/Makefile
 		 doc/Makefile
 		 libutil/Makefile
+		 mch/Makefile
+		 mch/notify/Makefile
 		 mcs/Makefile
 		 protocols/Makefile
 ])
@@ -180,5 +179,5 @@ AC_MSG_RESULT([  Boost program option library .... $CONFIG_BOOST_PROGRAM_OPTIONS
 AC_MSG_RESULT([  MySQL library ................... $CONFIG_MYSQL])
 AC_MSG_RESULT([  MySQL++ library ................. $CONFIG_MYSQLPP])
 AC_MSG_RESULT([Will build:])
-AC_MSG_RESULT([  DIKU mote control host .......... $CONFIG_DIKU_MCH])
-AC_MSG_RESULT([  DIKU mote control server ........ $CONFIG_DIKU_MCS])
+AC_MSG_RESULT([  Mote control host (MCH) ......... $CONFIG_MCH])
+AC_MSG_RESULT([  Mote control server (MCS) ....... $CONFIG_MCS])

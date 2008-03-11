@@ -3,7 +3,7 @@
 #---------------------------------------------------------------------------
 # Project related configuration options
 #---------------------------------------------------------------------------
-PROJECT_NAME           = "Re-Mote Mote Control Infrastructure (DIKU)"
+PROJECT_NAME           = "Re-Mote Mote Control Infrastructure"
 PROJECT_NUMBER         = 
 OUTPUT_DIRECTORY       = code
 CREATE_SUBDIRS         = YES
@@ -72,9 +72,8 @@ WARN_LOGFILE           =
 #---------------------------------------------------------------------------
 # configuration options related to the input files
 #---------------------------------------------------------------------------
-INPUT                  = ../diku_mch \
-                         ../diku_mcs \
-                         ../libutil \
+INPUT                  = ../libutil \
+                         ../mch \
                          ../mcs \
                          ../protocols
 FILE_PATTERNS          = 

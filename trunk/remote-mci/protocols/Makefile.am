@@ -3,20 +3,6 @@ noinst_LIBRARIES = libprotocols.a
 libprotocols_a_SOURCES = \
  macros.h \
  Message.h \
- diku_host_server/MsgMoteConnectionInfoList.cc \
- diku_host_server/MsgHostConfirm.cc \
- diku_host_server/MsgPlugEvent.cc \
- diku_host_server/HostMsg.h \
- diku_host_server/MsgMoteConnectionInfoList.h \
- diku_host_server/MsgPlugEvent.h \
- diku_host_server/MsgMoteConnectionInfo.h \
- diku_host_server/MsgMoteAddresses.h \
- diku_host_server/MsgHostRequest.cc \
- diku_host_server/MsgHostConfirm.h \
- diku_host_server/MsgMoteConnectionInfo.cc \
- diku_host_server/HostMsg.cc \
- diku_host_server/MsgMoteAddresses.cc \
- diku_host_server/MsgHostRequest.h \
  client_server/MsgClientRequest.h \
  client_server/MsgClientConfirm.cc \
  client_server/MsgSession.h \
@@ -28,6 +14,20 @@ libprotocols_a_SOURCES = \
  client_server/ClientMsg.h \
  client_server/MsgMoteIdList.h \
  client_server/MsgClientConfirm.h \
+ host_server/MsgMoteConnectionInfoList.cc \
+ host_server/MsgHostConfirm.cc \
+ host_server/MsgPlugEvent.cc \
+ host_server/HostMsg.h \
+ host_server/MsgMoteConnectionInfoList.h \
+ host_server/MsgPlugEvent.h \
+ host_server/MsgMoteConnectionInfo.h \
+ host_server/MsgMoteAddresses.h \
+ host_server/MsgHostRequest.cc \
+ host_server/MsgHostConfirm.h \
+ host_server/MsgMoteConnectionInfo.cc \
+ host_server/HostMsg.cc \
+ host_server/MsgMoteAddresses.cc \
+ host_server/MsgHostRequest.h \
  tcputil.h \
  Message.cc \
  BaseMsg.h \

@@ -123,7 +123,7 @@ LOGFILE="/var/log/remote-udev.log"
 MCHPIPE="/var/run/motehost.events"
 
 # Path to the program that should be used for signaling MCH
-PLUGPIPER="/sbin/plugpiper"
+MCHNOTIFY="/sbin/remote-mch-notify"
 
 ########################################################################
 # The script
@@ -167,4 +167,4 @@ info "mote '$MOTEMAC' with path '$MOTEPATH' and platform '$PLATFORM'"
 
 # Notify mote host
 test -p "$MCHPIPE" || die "Event pipe does not exist at '$MCHPIPE'"
-"$PLUGPIPER" "$MCHPIPE" || die "Event program returned error"
+"$MCHNOTIFY" "$MCHPIPE" || die "Event program returned error"
