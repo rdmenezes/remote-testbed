@@ -1,7 +1,7 @@
-#summary Archive of roadmaps for previous releases.
+#summary Roadmaps from previous releases.
 #labels Section-Project
 
-= Development Roadmap Archive =
+= Archive of Developments =
 
 Below roadmaps for previous releases are available starting with the newest.
 
