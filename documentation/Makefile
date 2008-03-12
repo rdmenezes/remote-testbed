@@ -17,23 +17,26 @@ update-doc:
 	done
 	git diff && git commit -m "Update documentation"
 
-update-git:
+commit-git:
 	git svn dcommit
 
 update-svn:
 	cd $(REPODIR)/svn
-	svn update
-
-update-properties:
 	find . | grep -v .svn | while read file; do \
-		*.html)	svn propset svn:mime-type text/html $$file	;; \
-		*.htm)	svn propset svn:mime-type text/html $$file	;; \
-		*.css)	svn propset svn:mime-type text/css $$file	;; \
-		*.gif)	svn propset svn:mime-type text/gif $$file	;; \
-		*.png)	svn propset svn:mime-type image/png $$file	;; \
-		*.jpg)	svn propset svn:mime-type image/jpeg $$file	;; \
-		*.jpeg)	svn propset svn:mime-type image/jpeg $$file	;; \
-		*.pdf) svn propset svn:mime-type application/pdf $$file	;; \
+		type=; \
+		case "$$file" in \
+		*.html)	type=text/html 		;; \
+		*.htm)	type=text/html 		;; \
+		*.css)	type=text/css   	;; \
+		*.gif)	type=text/gif   	;; \
+		*.png)	type=image/png		;; \
+		*.jpg)	type=image/jpege	;; \
+		*.jpeg)	type=image/jpeg		;; \
+		*.pdf)	type=application/pdf	;; \
+		esac; \
+		test "$$type" = "$$(svn propget svn:mime-type $$file)" && continue; \
+		svn propset svn:mime-type $$type $$fil; \
 	done
-	svn commit -m "Set mime-type properties for documentation files"
-	cd $(REPODIR)
+
+commit-svn:
+	cd $(REPODIR) && svn commit -m "Set mime-type properties for documentation files"
