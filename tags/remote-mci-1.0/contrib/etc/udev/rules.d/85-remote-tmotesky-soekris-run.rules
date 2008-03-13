@@ -1,0 +1,22 @@
+# TMoteSky remote udev rules
+# Copyright (c) 2007 Rostislav Spinar <rostislav.spinar@cit.ie>
+#################################################################
+## Create /dev/remote/{platform}{serial}/* files
+#
+# See remote-device-add for description of all parameters
+#
+# Rules tested on the Soekris board NET4521 running 
+# stripped down version of the Gentoo and having both 
+# TMoteSky and MicaZ connected to the USB hub. Since
+# NET4521 board comes without USB we had to use 
+# PCMCIA-USB card as a interface for USB hubs.
+
+SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", RUN+="/bin/bash -c '/lib/udev/remote-device-add TMoteSky 04036001%s{serial} ${DEVPATH%%%%/tty*} /sbin/program-mote.sh /sbin/control-mote.sh'"
+
+## Remove /dev/remote/{platform}{serial}/* files
+# The idVendor and idProduct attributes are not defined on some
+# udev systems. Instead, catch all tty events and use a general
+# device cleanup script.
+
+SUBSYSTEM=="tty", ACTION=="remove", RUN+="/lib/udev/remote-device-remove"
+

@@ -1,0 +1,15 @@
+#ifndef LOCALCONSTANTS_H_
+#define LOCALCONSTANTS_H_
+
+enum result_types
+{
+	// operation results
+	SUCCESS,
+	FAILURE,
+	MOTE_NOT_CONTROLLED,
+	MOTE_NOT_FOUND,
+	MOTE_OCCUPIED,
+	NOT_SUPPORTED
+};
+
+#endif /*LOCALCONSTANTS_H_*/

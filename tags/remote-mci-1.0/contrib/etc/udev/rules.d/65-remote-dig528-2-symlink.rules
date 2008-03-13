@@ -1,0 +1,6 @@
+# Re-Mote UDEV SYMLINK rules for the DIG528-2 platform
+# Copyright (c) 2007 Jonas Fonseca <fonseca@diku.dk>
+
+## Create /dev/remote/[serial]/tty/{control,data} symlinks to device
+DEVPATH=="/class/tty/*", ATTRS{idVendor}=="0050", ATTRS{idProduct}=="c237", SYMLINK+="remote/0050C237%s{serial}/tty/control"
+DEVPATH=="/class/tty/*", ATTRS{idVendor}=="0050", ATTRS{idProduct}=="c237", SYMLINK+="remote/0050C237%s{serial}/tty/data"

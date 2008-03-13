@@ -1,0 +1,6 @@
+# TMoteSky remote udev rules
+# Copyright (c) 2007 Rostislav Spinar <rostislav.spinar@cit.ie>
+
+SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", SYMLINK+="remote/04036001%s{serial}/tty/control"
+SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", SYMLINK+="remote/04036001%s{serial}/tty/data"
+
