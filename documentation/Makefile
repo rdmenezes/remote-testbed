@@ -17,12 +17,13 @@ update-doc:
 	done
 	git diff && git commit -m "Update documentation"
 
-commit-git:
-	git svn dcommit
-
 update-svn:
-	cd $(REPODIR)/svn
-	find . | grep -v .svn | while read file; do \
+	$(MAKE) -C checkout update-mimetypes
+
+update-mimetypes:
+	svn update
+	svn list --recursive > files
+	while read file; do \
 		type=; \
 		case "$$file" in \
 		*.html)	type=text/html 		;; \
@@ -36,7 +37,5 @@ update-svn:
 		esac; \
 		test "$$type" = "$$(svn propget svn:mime-type $$file)" && continue; \
 		svn propset svn:mime-type $$type $$fil; \
-	done
-
-commit-svn:
-	cd $(REPODIR) && svn commit -m "Set mime-type properties for documentation files"
+	done < files
+	#svn commit -m "Set mime-type properties for documentation files"
