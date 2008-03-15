@@ -2,7 +2,7 @@
 
 AC_PREREQ(2.59)
 
-AC_INIT([remote-mci],[1.0pre0],[remote-testbed@googlegroups.com])
+AC_INIT([remote-mci],[1.0],[remote-testbed@googlegroups.com])
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_HEADER([config/config.h])
 AC_CONFIG_SRCDIR([mcs/MoteControlInfrastructure.h])
