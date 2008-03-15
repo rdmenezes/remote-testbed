@@ -1,6 +1,7 @@
 # Makefile for updating the Re-Mote source documentation
 
 REPODIR = $(PWD)
+SVNDIR	= $(PWD)/checkout
 GUIDIR	= ../remote-gui
 WSDIR	= ../remote-ws
 #MCIDIR	= ../remote-mci
@@ -18,12 +19,11 @@ update-doc:
 	git diff && git commit -m "Update documentation"
 
 update-svn:
-	$(MAKE) -C checkout update-mimetypes
+	$(MAKE) -C $(SVNDIR) -f $(REPODIR)/Makefile update-mimetypes
 
 update-mimetypes:
 	svn update
-	svn list --recursive > files
-	while read file; do \
+	git --git-dir=$(REPODIR)/.git ls-files | while read file; do \
 		type=; \
 		case "$$file" in \
 		*.html)	type=text/html 		;; \
@@ -36,6 +36,6 @@ update-mimetypes:
 		*.pdf)	type=application/pdf	;; \
 		esac; \
 		test "$$type" = "$$(svn propget svn:mime-type $$file)" && continue; \
-		svn propset svn:mime-type $$type $$fil; \
-	done < files
-	#svn commit -m "Set mime-type properties for documentation files"
+		svn propset svn:mime-type $$type $$file; \
+	done
+	svn commit -m "Set mime-type properties for documentation files"
