@@ -1,0 +1,151 @@
+REMOTE-MCH(1)
+=============
+
+NAME
+----
+remote-mch - Re-Mote mote control host
+
+SYNOPSIS
+--------
+remote-mch [options]
+
+DESCRIPTION
+-----------
+The mote control host manages mote devices and provides remote access to them
+through a mote control server. On startup the mote host connects to the server
+and listens for incoming requests. Requests allows motes to be programmed,
+started, stopped, and reset. All console output from motes are forwarded to
+the server.
+
+The mote control host may be run both in the foreground and as a daemon.
+
+OPTIONS
+-------
+The following options can be specified on the command line.
+
+--config-file=<path>::
+
+	Path to the configuration file. Default is "/etc/remote-mch.cfg".
+
+--daemonize=[1|0]::
+
+	Run as a daemon. Default is to not daemonize.
+
+--help::
+
+	Print usage help and exit.
+
+CONFIGURATION OPTIONS
+---------------------
+Use the following options to configure the mote host.
+
+devicePath <string>::
+
+	Path to the mote device hierarchy.
+	When not specified "/dev/remote/" is used.
+
+usbPlugEventPipe <string>::
+
+	Path to the fifo notifying the mote host of mote hotplug events.
+	By default the daemon listens on "/var/run/motehost.events".
+
+serverAddress <string>::
+
+	DNS or IP address of the mote server.
+	Default is localhost.
+
+serverPort <number>::
+
+	Port number to use for connecting to the mote server.
+	The default port is 10001.
+
+serverConnectionRetryInterval <number>::
+
+	Number of seconds to wait between server connection retries.
+	Default is 30 seconds.
+
+FILES
+-----
+The mote host uses the following configurable files.
+
+/etc/remote-mch.cfg::
+
+	Default configuration file read on startup.
+
+/var/run/motehost.events::
+
+	Default file for listening on mote events.
+
+For each mote managed by the mote host, the following device specific files
+are used. The device path is configurable (default: "/dev/remote"). MOTEMAC
+represents the MAC address of a mote.
+
+/dev/remote/MOTEMAC/programmer::
+
+	Symbolic link to the mote programmer. The programmer is called
+	with the TTY as the first argument and path to the image file
+	as the second argument.
+
+/dev/remote/MOTEMAC/controller::
+
+	Symbolic link to the mote control program.
+
+/dev/remote/MOTEMAC/tty/control::
+
+	Symbolic link to the mote control TTY.
+
+/dev/remote/MOTEMAC/tty/data::
+
+	Symbolic link to the mote data TTY.
+
+/dev/remote/MOTEMAC/image::
+
+	Temporary image file used when programming.
+
+/dev/remote/MOTEMAC/path::
+
+	File containing the mote device path in the form of a path specifying
+	the bus ID. E.g. "/devices/pci0000:00/0000:00:10.0/usb2/2-1".
+
+/dev/remote/MOTEMAC/platform::
+
+	File containing the name of the mote platform. E.g. "dig528-2".
+
+ENVIRONMENT VARIABLES
+---------------------
+The mote host does not use any externally defined environment variables. When
+invoking the programmer and controller commands the mote host uses the
+following environment variables.
+
+platform::
+
+	The mote platform, e.g. "MicaZ".
+
+macaddress::
+
+	The mote MAC address.
+
+tosaddress::
+
+	The mote TOS address.
+
+COPYRIGHT
+---------
+[verse]
+Copyright (c) 2005-2006 Esben Zeuthen <zept@diku.dk>
+Copyright (c) 2006-2008 Jonas Fonseca <fonseca@diku.dk>
+Copyright (c) 2007-2008 Rosta Spinarr <rostislav.spinar@cit.ie>
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+SEE ALSO
+--------
+remote-mcs(1),
+remote-device-add(7),
+remote-device-remove(7),
+remote-device-name(7)
+
+This program is part of http://remote-testbed.googlecode.com/[the Re-Mote Testbed Framework].
