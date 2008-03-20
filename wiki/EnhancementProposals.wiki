@@ -1,5 +1,5 @@
 #summary Brainstorm page for future versions.
-#labels Section-Proposal,Status-Draft
+#labels Section-Proposal,Status-Draft,Proposal-100
 
 None of the ideas and suggestions on this page carry any meaning other than give a basis for the future planning of the Re-Mote Testbed Framework. Some of the ideas may be fleshed out in more details in separate REP (Re-Mote Enhancement Proposal) design documents later on, but right now this page serves mostly as a collection of 
 
