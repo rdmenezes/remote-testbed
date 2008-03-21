@@ -39,6 +39,8 @@ Open issues sorted by [http://code.google.com/p/remote-testbed/issues/list?q=lab
 
  * Issue 31: Replace boost::program_options with small custom configuration parser
 
+ * Issue 32: Restructure the remote-ws Java package namespace
+
 === Interoperability ===
 
  * Issue 23: Move mote device hierarchy to /var/run/remote.
