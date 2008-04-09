@@ -1,0 +1,24 @@
+#summary Brainstorm page for future versions.
+#labels Section-Proposal,Status-Draft,Type-Informational
+
+None of the ideas and suggestions on this page carry any meaning other than give a basis for the future planning of the Re-Mote Testbed Framework. Some of the ideas may be fleshed out in more details in separate REP (Re-Mote Enhancement Proposal) design documents later on, but right now this page serves mostly as a collection of 
+
+[http://code.google.com/p/remote-testbed/issues/list?q=label:Milestone-Release2.0 Some issues] have already been assigned to the next major milestone.
+
+ * [http://ws.apache.org/axis2/1_3/migration.html Move to Axis 2] as the platform for client RPC
+
+ * Combine the DB and WS components into one all-in-on server module. Can later be followed with control libraries from the GUI component that are going to be needed for running jobs on the server.
+
+ * Add support for "Re-Mote Testbed Descriptor" which should provide a way for clients to get and keep updated with information on which host and port the mote control server and web services are on. This *resource discovery* mechanism could be as simple as a web service making it possible to start a client with a simple URL to add a testbed to "known places".
+
+ * Make it possible to specify IP ranges for which most host connections the mote control server should allow.
+
+ * Testbed project should have a description field.
+
+ * Add user 'roles' (owner & member) and a user interface so users can manage projects themselves.
+
+ * Fill a new database with sane defaults (0/0/0-position, default site, admin-user/project, allow host connections from 127.0.0.1).
+
+ * Conditionally #include header files based on config/config.h
+
+ * Re-Mote Eclipse plugin
