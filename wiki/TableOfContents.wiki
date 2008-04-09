@@ -9,7 +9,7 @@
    * [SecurityConsiderations Security Considerations]
 
  * Enhancement Proposals
-   * [EnhancementProposals Brainstorm Page]
+   * [EnhancementIdeas Ideas for Future Enhancements]
    * [REP001]
    * [REP101]
    * [REP102]
