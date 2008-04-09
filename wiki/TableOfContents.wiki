@@ -18,4 +18,4 @@
    * [RoadMap Development Roadmap]
    * [RoadMapArchive Roadmaps From Old Releases]
    * [SourceCode Source Code]
-   * [SvnSynchronization Synchronizing Between git and SVN]
+   * [SvnSynchronization Updating the SVN Repository]
