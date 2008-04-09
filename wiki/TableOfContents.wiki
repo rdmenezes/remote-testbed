@@ -1,4 +1,7 @@
 #summary TOC for the documentation reader
+#labels Section-Project
+
+This table of contents gives an overview of the wiki pages and serves as a template for the [http://code.google.com/docreader/#p(remote-testbed)s(remote-testbed)t(remote-testbed) alternative documentation reader].
 
  * Manuals
    * [AdministratorManual Testbed Administrator Manual]
