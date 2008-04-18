@@ -1,9 +1,0 @@
-<deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
-	<service name="authentication" provider="java:RPC">
-		<namespace>authentication.remote.distlab.diku</namespace>
-		<parameter name="scope" value="Session"/>
-		<parameter name="className" value="authentication.Authenticator"/>
-		<parameter name="allowedMethods" value="*"/>
-		<beanMapping qname="ns:Credential" xmlns:ns="authentication.remote.distlab.diku" type="java:authentication.Credential"/>
-	</service>
-</deployment>

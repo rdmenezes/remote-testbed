@@ -1,3 +1,0 @@
-DEFAULT_INCLUDES = -I$(top_builddir)/config -I$(top_srcdir) -I$(top_srcdir)/protocols
-
-# vim:syntax=make
