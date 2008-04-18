@@ -1,0 +1,13 @@
+<deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+	<service name="moteaccess" provider="java:RPC">
+		<namespace>moteaccess.remote.distlab.diku</namespace>
+		<parameter name="className" value="moteaccess.MoteAccess"/>
+		<parameter name="allowedMethods" value="*"/>
+		<requestFlow>
+			<handler type="soapmonitor"/>
+		</requestFlow>
+		<responseFlow>
+			<handler type="soapmonitor"/>
+		</responseFlow>
+	</service>
+</deployment>
