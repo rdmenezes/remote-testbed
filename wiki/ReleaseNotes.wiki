@@ -18,5 +18,3 @@
 == Version 0.9 ==
 
 The basic infrastructure with DIKU specific mote control host and server. This version was developed on [http://www.sourceforge.net/projects/re-mote sourceforge].
-
-Authored by Esben Zeuthen <zept@diku.dk>
