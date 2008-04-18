@@ -1,0 +1,22 @@
+#summary Notes and news about releases
+#labels Section-Project,Featured
+
+== Version 1.x (to be released as version 1.1) ==
+
+ * MCI: Add man-pages for mote host and mote server as well as UDEV scripts.
+ * MCI: Fix the mote control server's service loop introduced in code for issue 18.
+ * MCI: Fix --enable-mch handling in the configure script.
+ * MCI: Fix dig528-2 platform typo.
+
+== Version 1.0 ==
+
+ * Create contrib areas that provide examples and other utilities.
+ * DB, GUI, WS: Add small build systems.
+ * MCI: Use Autoconf/Automake based buildsystem to ease building for small environments.
+ * MCI: Switch the mote control host to use UDEV instead of hotplug.
+
+== Version 0.9 ==
+
+The basic infrastructure with DIKU specific mote control host and server. This version was developed on [http://www.sourceforge.net/projects/re-mote sourceforge].
+
+Authored by Esben Zeuthen <zept@diku.dk>
