@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!-- Put your Table column mappings here --> 
+<data>
+
+	<model>
+		<className>gui.ReMote</className>
+		<name>AllMotes</name>
+		<column>
+			<name>Mote ID</name>
+			<field>mote_id</field>
+		</column>
+		<column>
+			<name>Site ID</name>
+			<field>site_id</field>
+		</column>
+	</model>
+
+
+	
+	
+</data>
