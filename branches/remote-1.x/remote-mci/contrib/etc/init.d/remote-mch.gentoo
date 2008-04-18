@@ -1,0 +1,56 @@
+#!/bin/bash
+#
+# remote-mch        Starts the Re-Mote Mote Control Host
+#
+
+# Source function library.
+#. /etc/init.d/functions
+
+[ -f /usr/local/bin/remote-mch ] || exit 0
+
+RETVAL=0
+
+umask 077
+
+start() {
+ 	echo -n "Starting remote-mch: "
+#	daemon remote-mch --config-file=/etc/remote-mch.cfg --daemonize=1
+	start-stop-daemon --start --exec /usr/local/bin/remote-mch
+	RETVAL=$?
+	return $RETVAL
+}	
+stop() {
+	echo -n "Shutting down remote-mch: "
+#	killproc remote-mch
+	start-stop-daemon --stop --exec /usr/local/bin/remote-mch
+	RETVAL=$?
+	return $RETVAL
+}
+rhstatus() {
+	status remote-mch
+}
+restart() {
+	stop
+	start
+}	
+
+case "$1" in
+  start)
+  	start
+	;;
+  stop)
+  	stop
+	;;
+  status)
+  	rhstatus
+	;;
+  restart|reload)
+  	restart
+	;;
+  *)
+	echo $"Usage: $0 {start|stop|status|restart}"
+	exit 1
+esac
+
+exit $?
+
