@@ -1,0 +1,15 @@
+<deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+	<service name="motedata" provider="java:RPC">
+		<namespace>motedata.remote.distlab.diku</namespace>
+		<parameter name="className" value="motedata.MoteData"/>
+		<parameter name="allowedMethods" value="*"/>
+		<beanMapping qname="ns:SimpleTable" xmlns:ns="motedata.remote.distlab.diku" type="java:motedata.SimpleTable"/>
+		<beanMapping qname="ns:ColumnHeader" xmlns:ns="motedata.remote.distlab.diku" type="java:motedata.ColumnHeader"/>
+		<requestFlow>
+			<handler type="soapmonitor"/>
+		</requestFlow>
+		<responseFlow>
+			<handler type="soapmonitor"/>
+		</responseFlow>
+	</service>
+</deployment>

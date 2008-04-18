@@ -1,0 +1,6 @@
+build
+remote-ws-*.jar
+server-config.wsdd
+tags
+Makefile.local
+

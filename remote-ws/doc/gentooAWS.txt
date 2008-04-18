@@ -1,0 +1,67 @@
+Setting Java, Tomcat & Axis on Gentoo
+=====================================
+
+Links
+-----
+http://wiki.perfsonar.net/jra1-wiki/index.php/Axis_and_Tomcat_installation
+http://www.gentoo.org/proj/en/java/tomcat-guide.xml
+http://wiki.apache.org/ws/FrontPage/Axis
+
+http://tomcat.apache.org/tomcat-5.5-doc/appdev
+http://tomcat.apache.org/tomcat-5.5-doc/jndi-datasource-examples-howto.html
+
+Java
+====
+emerge -v sun-jdk
+java-config -L
+
+
+Tomcat
+======
+emerge -v tomcat
+
+I decided to go with this choice even though more general approach of 
+installation described in boot-howto.txt is recommended.
+
+Gentoo distribution take care of almost everything and you end up with
+running two commands
+
+rc-update add default tomcat-5.5 
+/etc/init.d/tomcat-5.5 start
+
+Configuration
+-------------
+/etc/tomcat-5.5
+
+TODO:
+server.xml
+tomcat-users.xml
+
+Container
+---------
+/var/lib/tomcat-5.5
+
+TODO:
+general description
+
+Additional libraries
+--------------------
+/usr/share/tomcat-5.5/common/lib
+
+TODO:
+description of other libraries needed for Re-Mote
+
+
+Axis
+====
+emerge -v axis
+
+Since Gentoo distro comes with Axis 1.3, I decided to obtain Axis
+from http://ws.apache.org/axis/. All what you need is just to copy
+webapps/axis folder from archive into the tomcat's world which is
+
+/var/lib/tomcat-5.5/
+
+TODO:
+description of other libraries needed for AXIS
+configuration of server-config.wsdd, users.lst, web.xml
