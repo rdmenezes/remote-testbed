@@ -18,6 +18,7 @@ This table of contents gives an overview of the wiki pages and serves as a templ
    * [REP102 REP 102]
 
  * Project Pages
+   * [ReleaseNotes Release Notes]
    * [RoadMap Development Roadmap]
    * [RoadMapArchive Roadmaps From Old Releases]
    * [SourceCode Source Code]
