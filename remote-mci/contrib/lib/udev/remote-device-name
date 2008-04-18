@@ -1,11 +1,8 @@
 #!/bin/sh
 #
-# REMOTE-DEVICE-NAME(7)
-# =====================
-#
 # NAME
 # ----
-# remote-device-name - script for naming TTY device files
+# remote-device-rename - script for naming TTY device files
 #
 # SYNOPSIS
 # --------
@@ -47,19 +44,10 @@
 #
 #	/lib/udev/remote-device-name 04036010%s{serial}
 #
-# COPYRIGHT
-# ---------
+# AUTHOR
+# ------
 # Copyright (c) 2007 Jonas Fonseca <fonseca@diku.dk>
 # Copyright (c) 2008 Rosta Spinar <rostislav.spinar@cit.ie>
-#
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2 of the License, or
-# (at your option) any later version.
-#
-# SEE ALSO
-# --------
-# remote-device-add(7)
 #
 ########################################################################
 # Configuration section

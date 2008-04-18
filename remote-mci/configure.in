@@ -2,7 +2,7 @@
 
 AC_PREREQ(2.59)
 
-AC_INIT([remote-mci],[2.0.git],[remote-testbed@googlegroups.com])
+AC_INIT([remote-mci],[1.0pre0],[remote-testbed@googlegroups.com])
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_HEADER([config/config.h])
 AC_CONFIG_SRCDIR([mcs/MoteControlInfrastructure.h])
@@ -58,7 +58,6 @@ AC_PROG_MAKE_SET
 AC_CHECK_TOOL(AR, ar, :)
 AC_CHECK_TOOL(DOXYGEN, doxygen, :)
 AC_CHECK_TOOL(ASCIIDOC, asciidoc, :)
-AC_CHECK_TOOL(XMLTO, xmlto, :)
 
 #######################################################################
 ## Checks for libraries.

@@ -1,1 +1,0 @@
-../../user_model/scripts/credentials.sh
