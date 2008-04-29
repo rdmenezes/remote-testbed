@@ -13,13 +13,13 @@ None of the ideas and suggestions on this page carry any meaning other than give
 
  * Add support for "Re-Mote Testbed Descriptor" which should provide a way for clients to get and keep updated with information on which host and port the mote control server and web services are on. This *resource discovery* mechanism could be as simple as a web service making it possible to start a client with a simple URL to add a testbed to "known places".
 
-Administration / Installation:
+== Administration / Installation ==
 
  * Make it possible to specify IP ranges for which most host connections the mote control server should allow.
 
  * Fill a new database with sane defaults (0/0/0-position, default site, admin-user/project, allow host connections from 127.0.0.1).
 
-User interface:
+== User interface ==
 
  * Testbed projects should have a description field.
 
