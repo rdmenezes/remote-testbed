@@ -9,8 +9,28 @@ import java.io.Serializable;
  * client. Credentials containing secret values, such as passwords, can
  * be marked hidden.
  */
-public class Credential implements Serializable{
-	private String label, value;
+public class Credential implements Serializable {
+
+	/** The label of the credential.
+	 *
+	 * May be used by the client in the user interface
+	 * to present what input is expected.
+	 */
+	private String label;
+
+	/** The value of the credential.
+	 *
+	 * The client should update this field with the data
+	 * the user typed in.
+	 */
+	private String value;
+
+	/** Whether this credential should be hidden.
+	 *
+	 * This field is true for credentials containing password
+	 * where the data typed by the user should not be shown
+	 * on the screen.
+	 */
 	private boolean hidden;
 
 	/** Create field with given label and hidden attribute.
