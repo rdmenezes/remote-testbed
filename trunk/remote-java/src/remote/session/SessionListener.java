@@ -1,7 +1,9 @@
 package remote.session;
 
-/**
+/** Session event listener.
  *
+ * This interface contains callbacks that are signaled for the
+ * various session events.
  */
 public interface SessionListener {
 

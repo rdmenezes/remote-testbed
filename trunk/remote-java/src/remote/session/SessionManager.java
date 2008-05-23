@@ -28,10 +28,9 @@ public interface SessionManager {
 	 * request the session manager to authenticate the session.
 	 *
 	 * @param session
-	 * @return
 	 * @see SessionListener
 	 */
-	Session authenticate(Session session);
+	void authenticate(Session session);
 
 	/** Destroy a session.
 	 *
