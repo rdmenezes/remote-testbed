@@ -3,14 +3,12 @@
  * and open the template in the editor.
  */
 
-package remote.session;
+package remote.service;
 
 /**
  *
  * @author fonseca
  */
-public class Testbed {
-	String host;
-	short port;
-	//Testbed(String host, String path, short port)
+public interface ServiceProvider {
+
 }
