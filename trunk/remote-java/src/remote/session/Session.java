@@ -1,5 +1,6 @@
 package remote.session;
 
+import remote.service.ConnectionManager;
 import remote.control.MoteManager;
 
 /** Session information.
@@ -14,8 +15,8 @@ public class Session {
 	/** User/project credentials. */
 	Credential[] credentials;
 
-	/** Connection information. */
-	Connection connection;
+	/** Connection manager. */
+	ConnectionManager connectionManager;
 
 	/** The mote manager. */
 	MoteManager moteManager;
@@ -77,9 +78,9 @@ public class Session {
 	 *
 	 * @return	Information about how to connect.
 	 */
-	public Connection getConnection()
+	public ConnectionManager getConnectionManager()
 	{
-		return connection;
+		return connectionManager;
 	}
 
 }

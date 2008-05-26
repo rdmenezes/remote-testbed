@@ -16,6 +16,18 @@ public final class Version {
 	 */
 	public final static String string = String.format("%s.%s", major, minor);
 
+	/** Check if the library supports a specific version.
+	 * 
+	 * @param neededMajor	The needed major version.
+	 * @param neededMinor	The needed minor version.
+	 * @return		True if the library version is newer than
+	 *			the needed major and minor version.
+	 */
+	public final static boolean supports(int neededMajor, int neededMinor)
+	{
+		return major >= neededMajor && minor >= neededMinor;
+	}
+
 	private Version()
 	{
 	}

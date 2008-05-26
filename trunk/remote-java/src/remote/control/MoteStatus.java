@@ -10,7 +10,11 @@ public class MoteStatus {
 	public static final int STOPPED = 2;
 	public static final int RUNNING = 3;
 	public static final int PROGRAMMING = 4;
-	/* ...*/
+
+	/* ... */
+	public static final int STOPPING = 5;
+	public static final int RESETTING = 6;
+	public static final int STARTING = 7;
 
 	int status;
 
