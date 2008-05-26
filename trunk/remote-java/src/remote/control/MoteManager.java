@@ -23,7 +23,7 @@ public interface MoteManager {
 	//MoteGroup getMote(String[] mac, MoteListener listener);
 	//void reserveMote(MoteInfo mote);
 
-	void controlMote(MoteInfo mote, MoteControlListener listener);
+	void controlMote(MoteInfo mote, MoteListener listener);
 
 	//void release();
 	//getMoteAvailability();

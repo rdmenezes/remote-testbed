@@ -1,12 +1,12 @@
 package remote.service;
 
-/** Connection information.
+/** Endpoint information.
  *
- * Holds information about a testbed connection and how to use the services
- * it provides, such as hostname, port number of the mote control
+ * Holds information about how to contact a testbed service,
+ * such as hostname, port number of the mote control
  * host, and port and path information for web services.
  */
-public class Connection {
+public class Endpoint {
 
 	/** Hostname for connecting to the service. */
 	String host;
@@ -17,5 +17,5 @@ public class Connection {
 	/** Path for connecting to the service. */
 	String path;
 
-	//Connection(String host, String path, short port)
+	//Endpoint(String host, String path, short port)
 }
