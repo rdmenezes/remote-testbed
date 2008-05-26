@@ -1,0 +1,54 @@
+<body>
+<h1>Re·Mote Testbed Framework Java Library</h1>
+<p>
+
+This library consists of a set of packages that provides
+APIs that can be used by clients for connecting to testbeds
+using the
+<a href="http://remote-testbed.googlecode.com">Re·Mote Testbed Framework</a>.
+
+In the following, overall design decisions are presented.
+
+</p>
+
+<h2> Mote Information and Control </h2>
+<p>
+
+The most important function of this library is the API
+provided for mote control.
+
+For certain mote operations an authenticated session is
+required.
+
+</p>
+
+<h2> Session Management </h2>
+<p>
+
+</p>
+
+<h2> Service Management </h2>
+<p>
+
+</p>
+
+<h2> Asynchronous vs. Blocking APIs </h2>
+<p>
+
+The APIs of this library is designed to support as many different
+work-flows as possible. This means that both blocking and asynchronous,
+web-based etc.
+
+</p>
+
+<h2> Versioned APIs </h2>
+<p>
+
+To support future updates to the APIs, most importantly services
+that involve the communication with the testbed server, the library
+and API is versioned in such a way that it will be easier to update
+a service provider to support the changes.
+
+</p>
+
+</body>

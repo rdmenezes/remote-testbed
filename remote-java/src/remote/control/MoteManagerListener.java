@@ -2,8 +2,7 @@ package remote.control;
 
 /**
  *
- * @author fonseca
  */
-public interface MoteManagerListener {
+public interface MoteManagerListener extends java.util.EventListener {
 	void refreshDone();
 }

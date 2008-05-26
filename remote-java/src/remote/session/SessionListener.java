@@ -5,7 +5,7 @@ package remote.session;
  * This interface contains callbacks that are signaled for the
  * various session events.
  */
-public interface SessionListener {
+public interface SessionListener extends java.util.EventListener {
 
 	/** Connected event.
 	 *
@@ -24,9 +24,10 @@ public interface SessionListener {
 	 * has failed. Successful authentication of the session will be
 	 * signaled using the SessionListener.authenticated event.
 	 *
-	 * @param session	The session that needs authenticatioin.
+	 * @param session	The session that needs authentication.
+	 * @param credentials	The empty credentials.
 	 */
-	void authenticate(Session session);
+	void authenticate(Session session, Credential[] credentials);
 
 	/** Authenticated event.
 	 *

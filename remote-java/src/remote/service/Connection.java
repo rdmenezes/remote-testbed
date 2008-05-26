@@ -1,4 +1,4 @@
-package remote.session;
+package remote.service;
 
 /** Connection information.
  *
@@ -8,11 +8,14 @@ package remote.session;
  */
 public class Connection {
 
-	/** Hostname of the mote control host. */
+	/** Hostname for connecting to the service. */
 	String host;
 
-	/** Port number for the mote control host. */
+	/** Port number for connecting to the service. */
 	short port;
+
+	/** Path for connecting to the service. */
+	String path;
 
 	//Connection(String host, String path, short port)
 }
