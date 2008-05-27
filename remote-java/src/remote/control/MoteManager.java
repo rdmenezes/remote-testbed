@@ -11,13 +11,13 @@ public interface MoteManager {
 	 *
 	 * @return		Iterator for all motes.
 	 */
-	Iterator getMoteInfoIterator();
+	Iterator getAllMotesIterator();
 
 	/** Iterator for controlled motes.
 	 *
 	 * @return		Iterator for controlled motes.
 	 */
-	Iterator getMoteControlIterator();
+	Iterator getControlledMotesIterator();
 
 	//MoteControl getMoteControl(Mote mote, MoteListener listener);
 	//MoteGroup getMote(String[] mac, MoteListener listener);
@@ -26,7 +26,6 @@ public interface MoteManager {
 	void controlMote(MoteInfo mote, MoteListener listener);
 
 	//void release();
-	//getMoteAvailability();
 	void refresh();
 
 }
