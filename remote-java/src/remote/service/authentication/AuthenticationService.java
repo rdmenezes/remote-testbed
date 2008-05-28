@@ -7,16 +7,6 @@ import remote.session.Credential;
 /** Service for session authenticator. */
 public interface AuthenticationService extends Service {
 
-	/** Get session ID.
-	 *
-	 * Requests an ID associated with a new and unauthenticated
-	 * session. On success, the result object is a String
-	 * containing the session ID.
-	 *
-	 * @param callback	Callback for receiving result or error.
-	 */
-	void getSessionId(ServiceCallback callback);
-
 	/** Get empty session credentials.
 	 *
 	 * The empty credentials can be used by a client to later
