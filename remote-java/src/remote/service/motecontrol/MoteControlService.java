@@ -4,7 +4,7 @@ import remote.service.Service;
 import remote.service.ServiceCallback;
 
 /** Service for controlling motes. */
-public interface MoteControl extends Service {
+public interface MoteControlService extends Service {
 
 	/** Get status for motes.
 	 *
