@@ -1,8 +1,5 @@
 /** Service for client authentication.
  *
- * <p> This package provides a service clients can use to create and
- * authenticate a session. </p>
- *
  * <p> The service permits multiple variations of the number of
  * credential fields clients should provide and clients should
  * support this gracefully. It can choose not support all possible
