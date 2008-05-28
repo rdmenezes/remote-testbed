@@ -16,14 +16,6 @@ public interface ServiceCallback {
 	 */
 	void onSuccess(Object result);
 
-	/** Fault callback.
-	 *
-	 * This gets called when a fault is received.
-	 * 
-	 * @param result	Result object.
-	 */
-	void onFault(Object result);
-
 	/** Error callback.
 	 *
 	 * This gets called ONLY when an internal processing exception occurs.
