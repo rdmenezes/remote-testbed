@@ -5,7 +5,7 @@ import remote.service.ServiceCallback;
 import remote.session.Credential;
 
 /** Service for session authenticator. */
-public interface Authentication extends Service {
+public interface AuthenticationService extends Service {
 
 	/** Get session ID.
 	 *

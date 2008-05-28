@@ -9,7 +9,7 @@ import remote.service.ServiceCallback;
  * attributes such as MAC and net address, as well as site attributes
  * such as position.
  */
-public interface MoteData extends Service {
+public interface MoteDataService extends Service {
 
 	/** Get status information about all motes in the testbed.
 	 *

@@ -8,7 +8,7 @@ import remote.service.ServiceCallback;
  * This is a service interface for requesting mote usage privileges.
  * Example:
  * <pre>
- * MoteAccess access = getMoteAccess();
+ * MoteAccessService access = getMoteAccess();
  *
  * moteaccess.getMoteControl(session, motes, new ServiceCallback() {
  *	void onSuccess(Object result)
@@ -29,7 +29,7 @@ import remote.service.ServiceCallback;
  * });
  * </pre>
  */
-public interface MoteAccess extends Service {
+public interface MoteAccessService extends Service {
 
 	/** Acquire mote control privileges using specific session.
 	 *
