@@ -1,56 +1,38 @@
 package remote.control;
 
-/** Mote status container. */
+/** Mote status type. */
 public class MoteStatus {
-	public static final int UNKNOWN = 0;
-	public static final int UNAVAILABLE = 1;
-	public static final int STOPPED = 2;
-	public static final int RUNNING = 3;
-	public static final int PROGRAMMING = 4;
 
+	public static final MoteStatus UNKNOWN     = new MoteStatus(MoteStatusType.UNKNOWN);
+	public static final MoteStatus UNAVAILABLE = new MoteStatus(MoteStatusType.UNAVAILABLE);
+	public static final MoteStatus STOPPED     = new MoteStatus(MoteStatusType.STOPPED);
+	public static final MoteStatus RUNNING     = new MoteStatus(MoteStatusType.RUNNING);
+	public static final MoteStatus PROGRAMMING = new MoteStatus(MoteStatusType.PROGRAMMING);
 	/* ... */
-	public static final int STOPPING = 5;
-	public static final int RESETTING = 6;
-	public static final int STARTING = 7;
+	public static final MoteStatus STOPPING    = new MoteStatus(MoteStatusType.STOPPING);
+	public static final MoteStatus RESETTING   = new MoteStatus(MoteStatusType.RESETTING);
+	public static final MoteStatus STARTING    = new MoteStatus(MoteStatusType.STARTING);
+	public static final MoteStatus CANCELING    = new MoteStatus(MoteStatusType.CANCELING);
 
-	int status;
+	private int status;
 
 	public MoteStatus(int status)
 	{
 		this.status = status;
 	}
 
-	public int getStatus()
-	{
-		return status;
-	}
-
-	public void setStatus(int newStatus)
-	{
-		switch (status) {
-		case UNAVAILABLE:
-		case STOPPED:
-		case RUNNING:
-		case PROGRAMMING:
-		case UNKNOWN:
-			status = newStatus;
-		}
-	}
-
 	@Override
 	public String toString()
 	{
-		switch (status) {
-		case UNAVAILABLE:
+		if (this == UNAVAILABLE)
 			return "unavailable";
-		case STOPPED:
+		if (this == STOPPED)
 			return "stopped";
-		case RUNNING:
+		if (this == RUNNING)
 			return "running";
-		case PROGRAMMING:
+		if (this == PROGRAMMING)
 			return "programming";
-		default:
-			return "unknown";
-		}
+		return "unknown";
 	}
+
 }
