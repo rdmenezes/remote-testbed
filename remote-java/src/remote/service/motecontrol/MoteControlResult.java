@@ -24,8 +24,7 @@ public class MoteControlResult implements Serializable {
 	 */
 	public MoteControlResult()
 	{
-		result = new MoteResult(MoteResult.SUCCESS);
-		status = new MoteStatus(MoteStatus.UNKNOWN);
+		this(MoteResult.SUCCESS, MoteStatus.UNKNOWN);
 	}
 
 	/** Constructor to set all fields.
