@@ -8,11 +8,12 @@ public class MoteStatus {
 	public static final MoteStatus STOPPED     = new MoteStatus(MoteStatusType.STOPPED);
 	public static final MoteStatus RUNNING     = new MoteStatus(MoteStatusType.RUNNING);
 	public static final MoteStatus PROGRAMMING = new MoteStatus(MoteStatusType.PROGRAMMING);
+
 	/* ... */
 	public static final MoteStatus STOPPING    = new MoteStatus(MoteStatusType.STOPPING);
 	public static final MoteStatus RESETTING   = new MoteStatus(MoteStatusType.RESETTING);
 	public static final MoteStatus STARTING    = new MoteStatus(MoteStatusType.STARTING);
-	public static final MoteStatus CANCELING    = new MoteStatus(MoteStatusType.CANCELING);
+	public static final MoteStatus CANCELLING  = new MoteStatus(MoteStatusType.CANCELLING);
 
 	private int status;
 
