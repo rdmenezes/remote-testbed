@@ -17,6 +17,7 @@ bool FileDescriptor::serviceLoop()
 		instanceCount = instances.size();
 		pollfd fdmap[instanceCount];
 		FileDescriptor::buildPollMap(fdmap);
+		
 		if ( poll(fdmap,instanceCount,-1) < 0)
 		{
 			if (errno == EINTR)
