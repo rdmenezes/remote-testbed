@@ -1,0 +1,58 @@
+.\"     Title: remote-device-name
+.\"    Author: 
+.\" Generator: DocBook XSL Stylesheets v1.73.2 <http://docbook.sf.net/>
+.\"      Date: 03/25/2008
+.\"    Manual: Re-Mote Testbed Framework
+.\"    Source: remote-mci 1.1.git
+.\"
+.TH "REMOTE\-DEVICE\-NAME" "7" "03/25/2008" "remote\-mci 1\.1\.git" "Re\-Mote Testbed Framework"
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.SH "NAME"
+remote-device-name - script for naming TTY device files
+.SH "SYNOPSIS"
+/lib/udev/remote\-device\-name MOTEMAC
+.sp
+.SH "DESCRIPTION"
+This script is designed to be called via a UDEV rule\'s PROGRAM key\. The output from the script is used by SYMLINK rule to create both control and data links to tty devices\.
+.sp
+The first tty device on the MIB520 programming board is always for programming and controlling of MicaZ and second one is for retrieving data from MicaZ\.
+.sp
+When called the script expects one command line arguments described below\.
+.sp
+.SH "OPTIONS"
+.PP
+MOTEMAC
+.RS 4
+The first argument is the mote MAC, part of which can often be with a well\-known vendor and product ID\.
+.RE
+.SH "FILES"
+.PP
+/dev/remote/MOTEMAC/tty/control, /dev/remote/MOTEMAC/tty/data
+.RS 4
+Symlinks to the tty device that can be used for controlling the mote with the given MAC address\. This should be set up using a UDEV rule containing the SYMLINK key\.
+.RE
+.SH "EXAMPLE"
+As an example here is the arguments given from the MicaZ UDEV rule:
+.sp
+.sp
+.RS 4
+.nf
+/lib/udev/remote\-device\-name 04036010%s{serial}
+.fi
+.RE
+.SH "COPYRIGHT"
+.sp
+.RS 4
+.nf
+Copyright (c) 2007 Jonas Fonseca <fonseca@diku\.dk>
+Copyright (c) 2008 Rosta Spinar <rostislav\.spinar@cit\.ie>
+.fi
+.RE
+This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version\.
+.sp
+.SH "SEE ALSO"
+\fBremote\-device\-add(7)\fR
+.sp

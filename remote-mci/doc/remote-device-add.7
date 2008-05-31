@@ -1,0 +1,101 @@
+.\"     Title: remote-device-add
+.\"    Author: 
+.\" Generator: DocBook XSL Stylesheets v1.73.2 <http://docbook.sf.net/>
+.\"      Date: 03/25/2008
+.\"    Manual: Re-Mote Testbed Framework
+.\"    Source: remote-mci 1.1.git
+.\"
+.TH "REMOTE\-DEVICE\-ADD" "7" "03/25/2008" "remote\-mci 1\.1\.git" "Re\-Mote Testbed Framework"
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.SH "NAME"
+remote-device-add - script for adding motes to the Re-Mote device hierarchy
+.SH "SYNOPSIS"
+/lib/udev/remote\-device\-add PLATFORM MOTEMAC MOTEPATH PROGRAMMER CONTROLLER
+.sp
+.SH "DESCRIPTION"
+This script is designed to be called via a UDEV rule\'s RUN key\. It sets up extra information for added motes and notifies the motehost about new events\. It assumes that when a device is added the associated TTY has already been created\.
+.sp
+.SH "OPTIONS"
+.PP
+PLATFORM
+.RS 4
+The first argument is the name of the mote platform\.
+.RE
+.PP
+MOTEMAC
+.RS 4
+The second argument is the mote MAC, part of which can often be with a well\-known vendor and product ID\.
+.RE
+.PP
+MOTEPATH
+.RS 4
+The third is the desired device path, which should be a unique enough to fully describe the bus, where the mote is attached, but should be reproducable in such a way that the same device path should be used when reinserting the same mote into the same port\.
+.RE
+.PP
+PROGRAMMER
+.RS 4
+The path to the mote flash programmer\.
+.RE
+.PP
+CONTROLLER
+.RS 4
+The path to the external script for controlling the mote\.
+.RE
+.SH "ENVIRONMENT VARIABLES"
+.PP
+ACTION
+.RS 4
+This environment variable is set by UDEV\. Unless the value is "add" the script will exit\.
+.RE
+.SH "FILES"
+.PP
+/dev/remote/MOTEMAC/path
+.RS 4
+The physical UDEV device path (or similar) for the mote device with the given MAC address\. This file is created by this script using the MOTEPATH command line argument\.
+.RE
+.PP
+/dev/remote/MOTEMAC/platform
+.RS 4
+This file contains the name of the mote platform and is created by this script using the MOTEPLATFORM command line argument\.
+.RE
+.PP
+/dev/remote/MOTEMAC/programmer
+.RS 4
+Symlink to the mote flash programmer as specified via the PROGRAMMER option\. The symlink is created by this script\.
+.RE
+.PP
+/dev/remote/MOTEMAC/controller
+.RS 4
+Symlink to the mote controller as specified via the CONTROLLER option\. The symlink is created by this script\. This option is relevant only for motes which need external script for their control\.
+.RE
+.PP
+/dev/remote/MOTEMAC/tty/control, /dev/remote/MOTEMAC/tty/data
+.RS 4
+Symlink to the data and control tty devices that can be used for reading console output and controlling the mote with the given MAC address\. This should be set up using a UDEV rule containing the SYMLINK key\. This script assumes that the tty symlink exists when it is called\. If this is not the case it will error out\.
+.RE
+.SH "EXAMPLE"
+As an example, the dig528\-2 and MicaZ UDEV rules use the following arguments:
+.sp
+.sp
+.RS 4
+.nf
+/lib/udev/remote\-device\-add dig528\-2 0050C237%s{serial} %E{PHYSDEVPATH} /sbin/hc08sprg
+/lib/udev/remote\-device\-add MicaZ 04036010%s{serial} %E{PHYSDEVPATH} /sbin/program\-mote\.sh /sbin/control\-mote\.sh
+.fi
+.RE
+.SH "COPYRIGHT"
+.sp
+.RS 4
+.nf
+Copyright (c) 2007 Jonas Fonseca <fonseca@diku\.dk>
+Copyright (c) 2008 Rostislav Spinar <rostislav\.spinar@cit\.ie>
+.fi
+.RE
+This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version\.
+.sp
+.SH "SEE ALSO"
+\fBremote\-device\-remove(7)\fR, \fBremote\-device\-name(7)\fR
+.sp
