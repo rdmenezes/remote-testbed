@@ -107,7 +107,8 @@
 #
 # SEE ALSO
 # --------
-# remote-device-remove(7)
+# remote-device-remove(7),
+# remote-device-name(7)
 #
 ########################################################################
 # Configuration section
