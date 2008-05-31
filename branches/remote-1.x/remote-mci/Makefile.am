@@ -1,6 +1,6 @@
 AUTOMAKE_OPTIONS = foreign dist-zip
 
-SUBDIRS = doc libutil protocols
+SUBDIRS = libutil protocols
 
 if CONFIG_MCH
 SUBDIRS += mch
@@ -9,6 +9,17 @@ endif
 if CONFIG_MCS
 SUBDIRS += mcs
 endif
+
+DIST_SUBDIRS = doc $(SUBDIRS)
+
+dist_man1_MANS = \
+ doc/remote-mch.1 \
+ doc/remote-mcs.1
+
+dist_man7_MANS = \
+ doc/remote-device-add.7 \
+ doc/remote-device-name.7 \
+ doc/remote-device-remove.7
 
 # TODO: At some point the contrib EXTRA_DIST should probably be moved to
 # contrib/Makefile.am with the choice to autogenerate some of them
