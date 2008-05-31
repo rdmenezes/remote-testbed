@@ -7,5 +7,5 @@ public interface MoteCommandType {
 	int START   = 2;
 	int STOP    = 3;
 	int PROGRAM = 4;
-	int CANCEL  = 0;
+	int CANCEL  = 5;
 }
