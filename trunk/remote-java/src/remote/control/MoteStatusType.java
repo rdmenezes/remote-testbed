@@ -7,8 +7,4 @@ public interface MoteStatusType {
 	int STOPPED	= 2;
 	int RUNNING	= 3;
 	int PROGRAMMING = 4;
-	int STOPPING	= 5;
-	int RESETTING	= 6;
-	int STARTING	= 7;
-	int CANCELLING	= 8;
 }
