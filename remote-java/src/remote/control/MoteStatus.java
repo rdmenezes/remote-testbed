@@ -3,17 +3,20 @@ package remote.control;
 /** Mote status type. */
 public class MoteStatus {
 
+	/** The status of the mote is unknown. */
 	public static final MoteStatus UNKNOWN     = new MoteStatus(MoteStatusType.UNKNOWN);
-	public static final MoteStatus UNAVAILABLE = new MoteStatus(MoteStatusType.UNAVAILABLE);
-	public static final MoteStatus STOPPED     = new MoteStatus(MoteStatusType.STOPPED);
-	public static final MoteStatus RUNNING     = new MoteStatus(MoteStatusType.RUNNING);
-	public static final MoteStatus PROGRAMMING = new MoteStatus(MoteStatusType.PROGRAMMING);
 
-	/* ... */
-	public static final MoteStatus STOPPING    = new MoteStatus(MoteStatusType.STOPPING);
-	public static final MoteStatus RESETTING   = new MoteStatus(MoteStatusType.RESETTING);
-	public static final MoteStatus STARTING    = new MoteStatus(MoteStatusType.STARTING);
-	public static final MoteStatus CANCELLING  = new MoteStatus(MoteStatusType.CANCELLING);
+	/** The mote is no longer available. */
+	public static final MoteStatus UNAVAILABLE = new MoteStatus(MoteStatusType.UNAVAILABLE);
+
+	/** The mote is powered off. */
+	public static final MoteStatus STOPPED     = new MoteStatus(MoteStatusType.STOPPED);
+
+	/** The mote is running. */
+	public static final MoteStatus RUNNING     = new MoteStatus(MoteStatusType.RUNNING);
+
+	/** The mote is being programmed. */
+	public static final MoteStatus PROGRAMMING = new MoteStatus(MoteStatusType.PROGRAMMING);
 
 	private int status;
 

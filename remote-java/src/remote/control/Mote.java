@@ -33,6 +33,12 @@ public interface Mote extends MoteInfo {
 	 */
 	MoteStatus getStatus();
 
+	/** Get last command.
+	 *
+	 * @return	The command that was last executed.
+	 */
+	MoteCommand getLastCommand();
+
 	/** Set mote attribute.
 	 *
 	 * @param name	Attribute name.
