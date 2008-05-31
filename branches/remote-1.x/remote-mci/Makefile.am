@@ -21,7 +21,10 @@ EXTRA_DIST = \
  bootstrap \
  contrib
 
-doc doxygen:
+doc:
+	$(MAKE) -C doc remote-doc DOCDIR=$(DOCDIR)
+
+doxygen:
 	$(MAKE) -C doc code
 
 ctags:

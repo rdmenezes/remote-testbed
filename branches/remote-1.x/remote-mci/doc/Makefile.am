@@ -33,6 +33,10 @@ html: $(html_DOCS)
 code: Doxyfile
 	$(DOXYGEN) Doxyfile
 
+remote-doc: html
+	test -z "$(DOCDIR)" || $(mkinstalldirs) -d $(DOCDIR)
+	test -z "$(DOCDIR)" || $(INSTALL_DATA) $(html_DOCS) $(DOCDIR)
+
 .PHONY: code html dist-local
 
 remote-device-%.7.txt: $(top_srcdir)/contrib/lib/udev/remote-device-% $(srcdir)/Makefile.am
