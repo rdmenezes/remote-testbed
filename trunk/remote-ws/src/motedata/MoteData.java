@@ -3,9 +3,6 @@ package motedata;
 import java.sql.ResultSet;
 import util.SQLHelper;
 
-import motedata.ColumnHeader;
-import motedata.SimpleTable;
-
 /** Service class for getting mote data.
  *
  * The mote data can be anything from availability information, mote
