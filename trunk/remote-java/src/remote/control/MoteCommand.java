@@ -5,6 +5,8 @@ package remote.control;
  */
 public class MoteCommand {
 
+	/** Unknown last command. */
+	public static final MoteCommand UNKNOWN = new MoteCommand(MoteCommandType.UNKNOWN);
 	/** Reset the mote. */
 	public static final MoteCommand RESET = new MoteCommand(MoteCommandType.RESET);
 	/** Start the mote. */
