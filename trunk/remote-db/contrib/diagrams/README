@@ -1,0 +1,8 @@
+Database diagrams
+=================
+
+The diagrams in this directory gives an illustration of the database
+design in the form of a class diagram. Tables for reservation is not
+visible since they are not currently used.
+
+The diagrams have been made using Netbeans UML modeling tool.
