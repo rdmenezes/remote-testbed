@@ -4,9 +4,10 @@ REPODIR = $(PWD)
 SVNDIR	= $(PWD)/checkout
 GUIDIR	= ../remote-gui
 WSDIR	= ../remote-ws
+DBDIR	= ../remote-db
 #MCIDIR	= ../remote-mci
 
-DOCDIRS = $(realpath $(GUIDIR) $(WSDIR) $(MCIDIR))
+DOCDIRS = $(realpath $(GUIDIR) $(WSDIR) $(MCIDIR) $(DBDIR))
 
 update-doc:
 	git rm -r remote-*
@@ -34,6 +35,7 @@ update-mimetypes:
 		*.jpg)	type=image/jpege	;; \
 		*.jpeg)	type=image/jpeg		;; \
 		*.pdf)	type=application/pdf	;; \
+		*.svg)	type=image/svg+xml	;; \
 		esac; \
 		test "$$type" = "$$(svn propget svn:mime-type $$file)" && continue; \
 		svn propset svn:mime-type $$type $$file; \
