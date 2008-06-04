@@ -1,7 +1,7 @@
-#summary General purpose Java library
+#summary General Purpose Java Library
 #labels Section-Proposal,Status-Draft
 
-= General purpose Java library =
+= General Purpose Java library =
 
 This enhancement proposal is a design document for the specification and implementation of a Java library for accessing and extending the framework by making new services accessible. Part of the effort is to better document the different components that are involved in mote control and accessing testbed services. The library should make it easy to writing new Java based clients or integrate Re-Mote into an existing program.
 
