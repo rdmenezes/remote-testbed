@@ -1,26 +1,27 @@
-#summary Re·Mote Testbed Framework Java Library
+#summary General purpose Java library
 #labels Section-Proposal,Status-Draft
 
-Before the introduction, provide a short abstract summarizing the motivation factors and proposed solution.
+= General purpose Java library =
+
+This enhancement proposal is a design document for the specification and implementation of a Java library for accessing and extending the framework by making new services accessible. Part of the effort is to better document the different components that are involved in mote control and accessing testbed services. The library should make it easy to writing new Java based clients or integrate Re-Mote into an existing program.
 
 == Introduction ==
 
- * What is this proposal trying to solve.
- * Why are existing solutions (if any) insufficient.
- * Short summary of proposed change.
+The main goal of the library is to create the basic infrastructure needed for a client. The client should be written in such a general way that it supports client on different platforms and using different workflows.
+
+Currently, the Re-Mote client implements something equivalent to what the library is trying to provide, but it is not very well contained. A better solution is to create a completely stand-alone client library.
 
 == Details ==
 
- * Detailed description of the proposal.
- * Dependencies on other proposals.
-
-The library consists of a set of packages that provides APIs that can be used by clients for connecting to testbeds using the Re·Mote Testbed Framework. In the following, an overview of the various design decisions are presented.
+The library consists of a set of packages that provide APIs that can be used by clients for connecting to testbeds. In the following, an overview of the various design decisions are presented.
 
 === Versioning ===
 
 To support future updates to the APIs, most importantly services that involve the communication with the testbed server, the library and API is versioned in such a way that it will be easier to update a service provider to support the changes. Do
 
 === Library Structure ===
+
+...
 
 === Mote Information and Control ===
 
@@ -43,6 +44,7 @@ Layering means that some types will be represented at different layers from code
 
 == Considerations ==
 
+TODO
 
  * How will it affect users, administrators, and developers?
  * Compatibility with existing and future releases.
@@ -50,9 +52,13 @@ Layering means that some types will be represented at different layers from code
 
 == Roadmap ==
 
+TODO
+
  * Plan for proposed changes.
  * Issues that need to be fixed.
 
 == References ==
+
+TODO
 
  * Related work and links to external documentation.
