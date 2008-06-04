@@ -1,6 +1,8 @@
 #summary MCI Logging Infrastructure
 #labels Section-Proposal,Type-Documentary,Status-Draft
 
+= MCI Logging Infrastructure =
+
 This enhancement proposal suggest that all daemons in the Re-Mote
 Testbed Infrastructure use a common logging infrastructure. By routing
 all log messages through a single module it will be possible to dispatch
