@@ -1,6 +1,8 @@
 #summary Notes and news about releases
 #labels Section-Project,Featured
 
+= Release Notes =
+
 == Version 2.x (to be released as version 2.0) ==
 
  * MCI: Add custom configuration parser and drop dependency on Boost. (issue 31)
