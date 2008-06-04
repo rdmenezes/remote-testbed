@@ -3,8 +3,6 @@
 
 = Re-Mote User Manual =
 
-The user manual is merely a stub for now and clearly not satisfactory introduction for new users. To encourage people to help and make it easier to add new contributers, the user manual is now maintained as a [http://docs.google.com/Doc?id=dq76tkh_13cxkgjpgs Google Document]. This will hopefully make it possible to provide a good quality user manual with screenshots and availability in different formats. If you want to be added as a collaborator please send an email to [mailto:jonas.fonseca@gmail.com Jonas Fonseca].
+Below the available versions are listed:
 
-Below all available versions and formats are listed:
-
-|| Re-Mote v1.0 || [http://docs.google.com/Doc?id=dq76tkh_13cxkgjpgs HTML] || [http://docs.google.com/MiscCommands?command=saveasdoc&docID=dq76tkh_13cxkgjpgs&exportFormat=pdf PDF] || [http://docs.google.com/MiscCommands?command=saveasdoc&docID=dq76tkh_13cxkgjpgs&exportFormat=doc Word] ||
+ * [UserManualVersion1 User Manual for Re-Mote version 1.0]
