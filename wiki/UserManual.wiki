@@ -44,10 +44,10 @@ To release control of a mote simply mark it in the "Controlled motes" view and p
 
 http://remote-testbed.googlecode.com/svn/documentation/images/screenshots/release-mote.png
 
-= Configuration File =
+== Configuration File ==
 
 The client automatically creates a configuration file called *.re-mote*. This file is used for keeping information about which testbed server and port the client should connect to on startup. It also stores the most recent project and user name for easy later authorization.
 
-= Reporting Bugs and Problems =
+== Reporting Bugs and Problems ==
 
 If you find a bug or you stumble upon a problem, please take the time to report it. The easiest way to report bugs is to visit the  project site and [http://code.google.com/p/remote-testbed/issues/entry enter a new issue] into the issue tracker. Other problems are best reported to the [http://groups.google.com/group/remote-testbed discussion forum], where questions can also be posted.
