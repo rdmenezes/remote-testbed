@@ -5,7 +5,7 @@ AC_PREREQ(2.59)
 AC_INIT([remote-mci],[2.0.git],[remote-testbed@googlegroups.com])
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_HEADER([config/config.h])
-AC_CONFIG_SRCDIR([remote.h])
+AC_CONFIG_SRCDIR([src/remote.h])
 
 AM_INIT_AUTOMAKE()
 
@@ -144,11 +144,12 @@ AM_CONDITIONAL(CONFIG_MCS, test "x$CONFIG_MCS" = "xyes")
 AC_CONFIG_FILES([
 		 Makefile
 		 doc/Makefile
-		 libutil/Makefile
-		 mch/Makefile
-		 mch/notify/Makefile
-		 mcs/Makefile
-		 protocols/Makefile
+		 src/Makefile
+		 src/mch/Makefile
+		 src/mch/notify/Makefile
+		 src/mcs/Makefile
+		 src/protocols/Makefile
+		 src/util/Makefile
 ])
 AC_OUTPUT
 

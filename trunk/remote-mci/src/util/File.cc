@@ -4,8 +4,8 @@
 #include <errno.h>
 #include <libgen.h>
 
-#include "libutil/File.h"
-#include "libutil/Log.h"
+#include "util/File.h"
+#include "util/Log.h"
 
 namespace remote { namespace util {
 

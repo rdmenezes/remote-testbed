@@ -11,8 +11,8 @@ remote_mch_SOURCES = \
  SerialControl.h
 
 remote_mch_DEPENDENCIES = \
- $(top_builddir)/libutil/libutil.a \
- $(top_builddir)/protocols/libprotocols.a
+ $(top_builddir)/src/util/libutil.a \
+ $(top_builddir)/src/protocols/libprotocols.a
 
 remote_mch_LDADD = \
  $(remote_mch_DEPENDENCIES)

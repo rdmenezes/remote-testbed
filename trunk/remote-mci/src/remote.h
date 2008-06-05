@@ -35,10 +35,10 @@
 #include <list>
 #include <map>
 
-#include "libutil/File.h"
-#include "libutil/Log.h"
-#include "libutil/Config.h"
-#include "libutil/error.h"
+#include "util/File.h"
+#include "util/Log.h"
+#include "util/Config.h"
+#include "util/error.h"
 
 using namespace remote::util;
 

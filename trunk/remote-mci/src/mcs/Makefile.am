@@ -24,8 +24,8 @@ remote_mcs_SOURCES = \
  moteserver.cc
 
 remote_mcs_DEPENDENCIES = \
- $(top_builddir)/libutil/libutil.a \
- $(top_builddir)/protocols/libprotocols.a
+ $(top_builddir)/src/util/libutil.a \
+ $(top_builddir)/src/protocols/libprotocols.a
 
 remote_mcs_LDADD = \
  $(remote_mcs_DEPENDENCIES) \
