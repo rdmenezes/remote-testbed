@@ -61,21 +61,6 @@ void Host::deleteMoteByMac(std::string mac)
 	}
 }
 
-void Host::registerMoteInfoByMac(std::string mac, moteinfo_t moteinfo)
-{
-	moteInfoByMac[mac] = moteinfo;
-}
-
-void Host::deleteMoteInfoByMac(std::string mac)
-{
-	moteinfobymac_t::iterator mI;
-	mI = moteInfoByMac.find(mac);
-	if ( mI != moteInfoByMac.end() )
-	{
-		moteInfoByMac.erase(mI);
-	}
-}
-
 void Host::findOrCreateMote(MsgMoteConnectionInfo& info)
 {
 	std::string path = info.getPath().getString();
@@ -172,11 +157,9 @@ void Host::findOrCreateMote(MsgMoteConnectionInfo& info)
 void Host::handleMotesLostList(MsgMoteConnectionInfoList& infolist)
 {
 	MsgMoteConnectionInfo info;
-	while ( infolist.getNextMoteInfo(info) )
-	{
+
+	while (infolist.getNextMoteInfo(info))
 		deleteMoteByMac(info.getMac());
-		deleteMoteInfoByMac(info.getMac());
-	}
 }
 
 void Host::handleMotesFoundList(MsgMoteConnectionInfoList& infolist)
@@ -254,13 +237,11 @@ void Host::handleEvent(short events)
 void Host::handleMsgIn(MsgHostConfirm& msgHostConfirm)
 {
 	motemapbymac_t::iterator mI;
+
 	mI = motesByMac.find(msgHostConfirm.getMoteAddresses().getMac());
-	if ( mI != motesByMac.end() )
-	{
-		if (msgHostConfirm.getStatus() == MSGHOSTCONFIRM_UNKNOWN_MOTE)
-		{
+	if (mI != motesByMac.end()) {
+		if (msgHostConfirm.getStatus() == MSGHOSTCONFIRM_UNKNOWN_MOTE) {
 			deleteMoteByMac(msgHostConfirm.getMoteAddresses().getMac());
-			deleteMoteInfoByMac(msgHostConfirm.getMoteAddresses().getMac());
 		} else {
 			mI->second->confirm(msgHostConfirm.getMessage());
 		}
