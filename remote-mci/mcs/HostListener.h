@@ -30,7 +30,7 @@ class HostListener : public FileDescriptor
 		 * \param events Event descriptor.
 		 *  **/
 		void handleEvent(short events);
-		/** TODO: document me **/
+		/** The local Internet socket address for serving hosts. */
 		struct sockaddr_in server;
 		/** Map of all currently connected hosts. **/
 		hostmapbykey_t hosts;
