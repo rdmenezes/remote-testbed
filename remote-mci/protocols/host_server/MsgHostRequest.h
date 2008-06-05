@@ -1,5 +1,5 @@
-#ifndef MSGHOSTREQUEST_H_
-#define MSGHOSTREQUEST_H_
+#ifndef REMOTE_PROTOCOLS_HOST_SERVER_MSGHOSTREQUEST_H
+#define REMOTE_PROTOCOLS_HOST_SERVER_MSGHOSTREQUEST_H
 
 #include "tcputil.h"
 #include "BaseMsg.h"
@@ -30,4 +30,4 @@ class MsgHostRequest : public BaseMsg
 };
 
 }}}
-#endif /*MSGHOSTREQUEST_H_*/
+#endif

@@ -1,5 +1,5 @@
-#ifndef CLIENTMSG_H_
-#define CLIENTMSG_H_
+#ifndef REMOTE_PROTOCOLS_CLIENT_SERVER_CLIENTMSG_H
+#define REMOTE_PROTOCOLS_CLIENT_SERVER_CLIENTMSG_H
 #include "tcputil.h"
 #include "BaseMsg.h"
 #include "MsgClientRequest.h"
@@ -48,4 +48,4 @@ class ClientMsg : public BaseMsg
 
 }}}
 
-#endif /*CLIENTMSG_H_*/
+#endif

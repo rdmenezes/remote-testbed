@@ -1,5 +1,5 @@
-#ifndef MSGPLUGEVENT_H_
-#define MSGPLUGEVENT_H_
+#ifndef REMOTE_PROTOCOLS_HOST_SERVER_MSGPLUGEVENT_H
+#define REMOTE_PROTOCOLS_HOST_SERVER_MSGPLUGEVENT_H
 #include "tcputil.h"
 #include "BaseMsg.h"
 #include "MsgMoteConnectionInfoList.h"
@@ -33,4 +33,4 @@ class MsgPlugEvent : public BaseMsg
 
 }}}
 
-#endif /*MSGPLUGEVENT_H_*/
+#endif

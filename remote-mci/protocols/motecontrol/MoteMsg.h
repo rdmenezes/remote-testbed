@@ -1,5 +1,5 @@
-#ifndef MOTEMSG_H_
-#define MOTEMSG_H_
+#ifndef REMOTE_PROTOCOLS_MOTECONTROL_MOTEMSG_H
+#define REMOTE_PROTOCOLS_MOTECONTROL_MOTEMSG_H
 #include "BaseMsg.h"
 #include "MsgRequest.h"
 #include "MsgConfirm.h"
@@ -40,4 +40,4 @@ class MoteMsg : public BaseMsg
 		bool deleteMsg;
 };
 }}}
-#endif /*MOTEMSG_H_*/
+#endif

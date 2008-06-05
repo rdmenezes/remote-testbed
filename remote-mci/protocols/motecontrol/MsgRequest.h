@@ -1,5 +1,5 @@
-#ifndef MSGREQUEST_H_
-#define MSGREQUEST_H_
+#ifndef REMOTE_PROTOCOLS_MOTECONTROL_MSGREQUEST_H
+#define REMOTE_PROTOCOLS_MOTECONTROL_MSGREQUEST_H
 #include "tcputil.h"
 #include "BaseMsg.h"
 #include "MsgPayload.h"
@@ -38,4 +38,4 @@ class MsgRequest : public BaseMsg
 };
 
 }}}
-#endif /*MSGREQUEST_H_*/
+#endif

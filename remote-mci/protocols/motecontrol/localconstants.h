@@ -1,5 +1,5 @@
-#ifndef LOCALCONSTANTS_H_
-#define LOCALCONSTANTS_H_
+#ifndef REMOTE_PROTOCOLS_MOTECONTROL_LOCALCONSTANTS_H
+#define REMOTE_PROTOCOLS_MOTECONTROL_LOCALCONSTANTS_H
 
 namespace remote { namespace protocols { namespace motecontrol {
 
@@ -22,4 +22,4 @@ enum
 
 }}}
 
-#endif /*LOCALCONSTANTS_H_*/
+#endif

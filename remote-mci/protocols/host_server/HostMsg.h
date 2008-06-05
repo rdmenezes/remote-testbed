@@ -1,5 +1,5 @@
-#ifndef HOSTMSG_H_
-#define HOSTMSG_H_
+#ifndef REMOTE_PROTOCOLS_HOST_SERVER_HOSTMSG_H
+#define REMOTE_PROTOCOLS_HOST_SERVER_HOSTMSG_H
 #include "tcputil.h"
 #include "BaseMsg.h"
 #include "MsgPayload.h"
@@ -48,4 +48,4 @@ class HostMsg : public BaseMsg
 
 }}}
 
-#endif /*HOSTMSG_H_*/
+#endif

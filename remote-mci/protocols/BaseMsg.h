@@ -1,5 +1,5 @@
-#ifndef BASEMSG_H_
-#define BASEMSG_H_
+#ifndef REMOTE_PROTOCOLS_BASEMSG_H
+#define REMOTE_PROTOCOLS_BASEMSG_H
 #include "tcputil.h"
 
 namespace remote { namespace protocols {
@@ -17,4 +17,4 @@ class BaseMsg
 
 }}
 
-#endif /*BASEMSG_H_*/
+#endif

@@ -1,5 +1,5 @@
-#ifndef LOCALCONSTANTS_H_
-#define LOCALCONSTANTS_H_
+#ifndef REMOTE_PROTOCOLS_CLIENT_SERVER_LOCALCONSTANTS_H
+#define REMOTE_PROTOCOLS_CLIENT_SERVER_LOCALCONSTANTS_H
 
 enum result_types
 {
@@ -12,4 +12,4 @@ enum result_types
 	NOT_SUPPORTED
 };
 
-#endif /*LOCALCONSTANTS_H_*/
+#endif

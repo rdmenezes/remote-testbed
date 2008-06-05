@@ -1,5 +1,5 @@
-#ifndef MSGCLIENTCONFIRM_H_
-#define MSGCLIENTCONFIRM_H_
+#ifndef REMOTE_PROTOCOLS_CLIENT_SERVER_MSGCLIENTCONFIRM_H
+#define REMOTE_PROTOCOLS_CLIENT_SERVER_MSGCLIENTCONFIRM_H
 #include "tcputil.h"
 #include "BaseMsg.h"
 #include "MsgClientRequest.h"
@@ -32,4 +32,4 @@ class MsgClientConfirm : public BaseMsg
 
 }}}
 
-#endif /*MSGCLIENTCONFIRM_H_*/
+#endif

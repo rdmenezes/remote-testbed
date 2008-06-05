@@ -1,5 +1,5 @@
-#ifndef MSGCONFIRM_H_
-#define MSGCONFIRM_H_
+#ifndef REMOTE_PROTOCOLS_MOTECONTROL_MSGCONFIRM_H
+#define REMOTE_PROTOCOLS_MOTECONTROL_MSGCONFIRM_H
 
 #include "BaseMsg.h"
 #include "MsgRequest.h"
@@ -30,4 +30,4 @@ class MsgConfirm : public BaseMsg
 		status_t status;
 };
 }}}
-#endif /*MSGCONFIRM_H_*/
+#endif

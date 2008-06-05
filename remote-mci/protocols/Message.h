@@ -1,5 +1,5 @@
-#ifndef MESSAGE_H_
-#define MESSAGE_H_
+#ifndef REMOTE_PROTOCOLS_MESSAGE_H
+#define REMOTE_PROTOCOLS_MESSAGE_H
 #include "tcputil.h"
 #include "BaseMsg.h"
 #include <netinet/in.h>
@@ -25,4 +25,4 @@ class Message
 
 }}
 
-#endif /*MESSAGE_H_*/
+#endif

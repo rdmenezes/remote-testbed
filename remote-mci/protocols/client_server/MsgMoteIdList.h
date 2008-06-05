@@ -1,5 +1,5 @@
-#ifndef MSGMOTEIDLIST_H_
-#define MSGMOTEIDLIST_H_
+#ifndef REMOTE_PROTOCOLS_CLIENT_SERVER_MSGMOTEIDLIST_H
+#define REMOTE_PROTOCOLS_CLIENT_SERVER_MSGMOTEIDLIST_H
 
 #include <stdlib.h>
 #include <list>
@@ -29,4 +29,4 @@ class MsgMoteIdList
 
 }}}
 
-#endif /*MSGMOTEIDLIST_H_*/
+#endif
