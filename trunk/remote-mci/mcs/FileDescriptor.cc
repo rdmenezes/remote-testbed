@@ -79,27 +79,9 @@ void FileDescriptor::buildPollMap(pollfd* map)
 FileDescriptor::~FileDescriptor()
 {
 	if (close(fd) != 0)
-	{
-		int err = errno;
-		switch (err)
-		{
-			case EBADF:
-				log("close(%i) - %i isn’t a valid open file descriptor.\n",fd,fd);
-				break;
-			case EINTR:
-				log("close(%i) - The close() call was interrupted by a signal.\n",fd);
-				break;
-			case EIO:
-				log("close(%i) - An I/O error occurred.\n",fd);
-				break;
-			default:
-				log("close(%i) - Unknown error %i occured\n",fd,err);
-		}
-	}
+		log("close(%i) - %s\n", fd, strerror(errno));
 	else
-	{
-		log("Closed fd %i\n",fd);
-	}
+		log("Closed fd %i\n", fd);
 	instances.erase(fd);
 }
 
