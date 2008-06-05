@@ -1,5 +1,5 @@
 #include "MoteMsg.h"
-#include "macros.h"
+
 namespace remote { namespace protocols { namespace motecontrol {
 
 MoteMsg::MoteMsg(uint8_t*& buffer, uint32_t& buflen)

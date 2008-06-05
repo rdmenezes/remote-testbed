@@ -1,7 +1,6 @@
 #ifndef _HOSTLISTENER_H_
 #define _HOSTLISTENER_H_
 
-#include "macros.h"
 #include "tcputil.h"
 #include "database.h"
 #include "FileDescriptor.h"

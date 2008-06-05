@@ -1,5 +1,4 @@
 #include "Mote.h"
-#include "macros.h"
 
 namespace remote { namespace mcs {
 
@@ -26,7 +25,7 @@ Mote::Mote( dbkey_t p_mote_id,
 		// register the mote in the mote pool
 		registerMote(this);
 	} else	{
-		log("Info: %s, site_id: %u, mote_id: %u\n",sqlres.info.c_str(),site_id,mote_id);
+		Log::error("Unable to register site on mote: %s", sqlres.info.c_str());
 		delete this;
 		__THROW__ ("Unable to register site on mote!\n");
 	}
@@ -78,7 +77,7 @@ void Mote::destroy(bool silent)
 	{
 		if (silent)
 		{
-			log("Exception while updating mote record: %s - record not updated!\n",e.what());
+			Log::error("Exception while updating mote record: %s - record not updated!", e.what());
 		}
 		else
 		{

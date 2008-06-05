@@ -12,8 +12,11 @@
 #include <signal.h>
 #include <sys/time.h>
 #include <errno.h>
+#include "libutil/Log.h"
 
 namespace remote { namespace mcs {
+
+using namespace remote::util;
 
 class FileDescriptor;
 

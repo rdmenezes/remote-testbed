@@ -1,5 +1,5 @@
 #include "Message.h"
-#include "macros.h"
+
 namespace remote { namespace protocols {
 
 Message::Message()
@@ -26,7 +26,7 @@ bool Message::nonBlockingRecv(int fd)
 		// still at the datalen part
 		r = read(fd,p_datalen+recvLen,sizeof(datalen)-recvLen);
 		if (r <= 0) {
-			log("Recv error: %s\n", strerror(errno));
+			Log::error("Recv error: %s", strerror(errno));
 			__THROW__("Unable to read message length!");
 		}
 		recvLen += r;
@@ -47,7 +47,7 @@ bool Message::nonBlockingRecv(int fd)
 	{
 		r = read(fd,data+recvLen-sizeof(datalen),targetRecvLen-recvLen);
 		if (r <= 0) {
-			log("Recv error: %s\n", strerror(errno));
+			Log::error("Recv error: %s", strerror(errno));
 			__THROW__ ("Unable to read message data!");
 		}
 		recvLen += r;

@@ -3,7 +3,6 @@
 #include "HostListener.h"
 #include "database.h"
 #include "MMSException.h"
-#include "macros.h"
 #include <exception>
 #include <unistd.h>
 #include "libutil/File.h"
@@ -26,7 +25,7 @@ bool daemonize		= false;
 
 void handleExit()
 {
-	log("Shutting down\n");
+	Log::info("Shutting down");
 	remove(pidFile.c_str());
 }
 
@@ -70,9 +69,12 @@ int main(int argc,char** argv)
 		if (!freopen(errorFile.c_str(), "a", stderr)) {
 			return -1;
 		}
+		Log::open("remote-mcs", Log::INFO, Log::SYSLOG);
+	} else {
+		Log::open("remote-mcs", Log::INFO, stdout);
 	}
 
-	log("Starting mote server\n");
+	Log::info("Starting mote server");
 
 	atexit(handleExit);
 
@@ -80,18 +82,18 @@ int main(int argc,char** argv)
 	pid = oss.str();
 
 	if (!File::writeFile(pidFile, pid.c_str(), pid.size()))
-		log("Failed to create .pid file\n");
+		Log::error("Failed to create .pid file");
 
 	do {
 			dbConn.connect(dbName, dbHost, dbUser, dbPassword);
-			log("Connected to database\n");
+			Log::info("Connected to database");
 			Mote::resetDb();
-			log("Deleted old mote data\n");
+			Log::info("Deleted old mote data");
 			Session::resetDb();
-			log("Deleted old session data\n");
+			Log::info("Deleted old session data");
 			HostListener hostListener(moteHostPort);
 			SessionListener sessionListener(sessionPort);
-			log("Entering service loop\n");
+			Log::info("Entering service loop");
 			eCode = FileDescriptor::serviceLoop();
 	} while (eCode);
 }

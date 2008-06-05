@@ -1,5 +1,4 @@
 #include "MsgRequest.h"
-#include "macros.h"
 
 namespace remote { namespace protocols { namespace motecontrol {
 

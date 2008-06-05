@@ -1,5 +1,4 @@
 #include "Session.h"
-#include "macros.h"
 
 namespace remote { namespace mcs {
 
@@ -18,7 +17,7 @@ Session::Session(int p_fd, sessionmapbyfd_t& p_clientMap )
 
 Session::~Session()
 {
-	log("Closing client connection!\n");
+	Log::info("Closing client connection!");
 	sessionMap.erase(fd);
 	deleteSessionRecord();
 }
@@ -38,7 +37,7 @@ void Session::destroy(bool silent)
 		{
 			if (silent)
 			{
-				log("Exception while dropping mote client: %s - record not updated!\n",e.what());
+				Log::error("Exception while dropping mote client: %s - record not updated!", e.what());
 			}
 			else
 			{
@@ -112,8 +111,10 @@ bool Session::isAuthenticated()
 	}
 	query.reset();
 
-	if (authenticated){ log("Client authenticated!\n");}
-	else { log("Client not authenticated!\n"); }
+	if (authenticated)
+		Log::info("Client authenticated!");
+	else
+		Log::warn("Client not authenticated!");
 	return authenticated;
 }
 
@@ -142,7 +143,7 @@ void Session::confirm(dbkey_t mote_id, MsgPayload& moteMsg)
 	}
 	catch (remote::protocols::MMSException e)
 	{
-		log("Exception: %s\n",e.what());
+		Log::error("Exception: %s", e.what());
 		this->destroy();
 	}
 }

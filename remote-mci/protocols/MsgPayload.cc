@@ -1,5 +1,5 @@
 #include "MsgPayload.h"
-#include "macros.h"
+
 namespace remote { namespace protocols {
 
 MsgPayload::MsgPayload(uint8_t*& buffer, uint32_t& buflen)
@@ -65,7 +65,7 @@ uint8_t* MsgPayload::read(uint8_t* buffer, uint32_t& buflen)
 	buffer = readvalue(length,buffer,buflen);
 	if (length > buflen)
 	{
-		log("Payload length %u greater than buffer length %u!\n",length,buflen);
+		Log::error("Payload length %u greater than buffer length %u!", length, buflen);
 		__THROW__ ("Payload length greater than buffer length!");
 	}
 

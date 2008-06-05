@@ -1,7 +1,6 @@
 noinst_LIBRARIES = libprotocols.a
 
 libprotocols_a_SOURCES = \
- macros.h \
  Message.h \
  client_server/MsgClientRequest.h \
  client_server/MsgClientConfirm.cc \
