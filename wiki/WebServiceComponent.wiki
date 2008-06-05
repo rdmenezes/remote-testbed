@@ -1,4 +1,0 @@
-﻿#summary Introduction to the Re-Mote WebService Component (remote-ws)
-#labels Deprecated
-
-The content from this page has been moved to the [AdministratorManual#Building_and_Deploying_the_Web_Services AdministratorManual] page.
