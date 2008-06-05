@@ -20,12 +20,12 @@ Host::~Host()
 
 void Host::destroy(bool silent)
 {
-	log("Deleting motes\n");
 	motemapbymac_t::iterator mI;
-	for( mI = motesByMac.begin(); mI != motesByMac.end(); mI++)
-	{
-		if (mI->second)	mI->second->destroy(silent);
-	}
+
+	log("Deleting motes\n");
+	for(mI = motesByMac.begin(); mI != motesByMac.end(); mI++)
+		if (mI->second)
+			mI->second->destroy(silent);
 	delete this;
 }
 
