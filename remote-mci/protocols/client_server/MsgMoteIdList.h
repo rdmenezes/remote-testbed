@@ -1,16 +1,13 @@
 #ifndef REMOTE_PROTOCOLS_CLIENT_SERVER_MSGMOTEIDLIST_H
 #define REMOTE_PROTOCOLS_CLIENT_SERVER_MSGMOTEIDLIST_H
 
-#include <stdlib.h>
-#include <list>
-#include "types.h"
-#include "tcputil.h"
+#include "protocols/BaseMsg.h"
 
 namespace remote { namespace protocols { namespace client_server {
 
 typedef std::list<dbkey_t> idlist_t;
 
-class MsgMoteIdList
+class MsgMoteIdList : public BaseMsg
 {
 	public:
 		MsgMoteIdList();

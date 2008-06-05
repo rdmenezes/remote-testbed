@@ -1,4 +1,4 @@
-#include "Message.h"
+#include "protocols/Message.h"
 
 namespace remote { namespace protocols {
 

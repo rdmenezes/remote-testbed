@@ -1,11 +1,11 @@
 #ifndef REMOTE_PROTOCOLS_HOST_SERVER_HOSTMSG_H
 #define REMOTE_PROTOCOLS_HOST_SERVER_HOSTMSG_H
-#include "tcputil.h"
-#include "BaseMsg.h"
-#include "MsgPayload.h"
-#include "MsgPlugEvent.h"
-#include "MsgHostRequest.h"
-#include "MsgHostConfirm.h"
+
+#include "protocols/BaseMsg.h"
+#include "protocols/MsgPayload.h"
+#include "protocols/host_server/MsgHostConfirm.h"
+#include "protocols/host_server/MsgHostRequest.h"
+#include "protocols/host_server/MsgPlugEvent.h"
 
 namespace remote { namespace protocols { namespace host_server {
 

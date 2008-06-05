@@ -1,9 +1,10 @@
 #ifndef REMOTE_PROTOCOLS_MESSAGE_H
 #define REMOTE_PROTOCOLS_MESSAGE_H
-#include "tcputil.h"
-#include "BaseMsg.h"
-#include <netinet/in.h>
-#include <errno.h>
+
+#include "remote.h"
+
+#include "protocols/tcputil.h"
+#include "protocols/BaseMsg.h"
 
 namespace remote { namespace protocols {
 

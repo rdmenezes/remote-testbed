@@ -1,9 +1,10 @@
 #ifndef REMOTE_PROTOCOLS_CLIENT_SERVER_MSGCLIENTCONFIRM_H
 #define REMOTE_PROTOCOLS_CLIENT_SERVER_MSGCLIENTCONFIRM_H
-#include "tcputil.h"
-#include "BaseMsg.h"
-#include "MsgClientRequest.h"
-#include "localconstants.h"
+
+#include "protocols/tcputil.h"
+#include "protocols/BaseMsg.h"
+#include "protocols/client_server/MsgClientRequest.h"
+#include "protocols/client_server/localconstants.h"
 
 namespace remote { namespace protocols { namespace client_server {
 

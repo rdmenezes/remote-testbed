@@ -1,4 +1,4 @@
-#include "MoteMsg.h"
+#include "protocols/motecontrol/MoteMsg.h"
 
 namespace remote { namespace protocols { namespace motecontrol {
 

@@ -1,10 +1,9 @@
 #ifndef REMOTE_PROTOCOLS_HOST_SERVER_MSGHOSTCONFIRM_H
 #define REMOTE_PROTOCOLS_HOST_SERVER_MSGHOSTCONFIRM_H
 
-#include "tcputil.h"
-#include "BaseMsg.h"
-#include "MsgPayload.h"
-#include "MsgMoteAddresses.h"
+#include "protocols/BaseMsg.h"
+#include "protocols/MsgPayload.h"
+#include "protocols/host_server/MsgMoteAddresses.h"
 
 namespace remote { namespace protocols { namespace host_server {
 

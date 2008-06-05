@@ -1,9 +1,10 @@
 #ifndef REMOTE_PROTOCOLS_MOTECONTROL_MOTEMSG_H
 #define REMOTE_PROTOCOLS_MOTECONTROL_MOTEMSG_H
-#include "BaseMsg.h"
-#include "MsgRequest.h"
-#include "MsgConfirm.h"
-#include "MsgPayload.h"
+
+#include "protocols/BaseMsg.h"
+#include "protocols/MsgPayload.h"
+#include "protocols/motecontrol/MsgConfirm.h"
+#include "protocols/motecontrol/MsgRequest.h"
 
 namespace remote { namespace protocols { namespace motecontrol {
 

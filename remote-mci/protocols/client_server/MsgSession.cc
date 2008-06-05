@@ -1,4 +1,4 @@
-#include "MsgSession.h"
+#include "protocols/client_server/MsgSession.h"
 
 namespace remote { namespace protocols { namespace client_server {
 

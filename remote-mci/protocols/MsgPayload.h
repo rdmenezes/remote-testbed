@@ -1,7 +1,7 @@
 #ifndef REMOTE_PROTOCOLS_MSGPAYLOAD_H
 #define REMOTE_PROTOCOLS_MSGPAYLOAD_H
-#include "tcputil.h"
-#include "BaseMsg.h"
+
+#include "protocols/BaseMsg.h"
 
 namespace remote { namespace protocols {
 
