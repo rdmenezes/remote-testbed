@@ -132,7 +132,7 @@ char* getHostByIp(in_addr ip)
 				log("Unknown error %u\n",h_errno);
 		}
 
-		return "";
+		return (char *) "";
 	}
 }
 
