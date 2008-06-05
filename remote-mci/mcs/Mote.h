@@ -1,15 +1,18 @@
 #ifndef _MOTE_H_
 #define _MOTE_H_
 
-#include "Session.h"
-#include "MoteControlInfrastructure.h"
+#include <map>
+#include "types.h"
 #include "MsgPayload.h"
 
 namespace remote { namespace mcs {
 
+using namespace remote::protocols;
+
 class Host;
 class Session;
 class Mote;
+class MoteAddresses;
 
 typedef std::map<dbkey_t,Mote*> motemapbykey_t;
 
@@ -55,8 +58,8 @@ class Mote
 		**/
 		Mote( dbkey_t p_mote_id,
 		      dbkey_t p_site_id,
-		      MoteControlInfrastructure& p_infrastructure,
-		      MCIAddress& p_mciAddress );
+		      Host& p_infrastructure,
+		      MoteAddresses& p_mciAddress );
 
 		/** Create a new mote in the database with specified site_id.
 		 * \param p_site_id Database key of the site
@@ -64,8 +67,8 @@ class Mote
 		 * \param p_mciAddress Control infrastructure address of the mote
 		 *  **/
 		Mote( dbkey_t p_site_id,
-		      MoteControlInfrastructure& p_infrastructure,
-			  MCIAddress& p_mciAddress );
+		      Host& p_infrastructure,
+			  MoteAddresses& p_mciAddress );
 
 		/** Delete the mote object
 		 * \param silent If true, exceptions are caught and logged silently.
@@ -108,7 +111,7 @@ class Mote
 		std::string getAttribute(std::string type);
 
 		/**	 Mote Control Infrastructure address. **/
-		MCIAddress& mciAddress;
+		MoteAddresses& mciAddress;
 		/** Database key of the mote **/
 		dbkey_t mote_id;
 		/** Database ket of the current deployment site of the mote. **/
@@ -124,7 +127,7 @@ class Mote
 		/** Keyed map of all current Mote objects **/
 		static motemapbykey_t mote;
 		/** The current owner of this mote **/
-		MoteControlInfrastructure& mci;
+		Host& mci;
 		/** The session currently in control of this mote **/
 		Session* session;
 };

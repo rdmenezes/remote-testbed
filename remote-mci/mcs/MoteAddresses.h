@@ -2,16 +2,13 @@
 #define MOTEADDRESSES_H_
 
 #include <string>
-#include "MCIAddress.h"
 
 namespace remote { namespace mcs {
 
 using namespace mcs;
 
-/** This is the deployment specific specialization of the
- * MCIAddress class. It has a NET address and a MAC address
- * for each mote **/
-class MoteAddresses : public MCIAddress
+/** This is a container for the infrastructure addresses. **/
+class MoteAddresses
 {
 	public:
 		/** Constructor

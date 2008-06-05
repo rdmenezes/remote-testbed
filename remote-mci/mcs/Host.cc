@@ -120,7 +120,7 @@ void Host::findOrCreateMote(MsgMoteConnectionInfo& info)
 		selectRes.purge();
 		// create the mote using site_id only - the mote class will create the
 		// mote database record itself
-		mote = new Mote(site_id,(MoteControlInfrastructure&)*this,*newtarget);
+		mote = new Mote(site_id, *this, *newtarget);
 		// TODO: error checking
 		// create the mac and net address database records using the mote id
 		oss << (uint16_t) mote->mote_id;
@@ -139,7 +139,7 @@ void Host::findOrCreateMote(MsgMoteConnectionInfo& info)
 		selectRes.purge();
 		// create the mote object using mote_id and site_id - the mote class will
 		// update the mote database record to reflect the new site
-		mote = new Mote(mote_id,site_id,(MoteControlInfrastructure&)*this,*newtarget);
+		mote = new Mote(mote_id, site_id, *this, *newtarget);
 
 		// get the net address mote attribute
 		newtarget->netAddress = mote->getAttribute("netaddress");
@@ -170,11 +170,10 @@ void Host::handleMotesFoundList(MsgMoteConnectionInfoList& infolist)
 	}
 }
 
-void Host::request(MCIAddress& address, MsgPayload& request )
+void Host::request(MoteAddresses& address, MsgPayload& request )
 {
-	MsgMoteAddresses addresses(((MoteAddresses&)address).mac,
-				   ((MoteAddresses&)address).netAddress);
-	MsgHostRequest msgHostRequest(addresses,request);
+	MsgMoteAddresses addresses(address.mac, address.netAddress);
+	MsgHostRequest msgHostRequest(addresses, request);
 	HostMsg message(msgHostRequest);
 
 	try {
