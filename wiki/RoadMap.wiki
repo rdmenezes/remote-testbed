@@ -27,6 +27,8 @@ Open issues sorted by [http://code.google.com/p/remote-testbed/issues/list?q=lab
 
  * Issue 36: Add description field to testbed projects.
 
+ * Issue 41: Add user interface and infrastructure for configuring clients to access new testbeds.
+
 === Infrastructure ===
 
  * Issue 11: Reorganizing the files of the DB module will further improve the self-documenting hierarchy of this module.
