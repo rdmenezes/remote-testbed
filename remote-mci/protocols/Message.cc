@@ -25,10 +25,8 @@ bool Message::nonBlockingRecv(int fd)
 	{
 		// still at the datalen part
 		r = read(fd,p_datalen+recvLen,sizeof(datalen)-recvLen);
-		if (r<=0)
-		{
-			int e = errno;
-			log("Recv error %i\n",e);
+		if (r <= 0) {
+			log("Recv error: %s\n", strerror(errno));
 			__THROW__("Unable to read message length!");
 		}
 		recvLen += r;
@@ -48,10 +46,8 @@ bool Message::nonBlockingRecv(int fd)
 	if ( recvLen >= sizeof(datalen) && recvLen < targetRecvLen )
 	{
 		r = read(fd,data+recvLen-sizeof(datalen),targetRecvLen-recvLen);
-		if (r<=0)
-		{
-			int e = errno;
-			log("Recv error %i\n",e);
+		if (r <= 0) {
+			log("Recv error: %s\n", strerror(errno));
 			__THROW__ ("Unable to read message data!");
 		}
 		recvLen += r;
