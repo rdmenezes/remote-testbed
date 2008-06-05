@@ -1,0 +1,9 @@
+#summary Index information for Google documentation reader
+#labels Section-Docreader
+
+ * mote control host
+ * mote control server
+ * mote control infrastructure
+ * MCS
+ * MCH
+ * MCI
