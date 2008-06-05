@@ -2,8 +2,6 @@
 
 namespace remote { namespace mch {
 
-using namespace remote::util;
-
 int MoteHost::clientsock;
 int MoteHost::plugpipe;
 int MoteHost::exitSignal;

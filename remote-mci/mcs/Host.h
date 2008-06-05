@@ -21,8 +21,7 @@
 
 namespace remote { namespace mcs {
 
-using namespace protocols::host_server;
-using namespace remote::mcs;
+using namespace remote::protocols::host_server;
 
 class Host;
 

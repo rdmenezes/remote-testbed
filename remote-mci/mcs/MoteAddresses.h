@@ -5,8 +5,6 @@
 
 namespace remote { namespace mcs {
 
-using namespace mcs;
-
 /** This is a container for the infrastructure addresses. **/
 class MoteAddresses
 {

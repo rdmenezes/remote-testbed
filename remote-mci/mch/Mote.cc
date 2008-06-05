@@ -2,8 +2,6 @@
 
 namespace remote { namespace mch {
 
-using namespace remote::util;
-
 const std::string Mote::NONE = "none";
 const std::string Mote::START = "start";
 const std::string Mote::STOP = "stop";
