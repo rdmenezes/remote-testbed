@@ -22,23 +22,31 @@ The mote control server may be run both in the foreground and as a daemon.
 
 OPTIONS
 -------
-The following options can be specified on the command line.
+The following options are only usable on the command line.
 
---config-file=<path>::
+--config=<path>::
 
-	Path to the configuration file. Default is "/etc/remote-mcs.cfg".
-
---daemonize=[1|0]::
-
-	Specify whether to run as a daemon. Default is to not daemonize.
+	Path to the configuration file. Defaults to "/etc/remote-mcs.cfg".
 
 --help::
 
 	Print usage help and exit.
 
-CONFIGURATION OPTIONS
----------------------
-Use the following options to configure the mote host.
+--version::
+
+	Print version info and exit.
+
+Configuration options
+~~~~~~~~~~~~~~~~~~~~~
+In addition, to the above options the mote control server accepts the
+following configuration options that can be specified either on the command
+line or in the configuration file. An option set in the configuration file
+overrides any option set on the command line.
+
+On the command line use: '--' <name> '=' <value>, e.g. '--devicePath=/here'.
+In the config file use: <name> '=' <value>, e.g. 'devicePath=/here'. For
+boolean options the '=' and value may be left out to set the value to true.
+See the example sections for more information.
 
 dbName <string>::
 
@@ -56,14 +64,14 @@ dbPassword <string>::
 
 	Password for the infrastructure database.
 
-sessionListenerPort <number>::
+sessionPort <number>::
 
 	Port number to use when listening for new sessions.
 	The default port is 10000.
 
-hostListenerPort <number>::
+hostPort <number>::
 
-	Port number to use when listening for new hosts.
+	Port number to use when listening for new mote hosts.
 	Defaults to port 10001.
 
 pidFile <string>::
@@ -71,16 +79,21 @@ pidFile <string>::
 	Path to the file containing the PID of the mote host.
 	Defaults to "/var/run/remote-mcs.pid".
 
-log-file <string>::
+logFile <string>::
 
 	Path to the output log file when running as a daemon.
 	MCS will log to "/var/log/remote-mcs.log" by default.
 
-errorlog-file <string>::
+errorFile <string>::
 
 	Path to the error log file when running as a daemon.
 	Errors will be logged to "/var/log/remote-mcs-error.log"
 	by default.
+
+daemonize <boolean>::
+
+	Whether or not to run in the background as a daemon.
+	Defaults to false.
 
 FILES
 -----
@@ -97,6 +110,29 @@ The mote control server uses the following configurable files.
 ENVIRONMENT VARIABLES
 ---------------------
 The mote control server does not use any environment variables.
+
+EXAMPLES
+--------
+
+Using configuration options on the command line::
+
+	If you only need to override the default values for the database
+	access and don't want to use a configuration file, specify all
+	option on the command line.
+
+	$ remote-mcs --dbName=REMOTE --dbUser=remote_admin --dbPassword=123
+
+A simple configuration file::
+
+	The following configuration file sets the same values as the above
+	example and also tells the mote control server to run as a daemon.
+
+	# Database credentials
+	dbName=REMOTE
+	dbUser=remote_admin
+	dbPassword=123
+	# Run in the background
+	daemonize
 
 COPYRIGHT
 ---------

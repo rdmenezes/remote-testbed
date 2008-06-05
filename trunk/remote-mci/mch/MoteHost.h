@@ -2,12 +2,14 @@
 #define REMOTE_MCH_MOTEHOST_H
 
 #include <string>
+#include <sstream>
 #include <sys/select.h>
 #include <unistd.h>
 
 #include "macros.h"
 #include "types.h"
 
+#include "libutil/Config.h"
 #include "libutil/error.h"
 #include "tcputil.h"
 #include "Message.h"
@@ -17,7 +19,6 @@
 #include "host_server/MsgMoteAddresses.h"
 #include "DeviceManager.h"
 #include "Mote.h"
-#include "Configuration.h"
 
 namespace remote { namespace mch {
 
@@ -125,8 +126,16 @@ private:
 	static int plugpipe;		/**< Plug event pipe. */
 	static Message msg;		/**< Message manager. */
 	static DeviceManager devices;	/**< Mote device manager. */
-	static Configuration config;	/**< Option manager. */
 	static int exitSignal;		/**< Caught exit signal or zero. */
+
+	/* Option values. */
+	static bool daemonize;
+	static std::string pidFile;
+	static std::string serverHost;
+	static uint16_t serverPort;
+	static uint64_t retryInterval;
+	static std::string eventPipe;
+	static std::string devicePath;
 };
 
 }}

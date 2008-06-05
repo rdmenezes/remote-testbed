@@ -1,8 +1,6 @@
 bin_PROGRAMS = remote-mch
 
 remote_mch_SOURCES = \
- Configuration.cc \
- Configuration.h \
  DeviceManager.cc \
  DeviceManager.h \
  Mote.cc \
@@ -17,8 +15,7 @@ remote_mch_DEPENDENCIES = \
  $(top_builddir)/protocols/libprotocols.a
 
 remote_mch_LDADD = \
- $(remote_mch_DEPENDENCIES) \
- $(BOOST_PROGRAM_OPTIONS_LIB)
+ $(remote_mch_DEPENDENCIES)
 
 SUBDIRS	= notify
 EXTRA_DIST = README

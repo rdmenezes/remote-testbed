@@ -56,7 +56,6 @@ AM_CONDITIONAL(CONFIG_MAN, test "x$ASCIIDOC" != "x:" && test "x$XMLTO" != "x:")
 ## Checks for libraries.
 #######################################################################
 
-AX_BOOST_PROGRAM_OPTIONS
 AX_LIB_MYSQL
 AX_LIB_MYSQLPP
 
@@ -124,20 +123,10 @@ AC_TYPE_SIGNAL
 ## Check dependencies.
 #######################################################################
 
-if test "x$CONFIG_MCH" = "xyes"; then
-	if test "x$CONFIG_BOOST_PROGRAM_OPTIONS" != "xyes"; then
-		if test "x$enable_mch" = "xyes"; then
-			AC_MSG_ERROR([MCH dependencies not found on the system])
-		else
-			CONFIG_MCH=no
-		fi
-	fi
-fi
 AM_CONDITIONAL(CONFIG_MCH, test "x$CONFIG_MCH" = "xyes")
 
 if test "x$CONFIG_MCS" = "xyes"; then
-	if test "x$CONFIG_BOOST_PROGRAM_OPTIONS" != "xyes" ||
-	   test "x$CONFIG_MYSQL" != "xyes" ||
+	if test "x$CONFIG_MYSQL" != "xyes" ||
 	   test "x$CONFIG_MYSQLPP" != "xyes"; then
 		if test "x$enable_mcs" = "xyes"; then
 			AC_MSG_ERROR([MCS dependencies not found on the system])
@@ -168,7 +157,6 @@ AC_OUTPUT
 #######################################################################
 
 AC_MSG_RESULT([Found dependencies:])
-AC_MSG_RESULT([  Boost program option library .... $CONFIG_BOOST_PROGRAM_OPTIONS])
 AC_MSG_RESULT([  MySQL library ................... $CONFIG_MYSQL])
 AC_MSG_RESULT([  MySQL++ library ................. $CONFIG_MYSQLPP])
 AC_MSG_RESULT([Will build:])
