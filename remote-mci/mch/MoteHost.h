@@ -1,23 +1,18 @@
 #ifndef REMOTE_MCH_MOTEHOST_H
 #define REMOTE_MCH_MOTEHOST_H
 
-#include <string>
-#include <sstream>
-#include <sys/select.h>
-#include <unistd.h>
+#include "remote.h"
 
-#include "types.h"
+#include "protocols/types.h"
+#include "protocols/tcputil.h"
+#include "protocols/Message.h"
+#include "protocols/motecontrol/MoteMsg.h"
+#include "protocols/host_server/HostMsg.h"
+#include "protocols/host_server/MsgMoteConnectionInfoList.h"
+#include "protocols/host_server/MsgMoteAddresses.h"
 
-#include "libutil/Config.h"
-#include "libutil/error.h"
-#include "tcputil.h"
-#include "Message.h"
-#include "motecontrol/MoteMsg.h"
-#include "host_server/HostMsg.h"
-#include "host_server/MsgMoteConnectionInfoList.h"
-#include "host_server/MsgMoteAddresses.h"
-#include "DeviceManager.h"
-#include "Mote.h"
+#include "mch/DeviceManager.h"
+#include "mch/Mote.h"
 
 namespace remote { namespace mch {
 

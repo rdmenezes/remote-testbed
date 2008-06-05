@@ -1,8 +1,8 @@
 #ifndef REMOTE_MCH_MOTE_H
 #define REMOTE_MCH_MOTE_H
 
-#include "libutil/File.h"
-#include "SerialControl.h"
+#include "remote.h"
+#include "mch/SerialControl.h"
 
 namespace remote { namespace mch {
 

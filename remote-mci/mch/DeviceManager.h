@@ -1,18 +1,8 @@
 #ifndef REMOTE_MCH_DEVICEMANAGER_H
 #define REMOTE_MCH_DEVICEMANAGER_H
 
-#include <map>
-#include <string>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <fcntl.h>
-#include <signal.h>
-#include <stdlib.h>
-#include <dirent.h>
-
-#include "Mote.h"
+#include "remote.h"
+#include "mch/Mote.h"
 
 namespace remote { namespace mch {
 

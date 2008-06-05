@@ -1,19 +1,7 @@
-#ifndef _SERIALCONTROL_H_
-#define _SERIALCONTROL_H_
+#ifndef REMOTE_MCH_SERIALCONTROL_H_
+#define REMOTE_MCH_SERIALCONTROL_H_
 
-#include <string>
-#include <errno.h>
-#include <termios.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <sys/signal.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <sys/ioctl.h>
-
-#include "libutil/Log.h"
+#include "remote.h"
 
 namespace remote { namespace mch {
 
