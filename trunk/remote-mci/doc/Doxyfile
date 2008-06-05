@@ -72,10 +72,7 @@ WARN_LOGFILE           =
 #---------------------------------------------------------------------------
 # configuration options related to the input files
 #---------------------------------------------------------------------------
-INPUT                  = ../libutil \
-                         ../mch \
-                         ../mcs \
-                         ../protocols
+INPUT                  = ../src
 FILE_PATTERNS          = 
 RECURSIVE              = YES
 EXCLUDE                = 
