@@ -23,6 +23,7 @@ int main(int argc,char** argv)
 {
 	std::ostringstream oss;
 	std::string pid;
+	bool eCode = true;
 
 	Configuration::read(argc,argv);
 	
@@ -69,6 +70,7 @@ int main(int argc,char** argv)
 			HostListener hostListener(Configuration::vm["hostListenerPort"].as<unsigned int>());
 			SessionListener sessionListener(Configuration::vm["sessionListenerPort"].as<unsigned int>());
 			log("Entering service loop\n");
+			eCode = FileDescriptor::serviceLoop();
 
-	} while (FileDescriptor::serviceLoop());
+	} while (eCode);
 }
