@@ -13,21 +13,9 @@ AM_INIT_AUTOMAKE()
 ## Helper macros.
 #######################################################################
 
-AC_DEFUN([REMOTE_PARSE_WITHVAL],
-[m4_toupper(CONFIG_$1)=no;
- m4_toupper(CONFIG_$1)DIR=;
-if test "$withval" = "yes"; then
-	m4_toupper(CONFIG_$1)=yes;
-else
-	m4_toupper(CONFIG_$1)=yes;
-	m4_toupper(CONFIG_$1)DIR="$withval";
-fi
-AC_SUBST(m4_toupper(CONFIG_$1))
-])
-
 AC_DEFUN([REMOTE_PARSE_ENABLEVAL],
 [m4_toupper(CONFIG_$1)=yes;
-if test "$enableval" = "no"; then
+if test "$enable_$1" = "no"; then
 	m4_toupper(CONFIG_$1)=no;
 fi
 AC_SUBST(m4_toupper(CONFIG_$1))
