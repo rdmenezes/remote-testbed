@@ -1,9 +1,10 @@
-#ifndef _MOTE_H_
-#define _MOTE_H_
+#ifndef REMOTE_MCS_MOTE_H
+#define REMOTE_MCS_MOTE_H
 
-#include <map>
-#include "types.h"
-#include "MsgPayload.h"
+#include "remote.h"
+
+#include "protocols/types.h"
+#include "protocols/MsgPayload.h"
 
 namespace remote { namespace mcs {
 

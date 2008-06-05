@@ -1,18 +1,7 @@
-#ifndef _FILEDESCRIPTOR_H_
-#define _FILEDESCRIPTOR_H_
+#ifndef REMOTE_MCS_FILEDESCRIPTOR_H
+#define REMOTE_MCS_FILEDESCRIPTOR_H
 
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif
-
-#include "types.h"
-#include "database.h"
-#include <stdlib.h>
-#include <sys/poll.h>
-#include <signal.h>
-#include <sys/time.h>
-#include <errno.h>
-#include "libutil/Log.h"
+#include "remote.h"
 
 namespace remote { namespace mcs {
 

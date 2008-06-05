@@ -1,5 +1,5 @@
-#ifndef _DATABASE_H_
-#define _DATABASE_H_
+#ifndef REMOTE_MCS_DATABASE_H
+#define REMOTE_MCS_DATABASE_H
 
 #include <mysql++/mysql++.h>
 

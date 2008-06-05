@@ -1,10 +1,10 @@
-#ifndef _HOSTLISTENER_H_
-#define _HOSTLISTENER_H_
+#ifndef REMOTE_MCS_HOSTLISTENER_H
+#define REMOTE_MCS_HOSTLISTENER_H
 
-#include "tcputil.h"
-#include "database.h"
-#include "FileDescriptor.h"
-#include "Host.h"
+#include "remote.h"
+
+#include "mcs/FileDescriptor.h"
+#include "mcs/Host.h"
 
 namespace remote { namespace mcs {
 

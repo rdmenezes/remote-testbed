@@ -1,7 +1,7 @@
-#ifndef MOTEADDRESSES_H_
-#define MOTEADDRESSES_H_
+#ifndef REMOTE_MCS_MOTEADDRESSES_H
+#define REMOTE_MCS_MOTEADDRESSES_H
 
-#include <string>
+#include "remote.h"
 
 namespace remote { namespace mcs {
 
@@ -24,4 +24,4 @@ class MoteAddresses
 
 }}
 
-#endif /*MOTEMACADDRESS_H_*/
+#endif
