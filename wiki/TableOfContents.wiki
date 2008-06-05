@@ -9,7 +9,7 @@
  * Technical Notes
    * [SecurityConsiderations Security Considerations]
 
- * [EnhancementProposals Enhancement Proposals]
+ * Enhancement Proposals
    * [REP001 REP 001]
    * [REP101 REP 101]
    * [REP102 REP 102]
