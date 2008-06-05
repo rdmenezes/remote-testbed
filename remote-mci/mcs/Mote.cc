@@ -46,16 +46,14 @@ Mote::Mote( dbkey_t p_site_id,
 	mysqlpp::Query moteinsert = sqlConn.query();
 	moteinsert << "insert into mote(site_id)"
 		   << "values(" << site_id << ")";
+
 	mysqlpp::ResNSel sqlres = moteinsert.execute();
-	if (sqlres.success)
-	{
+	if (sqlres.success) {
 		mote_id = sqlres.insert_id;
 		// register the mote in the mote pool
 		registerMote(this);
-	//	stop();
-	}
-	else
-	{
+
+	} else {
 		delete this;
 		__THROW__ ("Failed to insert new mote in database!\n");
 	}
@@ -97,11 +95,8 @@ void Mote::request( MsgPayload& request)
 
 void Mote::confirm( MsgPayload& confirm )
 {
-//	if (confirm.result == SUCCESS) status = confirm.status;
 	if (session)
-	{
-		session->confirm(mote_id,confirm);
-	}
+		session->confirm(mote_id, confirm);
 }
 
 bool Mote::setSession( Session* p_session )
