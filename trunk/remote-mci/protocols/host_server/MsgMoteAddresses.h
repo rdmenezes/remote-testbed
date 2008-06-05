@@ -1,5 +1,5 @@
-#ifndef MSGMOTEADDRESSES_H_
-#define MSGMOTEADDRESSES_H_
+#ifndef REMOTE_PROTOCOLS_HOST_SERVER_MSGMOTEADDRESSES_H
+#define REMOTE_PROTOCOLS_HOST_SERVER_MSGMOTEADDRESSES_H
 
 #include "BaseMsg.h"
 #include "MsgPayload.h"
@@ -27,4 +27,4 @@ class MsgMoteAddresses : public BaseMsg
 
 }}}
 
-#endif /*MSGMOTEADDRESSES_H_*/
+#endif

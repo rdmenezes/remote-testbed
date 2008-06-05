@@ -1,5 +1,5 @@
-#ifndef _TCPUTIL_H_
-#define _TCPUTIL_H_
+#ifndef REMOTE_PROTOCOLS__TCPUTIL_H
+#define REMOTE_PROTOCOLS_TCPUTIL_H
 
 #include <errno.h>
 #include <netdb.h>

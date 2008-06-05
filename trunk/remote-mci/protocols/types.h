@@ -1,5 +1,5 @@
-#ifndef _TYPES_H_
-#define _TYPES_H_
+#ifndef REMOTE_PROTOCOLS__TYPES_H
+#define REMOTE_PROTOCOLS_TYPES_H
 
 #include <netinet/in.h>
 #include <netinet/tcp.h>

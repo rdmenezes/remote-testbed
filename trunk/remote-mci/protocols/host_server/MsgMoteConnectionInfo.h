@@ -1,5 +1,5 @@
-#ifndef MSGMOTECONNECTIONINFO_H_
-#define MSGMOTECONNECTIONINFO_H_
+#ifndef REMOTE_PROTOCOLS_HOST_SERVER_MSGMOTECONNECTIONINFO_H
+#define REMOTE_PROTOCOLS_HOST_SERVER_MSGMOTECONNECTIONINFO_H
 
 #include "BaseMsg.h"
 #include "MsgPayload.h"
@@ -33,4 +33,4 @@ class MsgMoteConnectionInfo : public BaseMsg
 
 }}}
 
-#endif /*MSGMOTECONNECTIONINFO_H_*/
+#endif

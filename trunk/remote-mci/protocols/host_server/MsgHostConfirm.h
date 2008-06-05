@@ -1,5 +1,5 @@
-#ifndef MSGHOSTCONFIRM_H_
-#define MSGHOSTCONFIRM_H_
+#ifndef REMOTE_PROTOCOLS_HOST_SERVER_MSGHOSTCONFIRM_H
+#define REMOTE_PROTOCOLS_HOST_SERVER_MSGHOSTCONFIRM_H
 
 #include "tcputil.h"
 #include "BaseMsg.h"
@@ -37,4 +37,4 @@ class MsgHostConfirm : public BaseMsg
 };
 
 }}}
-#endif /*MSGHOSTCONFIRM_H_*/
+#endif

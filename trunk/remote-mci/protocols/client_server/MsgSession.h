@@ -1,5 +1,5 @@
-#ifndef MSGSESSION_H_
-#define MSGSESSION_H_
+#ifndef REMOTE_PROTOCOLS_CLIENT_SERVER_MSGSESSION_H
+#define REMOTE_PROTOCOLS_CLIENT_SERVER_MSGSESSION_H
 #include "BaseMsg.h"
 #include "types.h"
 
@@ -24,4 +24,4 @@ class MsgSession : public BaseMsg
 
 }}}
 
-#endif /*MSGSESSION_H_*/
+#endif

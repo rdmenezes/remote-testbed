@@ -1,5 +1,5 @@
-#ifndef MMSEXCEPTION_H_
-#define MMSEXCEPTION_H_
+#ifndef REMOTE_PROTOCOLS_MMSEXCEPTION_H
+#define REMOTE_PROTOCOLS_MMSEXCEPTION_H
 
 #include <exception>
 #include <stdio.h>
@@ -24,4 +24,4 @@ private:
 
 }}
 
-#endif /*MMSEXCEPTION_H_*/
+#endif

@@ -1,5 +1,5 @@
-#ifndef MSGPAYLOAD_H_
-#define MSGPAYLOAD_H_
+#ifndef REMOTE_PROTOCOLS_MSGPAYLOAD_H
+#define REMOTE_PROTOCOLS_MSGPAYLOAD_H
 #include "tcputil.h"
 #include "BaseMsg.h"
 
@@ -33,4 +33,4 @@ class MsgPayload : public BaseMsg
 
 }}
 
-#endif /*MSGPAYLOAD_H_*/
+#endif

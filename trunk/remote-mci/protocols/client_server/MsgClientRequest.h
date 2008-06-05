@@ -1,5 +1,5 @@
-#ifndef MSGCLIENTREQUEST_H_
-#define MSGCLIENTREQUEST_H_
+#ifndef REMOTE_PROTOCOLS_CLIENT_SERVER_MSGCLIENTREQUEST_H
+#define REMOTE_PROTOCOLS_CLIENT_SERVER_MSGCLIENTREQUEST_H
 #include "BaseMsg.h"
 #include "MsgMoteIdList.h"
 #include "MsgPayload.h"
@@ -34,4 +34,4 @@ class MsgClientRequest : public BaseMsg
 
 }}}
 
-#endif /*MSGCLIENTREQUEST_H_*/
+#endif
