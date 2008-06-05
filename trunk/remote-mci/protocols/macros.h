@@ -7,8 +7,6 @@
 namespace remote
 {
 
-#define __THROW__(s) throw remote::protocols::MMSException(s,__FILE__,__LINE__);
-
 inline void log(const char* s,...)
 {
 	va_list ap;

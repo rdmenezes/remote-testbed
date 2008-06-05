@@ -9,6 +9,8 @@ namespace remote { namespace protocols {
 
 using namespace std;
 
+#define __THROW__(s) throw remote::protocols::MMSException(s,__FILE__,__LINE__);
+
 class MMSException : public exception
 {
 public:
