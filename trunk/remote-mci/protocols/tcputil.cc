@@ -98,42 +98,18 @@ in_addr_t resolve(const char *ip_addr)
 }
 
 
-char* getHostByIp(in_addr ip)
+const char *getHostByIp(in_addr ip)
 {
-	char* ipaddr = inet_ntoa(ip);
-	log("Looking up ip %s with len %u\n",ipaddr,strlen(ipaddr));
+	char *ipaddr = inet_ntoa(ip);
 	hostent* host = gethostbyaddr(ipaddr,strlen(ipaddr),AF_INET);
 
-	if (host)
-	{
-		log("Host name %s\n",host->h_name);
+	if (host) {
+		log("Resolved %s to host name %s\n", ipaddr, host->h_name);
 		return host->h_name;
 	}
-	else
-	{
 
-		log("No host name found!\n");
-
-		switch (h_errno)
-		{
-			case HOST_NOT_FOUND:
-				log("HOST_NOT_FOUND\n");
-				break;
-			case NO_ADDRESS:
-				log("NO_ADDRESS\n");
-				break;
-			case NO_RECOVERY:
-				log("NO_RECOVERY\n");
-				break;
-			case TRY_AGAIN:
-				printf("TRY_AGAIN\n");
-				break;
-			default:
-				log("Unknown error %u\n",h_errno);
-		}
-
-		return (char *) "";
-	}
+	log("Failed to resolve %s: %s\n", ipaddr, hstrerror(h_errno));
+	return "";
 }
 
 void setSendTimeout(int fd, long seconds, long microseconds )
