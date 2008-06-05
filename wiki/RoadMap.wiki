@@ -63,6 +63,8 @@ Open issues sorted by [http://code.google.com/p/remote-testbed/issues/list?q=lab
 
  * Issue 37: Add user 'roles' and a UI for users to manage projects themselves.
 
+ * Issue 39: Support IP ranges for the hosts the MCS should accept.
+
 === Interoperability ===
 
  * Issue 8: MCH should support IPv6, however, as long as it is not requested (and thus there are no testers) this can be postponed.
