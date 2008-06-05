@@ -8,12 +8,11 @@ int openServerSocket(struct sockaddr_in& server, unsigned int port, int max_pend
 
 	do {
 		/* Create the TCP socket */
-		if ((serversock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP)) < 0)
-		{
+		if ((serversock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP)) < 0) {
 			log("Could not create server socket, waiting to try again\n");
 			usleep(retryinterval * 1000000);
 		}
-	} while ( serversock < 0 );
+	} while (serversock < 0);
 
 
 	/* Construct the server sockaddr_in structure */
@@ -22,29 +21,27 @@ int openServerSocket(struct sockaddr_in& server, unsigned int port, int max_pend
 	server.sin_addr.s_addr = htonl(INADDR_ANY);	/* Incoming addr */
 	server.sin_port = htons(port);			/* server port */
 	/* Bind the server socket */
-	while (bind(serversock, (struct sockaddr *) &server, sizeof(server)) < 0)
-	{
+	while (bind(serversock, (struct sockaddr *) &server, sizeof(server)) < 0) {
 		log("Could not bind server socket, waiting to try again \n");
 		usleep(retryinterval * 1000000);
 	}
 
 	/* Listen on the server socket */
-	if (listen(serversock, max_pending) < 0)
-	{
+	if (listen(serversock, max_pending) < 0) {
 		log("Could not listen on server socket.\n");
 		return -1;
-    }
+	}
 
 	return serversock;
 }
 
-int nextClient( int serversock, sockaddr_in& client )
+int nextClient(int serversock, sockaddr_in& client)
 {
 	int clientsock;
 	unsigned int clientlen = sizeof(client);
+
 	/* Wait for client connection */
-	if ((clientsock = accept(serversock, (struct sockaddr *) &client, &clientlen)) < 0)
-	{
+	if ((clientsock = accept(serversock, (struct sockaddr *) &client, &clientlen)) < 0) {
 		log("Could not accept client connection.\n");
 	}
 	log("Accepted connection from %s\n",inet_ntoa(client.sin_addr));
@@ -68,8 +65,7 @@ int openClientSocket(std::string address, unsigned int port)
 	server.sin_port = htons(port);
 
 	// Establish connection
-	if (connect(sock,(struct sockaddr *) &server,sizeof(server)) < 0)
-	{
+	if (connect(sock,(struct sockaddr *) &server,sizeof(server)) < 0) {
 		log("Failed to connect with server %s on port %u.\n", address.c_str(),port);
 		close(sock);
 		return -1;
@@ -117,8 +113,7 @@ void setSendTimeout(int fd, long seconds, long microseconds )
 	struct timeval timeOut;
 	timeOut.tv_sec = seconds;
 	timeOut.tv_usec = microseconds;
-	if ( setsockopt(fd, SOL_SOCKET, SO_SNDTIMEO, &timeOut,sizeof(timeOut)) != 0 )
-	{
+	if (setsockopt(fd, SOL_SOCKET, SO_SNDTIMEO, &timeOut, sizeof(timeOut)) != 0) {
 		log("Failed to set SO_SNDTIMEO to %i\n",fd);
 		return;
 	}
@@ -126,8 +121,7 @@ void setSendTimeout(int fd, long seconds, long microseconds )
 
 void setSendBuffer( int fd, int byteSize)
 {
-	if ( setsockopt(fd, SOL_SOCKET, SO_SNDBUF, &byteSize,sizeof(byteSize)) != 0 )
-	{
+	if (setsockopt(fd, SOL_SOCKET, SO_SNDBUF, &byteSize, sizeof(byteSize)) != 0) {
 		log("Failed to set SO_SNDBUF to %i on %i\n",byteSize,fd);
 		return;
 	}
@@ -135,35 +129,31 @@ void setSendBuffer( int fd, int byteSize)
 
 void setKeepAlive( int fd, int numProbes, int idleTime, int interval)
 {
-		// set keepalive on
-		int optval = 1;
+	// set keepalive on
+	int optval = 1;
 
-		if ( setsockopt(fd, SOL_SOCKET, SO_KEEPALIVE, &optval,sizeof(optval)) != 0 )
-		{
-			log("Failed to set SO_KEEPALIVE on %i\n",fd);
-			return;
-		}
+	if (setsockopt(fd, SOL_SOCKET, SO_KEEPALIVE, &optval,sizeof(optval)) != 0) {
+		log("Failed to set SO_KEEPALIVE on %i\n",fd);
+		return;
+	}
 
-		// The maximum number of keepalive probes TCP should send before dropping the connection.
-		if ( setsockopt(fd, SOL_TCP, TCP_KEEPCNT, &numProbes, sizeof(numProbes)) != 0)
-		{
-			log("Failed to set TCP_KEEPCNT to %i on %i\n",numProbes,fd);
-			return;
-		}
+	// The maximum number of keepalive probes TCP should send before dropping the connection.
+	if (setsockopt(fd, SOL_TCP, TCP_KEEPCNT, &numProbes, sizeof(numProbes)) != 0) {
+		log("Failed to set TCP_KEEPCNT to %i on %i\n",numProbes,fd);
+		return;
+	}
 
-		// The time (in seconds) the connection needs to remain idle before TCP starts sending keepalive probes.
-		if ( setsockopt(fd, SOL_TCP, TCP_KEEPIDLE, &idleTime, sizeof(idleTime)) != 0)
-		{
-			log("Failed to set TCP_KEEPIDLE to %i on %i\n",idleTime,fd);
-			return;
-		}
+	// The time (in seconds) the connection needs to remain idle before TCP starts sending keepalive probes.
+	if (setsockopt(fd, SOL_TCP, TCP_KEEPIDLE, &idleTime, sizeof(idleTime)) != 0) {
+		log("Failed to set TCP_KEEPIDLE to %i on %i\n",idleTime,fd);
+		return;
+	}
 
-		// The time (in seconds) between individual keepalive probes.
-		if ( setsockopt(fd, SOL_TCP, TCP_KEEPINTVL, &interval, sizeof(interval)) != 0)
-		{
-			log("Failed to set TCP_KEEPINTVL to %i on %i\n",interval,fd);
-			return;
-		}
+	// The time (in seconds) between individual keepalive probes.
+	if (setsockopt(fd, SOL_TCP, TCP_KEEPINTVL, &interval, sizeof(interval)) != 0) {
+		log("Failed to set TCP_KEEPINTVL to %i on %i\n",interval,fd);
+		return;
+	}
 }
 
 uint64_t ntohll(uint64_t n) {
