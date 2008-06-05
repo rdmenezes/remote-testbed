@@ -1,9 +1,16 @@
 #summary Index information for Google documentation reader
 #labels Section-Docreader
 
+ * authentication
+ * axis
+ * client
+ * database
+ * db
  * mote control host
  * mote control server
  * mote control infrastructure
- * MCS
- * MCH
- * MCI
+ * mci
+ * security
+ * tomcat
+ * web service
+ * ws
