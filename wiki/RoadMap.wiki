@@ -25,6 +25,8 @@ Open issues sorted by [http://code.google.com/p/remote-testbed/issues/list?q=lab
 
  * Issue 26: Add message board web service to announce testbed updates.
 
+ * Issue 36: Add description field to testbed projects.
+
 === Infrastructure ===
 
  * Issue 11: Reorganizing the files of the DB module will further improve the self-documenting hierarchy of this module.
