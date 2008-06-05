@@ -1,8 +1,7 @@
 #ifndef REMOTE_ERROR_H
 #define REMOTE_ERROR_H
 
-#include <exception>
-#include <stdio.h>
+#include "remote.h"
 
 namespace remote { 
 

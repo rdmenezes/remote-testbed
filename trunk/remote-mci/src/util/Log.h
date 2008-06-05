@@ -1,9 +1,7 @@
 #ifndef REMOTE_UTIL_LOG_H
 #define REMOTE_UTIL_LOG_H
 
-#include <stdarg.h>
-#include <stdio.h>
-#include <syslog.h>
+#include "remote.h"
 
 namespace remote { namespace util {
 

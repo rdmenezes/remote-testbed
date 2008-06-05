@@ -1,16 +1,3 @@
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif
-
-#include <unistd.h>
-#include <stdio.h>
-#include <fcntl.h>
-#include <errno.h>
-
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <stdlib.h>
 #include "util/Config.h"
 
 namespace remote { namespace util {

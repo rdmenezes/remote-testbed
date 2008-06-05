@@ -2,11 +2,6 @@
  *
  * Assimilated from git.git::daemon.c on 2007-05-19. */
 
-#include <sys/types.h>
-#include <unistd.h>
-#include <time.h>
-#include <string.h>
-
 #include "util/Log.h"
 
 namespace remote { namespace util {
