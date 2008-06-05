@@ -10,7 +10,7 @@
 
 == Version 1.x (to be released as version 1.1) ==
 
- * MCI: Add man-pages for mote host and mote server as well as UDEV scripts.
+ * MCI: Add [http://remote-testbed.googlecode.com/svn/documentation/remote-mci/ man-pages] for mote host and mote server as well as UDEV scripts.
  * MCI: Fix the mote control server's service loop introduced in code for issue 18.
  * MCI: Fix --enable-mch handling in the configure script.
  * MCI: Fix dig528-2 platform typo.
