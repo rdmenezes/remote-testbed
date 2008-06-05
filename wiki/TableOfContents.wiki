@@ -1,4 +1,4 @@
-#summary TOC for the documentation reader
+#summary Table of contents information for Google documentation reader
 #labels Section-Docreader
 
 This table of contents gives an overview of the wiki pages and serves as a template for the [http://code.google.com/docreader/#p(remote-testbed)s(remote-testbed)t(remote-testbed) alternative documentation reader].
