@@ -9,15 +9,15 @@
  * Technical Notes
    * [SecurityConsiderations Security Considerations]
 
- * Enhancement Proposals
-   * [REP001 REP 001]
-   * [REP101 REP 101]
-   * [REP102 REP 102]
-   * [REP103 REP 103]
-
  * Project Pages
    * [ReleaseNotes Release Notes]
    * [RoadMap Development Roadmap]
    * [RoadMapArchive Roadmaps From Old Releases]
    * [SourceCode Source Code]
    * [SvnSynchronization Updating the SVN Repository]
+
+ * Enhancement Proposals
+   * [REP001 REP 001]
+   * [REP101 REP 101]
+   * [REP102 REP 102]
+   * [REP103 REP 103]
