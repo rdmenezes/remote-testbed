@@ -3,7 +3,6 @@
 
 #include <exception>
 #include <stdio.h>
-#include <stdarg.h>
 
 namespace remote { 
 
@@ -15,9 +14,9 @@ class error : public std::exception
 			description = message;
 		}
 
-		error(int errno, std::string message)
+		error(int error, std::string message)
 		{
-			description = message + ": " + strerror(errno);
+			description = message + ": " + strerror(error);
 		}
 
 		~error() throw ()
