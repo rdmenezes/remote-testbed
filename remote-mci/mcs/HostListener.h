@@ -27,8 +27,6 @@ class HostListener : public FileDescriptor
 		 * \returns TRUE if the host object was created, FALSE otherwise
 		**/
 		bool createHostByConnection(int p_fd, sockaddr_in& client);
-		/** Destroy all current host objects and delete references to them. **/
-		void deleteAllHosts();
 		/** Handle an event on the file descriptor.
 		 * \param events Event descriptor.
 		 *  **/
