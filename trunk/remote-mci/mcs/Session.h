@@ -1,25 +1,22 @@
 #ifndef _CLIENT_H_
 #define _CLIENT_H_
 
-#include "FileDescriptor.h"
-#include "Mote.h"
-#include "Message.h"
-#include "client_server/ClientMsg.h"
-#include "MsgPayload.h"
-#include "client_server/MsgSession.h"
-#include "client_server/MsgClientRequest.h"
-#include "client_server/MsgClientConfirm.h"
 #include <sys/socket.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include "Message.h"
+#include "MsgPayload.h"
+#include "client_server/ClientMsg.h"
+#include "client_server/MsgSession.h"
+#include "client_server/MsgClientRequest.h"
+#include "client_server/MsgClientConfirm.h"
+#include "FileDescriptor.h"
+#include "Mote.h"
 
 namespace remote { namespace mcs {
 
 using namespace protocols;
 using namespace protocols::client_server;
-
-class Mote;
-typedef std::map<dbkey_t,Mote*> motemapbykey_t;
 
 class Session;
 typedef std::map<int,Session*> sessionmapbyfd_t;

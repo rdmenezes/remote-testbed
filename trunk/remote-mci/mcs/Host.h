@@ -5,8 +5,8 @@
 #include "types.h"
 #include "Mote.h"
 #include "FileDescriptor.h"
-#include "MoteControlInfrastructure.h"
 #include "MoteAddresses.h"
+#include "Session.h"
 #include "host_server/HostMsg.h"
 #include "host_server/MsgPlugEvent.h"
 #include "host_server/MsgHostRequest.h"
@@ -21,7 +21,6 @@ namespace remote { namespace mcs {
 using namespace protocols::host_server;
 using namespace remote::mcs;
 
-//class Mote;
 class Host;
 
 typedef std::map<std::string, Mote *> motemapbymac_t;
@@ -30,14 +29,14 @@ typedef std::map<dbkey_t,Host*> hostmapbykey_t;
 /** This class handles a single mote host connection. It listens for infrastructure changes and
  *  updates the mote database accordingly. It routes mote messages to and from the mote host.
  **/
-class Host : public FileDescriptor, public MoteControlInfrastructure
+class Host : public FileDescriptor
 {
 	public:
 		/** Send a message to a mote.
 		 * \param address Address of the mote
 		 * \param request Message payload
 		**/
-		void request( MCIAddress& address, MsgPayload& request );
+		void request( MoteAddresses& address, MsgPayload& request );
 
 		/** Constructor - create a new host connection
 		 * \param fd File descriptor for this host connection

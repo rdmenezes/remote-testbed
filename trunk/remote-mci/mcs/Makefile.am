@@ -11,12 +11,10 @@ remote_mcs_SOURCES = \
  Host.h \
  HostListener.cc \
  HostListener.h \
- MCIAddress.h \
  Mote.cc \
  Mote.h \
  MoteAddresses.cc \
  MoteAddresses.h \
- MoteControlInfrastructure.h \
  Session.cc \
  Session.h \
  SessionListener.cc \

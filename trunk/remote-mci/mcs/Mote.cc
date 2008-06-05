@@ -1,11 +1,12 @@
 #include "Mote.h"
+#include "Host.h"
 
 namespace remote { namespace mcs {
 
 Mote::Mote( dbkey_t p_mote_id,
 		    dbkey_t p_site_id,
-		    MoteControlInfrastructure& p_messenger,
-            MCIAddress& p_mciAddress)
+		    Host& p_messenger,
+            MoteAddresses& p_mciAddress)
       : mciAddress(p_mciAddress),
         mote_id(p_mote_id),
         site_id(p_site_id),
@@ -32,8 +33,8 @@ Mote::Mote( dbkey_t p_mote_id,
 }
 
 Mote::Mote( dbkey_t p_site_id,
-		    MoteControlInfrastructure& p_messenger,
-		    MCIAddress& p_mciAddress )
+		    Host& p_messenger,
+		    MoteAddresses& p_mciAddress )
      : mciAddress(p_mciAddress),
        mote_id(0),
        site_id(p_site_id),
