@@ -23,6 +23,7 @@
 #include <termios.h>
 #include <unistd.h>
 #include <netinet/in.h>
+#include <netinet/tcp.h>
 #include <netdb.h>
 #include <arpa/inet.h>
 
@@ -40,5 +41,11 @@
 #include "libutil/error.h"
 
 using namespace remote::util;
+
+namespace remote {
+	typedef uint32_t dbkey_t;
+	typedef uint8_t result_t;
+	typedef uint8_t status_t;
+}
 
 #endif

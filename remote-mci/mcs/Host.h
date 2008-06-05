@@ -11,7 +11,6 @@
 #include "protocols/host_server/MsgMoteConnectionInfoList.h"
 #include "protocols/host_server/MsgPlugEvent.h"
 #include "protocols/tcputil.h"
-#include "protocols/types.h"
 
 #include "mcs/FileDescriptor.h"
 #include "mcs/Mote.h"

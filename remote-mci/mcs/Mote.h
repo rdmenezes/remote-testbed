@@ -3,7 +3,6 @@
 
 #include "remote.h"
 
-#include "protocols/types.h"
 #include "protocols/MsgPayload.h"
 
 namespace remote { namespace mcs {
