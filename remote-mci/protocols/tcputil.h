@@ -26,7 +26,7 @@ void setKeepAlive( int fd, int numProbes, int idleTime, int interval);
 void setSendBuffer( int fd, int byteSize);
 
 in_addr_t resolve(const char *ip_addr);
-char* getHostByIp(in_addr ip);
+const char *getHostByIp(in_addr ip);
 
 template<class T> bool recv(int fd, T& value);
 template<class T> bool send(int fd, T value);
