@@ -65,6 +65,8 @@ Open issues sorted by [http://code.google.com/p/remote-testbed/issues/list?q=lab
 
  * Issue 39: Support IP ranges for the hosts the MCS should accept.
 
+ * Issue 40: Plugins for network embedded programming IDEs.
+
 === Interoperability ===
 
  * Issue 8: MCH should support IPv6, however, as long as it is not requested (and thus there are no testers) this can be postponed.
