@@ -1,0 +1,117 @@
+.\"     Title: remote-mcs
+.\"    Author: 
+.\" Generator: DocBook XSL Stylesheets v1.73.2 <http://docbook.sf.net/>
+.\"      Date: 03/25/2008
+.\"    Manual: Re-Mote Testbed Framework
+.\"    Source: remote-mci 1.1.git
+.\"
+.TH "REMOTE\-MCS" "1" "03/25/2008" "remote\-mci 1\.1\.git" "Re\-Mote Testbed Framework"
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.SH "NAME"
+remote-mcs - Re-Mote mote control server
+.SH "SYNOPSIS"
+remote\-mcs [options]
+.sp
+.SH "DESCRIPTION"
+The mote control server manages connections from mote control hosts and user clients and operates mainly as a "switch" by forwarding message from clients to host with motes controlled by the colient\. On startup the server cleans up the database by removing stale session, mote, and site data and starts listening for incoming connections from mote hosts and clients\.
+.sp
+The mote control server may be run both in the foreground and as a daemon\.
+.sp
+.SH "OPTIONS"
+The following options can be specified on the command line\.
+.PP
+\-\-config\-file=<path>
+.RS 4
+Path to the configuration file\. Default is "/etc/remote\-mcs\.cfg"\.
+.RE
+.PP
+\-\-daemonize=[1|0]
+.RS 4
+Specify whether to run as a daemon\. Default is to not daemonize\.
+.RE
+.PP
+\-\-help
+.RS 4
+Print usage help and exit\.
+.RE
+.SH "CONFIGURATION OPTIONS"
+Use the following options to configure the mote host\.
+.PP
+dbName <string>
+.RS 4
+Name of the infrastructure database\.
+.RE
+.PP
+dbHost <string>
+.RS 4
+Host name of the infrastructure database server\.
+.RE
+.PP
+dbUser <string>
+.RS 4
+User name for the infrastructure database\.
+.RE
+.PP
+dbPassword <string>
+.RS 4
+Password for the infrastructure database\.
+.RE
+.PP
+sessionListenerPort <number>
+.RS 4
+Port number to use when listening for new sessions\. The default port is 10000\.
+.RE
+.PP
+hostListenerPort <number>
+.RS 4
+Port number to use when listening for new hosts\. Defaults to port 10001\.
+.RE
+.PP
+pidFile <string>
+.RS 4
+Path to the file containing the PID of the mote host\. Defaults to "/var/run/remote\-mcs\.pid"\.
+.RE
+.PP
+log\-file <string>
+.RS 4
+Path to the output log file when running as a daemon\. MCS will log to "/var/log/remote\-mcs\.log" by default\.
+.RE
+.PP
+errorlog\-file <string>
+.RS 4
+Path to the error log file when running as a daemon\. Errors will be logged to "/var/log/remote\-mcs\-error\.log" by default\.
+.RE
+.SH "FILES"
+The mote control server uses the following configurable files\.
+.PP
+/etc/remote\-mcs\.cfg
+.RS 4
+Default configuration file read on startup\.
+.RE
+.PP
+/var/run/remote\-mcs\.pid
+.RS 4
+Default PID file path\.
+.RE
+.SH "ENVIRONMENT VARIABLES"
+The mote control server does not use any environment variables\.
+.sp
+.SH "COPYRIGHT"
+.sp
+.RS 4
+.nf
+Copyright (c) 2005\-2006 Esben Zeuthen <zept@diku\.dk>
+Copyright (c) 2006\-2008 Jonas Fonseca <fonseca@diku\.dk>
+Copyright (c) 2007\-2008 Rosta Spinarr <rostislav\.spinar@cit\.ie>
+.fi
+.RE
+This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version\.
+.sp
+.SH "SEE ALSO"
+\fBremote\-mch(1)\fR
+.sp
+This program is part of the Re\-Mote Testbed Framework <http://remote\-testbed\.googlecode\.com/>\.
+.sp
