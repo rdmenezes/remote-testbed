@@ -3,7 +3,6 @@
 
 #include "remote.h"
 
-#include "protocols/types.h"
 #include "protocols/tcputil.h"
 #include "protocols/Message.h"
 #include "protocols/motecontrol/MoteMsg.h"

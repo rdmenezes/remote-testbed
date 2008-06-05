@@ -3,7 +3,6 @@
 
 #include "remote.h"
 
-#include "protocols/types.h"
 #include "protocols/MMSException.h"
 
 namespace remote { namespace protocols {
