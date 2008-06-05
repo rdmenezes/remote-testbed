@@ -1,14 +1,6 @@
 AUTOMAKE_OPTIONS = foreign dist-zip
 
-SUBDIRS = libutil protocols
-
-if CONFIG_MCH
-SUBDIRS += mch
-endif
-
-if CONFIG_MCS
-SUBDIRS += mcs
-endif
+SUBDIRS = src
 
 DIST_SUBDIRS = doc $(SUBDIRS)
 
@@ -26,7 +18,6 @@ dist_man7_MANS = \
 # depending on the configure scripts via AC_OUTPUT. --jonas
 
 EXTRA_DIST = \
- remote.h \
  COPYING \
  INSTALL \
  README \

@@ -11,7 +11,7 @@
 #include <fstream>
 #include <sstream>
 #include <stdlib.h>
-#include "libutil/Config.h"
+#include "util/Config.h"
 
 namespace remote { namespace util {
 
