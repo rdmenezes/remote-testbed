@@ -41,6 +41,8 @@ Open issues sorted by [http://code.google.com/p/remote-testbed/issues/list?q=lab
 
  * Issue 32: Restructure the remote-ws Java package namespace
 
+ * Issue 35: Add sane defaults for newly created databases.
+
 === Interoperability ===
 
  * Issue 23: Move mote device hierarchy to /var/run/remote.
@@ -58,3 +60,7 @@ Open issues sorted by [http://code.google.com/p/remote-testbed/issues/list?q=lab
 === Interoperability ===
 
  * Issue 8: MCH should support IPv6, however, as long as it is not requested (and thus there are no testers) this can be postponed.
+
+=== Infrastructure ===
+
+ * Issue 34: Move to Axis 2 as the platform for client RPC
