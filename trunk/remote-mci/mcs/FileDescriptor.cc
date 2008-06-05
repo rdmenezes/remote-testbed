@@ -1,5 +1,5 @@
-#include "FileDescriptor.h"
-#include "MMSException.h"
+#include "protocols/MMSException.h"
+#include "mcs/FileDescriptor.h"
 
 namespace remote { namespace mcs {
 

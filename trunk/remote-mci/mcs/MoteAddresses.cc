@@ -1,4 +1,4 @@
-#include "MoteAddresses.h"
+#include "mcs/MoteAddresses.h"
 
 namespace remote { namespace mcs {
 

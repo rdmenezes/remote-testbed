@@ -26,6 +26,7 @@
 #include <netdb.h>
 #include <arpa/inet.h>
 
+#include <exception>
 #include <string>
 #include <iostream>
 #include <fstream>
