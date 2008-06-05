@@ -1,12 +1,11 @@
-#include "FileDescriptor.h"
-#include "SessionListener.h"
-#include "HostListener.h"
-#include "database.h"
-#include "MMSException.h"
-#include <exception>
-#include <unistd.h>
-#include "libutil/File.h"
-#include "libutil/Config.h"
+#include "remote.h"
+
+#include "protocols/MMSException.h"
+
+#include "mcs/FileDescriptor.h"
+#include "mcs/HostListener.h"
+#include "mcs/SessionListener.h"
+#include "mcs/database.h"
 
 using namespace remote;
 using namespace remote::mcs;

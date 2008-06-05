@@ -1,5 +1,5 @@
-#include "Mote.h"
-#include "Host.h"
+#include "mcs/Host.h"
+#include "mcs/Mote.h"
 
 namespace remote { namespace mcs {
 
