@@ -5,8 +5,6 @@
 
 namespace remote { namespace mcs {
 
-using namespace remote::util;
-
 class FileDescriptor;
 
 typedef std::map<int,FileDescriptor*> filedescriptorsbyfd_t;

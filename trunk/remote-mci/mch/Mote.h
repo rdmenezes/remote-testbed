@@ -2,6 +2,7 @@
 #define REMOTE_MCH_MOTE_H
 
 #include "remote.h"
+
 #include "mch/SerialControl.h"
 
 namespace remote { namespace mch {

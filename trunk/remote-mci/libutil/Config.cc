@@ -15,8 +15,6 @@
 
 namespace remote { namespace util {
 
-using namespace remote::util;
-
 class Config::Option
 {
 public:

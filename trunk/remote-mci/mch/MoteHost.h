@@ -16,9 +16,9 @@
 
 namespace remote { namespace mch {
 
-using namespace protocols;
-using namespace protocols::host_server;
-using namespace protocols::motecontrol;
+using namespace remote::protocols;
+using namespace remote::protocols::host_server;
+using namespace remote::protocols::motecontrol;
 
 /** Mote control host.
  *

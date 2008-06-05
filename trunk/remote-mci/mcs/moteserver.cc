@@ -9,7 +9,6 @@
 
 using namespace remote;
 using namespace remote::mcs;
-using namespace remote::util;
 
 std::string dbName	= "REMOTE";
 std::string dbHost	= "localhost";

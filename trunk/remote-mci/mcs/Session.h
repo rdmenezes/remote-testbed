@@ -16,8 +16,7 @@
 
 namespace remote { namespace mcs {
 
-using namespace protocols;
-using namespace protocols::client_server;
+using namespace remote::protocols::client_server;
 
 class Session;
 typedef std::map<int,Session*> sessionmapbyfd_t;
@@ -31,7 +30,7 @@ class Session : public FileDescriptor
 		 * \param p_fd File descriptor for the new client connection.
 		 * \param p_sessionMap The client object will register itself in this map.
 		 **/
-		Session(int p_fd,sessionmapbyfd_t& p_sessionMap);
+		Session(int p_fd, sessionmapbyfd_t& p_sessionMap);
 		/** Makes the session object release any controlled motes and the call its destructor.
 		 * \param silent If true, any exceptions generated during clean-up will be caught an logged silently.
 		**/

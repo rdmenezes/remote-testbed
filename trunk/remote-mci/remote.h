@@ -39,4 +39,6 @@
 #include "libutil/Config.h"
 #include "libutil/error.h"
 
+using namespace remote::util;
+
 #endif

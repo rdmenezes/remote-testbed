@@ -5,8 +5,6 @@
 
 namespace remote { namespace mcs {
 
-//using namespace mysqlpp;
-
 /** The mysql++ database connection handler class handles the database connection and
  * reconnects when needed.
 **/

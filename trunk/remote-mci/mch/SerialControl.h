@@ -5,8 +5,6 @@
 
 namespace remote { namespace mch {
 
-using namespace util;
-
 /** Serial Connection Control
  *
  * This class provides a low-level interface for managing a serial

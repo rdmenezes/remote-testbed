@@ -8,9 +8,6 @@
 
 namespace remote { namespace protocols {
 
-using namespace std;
-using namespace remote::util;
-
 int openServerSocket(struct sockaddr_in& server, unsigned int port, int max_pending, int retryInterval);
 int openClientSocket(std::string address, unsigned int port);
 int nextClient( int serversock, sockaddr_in& client );
