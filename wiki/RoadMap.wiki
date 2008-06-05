@@ -49,6 +49,8 @@ Open issues sorted by [http://code.google.com/p/remote-testbed/issues/list?q=lab
 
  * Issue 23: Move mote device hierarchy to /var/run/remote.
 
+ * Issue 38: Conditionally #include header files based on config/config.h.
+
 == Re-Mote Testbed Framework version "future" ==
 
 Open issues sorted by [http://code.google.com/p/remote-testbed/issues/list?q=label:milestone-future&can=2&x=component&y=status&mode=grid status] or [http://code.google.com/p/remote-testbed/issues/list?q=label:milestone-future&can=2&x=component&y=priority&mode=grid     priority]. [http://code.google.com/p/remote-testbed/issues/list?q=label:milestone-future&can=1 All] issues belonging to this milestone.
