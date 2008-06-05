@@ -1,4 +1,4 @@
-#include "MsgHostConfirm.h"
+#include "protocols/host_server/MsgHostConfirm.h"
 
 namespace remote { namespace protocols { namespace host_server {
 

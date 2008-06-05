@@ -1,8 +1,8 @@
 #ifndef REMOTE_PROTOCOLS_HOST_SERVER_MSGPLUGEVENT_H
 #define REMOTE_PROTOCOLS_HOST_SERVER_MSGPLUGEVENT_H
-#include "tcputil.h"
-#include "BaseMsg.h"
-#include "MsgMoteConnectionInfoList.h"
+
+#include "protocols/BaseMsg.h"
+#include "protocols/host_server/MsgMoteConnectionInfoList.h"
 
 namespace remote { namespace protocols { namespace host_server {
 

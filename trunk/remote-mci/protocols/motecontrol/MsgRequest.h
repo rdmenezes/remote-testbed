@@ -1,8 +1,8 @@
 #ifndef REMOTE_PROTOCOLS_MOTECONTROL_MSGREQUEST_H
 #define REMOTE_PROTOCOLS_MOTECONTROL_MSGREQUEST_H
-#include "tcputil.h"
-#include "BaseMsg.h"
-#include "MsgPayload.h"
+
+#include "protocols/BaseMsg.h"
+#include "protocols/MsgPayload.h"
 
 namespace remote { namespace protocols { namespace motecontrol {
 

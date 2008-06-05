@@ -1,8 +1,8 @@
 #ifndef REMOTE_PROTOCOLS_HOST_SERVER_MSGMOTECONNECTIONINFO_H
 #define REMOTE_PROTOCOLS_HOST_SERVER_MSGMOTECONNECTIONINFO_H
 
-#include "BaseMsg.h"
-#include "MsgPayload.h"
+#include "protocols/BaseMsg.h"
+#include "protocols/MsgPayload.h"
 
 namespace remote { namespace protocols { namespace host_server {
 

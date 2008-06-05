@@ -1,6 +1,7 @@
 #ifndef REMOTE_PROTOCOLS_BASEMSG_H
 #define REMOTE_PROTOCOLS_BASEMSG_H
-#include "tcputil.h"
+
+#include "protocols/tcputil.h"
 
 namespace remote { namespace protocols {
 

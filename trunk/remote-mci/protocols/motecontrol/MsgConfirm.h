@@ -1,10 +1,9 @@
 #ifndef REMOTE_PROTOCOLS_MOTECONTROL_MSGCONFIRM_H
 #define REMOTE_PROTOCOLS_MOTECONTROL_MSGCONFIRM_H
 
-#include "BaseMsg.h"
-#include "MsgRequest.h"
-#include "types.h"
-#include "localconstants.h"
+#include "protocols/BaseMsg.h"
+#include "protocols/motecontrol/localconstants.h"
+#include "protocols/motecontrol/MsgRequest.h"
 
 namespace remote { namespace protocols { namespace motecontrol {
 

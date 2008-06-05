@@ -1,7 +1,7 @@
 #ifndef REMOTE_PROTOCOLS_CLIENT_SERVER_MSGSESSION_H
 #define REMOTE_PROTOCOLS_CLIENT_SERVER_MSGSESSION_H
-#include "BaseMsg.h"
-#include "types.h"
+
+#include "protocols/BaseMsg.h"
 
 namespace remote { namespace protocols { namespace client_server {
 

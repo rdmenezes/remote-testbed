@@ -1,4 +1,4 @@
-#include "MsgRequest.h"
+#include "protocols/motecontrol/MsgRequest.h"
 
 namespace remote { namespace protocols { namespace motecontrol {
 

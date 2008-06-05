@@ -1,8 +1,9 @@
 #ifndef REMOTE_PROTOCOLS_CLIENT_SERVER_MSGCLIENTREQUEST_H
 #define REMOTE_PROTOCOLS_CLIENT_SERVER_MSGCLIENTREQUEST_H
-#include "BaseMsg.h"
-#include "MsgMoteIdList.h"
-#include "MsgPayload.h"
+
+#include "protocols/BaseMsg.h"
+#include "protocols/MsgPayload.h"
+#include "protocols/client_server/MsgMoteIdList.h"
 
 namespace remote { namespace protocols { namespace client_server {
 

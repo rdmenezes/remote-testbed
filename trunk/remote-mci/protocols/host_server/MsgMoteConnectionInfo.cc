@@ -1,4 +1,4 @@
-#include "MsgMoteConnectionInfo.h"
+#include "protocols/host_server/MsgMoteConnectionInfo.h"
 
 namespace remote { namespace protocols { namespace host_server {
 

@@ -22,11 +22,15 @@
 #include <sys/wait.h>
 #include <termios.h>
 #include <unistd.h>
+#include <netinet/in.h>
+#include <netdb.h>
+#include <arpa/inet.h>
 
 #include <string>
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <list>
 #include <map>
 
 #include "libutil/File.h"

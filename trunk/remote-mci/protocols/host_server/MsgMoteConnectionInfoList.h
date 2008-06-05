@@ -1,10 +1,10 @@
 #ifndef REMOTE_PROTOCOLS_HOST_SERVER_MSGMOTECONNECTIONINFOLIST_H
 #define REMOTE_PROTOCOLS_HOST_SERVER_MSGMOTECONNECTIONINFOLIST_H
 
-#include <list>
-#include "tcputil.h"
-#include "BaseMsg.h"
-#include "MsgMoteConnectionInfo.h"
+#include "remote.h"
+
+#include "protocols/BaseMsg.h"
+#include "protocols/host_server/MsgMoteConnectionInfo.h"
 
 namespace remote { namespace protocols { namespace host_server {
 
