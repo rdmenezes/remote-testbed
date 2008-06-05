@@ -1,7 +1,7 @@
 #ifndef REMOTE_UTIL_FILE_H
 #define REMOTE_UTIL_FILE_H
 
-#include <string>
+#include "remote.h"
 
 namespace remote { namespace util {
 

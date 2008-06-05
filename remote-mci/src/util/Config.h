@@ -1,12 +1,8 @@
 #ifndef REMOTE_UTIL_CONFIG_H
 #define REMOTE_UTIL_CONFIG_H
 
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif
+#include "remote.h"
 #undef VERSION
-
-#include <list>
 
 namespace remote { namespace util {
 

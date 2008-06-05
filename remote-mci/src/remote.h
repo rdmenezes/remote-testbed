@@ -10,7 +10,10 @@
 #include <fcntl.h>
 #include <signal.h>
 #include <stdio.h>
+#include <stdarg.h>
 #include <stdlib.h>
+#include <time.h>
+#include <string.h>
 #include <sys/ioctl.h>
 #include <sys/poll.h>
 #include <sys/select.h>
@@ -26,6 +29,8 @@
 #include <netinet/tcp.h>
 #include <netdb.h>
 #include <arpa/inet.h>
+#include <syslog.h>
+#include <libgen.h>
 
 #include <exception>
 #include <string>
