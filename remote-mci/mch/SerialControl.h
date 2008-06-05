@@ -14,7 +14,6 @@
 #include <sys/ioctl.h>
 
 #include "libutil/Log.h"
-#include "types.h"
 
 namespace remote { namespace mch {
 
@@ -65,18 +64,18 @@ public:
 	 */
 	int getFd();
 
+	/** Is the serial control port open?
+	 *
+	 * @return		True if the port is open.
+	 */
+	bool isOpen();
+
 protected:
 	/** Does any children exist?
 	 *
 	 * @return		True if the mote has a child.
 	 */
 	bool hasChild();
-
-	/** Is the serial control port open?
-	 *
-	 * @return		True if the port is open.
-	 */
-	bool isOpen();
 
 	/** Open serial control for TTY
 	 *

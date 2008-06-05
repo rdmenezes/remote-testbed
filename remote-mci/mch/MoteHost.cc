@@ -234,7 +234,7 @@ void MoteHost::handleMessage()
 void MoteHost::handleRequest(Mote* mote, MsgMoteAddresses& addresses, MsgRequest& request)
 {
 	uint8_t command = request.getCommand();
-	result_t result;
+	bool result;
 
 	Log::debug("Mote %s got command=%u", addresses.getMac().c_str(), command);
 
@@ -270,7 +270,7 @@ void MoteHost::handleRequest(Mote* mote, MsgMoteAddresses& addresses, MsgRequest
 	if (mote->getControlCommand() != Mote::NONE)
 		return;
 
-	confirmRequest(mote, command, result);
+	confirmRequest(mote, command, result ? SUCCESS : FAILURE);
 }
 
 void MoteHost::handleMoteData(Mote* mote)
@@ -318,10 +318,21 @@ void MoteHost::handleMoteData(Mote* mote)
 	}
 }
 
+status_t MoteHost::getMoteStatus(Mote *mote)
+{
+	if (mote->getControlCommand() == Mote::PROGRAM)
+		return MOTE_PROGRAMMING;
+	if (!mote->isOpen())
+		return MOTE_UNAVAILABLE;
+	if (mote->isRunning())
+		return MOTE_RUNNING;
+	return MOTE_STOPPED;
+}
+
 void MoteHost::confirmRequest(Mote *mote, uint8_t command, result_t result)
 {
 	MsgMoteAddresses addresses(mote->getMac());
-	MsgConfirm msgConfirm(command, result, mote->getStatus());
+	MsgConfirm msgConfirm(command, result, getMoteStatus(mote));
 	MoteMsg moteMsg(msgConfirm);
 	MsgPayload msgPayload(moteMsg);
 	MsgHostConfirm msgHostConfirm(MSGHOSTCONFIRM_OK,addresses,msgPayload);
