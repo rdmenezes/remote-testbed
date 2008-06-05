@@ -1,20 +1,23 @@
-#ifndef _HOST_H_
-#define _HOST_H_
+#ifndef REMOTE_MCS_HOST_H
+#define REMOTE_MCS_HOST_H
 
-#include "tcputil.h"
-#include "types.h"
-#include "Mote.h"
-#include "FileDescriptor.h"
-#include "MoteAddresses.h"
-#include "Session.h"
-#include "host_server/HostMsg.h"
-#include "host_server/MsgPlugEvent.h"
-#include "host_server/MsgHostRequest.h"
-#include "host_server/MsgHostConfirm.h"
-#include "host_server/MsgMoteAddresses.h"
-#include "host_server/MsgMoteConnectionInfoList.h"
-#include "host_server/MsgMoteConnectionInfo.h"
-#include <stdlib.h>
+#include "remote.h"
+
+#include "protocols/host_server/HostMsg.h"
+#include "protocols/host_server/MsgHostConfirm.h"
+#include "protocols/host_server/MsgHostRequest.h"
+#include "protocols/host_server/MsgMoteAddresses.h"
+#include "protocols/host_server/MsgMoteConnectionInfo.h"
+#include "protocols/host_server/MsgMoteConnectionInfoList.h"
+#include "protocols/host_server/MsgPlugEvent.h"
+#include "protocols/tcputil.h"
+#include "protocols/types.h"
+
+#include "mcs/FileDescriptor.h"
+#include "mcs/Mote.h"
+#include "mcs/MoteAddresses.h"
+#include "mcs/Session.h"
+#include "mcs/database.h"
 
 namespace remote { namespace mcs {
 

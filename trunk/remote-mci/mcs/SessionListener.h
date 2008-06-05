@@ -1,10 +1,10 @@
-#ifndef _SESSIONLISTENER_H_
-#define _SESSIONLISTENER_H_
+#ifndef REMOTE_MCS_SESSIONLISTENER_H
+#define REMOTE_MCS_SESSIONLISTENER_H
 
-#include "tcputil.h"
-#include "database.h"
-#include "FileDescriptor.h"
-#include "Session.h"
+#include "remote.h"
+
+#include "mcs/FileDescriptor.h"
+#include "mcs/Session.h"
 
 namespace remote { namespace mcs {
 

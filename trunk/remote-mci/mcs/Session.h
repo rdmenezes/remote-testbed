@@ -1,17 +1,18 @@
-#ifndef _CLIENT_H_
-#define _CLIENT_H_
+#ifndef REMOTE_MCS_SESSION_H
+#define REMOTE_MCS_SESSION_H
 
-#include <sys/socket.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include "Message.h"
-#include "MsgPayload.h"
-#include "client_server/ClientMsg.h"
-#include "client_server/MsgSession.h"
-#include "client_server/MsgClientRequest.h"
-#include "client_server/MsgClientConfirm.h"
-#include "FileDescriptor.h"
-#include "Mote.h"
+#include "remote.h"
+
+#include "protocols/Message.h"
+#include "protocols/MsgPayload.h"
+#include "protocols/client_server/ClientMsg.h"
+#include "protocols/client_server/MsgClientConfirm.h"
+#include "protocols/client_server/MsgClientRequest.h"
+#include "protocols/client_server/MsgSession.h"
+
+#include "mcs/FileDescriptor.h"
+#include "mcs/Mote.h"
+#include "mcs/database.h"
 
 namespace remote { namespace mcs {
 
