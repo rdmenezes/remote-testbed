@@ -3,19 +3,17 @@
 namespace remote { namespace mcs {
 
 HostListener::HostListener(unsigned int port)
-             : FileDescriptor(
-               openServerSocket( server,
-                                 port,
-                                 5,
-                                 5 )),
-               hosts()
+	: FileDescriptor(openServerSocket(server, port, 5, 5)), hosts()
 {
 	log("Listening for host connections on port %u.\n",port);
 }
 
 HostListener::~HostListener()
 {
-	deleteAllHosts();
+	hostmapbykey_t::iterator hI;
+
+	for (hI = hosts.begin(); hI != hosts.end(); hI++)
+		hI->second->destroy(true);
 }
 
 void HostListener::handleEvent(short events)
@@ -65,15 +63,6 @@ bool HostListener::createHostByConnection(int p_fd, sockaddr_in& client)
 	} else {
 		// if the host was not found in the database, deny host connection
 		return false;
-	}
-}
-
-void HostListener::deleteAllHosts()
-{
-	hostmapbykey_t::iterator hI;
-
-	for (hI = hosts.begin(); hI != hosts.end(); hI++) {
-		hI->second->destroy(true);
 	}
 }
 
