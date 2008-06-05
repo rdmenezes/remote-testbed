@@ -24,13 +24,7 @@ using namespace remote::mcs;
 //class Mote;
 class Host;
 
-typedef struct moteinfo_s
-{
-	uint16_t netAddress;
-} moteinfo_t;
-
 typedef std::map<std::string, Mote *> motemapbymac_t;
-typedef std::map<std::string, moteinfo_t> moteinfobymac_t;
 typedef std::map<dbkey_t,Host*> hostmapbykey_t;
 
 /** This class handles a single mote host connection. It listens for infrastructure changes and
@@ -88,15 +82,6 @@ class Host : public FileDescriptor, public MoteControlInfrastructure
 		 * \param mac MAC address of the mote to delete.
 		**/
 		void deleteMoteByMac(std::string mac);
-		/** Register additional mote information by mote MAC address.
-		 * \param mac MAC address of the mote
-		 * \param moteinfo Additional mote information.
-		**/
-		void registerMoteInfoByMac(std::string mac, moteinfo_t moteinfo);
-		/** Delete additional mote info by mote MAC address.
-		 * \param mac MAC address of the mote
-		**/
-		void deleteMoteInfoByMac(std::string mac);
 		/** Check if a mote object exists, and create it if it doesn't.
 		 * \param info Connection information of the mote (MAC address and
 		 * bus location string.
@@ -110,7 +95,6 @@ class Host : public FileDescriptor, public MoteControlInfrastructure
 		/** Map of the motes attached to this host keyed by mote MAC **/
 		motemapbymac_t motesByMac;
 		/** Map of additional deployment sepcific mote information keyed by mote MAC **/
-		moteinfobymac_t moteInfoByMac;
 		/** Structure for incoming messages **/
 		Message message_in;
 		/** IP address of this mote host **/
