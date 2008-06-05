@@ -1,0 +1,66 @@
+.\"     Title: remote-device-remove
+.\"    Author: 
+.\" Generator: DocBook XSL Stylesheets v1.73.2 <http://docbook.sf.net/>
+.\"      Date: 03/25/2008
+.\"    Manual: Re-Mote Testbed Framework
+.\"    Source: remote-mci 1.1.git
+.\"
+.TH "REMOTE\-DEVICE\-REMO" "7" "03/25/2008" "remote\-mci 1\.1\.git" "Re\-Mote Testbed Framework"
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.SH "NAME"
+remote-device-remove - script for cleaning up the Re-Mote device hierarchy
+.SH "SYNOPSIS"
+/lib/udev/remote\-device\-remove
+.sp
+.SH "DESCRIPTION"
+This script is designed to be called via a UDEV rule\'s RUN key\. It cleans up after removed motes and notifies the motehost about the changed state of the device hierarchy\.
+.sp
+.SH "ENVIRONMENT VARIABLES"
+.PP
+ACTION
+.RS 4
+This environment variable is set by UDEV\. Unless the value is "remove" the script will exit\.
+.RE
+.SH "FILES"
+.PP
+/dev/remote/MOTEMAC/tty/control, /dev/remote/MOTEMAC/tty/data
+.RS 4
+Symlink to the mote\'s data and control TTY devices\. These are checked for existence in order to determine whether the mote directory and files created by
+\fBremote\-device\-add(7)\fR
+should be cleanup\.
+.RE
+.PP
+/var/log/remote\-udev\.log
+.RS 4
+Log file for the Re\-Mote UDEV scripts\.
+.RE
+.PP
+/var/run/motehost\.events
+.RS 4
+Path to the pipe where the mote host can be notified about the remove event\.
+.RE
+.SH "EXAMPLE"
+This script should usually be run using a UDEV rule similar to the following:
+.sp
+.sp
+.RS 4
+.nf
+SUBSYSTEM=="tty", ACTION=="remove", RUN+="/lib/udev/remote\-device\-remove"
+.fi
+.RE
+.SH "COPYRIGHT"
+.sp
+.RS 4
+.nf
+Copyright (c) 2007 Jonas Fonseca <fonseca@diku\.dk>
+Copyright (c) 2008 Rostislav Spinar <rostislav\.spinar@cit\.ie>
+.fi
+.RE
+This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version\.
+.sp
+.SH "SEE ALSO"
+\fBremote\-device\-add(7)\fR
+.sp

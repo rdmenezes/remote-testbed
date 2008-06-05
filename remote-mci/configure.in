@@ -44,9 +44,13 @@ AC_PROG_INSTALL
 AC_PROG_RANLIB
 AC_PROG_MAKE_SET
 AC_CHECK_TOOL(AR, ar, :)
+
+# Optional documentation tools
 AC_CHECK_TOOL(DOXYGEN, doxygen, :)
 AC_CHECK_TOOL(ASCIIDOC, asciidoc, :)
 AC_CHECK_TOOL(XMLTO, xmlto, :)
+AM_CONDITIONAL(CONFIG_HTML, test "x$ASCIIDOC" != "x:")
+AM_CONDITIONAL(CONFIG_MAN, test "x$ASCIIDOC" != "x:" && test "x$XMLTO" != "x:")
 
 #######################################################################
 ## Checks for libraries.

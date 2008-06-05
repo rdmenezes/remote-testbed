@@ -1,0 +1,147 @@
+.\"     Title: remote-mch
+.\"    Author: 
+.\" Generator: DocBook XSL Stylesheets v1.73.2 <http://docbook.sf.net/>
+.\"      Date: 03/25/2008
+.\"    Manual: Re-Mote Testbed Framework
+.\"    Source: remote-mci 1.1.git
+.\"
+.TH "REMOTE\-MCH" "1" "03/25/2008" "remote\-mci 1\.1\.git" "Re\-Mote Testbed Framework"
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.SH "NAME"
+remote-mch - Re-Mote mote control host
+.SH "SYNOPSIS"
+remote\-mch [options]
+.sp
+.SH "DESCRIPTION"
+The mote control host manages mote devices and provides remote access to them through a mote control server\. On startup the mote host connects to the server and listens for incoming requests\. Requests allows motes to be programmed, started, stopped, and reset\. All console output from motes are forwarded to the server\.
+.sp
+The mote control host may be run both in the foreground and as a daemon\.
+.sp
+.SH "OPTIONS"
+The following options can be specified on the command line\.
+.PP
+\-\-config\-file=<path>
+.RS 4
+Path to the configuration file\. Default is "/etc/remote\-mch\.cfg"\.
+.RE
+.PP
+\-\-daemonize=[1|0]
+.RS 4
+Run as a daemon\. Default is to not daemonize\.
+.RE
+.PP
+\-\-help
+.RS 4
+Print usage help and exit\.
+.RE
+.SH "CONFIGURATION OPTIONS"
+Use the following options to configure the mote host\.
+.PP
+devicePath <string>
+.RS 4
+Path to the mote device hierarchy\. When not specified "/dev/remote/" is used\.
+.RE
+.PP
+usbPlugEventPipe <string>
+.RS 4
+Path to the fifo notifying the mote host of mote hotplug events\. By default the daemon listens on "/var/run/motehost\.events"\.
+.RE
+.PP
+serverAddress <string>
+.RS 4
+DNS or IP address of the mote server\. Default is localhost\.
+.RE
+.PP
+serverPort <number>
+.RS 4
+Port number to use for connecting to the mote server\. The default port is 10001\.
+.RE
+.PP
+serverConnectionRetryInterval <number>
+.RS 4
+Number of seconds to wait between server connection retries\. Default is 30 seconds\.
+.RE
+.SH "FILES"
+The mote host uses the following configurable files\.
+.PP
+/etc/remote\-mch\.cfg
+.RS 4
+Default configuration file read on startup\.
+.RE
+.PP
+/var/run/motehost\.events
+.RS 4
+Default file for listening on mote events\.
+.RE
+For each mote managed by the mote host, the following device specific files are used\. The device path is configurable (default: "/dev/remote")\. MOTEMAC represents the MAC address of a mote\.
+.PP
+/dev/remote/MOTEMAC/programmer
+.RS 4
+Symbolic link to the mote programmer\. The programmer is called with the TTY as the first argument and path to the image file as the second argument\.
+.RE
+.PP
+/dev/remote/MOTEMAC/controller
+.RS 4
+Symbolic link to the mote control program\.
+.RE
+.PP
+/dev/remote/MOTEMAC/tty/control
+.RS 4
+Symbolic link to the mote control TTY\.
+.RE
+.PP
+/dev/remote/MOTEMAC/tty/data
+.RS 4
+Symbolic link to the mote data TTY\.
+.RE
+.PP
+/dev/remote/MOTEMAC/image
+.RS 4
+Temporary image file used when programming\.
+.RE
+.PP
+/dev/remote/MOTEMAC/path
+.RS 4
+File containing the mote device path in the form of a path specifying the bus ID\. E\.g\. "/devices/pci0000:00/0000:00:10\.0/usb2/2\-1"\.
+.RE
+.PP
+/dev/remote/MOTEMAC/platform
+.RS 4
+File containing the name of the mote platform\. E\.g\. "dig528\-2"\.
+.RE
+.SH "ENVIRONMENT VARIABLES"
+The mote host does not use any externally defined environment variables\. When invoking the programmer and controller commands the mote host uses the following environment variables\.
+.PP
+platform
+.RS 4
+The mote platform, e\.g\. "MicaZ"\.
+.RE
+.PP
+macaddress
+.RS 4
+The mote MAC address\.
+.RE
+.PP
+tosaddress
+.RS 4
+The mote TOS address\.
+.RE
+.SH "COPYRIGHT"
+.sp
+.RS 4
+.nf
+Copyright (c) 2005\-2006 Esben Zeuthen <zept@diku\.dk>
+Copyright (c) 2006\-2008 Jonas Fonseca <fonseca@diku\.dk>
+Copyright (c) 2007\-2008 Rosta Spinarr <rostislav\.spinar@cit\.ie>
+.fi
+.RE
+This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version\.
+.sp
+.SH "SEE ALSO"
+\fBremote\-mcs(1)\fR, \fBremote\-device\-add(7)\fR, \fBremote\-device\-remove(7)\fR, \fBremote\-device\-name(7)\fR
+.sp
+This program is part of the Re\-Mote Testbed Framework <http://remote\-testbed\.googlecode\.com/>\.
+.sp
