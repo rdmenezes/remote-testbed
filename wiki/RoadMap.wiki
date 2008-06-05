@@ -59,6 +59,8 @@ Open issues sorted by [http://code.google.com/p/remote-testbed/issues/list?q=lab
 
  * Issue 25: Improve handling of defunct motes.
 
+ * Issue 37: Add user 'roles' and a UI for users to manage projects themselves.
+
 === Interoperability ===
 
  * Issue 8: MCH should support IPv6, however, as long as it is not requested (and thus there are no testers) this can be postponed.
