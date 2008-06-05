@@ -81,6 +81,13 @@ private:
 	 */
 	static void confirmRequest(Mote *mote, uint8_t command, result_t result);
 
+	/** Get the status code of a mote.
+	 *
+	 * @param mote		The mote for which to get the status code.
+	 * @return		The mote status code.
+	 */
+	static status_t getMoteStatus(Mote *mote);
+
 	/** Prepare plug event message payload.
 	 *
 	 * @param motelist	The mote map from which prepare the message.

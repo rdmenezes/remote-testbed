@@ -11,7 +11,7 @@ const std::string Mote::RESET = "reset";
 const std::string Mote::PROGRAM = "program";
 
 Mote::Mote(std::string& p_mac, std::string& p_directory)
-	: SerialControl(), mac(p_mac), directory(p_directory), isRunning(false),
+	: SerialControl(), mac(p_mac), directory(p_directory), running(false),
 	  controlCmd(NONE)
 {
 	validate();
@@ -27,7 +27,7 @@ bool Mote::setupTty(const std::string cmd)
 		return false;
 
 	if (cmd == START || cmd == STOP || cmd == RESET)
-		return power(cmd) == SUCCESS;
+		return power(cmd);
 
 	return true;
 }
@@ -77,27 +77,27 @@ void Mote::validate()
 }
 
 
-result_t Mote::start()
+bool Mote::start()
 {
 	return power(START);
 }
 
-result_t Mote::stop()
+bool Mote::stop()
 {
 	return power(STOP);
 }
 
-result_t Mote::reset()
+bool Mote::reset()
 {
 	return power(RESET);
 }
 
-result_t Mote::power(const std::string cmd)
+bool Mote::power(const std::string cmd)
 {
 	bool resetting = cmd == RESET;
 
 	if (!isOpen())
-		return FAILURE;
+		return false;
 
 	if (controller != "") {
 		std::string platform_env = "platform=" + platform;
@@ -116,33 +116,33 @@ result_t Mote::power(const std::string cmd)
 
 		if (runChild(args, envp)) {
 			controlCmd = cmd;
-			return SUCCESS;
+			return true;
 		}
 
-	} else if (!resetting || controlDTR(isRunning)) {
-		bool enable = resetting ? !isRunning : cmd == STOP;
+	} else if (!resetting || controlDTR(running)) {
+		bool enable = resetting ? !running : cmd == STOP;
 
 		if (controlDTR(enable)) {
-			isRunning = !enable;
-			return SUCCESS;
+			running = !enable;
+			return true;
 		}
 
 		/* Mirror that the first reset DTR change succeeded. */
 		if (resetting)
-			isRunning = !isRunning;
+			running = !running;
 	}
 
 	Log::error("Failed to %s mote %s: %s",
 		   cmd.c_str(), mac.c_str(), strerror(errno));
 	closeTty();
-	return FAILURE;
+	return false;
 }
 
 
-result_t Mote::program(std::string net, const uint8_t *image, uint32_t imagelen)
+bool Mote::program(std::string net, const uint8_t *image, uint32_t imagelen)
 {
 	if (hasChild())
-		return FAILURE;
+		return false;
 
 	if (File::writeFile(imagefile, image, imagelen)) {
 		std::string mac_env = "macaddress=" + mac;
@@ -165,24 +165,24 @@ result_t Mote::program(std::string net, const uint8_t *image, uint32_t imagelen)
 
 		if (runChild(args, envp)) {
 			controlCmd = PROGRAM;
-			return SUCCESS;
+			return true;
 		}
 
 		remove(imagefile.c_str());
 	}
 
-	return FAILURE;
+	return false;
 }
 
-result_t Mote::cancelProgramming()
+bool Mote::cancelProgramming()
 {
 	if (getControlCommand() != PROGRAM)
-		return FAILURE;
+		return false;
 
 	return getChildResult(true);
 }
 
-result_t Mote::getChildResult(bool force)
+bool Mote::getChildResult(bool force)
 {
 	bool success = endChild(force);
 	bool afterProgramming = controlCmd == PROGRAM;
@@ -190,9 +190,9 @@ result_t Mote::getChildResult(bool force)
 
 	if (success) {
 		if (controlCmd == START || controlCmd == RESET)
-			isRunning = true;
+			running = true;
 		else if (controlCmd == STOP)
-			isRunning = false;
+			running = false;
 	}
 
 	if (afterProgramming)
@@ -200,17 +200,13 @@ result_t Mote::getChildResult(bool force)
 	if (!setupTty(cmd))
 		success = false;
 
-	return success ? SUCCESS : FAILURE;
+	return success;
 }
 
 
-status_t Mote::getStatus()
+bool Mote::isRunning()
 {
-	if (hasChild() && controlCmd == PROGRAM)
-		return MOTE_PROGRAMMING;
-	if (!isOpen()) return MOTE_UNAVAILABLE;
-	if (isRunning) return MOTE_RUNNING;
-	return MOTE_STOPPED;
+	return running;
 }
 
 const std::string& Mote::getControlCommand()

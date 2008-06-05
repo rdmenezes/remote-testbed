@@ -3,12 +3,8 @@
 
 #include "libutil/File.h"
 #include "SerialControl.h"
-#include "motecontrol/localconstants.h"
 
 namespace remote { namespace mch {
-
-using namespace protocols;
-using namespace protocols::motecontrol;
 
 /** MCH Mote
  *
@@ -38,6 +34,12 @@ public:
 	 */
 	Mote(std::string& mac, std::string& directory);
 
+	/** Is the mote started or stopped?
+	 *
+	 * @return	True if the mote is running.
+	 */
+	bool isRunning();
+
 	/** Is the mote valid?
 	 *
 	 * @return	True if the mote is valid.
@@ -57,21 +59,21 @@ public:
 
 	/** Start mote.
 	 *
-	 * @return	SUCCESS if mote was started.
+	 * @return	True if mote was started.
 	 */
-	result_t start();
+	bool start();
 
 	/** Stop mote.
 	 *
-	 * @return	SUCCESS if mote was stopped.
+	 * @return	True if mote was stopped.
 	 */
-	result_t stop();
+	bool stop();
 
 	/** Reset mote.
 	 *
-	 * @return	SUCCESS if mote was reset.
+	 * @return	True if mote was reset.
 	 */
-	result_t reset();
+	bool reset();
 
 	/** Start programming a mote.
 	 *
@@ -80,28 +82,22 @@ public:
 	 * @param netaddress	The net address of the mote.
 	 * @param image		The flash image which to use.
 	 * @param imagelen	The length of the flash image data.
-	 * @return		SUCCESS if the programming was started.
+	 * @return		True if the programming was started.
 	 */
-	result_t program(std::string netaddress, const uint8_t *image, uint32_t imagelen);
+	bool program(std::string netaddress, const uint8_t *image, uint32_t imagelen);
 
 	/** Cancel mote programming.
 	 *
-	 * @return		SUCCESS if mote was being programmed.
+	 * @return		True if mote was being programmed.
 	 */
-	result_t cancelProgramming();
+	bool cancelProgramming();
 
 	/** Get result of exiting child.
 	 *
 	 * @param force		Whether to force the child to exit.
-	 * @return		SUCCESS if the child exited with code 0.
+	 * @return		True if the child exited with code 0.
 	 */
-	result_t getChildResult(bool force = false);
-
-	/** Get mote status.
-	 *
-	 * @return	The mote status code.
-	 */
-	status_t getStatus();
+	bool getChildResult(bool force = false);
 
 	/** Get MAC address.
 	 *
@@ -156,10 +152,10 @@ private:
 
 	/** Execute power command.
 	 *
-	 * @param cmd	Command to execute, may be: start, stop, or reset.
-	 * @return	SUCCESS if power command was executed.
+	 * @param cmd	Command to execute, may be: START, STOP, or RESET.
+	 * @return	True if power command was executed.
 	 */
-	result_t power(const std::string cmd);
+	bool power(const std::string cmd);
 
 	std::string mac;	/**< MAC address. */
 	std::string directory;	/**< Device directory path. */
@@ -171,7 +167,7 @@ private:
 	std::string path;	/**< Physical device path. */
 	std::string platform;	/**< Platform name. */
 	bool isvalid;		/**< Valid flag. */
-	bool isRunning;		/**< Mote is started or stopped? */
+	bool running;		/**< Mote is started or stopped? */
 	std::string controlCmd;	/**< The command being executed. */
 };
 
