@@ -1,5 +1,4 @@
 #include "MsgClientConfirm.h"
-#include "macros.h"
 
 namespace remote { namespace protocols { namespace client_server {
 

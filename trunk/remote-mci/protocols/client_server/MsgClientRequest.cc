@@ -1,5 +1,5 @@
 #include "MsgClientRequest.h"
-#include "macros.h"
+
 namespace remote { namespace protocols { namespace client_server {
 
 MsgClientRequest::MsgClientRequest(uint8_t command)

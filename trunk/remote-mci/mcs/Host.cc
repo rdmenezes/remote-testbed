@@ -1,5 +1,4 @@
 #include "Host.h"
-#include "macros.h"
 
 namespace remote { namespace mcs {
 
@@ -14,7 +13,7 @@ Host::Host( int fd, dbkey_t p_id, std::string ip, hostmapbykey_t& p_hostMap )
 
 Host::~Host()
 {
-	log("Closing host %s!\n",ipaddress.c_str());
+	Log::info("Closing host %s!", ipaddress.c_str());
 	hostMap.erase(id);
 }
 
@@ -22,7 +21,7 @@ void Host::destroy(bool silent)
 {
 	motemapbymac_t::iterator mI;
 
-	log("Deleting motes\n");
+	Log::info("Deleting motes");
 	for(mI = motesByMac.begin(); mI != motesByMac.end(); mI++)
 		if (mI->second)
 			mI->second->destroy(silent);
@@ -72,7 +71,7 @@ void Host::findOrCreateMote(MsgMoteConnectionInfo& info)
 	mysqlpp::ResNSel execRes;
 	mysqlpp::Row row;
 
-	log("Mote %s plugged at %s\n", mac.c_str(), path.c_str());
+	Log::info("Mote %s plugged at %s", mac.c_str(), path.c_str());
 
 	mysqlpp::Query query = sqlConn.query();
 
@@ -127,9 +126,9 @@ void Host::findOrCreateMote(MsgMoteConnectionInfo& info)
 		oss << (uint16_t) mote->mote_id;
 		newtarget->netAddress = oss.str();
 
-		log("Attributes: macaddress=%s netaddress=%s platform=%s\n",
-		    mac.c_str(), newtarget->netAddress.c_str(),
-		    info.getPlatform().c_str());
+		Log::info("Attributes: macaddress=%s netaddress=%s platform=%s\n",
+			  mac.c_str(), newtarget->netAddress.c_str(),
+			  info.getPlatform().c_str());
 		mote->setAttribute("macaddress", mac);
 		mote->setAttribute("netaddress", newtarget->netAddress);
 		mote->setAttribute("platform", info.getPlatform());
@@ -184,7 +183,7 @@ void Host::request(MCIAddress& address, MsgPayload& request )
 	}
 	catch (remote::protocols::MMSException e)
 	{
-		log("Exception: %s\n",e.what());
+		Log::error("Exception: %s", e.what());
 		this->destroy(true);
 	}
 }

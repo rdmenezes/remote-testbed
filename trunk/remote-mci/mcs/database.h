@@ -1,7 +1,6 @@
 #ifndef _DATABASE_H_
 #define _DATABASE_H_
 
-#include "macros.h"
 #include <mysql++/mysql++.h>
 
 namespace remote { namespace mcs {

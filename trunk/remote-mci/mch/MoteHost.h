@@ -6,7 +6,6 @@
 #include <sys/select.h>
 #include <unistd.h>
 
-#include "macros.h"
 #include "types.h"
 
 #include "libutil/Config.h"

@@ -5,7 +5,7 @@ namespace remote { namespace mcs {
 HostListener::HostListener(unsigned int port)
 	: FileDescriptor(openServerSocket(server, port, 5, 5)), hosts()
 {
-	log("Listening for host connections on port %u.\n",port);
+	Log::info("Listening for host connections on port %u", port);
 }
 
 HostListener::~HostListener()
@@ -24,10 +24,11 @@ void HostListener::handleEvent(short events)
 	if (events & POLLIN || events & POLLPRI) {
 		hostfd = nextClient(fd, client);
 		if (hostfd >= 0) {
-			log("New host connection\n");
 			if (!createHostByConnection(hostfd,client)) {
-				log("Host connection denied!\n");
+				Log::info("Host connection denied!");
 				close(hostfd);
+			} else {
+				Log::info("Host connection accepted");
 			}
 		}
 	}
@@ -38,10 +39,11 @@ bool HostListener::createHostByConnection(int p_fd, sockaddr_in& client)
 	mysqlpp::Connection& sqlConn = dbConn.getConnection();
 	// look up the host in the database, get the host id
 	std::string ip(inet_ntoa(client.sin_addr));
-	log("Looking up ip %s in host list\n", ip.c_str());
 	mysqlpp::ResUse res;
 	mysqlpp::Row row;
 	mysqlpp::Query query = sqlConn.query();
+
+	Log::info("Looking up ip %s in host list", ip.c_str());
 
 	query << "select id from host where ip = " << mysqlpp::quote << ip;
 

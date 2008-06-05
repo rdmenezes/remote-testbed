@@ -1,5 +1,5 @@
 #include "MsgMoteConnectionInfoList.h"
-#include "macros.h"
+
 namespace remote { namespace protocols { namespace host_server {
 
 MsgMoteConnectionInfoList::MsgMoteConnectionInfoList()

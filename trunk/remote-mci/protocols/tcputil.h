@@ -1,6 +1,7 @@
 #ifndef _TCPUTIL_H_
 #define _TCPUTIL_H_
 
+#include <errno.h>
 #include <netdb.h>
 #include <unistd.h>
 #include <arpa/inet.h>
@@ -8,14 +9,16 @@
 #include <sys/socket.h>
 #include <sys/time.h>
 
-
 #include <string>
 
 #include "types.h"
+#include "libutil/Log.h"
+#include "MMSException.h"
 
 namespace remote { namespace protocols {
 
 using namespace std;
+using namespace remote::util;
 
 int openServerSocket(struct sockaddr_in& server, unsigned int port, int max_pending, int retryInterval);
 int openClientSocket(std::string address, unsigned int port);

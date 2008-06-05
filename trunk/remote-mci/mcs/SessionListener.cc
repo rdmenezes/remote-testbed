@@ -5,7 +5,7 @@ namespace remote { namespace mcs {
 SessionListener::SessionListener(unsigned int port)
 	: FileDescriptor(openServerSocket(server, port, 5, 5)), sessions()
 {
-	log("Listening for client connections on port %u.\n",port);
+	Log::info("Listening for client connections on port %u\n", port);
 }
 
 SessionListener::~SessionListener()
@@ -25,7 +25,7 @@ void SessionListener::handleEvent(short events)
 		int clientsock = nextClient(fd, client);
 
 		if (clientsock >= 0) {
-			log("Accepting new client connection\n");
+			Log::info("Accepting new client connection");
 			new Session(clientsock, sessions);
 		}
 	}

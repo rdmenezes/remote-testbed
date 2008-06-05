@@ -1,5 +1,5 @@
 #include "tcputil.h"
-#include "macros.h"
+
 namespace remote { namespace protocols {
 
 int openServerSocket(struct sockaddr_in& server, unsigned int port, int max_pending, int retryinterval)
@@ -9,7 +9,7 @@ int openServerSocket(struct sockaddr_in& server, unsigned int port, int max_pend
 	do {
 		/* Create the TCP socket */
 		if ((serversock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP)) < 0) {
-			log("Could not create server socket, waiting to try again\n");
+			Log::warn("Could not create server socket, waiting to try again");
 			usleep(retryinterval * 1000000);
 		}
 	} while (serversock < 0);
@@ -22,13 +22,13 @@ int openServerSocket(struct sockaddr_in& server, unsigned int port, int max_pend
 	server.sin_port = htons(port);			/* server port */
 	/* Bind the server socket */
 	while (bind(serversock, (struct sockaddr *) &server, sizeof(server)) < 0) {
-		log("Could not bind server socket, waiting to try again \n");
+		Log::warn("Could not bind server socket, waiting to try again");
 		usleep(retryinterval * 1000000);
 	}
 
 	/* Listen on the server socket */
 	if (listen(serversock, max_pending) < 0) {
-		log("Could not listen on server socket.\n");
+		Log::error("Could not listen on server socket.");
 		return -1;
 	}
 
@@ -41,10 +41,10 @@ int nextClient(int serversock, sockaddr_in& client)
 	unsigned int clientlen = sizeof(client);
 
 	/* Wait for client connection */
-	if ((clientsock = accept(serversock, (struct sockaddr *) &client, &clientlen)) < 0) {
-		log("Could not accept client connection.\n");
-	}
-	log("Accepted connection from %s\n",inet_ntoa(client.sin_addr));
+	if ((clientsock = accept(serversock, (struct sockaddr *) &client, &clientlen)) < 0)
+		Log::error("Could not accept client connection: %s", strerror(errno));
+	else
+		Log::info("Accepted connection from %s", inet_ntoa(client.sin_addr));
 	return clientsock;
 }
 
@@ -55,8 +55,8 @@ int openClientSocket(std::string address, unsigned int port)
 
 	// Create the TCP control socket
 	if ((sock = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP)) < 0) {
-		log("Failed to create client socket.\n");
-		return sock;
+		Log::error("Failed to create client socket: %s", strerror(errno));
+		return -1;
 	}
 
 	memset(&server, 0, sizeof(server));
@@ -65,12 +65,12 @@ int openClientSocket(std::string address, unsigned int port)
 	server.sin_port = htons(port);
 
 	// Establish connection
-	if (connect(sock,(struct sockaddr *) &server,sizeof(server)) < 0) {
-		log("Failed to connect with server %s on port %u.\n", address.c_str(),port);
+	if (connect(sock, (struct sockaddr *) &server, sizeof(server)) < 0) {
+		Log::error("Failed to connect to %s on port %u: %s",
+			   address.c_str(), port, strerror(errno));
 		close(sock);
 		return -1;
 	}
-
 
 	return sock;
 }
@@ -100,30 +100,31 @@ const char *getHostByIp(in_addr ip)
 	hostent* host = gethostbyaddr(ipaddr,strlen(ipaddr),AF_INET);
 
 	if (host) {
-		log("Resolved %s to host name %s\n", ipaddr, host->h_name);
+		Log::info("Resolved %s to host name %s", ipaddr, host->h_name);
 		return host->h_name;
 	}
 
-	log("Failed to resolve %s: %s\n", ipaddr, hstrerror(h_errno));
+	Log::error("Failed to resolve %s: %s", ipaddr, hstrerror(h_errno));
 	return "";
 }
 
 void setSendTimeout(int fd, long seconds, long microseconds )
 {
 	struct timeval timeOut;
+
 	timeOut.tv_sec = seconds;
 	timeOut.tv_usec = microseconds;
 	if (setsockopt(fd, SOL_SOCKET, SO_SNDTIMEO, &timeOut, sizeof(timeOut)) != 0) {
-		log("Failed to set SO_SNDTIMEO to %i\n",fd);
-		return;
+		Log::error("Failed to set SO_SNDTIMEO to %i: %s",
+			   fd, strerror(errno));
 	}
 }
 
 void setSendBuffer( int fd, int byteSize)
 {
 	if (setsockopt(fd, SOL_SOCKET, SO_SNDBUF, &byteSize, sizeof(byteSize)) != 0) {
-		log("Failed to set SO_SNDBUF to %i on %i\n",byteSize,fd);
-		return;
+		Log::error("Failed to set SO_SNDBUF to %i on %i: %s",
+			   byteSize, fd, strerror(errno));
 	}
 }
 
@@ -133,25 +134,28 @@ void setKeepAlive( int fd, int numProbes, int idleTime, int interval)
 	int optval = 1;
 
 	if (setsockopt(fd, SOL_SOCKET, SO_KEEPALIVE, &optval,sizeof(optval)) != 0) {
-		log("Failed to set SO_KEEPALIVE on %i\n",fd);
+		Log::error("Failed to set SO_KEEPALIVE on %i: %s", fd, strerror(errno));
 		return;
 	}
 
 	// The maximum number of keepalive probes TCP should send before dropping the connection.
 	if (setsockopt(fd, SOL_TCP, TCP_KEEPCNT, &numProbes, sizeof(numProbes)) != 0) {
-		log("Failed to set TCP_KEEPCNT to %i on %i\n",numProbes,fd);
+		Log::error("Failed to set TCP_KEEPCNT to %i on %i: %s",
+			   numProbes, fd, strerror(errno));
 		return;
 	}
 
 	// The time (in seconds) the connection needs to remain idle before TCP starts sending keepalive probes.
 	if (setsockopt(fd, SOL_TCP, TCP_KEEPIDLE, &idleTime, sizeof(idleTime)) != 0) {
-		log("Failed to set TCP_KEEPIDLE to %i on %i\n",idleTime,fd);
+		Log::error("Failed to set TCP_KEEPIDLE to %i on %i: %s",
+			   idleTime, fd, strerror(errno));
 		return;
 	}
 
 	// The time (in seconds) between individual keepalive probes.
 	if (setsockopt(fd, SOL_TCP, TCP_KEEPINTVL, &interval, sizeof(interval)) != 0) {
-		log("Failed to set TCP_KEEPINTVL to %i on %i\n",interval,fd);
+		Log::error("Failed to set TCP_KEEPINTVL to %i on %i: %s",
+			   interval, fd, strerror(errno));
 		return;
 	}
 }

@@ -1,5 +1,5 @@
 #include "ClientMsg.h"
-#include "macros.h"
+
 namespace remote { namespace protocols { namespace client_server {
 
 ClientMsg::ClientMsg(uint8_t*& buffer, uint32_t& buflen)

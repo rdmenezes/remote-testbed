@@ -5,7 +5,6 @@
 #include "database.h"
 #include "FileDescriptor.h"
 #include "Session.h"
-#include "macros.h"
 
 namespace remote { namespace mcs {
 

@@ -1,5 +1,5 @@
 #include "FileDescriptor.h"
-#include "macros.h"
+#include "MMSException.h"
 
 namespace remote { namespace mcs {
 
@@ -44,7 +44,7 @@ bool FileDescriptor::serviceLoop()
 		catch (remote::protocols::MMSException e)
 		{
 			clearTimeout();
-			log("Exception: %s\n",e.what());
+			Log::error("Exception: %s", e.what());
 			fileDescriptorIterator->second->clearTimeout();
 			fileDescriptorIterator->second->destroy(false);
 		}
@@ -58,7 +58,7 @@ FileDescriptor::FileDescriptor(int p_fd)
 {
 	clearTimeout();
 	fd = p_fd;
-	log("Opened fd %i\n",fd);
+	Log::info("Opened fd %i",fd);
 	instances[fd] = this;
 }
 
@@ -79,9 +79,9 @@ void FileDescriptor::buildPollMap(pollfd* map)
 FileDescriptor::~FileDescriptor()
 {
 	if (close(fd) != 0)
-		log("close(%i) - %s\n", fd, strerror(errno));
+		Log::error("close(%i) - %s", fd, strerror(errno));
 	else
-		log("Closed fd %i\n", fd);
+		Log::info("Closed fd %i",fd);
 	instances.erase(fd);
 }
 
@@ -124,7 +124,7 @@ void FileDescriptor::clearTimeout()
 
 RETSIGTYPE FileDescriptor::timeoutHandler(int sig)
 {
-	log( "Timeout occured!\n");
+	Log::warn("Timeout occured!");
 	close(currentFd); // this should generate an exception
 }
 

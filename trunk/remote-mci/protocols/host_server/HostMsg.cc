@@ -1,5 +1,5 @@
 #include "HostMsg.h"
-#include "macros.h"
+
 namespace remote { namespace protocols { namespace host_server {
 
 HostMsg::HostMsg(MsgPlugEvent& message)
