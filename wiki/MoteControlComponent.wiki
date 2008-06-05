@@ -1,4 +1,0 @@
-﻿#summary Overview of the Re-Mote Mote Control Infrastructure (remote-mci)
-#labels Deprecated
-
-The content from this page has been moved to the [AdministratorManual#Installing_the_Mote_Control_Host_and_Mote_Control_Server AdministratorManual] page.
