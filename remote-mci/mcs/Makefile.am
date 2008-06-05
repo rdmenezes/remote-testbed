@@ -5,8 +5,6 @@ INCLUDES = \
  -I/usr/include/mysql++
 
 remote_mcs_SOURCES = \
- Configuration.cc \
- Configuration.h \
  FileDescriptor.cc \
  FileDescriptor.h \
  Host.cc \
@@ -34,8 +32,7 @@ remote_mcs_DEPENDENCIES = \
 remote_mcs_LDADD = \
  $(remote_mcs_DEPENDENCIES) \
  -lmysqlclient \
- -lmysqlpp \
- $(BOOST_PROGRAM_OPTIONS_LIB)
+ -lmysqlpp
 
 remote_mcs_LDFLAGS = \
  $(MYSQL_LDFLAGS)

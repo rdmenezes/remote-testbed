@@ -9,17 +9,21 @@ int MoteHost::plugpipe;
 int MoteHost::exitSignal;
 Message MoteHost::msg;
 DeviceManager MoteHost::devices;
-Configuration MoteHost::config;
+
+std::string MoteHost::serverHost = "localhost";
+uint16_t MoteHost::serverPort = 10001;
+uint64_t MoteHost::retryInterval = 30;
+std::string MoteHost::pidFile = "/var/run/remote-mch.pid";
+std::string MoteHost::eventPipe = "/var/run/motehost.event";
+std::string MoteHost::devicePath = "/dev/remote";
+bool MoteHost::daemonize = false;
 
 void MoteHost::lookForServer()
 {
 	while (!exitDaemon()) {
-		std::string host = config.vm["serverAddress"].as<std::string>();
-		uint16_t port = config.vm["serverPort"].as<uint16_t>();
-		uint64_t secs = config.vm["serverConnectionRetryInterval"].as<uint64_t>(); 
-
-		Log::info("Connecting to %s on port %u...", host.c_str(), port);
-		clientsock = openClientSocket(host, port);
+		Log::info("Connecting to %s on port %u...",
+			  serverHost.c_str(), serverPort);
+		clientsock = openClientSocket(serverHost, serverPort);
 		if (clientsock >= 0) {
 			Log::info("Connected!");
 			setKeepAlive(clientsock, 3, 120, 30);
@@ -42,14 +46,13 @@ void MoteHost::lookForServer()
 			Log::error("Connection failed");
 		}
 
-		Log::info("Reconnecting in %llu seconds...", secs);
-		usleep(secs * 1000000);
+		Log::info("Reconnecting in %llu seconds...", retryInterval);
+		usleep(retryInterval * 1000000);
 	}
 }
 
 void MoteHost::serviceLoop()
 {
-	std::string eventPipe = config.vm["usbPlugEventPipe"].as<std::string>();
 	fd_set fdset;
 
 	remove(eventPipe.c_str());
@@ -61,7 +64,7 @@ void MoteHost::serviceLoop()
 		throw remote::error(errno, "Failed to open fifo " + eventPipe);
 
 	// the first thing to do is send all current mote information to the server
-	devices.refresh(config.vm["devicePath"].as<std::string>());
+	devices.refresh(devicePath);
 	Log::debug("Sending mote list to server");
 	MsgPlugEvent msgPlugEvent(PLUG_MOTES);
 	if (makeMoteInfoList(devices.motes, msgPlugEvent.getInfoList())) {
@@ -140,11 +143,11 @@ void MoteHost::handlePlugEvent()
 		if ( i <= 0 )
 		{
 			close(plugpipe);
-			plugpipe = open(config.vm["usbPlugEventPipe"].as<std::string>().c_str(),O_RDONLY | O_NONBLOCK);
+			plugpipe = open(eventPipe.c_str(),O_RDONLY | O_NONBLOCK);
 		}
 	}
 
-	devices.refresh(config.vm["devicePath"].as<std::string>());
+	devices.refresh(devicePath);
 
 	MsgPlugEvent msgUnplugEvent(UNPLUG_MOTES);
 	if (makeMoteInfoList(devices.lostMotes, msgUnplugEvent.getInfoList()))
@@ -335,7 +338,7 @@ void MoteHost::handleSignal(int signo)
 void MoteHost::handleExit()
 {
 	Log::info("Shutting down: signal=%d", exitSignal);
-	remove(config.vm["pidFile"].as<std::string>().c_str());
+	remove(pidFile.c_str());
 }
 
 void MoteHost::installSignalHandlers()
@@ -351,13 +354,28 @@ void MoteHost::installSignalHandlers()
 	sigaction(SIGKILL, &sa, NULL);
 }
 
-int MoteHost::main(int argc, char** argv)
+int MoteHost::main(int argc, char **argv)
 {
 	std::ostringstream oss;
 	std::string pid;
+	Config config("remote-mch", "/etc/remote-mch.cfg");
 
-	config.read(argc,argv);
-	if (config.vm["daemonize"].as<int>()) {
+	config("daemonize", &daemonize, "Run as daemon");
+	config("serverHost", &serverHost, "Host name of the mote server");
+	config("serverPort", &serverPort, "Port number of the mote server");
+	config("retryInterval", &retryInterval, "Seconds between connection retries");
+	config("pidFile", &pidFile, "Path to PID file");
+	config("eventPipe", &eventPipe, "Path to mote event pipe");
+	config("devicePath", &devicePath, "Path to mote device hierarchy");
+
+	config("serverHost", "serverHost");
+	config("usbPlugEventPipe", "eventPipe");
+	config("serverConnectionRetryInterval", "retryInterval");
+
+	if (!config.read(argc, argv))
+		return EXIT_FAILURE;
+
+	if (daemonize) {
 		Log::open("remote-mch", Log::INFO, Log::SYSLOG);
 		switch (fork()) {
 		case -1:
@@ -385,8 +403,7 @@ int MoteHost::main(int argc, char** argv)
 	oss << getpid() << std::endl;
 	pid = oss.str();
 
-	if (!File::writeFile(config.vm["pidFile"].as<std::string>(),
-			     pid.c_str(), pid.size()))
+	if (!File::writeFile(pidFile, pid.c_str(), pid.size()))
 		Log::error("Failed to create .pid file");
 
 	MoteHost::lookForServer();

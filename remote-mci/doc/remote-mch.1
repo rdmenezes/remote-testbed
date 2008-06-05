@@ -1,11 +1,11 @@
 .\"     Title: remote-mch
 .\"    Author: 
 .\" Generator: DocBook XSL Stylesheets v1.73.2 <http://docbook.sf.net/>
-.\"      Date: 03/25/2008
+.\"      Date: 05/18/2008
 .\"    Manual: Re-Mote Testbed Framework
-.\"    Source: remote-mci 1.1.git
+.\"    Source: remote-mci 2.0.git
 .\"
-.TH "REMOTE\-MCH" "1" "03/25/2008" "remote\-mci 1\.1\.git" "Re\-Mote Testbed Framework"
+.TH "REMOTE\-MCH" "1" "05/18/2008" "remote\-mci 2\.0\.git" "Re\-Mote Testbed Framework"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
@@ -21,36 +21,38 @@ The mote control host manages mote devices and provides remote access to them th
 The mote control host may be run both in the foreground and as a daemon\.
 .sp
 .SH "OPTIONS"
-The following options can be specified on the command line\.
+The following options are only usable on the command line\.
 .PP
-\-\-config\-file=<path>
+\-\-config=<path>
 .RS 4
-Path to the configuration file\. Default is "/etc/remote\-mch\.cfg"\.
-.RE
-.PP
-\-\-daemonize=[1|0]
-.RS 4
-Run as a daemon\. Default is to not daemonize\.
+Path to the configuration file\. Defaults to "/etc/remote\-mch\.cfg"\.
 .RE
 .PP
 \-\-help
 .RS 4
 Print usage help and exit\.
 .RE
-.SH "CONFIGURATION OPTIONS"
-Use the following options to configure the mote host\.
+.PP
+\-\-version
+.RS 4
+Print version info and exit\.
+.RE
+.SS "Configuration options"
+In addition, to the above options the mote host accepts the following configuration options that can be specified either on the command line or in the configuration file\. An option set in the configuration file overrides any option set on the command line\.
+.sp
+On the command line use: \fI\-\-\fR <name> \fI=\fR <value>, e\.g\. \fI\-\-devicePath=/here\fR\. In the config file use: <name> \fI=\fR <value>, e\.g\. \fIdevicePath=/here\fR\. For boolean options the \fI=\fR and value may be left out to set the value to true\. See the example sections for more information\.
 .PP
 devicePath <string>
 .RS 4
 Path to the mote device hierarchy\. When not specified "/dev/remote/" is used\.
 .RE
 .PP
-usbPlugEventPipe <string>
+eventPipe <string>
 .RS 4
 Path to the fifo notifying the mote host of mote hotplug events\. By default the daemon listens on "/var/run/motehost\.events"\.
 .RE
 .PP
-serverAddress <string>
+serverHost <string>
 .RS 4
 DNS or IP address of the mote server\. Default is localhost\.
 .RE
@@ -60,9 +62,14 @@ serverPort <number>
 Port number to use for connecting to the mote server\. The default port is 10001\.
 .RE
 .PP
-serverConnectionRetryInterval <number>
+retryInterval <number>
 .RS 4
 Number of seconds to wait between server connection retries\. Default is 30 seconds\.
+.RE
+.PP
+daemonize <boolean>
+.RS 4
+Whether or not to run in the background as a daemon\. The default is to not run as a daemon\.
 .RE
 .SH "FILES"
 The mote host uses the following configurable files\.
@@ -76,6 +83,7 @@ Default configuration file read on startup\.
 .RS 4
 Default file for listening on mote events\.
 .RE
+.SS "Mote device files"
 For each mote managed by the mote host, the following device specific files are used\. The device path is configurable (default: "/dev/remote")\. MOTEMAC represents the MAC address of a mote\.
 .PP
 /dev/remote/MOTEMAC/programmer
@@ -113,7 +121,7 @@ File containing the mote device path in the form of a path specifying the bus ID
 File containing the name of the mote platform\. E\.g\. "dig528\-2"\.
 .RE
 .SH "ENVIRONMENT VARIABLES"
-The mote host does not use any externally defined environment variables\. When invoking the programmer and controller commands the mote host uses the following environment variables\.
+The mote host does not use any externally defined environment variables\. When invoking the programmer and controller commands the mote host sets the following environment variables\.
 .PP
 platform
 .RS 4
@@ -128,6 +136,33 @@ The mote MAC address\.
 tosaddress
 .RS 4
 The mote TOS address\.
+.RE
+.SH "EXAMPLES"
+.PP
+Using configuration options on the command line
+.RS 4
+If you only need to override the default values for the server host and port and don\'t want to use a configuration file, specify all option on the command line\.
+.sp
+.RS 4
+.nf
+$ remote\-mch \-\-serverHost=my\.server\.tld \-\-serverPort=10001 \-\-daemonize
+.fi
+.RE
+.RE
+.PP
+A simple configuration file
+.RS 4
+The following configuration file sets the same values as the above example\.
+.sp
+.RS 4
+.nf
+# MCS location
+serverHost=my\.server\.tld
+serverPort=10001
+# Run in the background
+daemonize
+.fi
+.RE
 .RE
 .SH "COPYRIGHT"
 .sp

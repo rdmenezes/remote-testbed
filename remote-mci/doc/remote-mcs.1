@@ -1,11 +1,11 @@
 .\"     Title: remote-mcs
 .\"    Author: 
 .\" Generator: DocBook XSL Stylesheets v1.73.2 <http://docbook.sf.net/>
-.\"      Date: 03/25/2008
+.\"      Date: 05/18/2008
 .\"    Manual: Re-Mote Testbed Framework
-.\"    Source: remote-mci 1.1.git
+.\"    Source: remote-mci 2.0.git
 .\"
-.TH "REMOTE\-MCS" "1" "03/25/2008" "remote\-mci 1\.1\.git" "Re\-Mote Testbed Framework"
+.TH "REMOTE\-MCS" "1" "05/18/2008" "remote\-mci 2\.0\.git" "Re\-Mote Testbed Framework"
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
@@ -21,24 +21,26 @@ The mote control server manages connections from mote control hosts and user cli
 The mote control server may be run both in the foreground and as a daemon\.
 .sp
 .SH "OPTIONS"
-The following options can be specified on the command line\.
+The following options are only usable on the command line\.
 .PP
-\-\-config\-file=<path>
+\-\-config=<path>
 .RS 4
-Path to the configuration file\. Default is "/etc/remote\-mcs\.cfg"\.
-.RE
-.PP
-\-\-daemonize=[1|0]
-.RS 4
-Specify whether to run as a daemon\. Default is to not daemonize\.
+Path to the configuration file\. Defaults to "/etc/remote\-mcs\.cfg"\.
 .RE
 .PP
 \-\-help
 .RS 4
 Print usage help and exit\.
 .RE
-.SH "CONFIGURATION OPTIONS"
-Use the following options to configure the mote host\.
+.PP
+\-\-version
+.RS 4
+Print version info and exit\.
+.RE
+.SS "Configuration options"
+In addition, to the above options the mote control server accepts the following configuration options that can be specified either on the command line or in the configuration file\. An option set in the configuration file overrides any option set on the command line\.
+.sp
+On the command line use: \fI\-\-\fR <name> \fI=\fR <value>, e\.g\. \fI\-\-devicePath=/here\fR\. In the config file use: <name> \fI=\fR <value>, e\.g\. \fIdevicePath=/here\fR\. For boolean options the \fI=\fR and value may be left out to set the value to true\. See the example sections for more information\.
 .PP
 dbName <string>
 .RS 4
@@ -60,14 +62,14 @@ dbPassword <string>
 Password for the infrastructure database\.
 .RE
 .PP
-sessionListenerPort <number>
+sessionPort <number>
 .RS 4
 Port number to use when listening for new sessions\. The default port is 10000\.
 .RE
 .PP
-hostListenerPort <number>
+hostPort <number>
 .RS 4
-Port number to use when listening for new hosts\. Defaults to port 10001\.
+Port number to use when listening for new mote hosts\. Defaults to port 10001\.
 .RE
 .PP
 pidFile <string>
@@ -75,14 +77,19 @@ pidFile <string>
 Path to the file containing the PID of the mote host\. Defaults to "/var/run/remote\-mcs\.pid"\.
 .RE
 .PP
-log\-file <string>
+logFile <string>
 .RS 4
 Path to the output log file when running as a daemon\. MCS will log to "/var/log/remote\-mcs\.log" by default\.
 .RE
 .PP
-errorlog\-file <string>
+errorFile <string>
 .RS 4
 Path to the error log file when running as a daemon\. Errors will be logged to "/var/log/remote\-mcs\-error\.log" by default\.
+.RE
+.PP
+daemonize <boolean>
+.RS 4
+Whether or not to run in the background as a daemon\. Defaults to false\.
 .RE
 .SH "FILES"
 The mote control server uses the following configurable files\.
@@ -99,6 +106,34 @@ Default PID file path\.
 .SH "ENVIRONMENT VARIABLES"
 The mote control server does not use any environment variables\.
 .sp
+.SH "EXAMPLES"
+.PP
+Using configuration options on the command line
+.RS 4
+If you only need to override the default values for the database access and don\'t want to use a configuration file, specify all option on the command line\.
+.sp
+.RS 4
+.nf
+$ remote\-mcs \-\-dbName=REMOTE \-\-dbUser=remote_admin \-\-dbPassword=123
+.fi
+.RE
+.RE
+.PP
+A simple configuration file
+.RS 4
+The following configuration file sets the same values as the above example and also tells the mote control server to run as a daemon\.
+.sp
+.RS 4
+.nf
+# Database credentials
+dbName=REMOTE
+dbUser=remote_admin
+dbPassword=123
+# Run in the background
+daemonize
+.fi
+.RE
+.RE
 .SH "COPYRIGHT"
 .sp
 .RS 4
