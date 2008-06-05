@@ -26,6 +26,7 @@ dist_man7_MANS = \
 # depending on the configure scripts via AC_OUTPUT. --jonas
 
 EXTRA_DIST = \
+ remote.h \
  COPYING \
  INSTALL \
  README \
