@@ -15,8 +15,6 @@
    * [RoadMapArchive Roadmaps From Old Releases]
    * [SvnSynchronization Updating the SVN Repository]
 
----
-
  * Enhancement Proposals
    * [REP001 REP 001]
    * [REP101 REP 101]
