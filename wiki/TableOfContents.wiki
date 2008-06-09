@@ -13,8 +13,9 @@
    * [ReleaseNotes Release Notes]
    * [RoadMap Development Roadmap]
    * [RoadMapArchive Roadmaps From Old Releases]
-   * [SourceCode Source Code]
    * [SvnSynchronization Updating the SVN Repository]
+
+---
 
  * Enhancement Proposals
    * [REP001 REP 001]
