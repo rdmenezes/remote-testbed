@@ -243,11 +243,12 @@ void Session::getMoteControl(dbkey_t mote_id)
 	Mote *mote;
 	result_t result = FAILURE;
 
-	// figure out which mote is referred to
-	Mote::getById(mote_id, this, &mote);
+	mote = Mote::getById(mote_id);
 	if (mote) {
-		motes[mote_id] = mote;
-		result = SUCCESS;
+		if (mote->setSession(this)) {
+			motes[mote_id] = mote;
+			result = SUCCESS;
+		}
 	}
 
 	MsgClientConfirm confirm(MSGCLIENTCOMMAND_GETMOTECONTROL, result, mote_id);

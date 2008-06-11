@@ -37,14 +37,11 @@ class Mote
 {
 	public:
 		/** Request client control of the mote with the specified id.
-		 * \param p_mote_id Database key of the mote
-		 * \param p_session Pointer to the session object requesting control
-		 * \param p_mote Pointer-pointer to receive a pointer for the mote object
-		 * \returns
+		 *
+		 * @param mote_id	Database key of the mote
+		 * @return		The matching mote or NULL.
 		**/
-		static result_t getById( dbkey_t p_mote_id,
-		                         Session* p_session,
-		                         Mote** p_mote );
+		static Mote *getById(dbkey_t mote_id);
 
 		/** Reset all nonstatic information about all motes in the database. **/
 		static void resetDb();
