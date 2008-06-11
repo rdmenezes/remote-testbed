@@ -50,7 +50,6 @@ using namespace remote::util;
 namespace remote {
 	typedef uint32_t dbkey_t;
 	typedef uint8_t result_t;
-	typedef uint8_t status_t;
 }
 
 #endif

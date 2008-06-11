@@ -11,6 +11,7 @@ enum
 	NOT_SUPPORTED
 };
 
+typedef uint8_t status_t;
 enum
 {
 	MOTE_STATUS_UNKNOWN, // the status of the mote could not be determined
