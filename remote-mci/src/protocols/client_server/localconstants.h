@@ -7,8 +7,8 @@ enum result_types
 	SUCCESS,
 	FAILURE,
 	MOTE_NOT_CONTROLLED,
-	MOTE_NOT_FOUND,
-	MOTE_OCCUPIED,
+	MOTE_NOT_FOUND,		/* Not currently used. */
+	MOTE_OCCUPIED,		/* Not currently used. */
 	NOT_SUPPORTED
 };
 

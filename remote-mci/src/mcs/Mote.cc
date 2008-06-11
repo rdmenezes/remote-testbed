@@ -260,25 +260,18 @@ void Mote::setAttribute(std::string type, std::string value)
 
 // STATIC METHODS BELOW
 
-result_t Mote::getById(dbkey_t p_mote_id, Session* p_client, Mote** p_mote)
+Mote *Mote::getById(dbkey_t p_mote_id)
 {
 	motemapbykey_t::iterator mi;
-
-	*p_mote = NULL;
 
 	mi = motes.find(p_mote_id);
 	if (mi != motes.end()) {
 		Mote *mote = mi->second;
 
-		if (mote->setSession(p_client)) {
-			*p_mote = mote;
-			return SUCCESS;
-		}
-
-		return MOTE_OCCUPIED;
+		return mote;
 	}
 
-	return MOTE_NOT_FOUND;
+	return NULL;
 }
 
 void Mote::registerMote(Mote *mote)
