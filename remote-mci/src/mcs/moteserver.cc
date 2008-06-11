@@ -1,7 +1,5 @@
 #include "remote.h"
 
-#include "protocols/MMSException.h"
-
 #include "mcs/FileDescriptor.h"
 #include "mcs/HostListener.h"
 #include "mcs/SessionListener.h"
