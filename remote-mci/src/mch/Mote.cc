@@ -1,4 +1,4 @@
-#include "Mote.h"
+#include "mch/Mote.h"
 
 namespace remote { namespace mch {
 
