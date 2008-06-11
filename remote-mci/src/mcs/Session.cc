@@ -237,25 +237,22 @@ void Session::handleMoteRequest(dbkey_t mote_id,MsgPayload& request)
 	}
 }
 
-void Session::getMoteControl( dbkey_t mote_id )
+void Session::getMoteControl(dbkey_t mote_id)
 {
 	Message message;
-	Mote* mote;
-	// figure out which mote is referred to
-	Mote::getById(mote_id,this,&mote);
+	Mote *mote;
+	result_t result = FAILURE;
 
-	if (mote)
-	{
+	// figure out which mote is referred to
+	Mote::getById(mote_id, this, &mote);
+	if (mote) {
 		motes[mote_id] = mote;
-		MsgClientConfirm confirm( MSGCLIENTCOMMAND_GETMOTECONTROL, SUCCESS, mote_id );
-		ClientMsg msg(confirm);
-		message.sendMsg(fd,msg);
-	} else
-	{
-		MsgClientConfirm confirm( MSGCLIENTCOMMAND_GETMOTECONTROL, FAILURE, mote_id );
-		ClientMsg msg(confirm);
-		message.sendMsg(fd,msg);
+		result = SUCCESS;
 	}
+
+	MsgClientConfirm confirm(MSGCLIENTCOMMAND_GETMOTECONTROL, result, mote_id);
+	ClientMsg msg(confirm);
+	message.sendMsg(fd, msg);
 }
 
 void Session::dropMoteControl(dbkey_t mote_id)
