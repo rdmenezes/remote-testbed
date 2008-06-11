@@ -125,7 +125,7 @@ class Mote
 		**/
 		static void registerMote(Mote* mote); //
 		/** Keyed map of all current Mote objects **/
-		static motemapbykey_t mote;
+		static motemapbykey_t motes;
 		/** The current owner of this mote **/
 		Host& mci;
 		/** The session currently in control of this mote **/

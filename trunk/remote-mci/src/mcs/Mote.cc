@@ -62,7 +62,7 @@ Mote::Mote( dbkey_t p_site_id,
 
 Mote::~Mote()
 {
-	mote.erase(mote_id);
+	motes.erase(mote_id);
 }
 
 void Mote::destroy(bool silent)
@@ -266,12 +266,12 @@ result_t Mote::getById(dbkey_t p_mote_id, Session* p_client, Mote** p_mote)
 
 	*p_mote = NULL;
 
-	mi = mote.find(p_mote_id);
-	if (mi != mote.end()) {
-		Mote *themote = mi->second;
+	mi = motes.find(p_mote_id);
+	if (mi != motes.end()) {
+		Mote *mote = mi->second;
 
-		if (themote->setSession(p_client)) {
-			*p_mote = themote;
+		if (mote->setSession(p_client)) {
+			*p_mote = mote;
 			return SUCCESS;
 		}
 
@@ -281,18 +281,17 @@ result_t Mote::getById(dbkey_t p_mote_id, Session* p_client, Mote** p_mote)
 	return MOTE_NOT_FOUND;
 }
 
-void Mote::registerMote(Mote* newmote)
+void Mote::registerMote(Mote *mote)
 {
 	motemapbykey_t::iterator mi;
-	Mote* oldmote;
-	mi = mote.find(newmote->mote_id);
-	if (mi != mote.end())
-	{
-		oldmote = mi->second;
+
+	mi = motes.find(mote->mote_id);
+	if (mi != motes.end()) {
+		Mote *oldmote = mi->second;
 		delete oldmote;
 	}
 
-	mote[newmote->mote_id] = newmote;
+	motes[mote->mote_id] = mote;
 }
 
 void Mote::resetDb()
@@ -304,6 +303,6 @@ void Mote::resetDb()
 	reset.execute();
 }
 
-motemapbykey_t Mote::mote;
+motemapbykey_t Mote::motes;
 
 }}
