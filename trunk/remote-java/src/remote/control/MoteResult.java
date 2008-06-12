@@ -18,16 +18,11 @@ public class MoteResult {
 	public final static MoteResult NOT_SUPPORTED = new MoteResult(MoteResultType.NOT_SUPPORTED);
 
 	/** The primitive result code. */
-	private int result;
+	private final int result;
 
-	public MoteResult(int result)
+	private MoteResult(int result)
 	{
 		this.result = result;
-	}
-
-	public int getResult()
-	{
-		return result;
 	}
 
 }
