@@ -22,6 +22,6 @@ public interface MoteDataService extends Service {
 	 * @param session	ID of the session.
 	 * @param callback	Callback for receiving result or error.
 	 */
-	void getMoteData(String session, ServiceCallback callback);
+	void getMoteData(String session, ServiceCallback<SimpleTable> callback);
 
 }

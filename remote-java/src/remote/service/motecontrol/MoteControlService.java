@@ -15,7 +15,8 @@ public interface MoteControlService extends Service {
 	 * @param motes		IDs of motes for which to get status.
 	 * @param callback	Callback for receiving result or error.
 	 */
-	void getStatus(String session, long[] motes, ServiceCallback callback);
+	void getStatus(String session, long[] motes,
+		       ServiceCallback<MoteControlResult[]> callback);
 
 	/** Start motes.
 	 *
@@ -26,7 +27,8 @@ public interface MoteControlService extends Service {
 	 * @param motes		IDs of motes to control.
 	 * @param callback	Callback for receiving result or error.
 	 */
-	void start(String session, long[] motes, ServiceCallback callback);
+	void start(String session, long[] motes,
+		   ServiceCallback<MoteControlResult[]> callback);
 
 	/** Stop motes.
 	 *
@@ -37,7 +39,8 @@ public interface MoteControlService extends Service {
 	 * @param motes		IDs of motes to control.
 	 * @param callback	Callback for receiving result or error.
 	 */
-	void stop(String session, long[] motes, ServiceCallback callback);
+	void stop(String session, long[] motes,
+		  ServiceCallback<MoteControlResult[]> callback);
 
 	/** Reset motes.
 	 *
@@ -48,7 +51,8 @@ public interface MoteControlService extends Service {
 	 * @param motes		IDs of motes to control.
 	 * @param callback	Callback for receiving result or error.
 	 */
-	void reset(String session, long[] motes, ServiceCallback callback);
+	void reset(String session, long[] motes,
+		   ServiceCallback<MoteControlResult[]> callback);
 
 	/** Program motes.
 	 *
@@ -60,7 +64,8 @@ public interface MoteControlService extends Service {
 	 * @param program	Binary to use when programming.
 	 * @param callback	Callback for receiving result or error.
 	 */
-	void program(String session, long[] motes, String program, ServiceCallback callback);
+	void program(String session, long[] motes, String program,
+		     ServiceCallback<MoteControlResult[]> callback);
 
 	/** Cancel last operation.
 	 *
@@ -73,6 +78,7 @@ public interface MoteControlService extends Service {
 	 * @param motes		IDs of motes to control.
 	 * @param callback	Callback for receiving result or error.
 	 */
-	void cancel(String session, long[] motes, ServiceCallback callback);
+	void cancel(String session, long[] motes,
+		    ServiceCallback<MoteControlResult[]> callback);
 
 }

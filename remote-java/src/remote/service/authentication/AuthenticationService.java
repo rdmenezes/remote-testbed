@@ -17,7 +17,7 @@ public interface AuthenticationService extends Service {
 	 * @param session	ID of the session to get empty credentials.
 	 * @param callback	Callback for receiving result or error.
 	 */
-	void getEmptyCredentials(String session, ServiceCallback callback);
+	void getEmptyCredentials(String session, ServiceCallback<Credential[]> callback);
 
 	/** Authenticate session using with given credentials.
 	 *
@@ -30,6 +30,6 @@ public interface AuthenticationService extends Service {
 	 * @param callback	Callback for receiving result or error.
 	 */
 	void authenticate(String session, Credential[] credentials,
-			  ServiceCallback callback);
+			  ServiceCallback<Boolean> callback);
 
 }
