@@ -11,10 +11,8 @@ import remote.service.ServiceCallback;
  * MoteAccessService access = getMoteAccess();
  *
  * moteaccess.getMoteControl(session, motes, new ServiceCallback() {
- *	void onSuccess(Object result)
+ *	void onSuccess(Boolean[] privileged)
  *	{
- *		Boolean[] privileged = (Boolean[]) result;
- *
  *		for (int i; i < privileged.length; i++) {
  *			if (privileged[i].booleanValue()) {
  *				// Do something.
@@ -40,6 +38,7 @@ public interface MoteAccessService extends Service {
 	 * @param motes		IDs of mote to control.
 	 * @param callback	Callback for receiving result or error.
 	 */
-	void getMoteControl(String session, long[] motes, ServiceCallback callback);
+	void getMoteControl(String session, long[] motes,
+		            ServiceCallback<Boolean[]> callback);
 
 }

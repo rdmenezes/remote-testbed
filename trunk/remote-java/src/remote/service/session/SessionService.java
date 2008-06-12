@@ -19,7 +19,7 @@ public interface SessionService extends Service {
 	 *
 	 * @param callback	Callback for receiving result or error.
 	 */
-	void create(ServiceCallback callback);
+	void create(ServiceCallback<String> callback);
 
 	/** Destroy a session.
 	 *
@@ -29,6 +29,6 @@ public interface SessionService extends Service {
 	 * @param session	ID of the session that should be destroyed.
 	 * @param callback	Callback for receiving result or error.
 	 */
-	void destroy(String session, ServiceCallback callback);
+	void destroy(String session, ServiceCallback<String> callback);
 
 }
