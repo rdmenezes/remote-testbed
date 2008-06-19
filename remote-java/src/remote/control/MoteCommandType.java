@@ -3,16 +3,17 @@ package remote.control;
 /** Low-level mote command enumeration type. */
 public interface MoteCommandType {
 	/** Start command. */
-	int START   = 0;
+	public static final int START   = 0;
 	/** Stop command.*/
-	int STOP    = 1;
+	public static final int STOP    = 1;
 	/** Reset command. */
-	int RESET   = 2;
+	public static final int RESET   = 2;
 	/** Program command. */
-	int PROGRAM = 3;
+	public static final int PROGRAM = 3;
 	/** Cancel command. */
-	int CANCEL  = 4;
-
+	public static final int CANCEL  = 4;
+	/** Status command. */
+	public static final int STATUS	= 5;
 	/** Number of command types. */
-	int TYPES   = 5;
+	public static final int TYPES   = 6;
 }
