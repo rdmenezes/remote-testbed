@@ -21,6 +21,9 @@ public class MoteCommand {
 	/** Cancel the last command. */
 	public static final MoteCommand CANCEL = new MoteCommand(MoteCommandType.CANCEL);
 
+	/** Get mote status. */
+	public static final MoteCommand STATUS = new MoteCommand(MoteCommandType.STATUS);
+
 	/** Unknown (last) command. */
 	public static final MoteCommand UNKNOWN = new MoteCommand(MoteCommandType.TYPES);
 
