@@ -5,6 +5,8 @@
 
 This manual for the Re-Mote client tries to give a very basic introduction by presenting some simple examples accompanied by screenshots.
 
+<wiki:toc max_depth="2" />
+
 == Installing and Running the Re-Mote Client ==
 
 The Re-Mote Client is provided as an executable .jar archive and can be downloaded from the [http://code.google.com/p/remote-testbed/downloads/list?can=2&q=label:Type-Executable download area]. You should generally always choose the latest version; the one with the highest version number. Prerelease versions may exists that should be considered less stable. You are welcome to help test these! Also, remember to check back for occasional updates.
