@@ -75,4 +75,4 @@ Open issues sorted by [http://code.google.com/p/remote-testbed/issues/list?q=lab
 
 === Infrastructure ===
 
- * Issue 34: Move to Axis 2 as the platform for client RPC
+ * Issue 34: Move to JAX-WS as the platform for client RPC
