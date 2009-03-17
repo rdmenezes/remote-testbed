@@ -171,7 +171,7 @@ On the system running the mote host, you will also need to configure the mote de
  * When a mote is added the mote host's device hierarchy should be be populated with symbolic links to the mote device's data and control TTY and files containing mote attributes.
  * When a mote is removed the mote attribute files should be removed.
 
-Helper scripts exists for performing both of these tasks. See the [http://remote-testbed.googlecode.com/svn/documentation/remote-mci/remote-device-add.7.html remote-device-add(7)] and [http://remote-testbed.googlecode.com/svn/documentation/remote-mci/remote-device-add.7.html remote-device-add(7)] man pages for more information.
+Helper scripts exists for performing both of these tasks. See the [http://remote-testbed.googlecode.com/svn/documentation/remote-mci/remote-device-add.7.html remote-device-add(7)] and [http://remote-testbed.googlecode.com/svn/documentation/remote-mci/remote-device-remove.7.html remote-device-remove(7)] man pages for more information.
 
 To perform these actions, you need to create UDEV rules for detecting when a mote device is added and when it is removed, as well as creating symbolic links and running external scripts. Since symbolic links should be created before the script to create the mote attribute files, the UDEV rule files should be numbered so that symlink rules have priority 65 and run rules have priorty 85. See the [http://remote-testbed.googlecode.com/svn/trunk/remote-mci/contrib/etc/udev/rules.d/README README] and [http://remote-testbed.googlecode.com/svn/trunk/remote-mci/contrib/etc/udev/rules.d/ example rules files] for inspiration.
 
