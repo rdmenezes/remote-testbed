@@ -1,0 +1,1 @@
+All worthy enhancement proposals have been moved to the [issue tracker](http://code.google.com/p/remote-testbed/issues/list).
